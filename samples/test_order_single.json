@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "orderId": "TEST-001",
+  "timestamp": "2025-10-29T09:00:00Z",
+  "components": [
+    {
+      "componentId": "test-door-001",
+      "fusionModelPath": "F360MT - PartitionDoor Rev 1",
+      "parameters": {
+        "component_height": "84 in",
+        "component_width": "30 in",
+        "component_floor_clearance": "2 in",
+        "door_hinging_right": "0",
+        "door_swinging_out": "0",
+        "door_wall_post_hinging": "1",
+        "door_wall_keep_latching": "1"
+      },
+      "setupNames": [],
+      "postProcessorConfig": {
+        "postProcessorName": "richauto",
+        "outputFileName": "test-door-001"
+      },
+      "metadata": {
+        "customerName": "Test",
+        "notes": "Single door test"
+      }
+    }
+  ],
+  "outputConfig": {
+    "baseDirectory": "C:\\Manufacturing\\Output",
+    "includeTimestamp": true
+  }
+}

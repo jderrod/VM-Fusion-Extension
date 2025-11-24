@@ -140,13 +140,8 @@ class PostProcessor:
             # Get next program number for this setup
             program_number = self.get_next_program_number()
             
-            # Show progress
-            self.ui.messageBox(
-                f'Post processing setup:\n{setup_name}\n\nProgram: {program_number}.nc',
-                'Generating G-code',
-                adsk.core.MessageBoxButtonTypes.OKButtonType,
-                adsk.core.MessageBoxIconTypes.InformationIconType
-            )
+            # Log progress (progress dialog shows this to user)
+            self.logger.info(f'Post processing setup: {setup_name} (Program: {program_number}.nc)')
             
             # Post process this setup
             success, message, file_path = self.post_process_setup(cam, setup, program_number)

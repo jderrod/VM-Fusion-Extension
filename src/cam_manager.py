@@ -133,12 +133,8 @@ class CAMManager:
             
             # Generate all toolpaths at once
             try:
-                self.ui.messageBox(
-                    f'Regenerating toolpaths for {len(setups)} setup(s):\n  • ' + '\n  • '.join([s.name for s in setups]),
-                    'Generating Toolpaths',
-                    adsk.core.MessageBoxButtonTypes.OKButtonType,
-                    adsk.core.MessageBoxIconTypes.InformationIconType
-                )
+                # Log what we're doing (progress dialog shows this to user)
+                self.logger.info(f'Regenerating toolpaths for {len(setups)} setup(s): {", ".join([s.name for s in setups])}')
                 
                 # Use generateAllToolpaths on the entire CAM object
                 # Parameter: False = regenerate ALL toolpaths (don't skip any)

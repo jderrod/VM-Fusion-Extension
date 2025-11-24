@@ -62,6 +62,29 @@ class OrderValidator:
         except json.JSONDecodeError as e:
             return False, [f"Invalid JSON syntax: {e}"]
     
+    def is_v2_format(self, order_data: Dict) -> bool:
+        """
+        Detect if this is the new v2 JSON format.
+        v2 format has: order_id (not orderId), panels/doors/stiles arrays
+        
+        Args:
+            order_data: Parsed JSON order data
+            
+        Returns:
+            True if v2 format detected
+        """
+        if not isinstance(order_data, dict):
+            return False
+        
+        # v2 format indicators
+        has_order_id = 'order_id' in order_data
+        has_panels = 'panels' in order_data
+        has_doors = 'doors' in order_data
+        has_stiles = 'stiles' in order_data
+        
+        # If it has order_id or any of the component type arrays, it's v2
+        return has_order_id or has_panels or has_doors or has_stiles
+    
     def validate_order(self, order_data: Dict) -> Tuple[bool, List[str]]:
         """
         Validate order data against schema
@@ -78,7 +101,13 @@ class OrderValidator:
         if not isinstance(order_data, dict):
             return False, ["Order must be a JSON object"]
         
-        # Required fields
+        # Check if this is v2 format
+        if self.is_v2_format(order_data):
+            # Skip old validation for v2 format
+            # v2 format validation is minimal - just check basic structure
+            return self.validate_order_v2(order_data)
+        
+        # Required fields for v1 format
         required_fields = ['version', 'orderId', 'components']
         for field in required_fields:
             if field not in order_data:
@@ -221,6 +250,45 @@ class OrderValidator:
                 errors.append("outputConfig.includeTimestamp must be a boolean")
         
         return errors
+    
+    def validate_order_v2(self, order_data: Dict) -> Tuple[bool, List[str]]:
+        """
+        Validate v2 format order data.
+        v2 format is more flexible - just check basic structure.
+        
+        Args:
+            order_data: Parsed JSON order data
+            
+        Returns:
+            Tuple of (is_valid, error_messages)
+        """
+        errors = []
+        
+        # Check for at least one component type array
+        has_components = (
+            ('panels' in order_data and isinstance(order_data['panels'], list)) or
+            ('doors' in order_data and isinstance(order_data['doors'], list)) or
+            ('stiles' in order_data and isinstance(order_data['stiles'], list))
+        )
+        
+        if not has_components:
+            errors.append("v2 format requires at least one of: panels, doors, or stiles arrays")
+        
+        # Check each component type if present
+        for comp_type in ['panels', 'doors', 'stiles']:
+            if comp_type in order_data:
+                components = order_data[comp_type]
+                if not isinstance(components, list):
+                    errors.append(f"{comp_type} must be an array")
+                else:
+                    # Basic validation of each component
+                    for idx, comp in enumerate(components):
+                        if not isinstance(comp, dict):
+                            errors.append(f"{comp_type}[{idx}] must be an object")
+                        elif 'parameters' not in comp:
+                            errors.append(f"{comp_type}[{idx}] missing 'parameters' field")
+        
+        return len(errors) == 0, errors
     
     def get_schema_version(self) -> str:
         """Get the schema version"""

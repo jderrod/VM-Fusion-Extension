@@ -5,7 +5,7 @@
   "components": [
     {
       "componentId": "door-panel-001",
-      "fusionModelPath": "F360MT - PartitionDoor(1).f3d",
+      "fusionModelPath": "F360MT - PartitionDoor Rev 1",
       "parameters": {
         "component_height": "84 in",
         "component_width": "30 in",
@@ -17,12 +17,56 @@
       },
       "setupNames": [],
       "postProcessorConfig": {
-        "postProcessorName": "fanuc",
+        "postProcessorName": "richauto",
         "outputFileName": "door-panel-001"
       },
       "metadata": {
-        "customerName": "Test Customer",
-        "notes": "Phase 2 test - parameter application"
+        "customerName": "Acme Corp",
+        "notes": "Standard door - 84x30 - Left hinge, inward swing"
+      }
+    },
+    {
+      "componentId": "door-panel-002",
+      "fusionModelPath": "F360MT - PartitionDoor Rev 1",
+      "parameters": {
+        "component_height": "96 in",
+        "component_width": "36 in",
+        "component_floor_clearance": "3 in",
+        "door_hinging_right": "1",
+        "door_swinging_out": "1",
+        "door_wall_post_hinging": "0",
+        "door_wall_keep_latching": "0"
+      },
+      "setupNames": [],
+      "postProcessorConfig": {
+        "postProcessorName": "richauto",
+        "outputFileName": "door-panel-002"
+      },
+      "metadata": {
+        "customerName": "Acme Corp",
+        "notes": "Tall door - 96x36 - Right hinge, outward swing"
+      }
+    },
+    {
+      "componentId": "door-panel-003",
+      "fusionModelPath": "F360MT - PartitionDoor Rev 1",
+      "parameters": {
+        "component_height": "72 in",
+        "component_width": "24 in",
+        "component_floor_clearance": "1 in",
+        "door_hinging_right": "0",
+        "door_swinging_out": "1",
+        "door_wall_post_hinging": "1",
+        "door_wall_keep_latching": "0"
+      },
+      "setupNames": [],
+      "postProcessorConfig": {
+        "postProcessorName": "richauto",
+        "outputFileName": "door-panel-003"
+      },
+      "metadata": {
+        "customerName": "Acme Corp",
+        "notes": "Compact door - 72x24 - Left hinge, outward swing"
       }
     }
   ],
