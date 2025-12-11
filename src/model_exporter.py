@@ -48,8 +48,8 @@ class ModelExporter:
             # Get the root component
             root_comp = design.rootComponent
             
-            # Get export manager from data (correct location in API)
-            export_mgr = self.app.data.exportManager
+            # Get export manager from design
+            export_mgr = design.exportManager
             
             # Create STL export options
             stl_export_options = export_mgr.createSTLExportOptions(root_comp, str(output_path))
@@ -88,8 +88,8 @@ class ModelExporter:
             # Get the root component
             root_comp = design.rootComponent
             
-            # Get export manager from data (correct location in API)
-            export_mgr = self.app.data.exportManager
+            # Get export manager from design
+            export_mgr = design.exportManager
             
             # Create STEP export options
             step_export_options = export_mgr.createSTEPExportOptions(str(output_path), root_comp)
@@ -126,8 +126,8 @@ class ModelExporter:
             # Get the root component
             root_comp = design.rootComponent
             
-            # Get export manager from data (correct location in API)
-            export_mgr = self.app.data.exportManager
+            # Get export manager from design
+            export_mgr = design.exportManager
             
             # Create IGES export options
             iges_export_options = export_mgr.createIGESExportOptions(str(output_path), root_comp)
@@ -164,8 +164,8 @@ class ModelExporter:
             # Get the root component
             root_comp = design.rootComponent
             
-            # Get export manager from data (correct location in API)
-            export_mgr = self.app.data.exportManager
+            # Get export manager from design
+            export_mgr = design.exportManager
             
             # Create SAT export options
             sat_export_options = export_mgr.createSATExportOptions(str(output_path), root_comp)

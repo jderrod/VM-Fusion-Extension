@@ -13,13 +13,12 @@ from command_handler import RunOrderCommandHandler
 
 # Command identifiers
 COMMAND_ID = 'ManufacturingPipelineRunOrder'
-COMMAND_NAME = 'Run Order'
-COMMAND_DESCRIPTION = 'Process a manufacturing order from JSON file'
-COMMAND_TOOLTIP = 'Load and process a JSON manufacturing order'
+COMMAND_NAME = 'Specs to Machine'
+COMMAND_DESCRIPTION = 'Bobrick Specs to Machine - Automated order processing'
+COMMAND_TOOLTIP = 'Start the automated manufacturing pipeline'
 
 # UI location
 WORKSPACE_ID = 'FusionSolidEnvironment'
-PANEL_ID = 'SolidCreatePanel'  # The SOLID panel in DESIGN tab
 
 
 def register_command(ui: adsk.core.UserInterface, handlers: list):
@@ -31,15 +30,10 @@ def register_command(ui: adsk.core.UserInterface, handlers: list):
         handlers: List to store command handlers (prevents garbage collection)
     """
     try:
-        # Get the target workspace and panel
+        # Get the target workspace
         workspace = ui.workspaces.itemById(WORKSPACE_ID)
         if not workspace:
             ui.messageBox(f'Workspace not found: {WORKSPACE_ID}')
-            return
-        
-        panel = workspace.toolbarPanels.itemById(PANEL_ID)
-        if not panel:
-            ui.messageBox(f'Panel not found: {PANEL_ID}')
             return
         
         # Check if command already exists (cleanup from previous run)
@@ -47,12 +41,22 @@ def register_command(ui: adsk.core.UserInterface, handlers: list):
         if cmd_def:
             cmd_def.deleteMe()
         
-        # Create command definition
+        # Get path to custom Bobrick logo icon
+        icon_folder = Path(__file__).parent.parent / 'UI Elements'
+        icon_path = str(icon_folder / 'bobrick_logo.png')
+        
+        # Verify icon exists
+        if not os.path.exists(icon_path):
+            ui.messageBox(f'Warning: Icon not found at {icon_path}')
+        
+        # Create command definition with custom icon
+        # For Fusion 360, provide the folder path (not the file) for resource icons
+        # Or provide the full file path for a single icon
         cmd_def = ui.commandDefinitions.addButtonDefinition(
             COMMAND_ID,
             COMMAND_NAME,
             COMMAND_DESCRIPTION,
-            ''  # No custom icon for now
+            str(icon_folder)  # Provide folder path for Fusion to find resources
         )
         
         # Tooltip is already set in the description parameter above
@@ -63,26 +67,24 @@ def register_command(ui: adsk.core.UserInterface, handlers: list):
         cmd_def.commandCreated.add(handler)
         handlers.append(handler)
         
-        # Find the CREATE dropdown in the SOLID panel (PCB Create dropdown)
-        create_dropdown = None
-        for ctrl in panel.controls:
-            if ctrl.objectType == adsk.core.DropDownControl.classType():
-                dropdown_ctrl = adsk.core.DropDownControl.cast(ctrl)
-                # Look for any dropdown with 'create' in the name
-                if 'create' in dropdown_ctrl.id.lower():
-                    create_dropdown = dropdown_ctrl
-                    break
+        # Get the SOLID panel in the Design workspace
+        solid_panel = workspace.toolbarPanels.itemById('SolidCreatePanel')
+        if not solid_panel:
+            ui.messageBox('Could not find SOLID panel')
+            return
         
-        if create_dropdown:
-            # Add to CREATE dropdown
-            control = create_dropdown.controls.itemById(COMMAND_ID)
-            if not control:
-                create_dropdown.controls.addCommand(cmd_def)
-        else:
-            # Fallback: add directly to panel
-            control = panel.controls.itemById(COMMAND_ID)
-            if not control:
-                panel.controls.addCommand(cmd_def)
+        # Check if button already exists in panel
+        existing_control = solid_panel.controls.itemById(COMMAND_ID)
+        if existing_control:
+            existing_control.deleteMe()
+        
+        # Add button to SOLID panel - add at the end with promotion
+        control = solid_panel.controls.addCommand(cmd_def, '', False)
+        if control:
+            # Promote so it's always visible on toolbar, not in dropdown
+            control.isPromoted = True
+            control.isPromotedByDefault = True
+            control.isVisible = True
         
     except:
         ui.messageBox(f'Failed to register command:\n{traceback.format_exc()}')
@@ -96,13 +98,13 @@ def unregister_command(ui: adsk.core.UserInterface):
         ui: Fusion UserInterface object
     """
     try:
-        # Get the target workspace and panel
+        # Get the target workspace
         workspace = ui.workspaces.itemById(WORKSPACE_ID)
         if workspace:
-            panel = workspace.toolbarPanels.itemById(PANEL_ID)
-            if panel:
-                # Remove control from panel
-                control = panel.controls.itemById(COMMAND_ID)
+            # Remove control from SOLID panel
+            solid_panel = workspace.toolbarPanels.itemById('SolidCreatePanel')
+            if solid_panel:
+                control = solid_panel.controls.itemById(COMMAND_ID)
                 if control:
                     control.deleteMe()
         

@@ -1,0 +1,2 @@
+# No external dependencies required
+# Using simple polling-based file monitoring for Python 3.13 compatibility

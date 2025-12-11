@@ -271,8 +271,9 @@ class OrderProcessor:
             self.logger.info(f'{comp_id}: Parameter updates complete, exporting 3D model')
             
             # Phase 2.5: Export 3D model with applied parameters
-            # Export directory: same as NC Programs but in Models subfolder
-            models_output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\Models'
+            # Export directory: network output folder
+            from config import OUTPUT_MODELS
+            models_output_dir = str(OUTPUT_MODELS)
             model_exporter = ModelExporter(self.app, models_output_dir)
             
             # Export as STEP (good for CAD) - can change to 'stl', 'iges', or 'sat'
@@ -285,8 +286,9 @@ class OrderProcessor:
                 # Don't fail the entire component if export fails - just warn
             
             # Phase 2.6: Export parameters to CSV
-            # Export directory: same as Models directory
-            params_output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\Parameters'
+            # Export directory: network output folder
+            from config import OUTPUT_PARAMETERS
+            params_output_dir = str(OUTPUT_PARAMETERS)
             param_exporter = ParameterExporter(self.app, params_output_dir)
             
             # Export all parameters (user + model parameters)
@@ -357,8 +359,9 @@ class OrderProcessor:
             # Phase 4: Post process all setups to generate G-code
             self.logger.info(f'{comp_id}: Starting post processing')
             
-            # Get output directory - hardcoded for now, could be from JSON later
-            output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\NC Programs'
+            # Get output directory from config
+            from config import OUTPUT_GCODE
+            output_dir = str(OUTPUT_GCODE)
             
             post_proc = PostProcessor(self.app, output_dir)
             
@@ -373,8 +376,8 @@ class OrderProcessor:
                 adsk.core.MessageBoxIconTypes.InformationIconType
             )
             
-            # Post process all setups
-            post_success, post_msg, post_results = post_proc.post_process_all_setups(cam_mgr.cam_product, all_setups)
+            # Post process all setups (using default order_id for old format)
+            post_success, post_msg, post_results = post_proc.post_process_all_setups(cam_mgr.cam_product, all_setups, comp_id, "MANUAL")
             
             # Log post processing results
             for setup_name, success, msg, file_path in post_results:
@@ -465,6 +468,10 @@ class OrderProcessor:
             
             self.logger.info(f'Processing order (v2): {order_id}')
             
+            # Create order-specific log file in network output directory
+            from config import OUTPUT_BASE
+            order_log_path = self.logger.add_order_log_handler(order_id, str(OUTPUT_BASE))
+            
             # Check available models
             available_models = self.model_manager.get_available_models()
             self.logger.info(f'Available models: {available_models}')
@@ -486,6 +493,8 @@ class OrderProcessor:
                 tracker = ProgressTracker(progress_dialog, total_components)
             
             results = []
+            drilling_data_collection = []  # Collect drilling data for compiled file
+            drilling_paired_collection = []  # Collect paired drilling data for compiled file
             
             # Process each component type in order: panels, doors, stiles
             for json_key, component_type in component_types:
@@ -506,17 +515,82 @@ class OrderProcessor:
                     if tracker:
                         tracker.start_component(comp_id, json_key)
                     
-                    comp_result = self.process_component_v2(
+                    comp_result, drilling_tuple = self.process_component_v2(
                         component, 
                         component_type, 
                         idx + 1, 
                         len(components),
+                        order_id,
                         tracker
                     )
                     results.append((json_key, comp_result))
                     
+                    # Collect drilling data if available (doors and stiles)
+                    if drilling_tuple:
+                        drilling_data, drilling_paired_data = drilling_tuple
+                        if drilling_data:
+                            self.logger.info(f'{comp_id}: Adding drilling data to compiled collection')
+                            drilling_data_collection.append(drilling_data)
+                        if drilling_paired_data:
+                            self.logger.info(f'{comp_id}: Adding paired drilling data to compiled collection')
+                            drilling_paired_collection.append(drilling_paired_data)
+                    
                     if tracker:
                         tracker.complete_component(comp_result[0])
+            
+            # Write compiled drilling coordinates file if we have any drilling data
+            if drilling_data_collection:
+                try:
+                    from config import OUTPUT_GCODE
+                    import json
+                    
+                    drilling_output_dir = os.path.join(str(OUTPUT_GCODE), order_id)
+                    os.makedirs(drilling_output_dir, exist_ok=True)
+                    
+                    compiled_filename = f"{order_id}-all-drilling.json"
+                    compiled_path = os.path.join(drilling_output_dir, compiled_filename)
+                    
+                    compiled_data = {
+                        'order_id': order_id,
+                        'unit': 'in',
+                        'description': 'Compiled drilling coordinates for all components (doors and stiles) in this order',
+                        'component_count': len(drilling_data_collection),
+                        'components': drilling_data_collection
+                    }
+                    
+                    with open(compiled_path, 'w', encoding='utf-8') as f:
+                        json.dump(compiled_data, f, indent=2)
+                    
+                    self.logger.info(f'Created compiled drilling file: {compiled_filename} with {len(drilling_data_collection)} component(s)')
+                except Exception as e:
+                    self.logger.warning(f'Failed to create compiled drilling file: {str(e)}')
+            
+            # Write compiled paired drilling coordinates file if we have any paired data
+            if drilling_paired_collection:
+                try:
+                    from config import OUTPUT_GCODE
+                    import json
+                    
+                    drilling_output_dir = os.path.join(str(OUTPUT_GCODE), order_id)
+                    os.makedirs(drilling_output_dir, exist_ok=True)
+                    
+                    compiled_paired_filename = f"{order_id}-all-drilling-paired.json"
+                    compiled_paired_path = os.path.join(drilling_output_dir, compiled_paired_filename)
+                    
+                    compiled_paired_data = {
+                        'order_id': order_id,
+                        'unit': 'in',
+                        'description': 'Compiled paired drilling coordinates for all components (doors and stiles) in this order',
+                        'component_count': len(drilling_paired_collection),
+                        'components': drilling_paired_collection
+                    }
+                    
+                    with open(compiled_paired_path, 'w', encoding='utf-8') as f:
+                        json.dump(compiled_paired_data, f, indent=2)
+                    
+                    self.logger.info(f'Created compiled paired drilling file: {compiled_paired_filename} with {len(drilling_paired_collection)} component(s)')
+                except Exception as e:
+                    self.logger.warning(f'Failed to create compiled paired drilling file: {str(e)}')
             
             # Summary
             success_count = sum(1 for _, r in results if r[0])
@@ -527,11 +601,13 @@ class OrderProcessor:
                 tracker.finish(success_count, total_count - success_count)
             
             if total_count == 0:
+                self.logger.remove_order_log_handler(order_id)
                 return False, 'No components found in order'
             
             if success_count == total_count:
                 # All succeeded
                 message = f'Order {order_id} completed successfully!\n\nProcessed {total_count} component(s)'
+                self.logger.remove_order_log_handler(order_id)
                 return True, message
             elif success_count > 0:
                 # Partial success
@@ -541,6 +617,7 @@ class OrderProcessor:
                 for comp_type, (success, msg) in results:
                     if not success:
                         message += f'  {comp_type}: {msg}\n'
+                self.logger.remove_order_log_handler(order_id)
                 return False, message
             else:
                 # All failed
@@ -551,13 +628,20 @@ class OrderProcessor:
                     message += f'  {comp_type}: {msg}\n'
                 
                 # Don't show message box - final summary is shown by command_handler
+                self.logger.remove_order_log_handler(order_id)
                 return False, message
             
         except Exception as e:
             self.logger.exception('Order processing (v2) failed')
+            # Try to clean up order log handler even on exception
+            try:
+                if 'order_id' in locals():
+                    self.logger.remove_order_log_handler(order_id)
+            except:
+                pass
             return False, f'Order processing failed: {str(e)}'
     
-    def process_component_v2(self, component: Dict, component_type: str, comp_num: int, total_comps: int, tracker=None) -> Tuple[bool, str]:
+    def process_component_v2(self, component: Dict, component_type: str, comp_num: int, total_comps: int, order_id: str, tracker=None) -> Tuple[Tuple[bool, str], Optional[Dict]]:
         """
         Process a single component from the new order format.
         
@@ -566,10 +650,12 @@ class OrderProcessor:
             component_type: Type of component (door, panel, stile)
             comp_num: Component number (1-indexed)
             total_comps: Total number of components of this type
+            order_id: Order ID for organizing outputs
             tracker: Optional ProgressTracker for UI updates
             
         Returns:
-            Tuple of (success: bool, message: str)
+            Tuple of ((success: bool, message: str), drilling_data: Dict or None)
+            drilling_data is only populated for door components
         """
         try:
             # Extract component ID from [value, datatype, description] format
@@ -586,11 +672,11 @@ class OrderProcessor:
             
             # Validate component data
             if not parameters:
-                return False, f'{comp_id}: No parameters specified'
+                return (False, f'{comp_id}: No parameters specified'), None
             
             # Check if model is available
             if not self.model_manager.is_model_available(component_type):
-                return False, f'{comp_id}: No {component_type} model configured in inputs folder'
+                return (False, f'{comp_id}: No {component_type} model configured in inputs folder'), None
             
             # Open/activate the appropriate model
             if tracker:
@@ -598,14 +684,14 @@ class OrderProcessor:
             
             success, doc, msg = self.model_manager.open_model(component_type)
             if not success:
-                return False, f'{comp_id}: {msg}'
+                return (False, f'{comp_id}: {msg}'), None
             
             self.logger.info(f'{comp_id}: {msg}')
             
             # Get the design
             design = adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'))
             if not design:
-                return False, f'{comp_id}: No design found in {component_type} model'
+                return (False, f'{comp_id}: No design found in {component_type} model'), None
             
             # Apply parameters using new JSON format
             if tracker:
@@ -613,7 +699,26 @@ class OrderProcessor:
             
             self.logger.info(f'Applying parameters to {comp_id}')
             param_mgr = ParameterManager(design)
-            results = param_mgr.update_parameters_from_json(parameters)
+            
+            # Define parameter mapping for stiles (JSON param name -> Model param name)
+            stile_param_mapping = None
+            if component_type == ModelManager.STILE:
+                stile_param_mapping = {
+                    # Left side parameters
+                    'stile_left_side_door': 'left_side_door',
+                    'stile_left_side_hinging': 'LD_hinging_right',
+                    'stile_left_side_door_height': 'LD_height',
+                    'stile_left_side_door_floor_clearance': 'LD_floor_clearance',
+                    'stile_left_side_door_swinging_out': 'LD_swinging_out',
+                    # Right side parameters
+                    'stile_right_side_door': 'right_side_door',
+                    'stile_right_side_hinging': 'RD_hinging_right',
+                    'stile_right_side_door_height': 'RD_height',
+                    'stile_right_side_door_floor_clearance': 'RD_floor_clearance',
+                    'stile_right_side_door_swinging_out': 'RD_swinging_out'
+                }
+            
+            results = param_mgr.update_parameters_from_json(parameters, param_mapping=stile_param_mapping)
             
             # Log each parameter update
             for param_name, success, msg in results:
@@ -628,7 +733,7 @@ class OrderProcessor:
                 error_msg = f'{comp_id}: Some parameters failed to update:\n'
                 for param_name, success, msg in failed_params:
                     error_msg += f'  {msg}\n'
-                return False, error_msg
+                return (False, error_msg), None
             
             # Success! Parameters updated
             self.logger.info(f'{comp_id}: Successfully updated {len(results)} parameter(s)')
@@ -637,7 +742,8 @@ class OrderProcessor:
                 tracker.update_step("Exporting 3D model...")
             
             # Export 3D model with applied parameters
-            models_output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\Models'
+            from config import OUTPUT_MODELS
+            models_output_dir = os.path.join(str(OUTPUT_MODELS), order_id)
             model_exporter = ModelExporter(self.app, models_output_dir)
             
             export_success, export_msg, export_path = model_exporter.export_model(design, comp_id, format='step')
@@ -647,16 +753,80 @@ class OrderProcessor:
             else:
                 self.logger.warning(f'{comp_id}: Model export failed: {export_msg}')
             
-            # Export parameters to CSV
-            params_output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\Parameters'
+            # Export parameters to CSV and JSON
+            from config import OUTPUT_PARAMETERS
+            params_output_dir = os.path.join(str(OUTPUT_PARAMETERS), order_id)
             param_exporter = ParameterExporter(self.app, params_output_dir)
             
-            param_export_success, param_export_msg, param_export_path = param_exporter.export_all_parameters(design, comp_id)
+            # Extract series_id from JSON parameters to preserve in output
+            series_id = None
+            if 'series_id' in parameters:
+                series_id_data = parameters['series_id']
+                if isinstance(series_id_data, list):
+                    series_id = series_id_data[0]  # Extract value from [value, type, description]
+                else:
+                    series_id = series_id_data
+            
+            # Build metadata dict for non-model parameters
+            metadata = {}
+            if series_id:
+                metadata['series_id'] = series_id
+            
+            # Export CSV
+            param_export_success, param_export_msg, param_export_path = param_exporter.export_all_parameters(design, comp_id, metadata=metadata)
             
             if param_export_success:
-                self.logger.info(f'{comp_id}: Parameters exported: {param_export_msg}')
+                self.logger.info(f'{comp_id}: Parameters exported (CSV): {param_export_msg}')
             else:
-                self.logger.warning(f'{comp_id}: Parameter export failed: {param_export_msg}')
+                self.logger.warning(f'{comp_id}: Parameter export failed (CSV): {param_export_msg}')
+            
+            # Export JSON
+            json_export_success, json_export_msg, json_export_path = param_exporter.export_all_parameters_json(design, comp_id, metadata=metadata)
+            
+            if json_export_success:
+                self.logger.info(f'{comp_id}: Parameters exported (JSON): {json_export_msg}')
+            else:
+                self.logger.warning(f'{comp_id}: Parameter export failed (JSON): {json_export_msg}')
+            
+            # Export drilling coordinates (doors and stiles)
+            # Drilling coordinates go to gcode output folder (not parameters folder)
+            drilling_data = None
+            drilling_paired_data = None
+            if component_type in [ModelManager.DOOR, ModelManager.STILE]:
+                from config import OUTPUT_GCODE
+                import json
+                drilling_output_dir = os.path.join(str(OUTPUT_GCODE), order_id)
+                drilling_exporter = ParameterExporter(self.app, drilling_output_dir)
+                
+                # Export regular drilling coordinates
+                drilling_export_success, drilling_export_msg, drilling_export_path = drilling_exporter.export_drilling_coordinates(design, comp_id, order_id)
+                
+                if drilling_export_success:
+                    self.logger.info(f'{comp_id}: Drilling coordinates exported: {drilling_export_msg}')
+                    # Load the drilling data for compiled file
+                    try:
+                        with open(drilling_export_path, 'r', encoding='utf-8') as f:
+                            drilling_data = json.load(f)
+                        self.logger.info(f'{comp_id}: Drilling data loaded for compiled file')
+                    except Exception as e:
+                        self.logger.warning(f'{comp_id}: Failed to load drilling data for compiled file: {str(e)}')
+                else:
+                    self.logger.warning(f'{comp_id}: Drilling coordinate export failed: {drilling_export_msg}')
+                
+                # Export paired drilling coordinates
+                paired_export_success, paired_export_msg, paired_export_path = drilling_exporter.export_drilling_coordinates_paired(design, comp_id, order_id)
+                
+                if paired_export_success:
+                    self.logger.info(f'{comp_id}: Paired drilling coordinates exported: {paired_export_msg}')
+                    # Load the paired data for compiled file
+                    try:
+                        with open(paired_export_path, 'r', encoding='utf-8') as f:
+                            drilling_paired_data = json.load(f)
+                        self.logger.info(f'{comp_id}: Paired drilling data loaded for compiled file')
+                    except Exception as e:
+                        self.logger.warning(f'{comp_id}: Failed to load paired drilling data for compiled file: {str(e)}')
+                else:
+                    self.logger.warning(f'{comp_id}: Paired drilling coordinate export failed: {paired_export_msg}')
             
             if tracker:
                 tracker.update_step("Accessing CAM setups...")
@@ -671,7 +841,7 @@ class OrderProcessor:
             
             if not cam_success:
                 self.logger.error(f'{comp_id}: {cam_msg}')
-                return False, f'{comp_id}: CAM access failed: {cam_msg}'
+                return (False, f'{comp_id}: CAM access failed: {cam_msg}'), None
             
             self.logger.info(f'{comp_id}: {cam_msg}')
             
@@ -680,7 +850,7 @@ class OrderProcessor:
             self.logger.info(f'{comp_id}: Found {len(setup_names)} CAM setup(s): {", ".join(setup_names)}')
             
             if not setup_names:
-                return False, f'{comp_id}: No CAM setups found in {component_type} model'
+                return (False, f'{comp_id}: No CAM setups found in {component_type} model'), None
             
             # Regenerate ALL toolpaths
             if tracker:
@@ -699,7 +869,7 @@ class OrderProcessor:
             # If regeneration failed, fail entire component
             if not regen_success:
                 self.logger.error(f'{comp_id}: Toolpath regeneration failed: {regen_msg}')
-                return False, f'{comp_id}: Toolpath regeneration failed: {regen_msg}'
+                return (False, f'{comp_id}: Toolpath regeneration failed: {regen_msg}'), None
             
             # Post process all setups to generate G-code
             if tracker:
@@ -707,14 +877,15 @@ class OrderProcessor:
             
             self.logger.info(f'{comp_id}: Starting post processing')
             
-            output_dir = r'C:\Users\james.derrod\OneDrive - Bobrick Washroom Equipment\Documents\Fusion 360\NC Programs'
+            from config import OUTPUT_GCODE
+            nc_output_dir = os.path.join(str(OUTPUT_GCODE), order_id)
             
-            post_proc = PostProcessor(self.app, output_dir)
+            post_proc = PostProcessor(self.app, nc_output_dir)
             
             all_setups = cam_mgr.get_all_setups()
             
             # Post process all setups
-            post_success, post_msg, post_results = post_proc.post_process_all_setups(cam_mgr.cam_product, all_setups)
+            post_success, post_msg, post_results = post_proc.post_process_all_setups(cam_mgr.cam_product, all_setups, comp_id, order_id)
             
             # Log post processing results
             for setup_name, success, msg, file_path in post_results:
@@ -726,14 +897,19 @@ class OrderProcessor:
             # Check if at least some setups posted successfully
             successful_posts = [r for r in post_results if r[1]]
             
+            # If there were no CAM setups at all, that's okay (some components don't need machining)
+            if len(post_results) == 0:
+                self.logger.info(f'{comp_id}: All operations complete - No CAM operations')
+                return (True, f'{comp_id}: Complete - No NC files (no CAM setups)'), (drilling_data, drilling_paired_data)
+            
             if not successful_posts:
                 self.logger.error(f'{comp_id}: All post processing failed')
-                return False, f'{comp_id}: Post processing failed: {post_msg}'
+                return (False, f'{comp_id}: Post processing failed: {post_msg}'), (drilling_data, drilling_paired_data)
             
             # Success!
             self.logger.info(f'{comp_id}: All operations complete - {len(successful_posts)} NC files generated')
             
-            return True, f'{comp_id}: Complete - {len(successful_posts)} NC file(s) generated'
+            return (True, f'{comp_id}: Complete - {len(successful_posts)} NC file(s) generated'), (drilling_data, drilling_paired_data)
             
         except Exception as e:
             comp_id_fallback = 'unknown'
@@ -746,7 +922,7 @@ class OrderProcessor:
             except:
                 pass
             self.logger.exception(f'Component processing failed: {comp_id_fallback}')
-            return False, f'{comp_id_fallback}: Exception: {str(e)}'
+            return (False, f'{comp_id_fallback}: Exception: {str(e)}'), (None, None)
     
     def get_current_design(self) -> Optional[adsk.fusion.Design]:
         """

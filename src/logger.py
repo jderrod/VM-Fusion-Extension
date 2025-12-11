@@ -81,6 +81,61 @@ class PipelineLogger:
     def get_log_path(self) -> str:
         """Get path to current log file"""
         return str(self.log_file)
+    
+    def add_order_log_handler(self, order_id: str, output_base_dir: str) -> str:
+        """
+        Add a file handler for order-specific logging.
+        
+        Args:
+            order_id: Order ID (e.g., IBUS366574)
+            output_base_dir: Base directory for output (e.g., C:/.../Fusion 360/)
+            
+        Returns:
+            Path to order log file
+        """
+        # Create logs folder at same level as Models/Parameters
+        logs_dir = Path(output_base_dir) / 'logs'
+        logs_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create order-specific log file
+        log_filename = f"{order_id}_log.txt"
+        order_log_path = logs_dir / log_filename
+        
+        # Create file handler for this order
+        order_handler = logging.FileHandler(str(order_log_path), mode='w')
+        order_handler.setLevel(logging.DEBUG)
+        
+        # Use same formatter
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        order_handler.setFormatter(formatter)
+        
+        # Add handler with a name so we can remove it later
+        order_handler.set_name(f'order_{order_id}')
+        self.logger.addHandler(order_handler)
+        
+        self.info(f'Order log created: {order_log_path}')
+        
+        return str(order_log_path)
+    
+    def remove_order_log_handler(self, order_id: str):
+        """
+        Remove the order-specific log handler.
+        
+        Args:
+            order_id: Order ID to remove handler for
+        """
+        handler_name = f'order_{order_id}'
+        handlers_to_remove = [h for h in self.logger.handlers if h.name == handler_name]
+        
+        for handler in handlers_to_remove:
+            handler.close()
+            self.logger.removeHandler(handler)
+        
+        if handlers_to_remove:
+            self.info(f'Order log handler removed for: {order_id}')
 
 
 # Global logger instance

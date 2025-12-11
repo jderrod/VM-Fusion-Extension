@@ -222,13 +222,14 @@ class ParameterManager:
             # Default: return as string
             return str(value)
     
-    def update_parameters_from_json(self, parameters: Dict[str, any], auto_match: bool = True) -> List[Tuple[str, bool, str]]:
+    def update_parameters_from_json(self, parameters: Dict[str, any], auto_match: bool = True, param_mapping: Dict[str, str] = None) -> List[Tuple[str, bool, str]]:
         """
         Update multiple parameters from JSON format with [value, datatype, description] lists.
         
         Args:
             parameters: Dictionary mapping parameter name to value (can be [value, datatype, description] or direct value)
             auto_match: If True, only update parameters that exist in the model (default: True)
+            param_mapping: Optional dictionary mapping JSON param names to model param names (e.g., {"stile_left_side_door": "left_side_door"})
             
         Returns:
             List of tuples (param_name, success, message) for each parameter
@@ -240,9 +241,14 @@ class ParameterManager:
         if auto_match:
             model_params = set(self.get_all_parameters().keys())
         
-        for param_name, param_data in parameters.items():
+        for json_param_name, param_data in parameters.items():
+            # Apply parameter name mapping if provided
+            model_param_name = json_param_name
+            if param_mapping and json_param_name in param_mapping:
+                model_param_name = param_mapping[json_param_name]
+            
             # If auto-matching, skip parameters not in model
-            if auto_match and param_name not in model_params:
+            if auto_match and model_param_name not in model_params:
                 # Silently skip - this allows JSON to have extra parameters
                 continue
             
@@ -253,13 +259,13 @@ class ParameterManager:
             formatted_value = self.format_value_by_type(value, datatype)
             
             # Update the parameter
-            success, message = self.update_parameter(param_name, formatted_value)
+            success, message = self.update_parameter(model_param_name, formatted_value)
             
             # Add description info to message if available
             if success and description:
                 message += f" ({description})"
             
-            results.append((param_name, success, message))
+            results.append((model_param_name, success, message))
         
         return results
 

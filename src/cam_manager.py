@@ -24,6 +24,10 @@ class CAMManager:
         self.ui = app.userInterface
         self.document = document
         self.cam_product = None
+        
+        # Import logger
+        from logger import get_logger
+        self.logger = get_logger()
     
     def get_cam_product(self) -> Tuple[bool, str]:
         """
@@ -131,112 +135,115 @@ class CAMManager:
             results = []
             all_success = True
             
-            # Generate all toolpaths at once
-            try:
-                # Log what we're doing (progress dialog shows this to user)
-                self.logger.info(f'Regenerating toolpaths for {len(setups)} setup(s): {", ".join([s.name for s in setups])}')
+            # Generate toolpaths for each setup individually (better error isolation)
+            self.logger.info(f'Regenerating toolpaths for {len(setups)} setup(s): {", ".join([s.name for s in setups])}')
+            
+            for setup in setups:
+                setup_name = setup.name
                 
-                # Use generateAllToolpaths on the entire CAM object
-                # Parameter: False = regenerate ALL toolpaths (don't skip any)
-                # This ensures toolpaths update after parameter changes
-                # We handle errors gracefully below rather than skipping operations
-                future = cam.generateAllToolpaths(False)  # False = regenerate all
-                
-                # Wait for completion
-                while not future.isGenerationCompleted:
-                    adsk.doEvents()
-                
-                # Check if generation completed
-                if not future.isGenerationCompleted:
-                    for setup in setups:
-                        results.append((setup.name, False, 'Generation did not complete'))
-                    all_success = False
-                else:
-                    # Generation completed - now verify each setup's operations
-                    for setup in setups:
-                        setup_name = setup.name
+                try:
+                    self.logger.info(f'Regenerating setup: {setup_name}')
+                    
+                    # Generate toolpaths for this specific setup
+                    future = cam.generateToolpath(setup)
+                    
+                    # Wait for completion
+                    while not future.isGenerationCompleted:
+                        adsk.doEvents()
+                    
+                    # Check if generation completed
+                    if not future.isGenerationCompleted:
+                        results.append((setup_name, False, 'Generation did not complete'))
+                        all_success = False
+                        self.logger.error(f'{setup_name}: Toolpath generation did not complete')
+                        continue
+                    
+                    # Check all operations in this setup for errors
+                    has_errors = False
+                    error_messages = []
+                    warning_messages = []
+                    
+                    operations_with_toolpaths = 0
+                    operations_total = 0
+                    
+                    for operation in setup.allOperations:
+                        op_name = operation.name
+                        operations_total += 1
                         
-                        # Check all operations in this setup for errors
-                        has_errors = False
-                        error_messages = []
-                        warning_messages = []
+                        # Check if operation is suppressed (skip it)
+                        if operation.isSuppressed:
+                            warning_messages.append(f"'{op_name}' is suppressed (skipped)")
+                            continue
                         
-                        operations_with_toolpaths = 0
-                        operations_total = 0
-                        
-                        for operation in setup.allOperations:
-                            op_name = operation.name
-                            operations_total += 1
+                        # Check if operation has a toolpath
+                        if operation.hasToolpath:
+                            operations_with_toolpaths += 1
+                        else:
+                            # No toolpath - check if it's due to pre-existing error
+                            has_preexisting_error = False
                             
-                            # Check if operation is suppressed (skip it)
-                            if operation.isSuppressed:
-                                warning_messages.append(f"'{op_name}' is suppressed (skipped)")
-                                continue
-                            
-                            # Check if operation has a toolpath
-                            if operation.hasToolpath:
-                                operations_with_toolpaths += 1
-                            else:
-                                # No toolpath - check if it's due to pre-existing error
-                                has_preexisting_error = False
-                                
-                                # Check for errors
-                                try:
-                                    if hasattr(operation, 'error') and operation.error:
-                                        error_text = str(operation.error)
-                                        if error_text and error_text.strip():
-                                            # Pre-existing CAM error
-                                            warning_messages.append(f"'{op_name}' (pre-existing error)")
-                                            has_preexisting_error = True
-                                except:
-                                    pass
-                                
-                                if not has_preexisting_error:
-                                    # No error info, just no toolpath
-                                    warning_messages.append(f"'{op_name}' (no toolpath generated)")
-                            
-                            # Check for warnings
+                            # Check for errors
                             try:
-                                if hasattr(operation, 'warning') and operation.warning:
-                                    warning_text = str(operation.warning)
-                                    if warning_text and warning_text.strip():
-                                        warning_messages.append(f"'{op_name}': {warning_text}")
+                                if hasattr(operation, 'error') and operation.error:
+                                    error_text = str(operation.error)
+                                    if error_text and error_text.strip():
+                                        # Pre-existing CAM error
+                                        warning_messages.append(f"'{op_name}' (pre-existing error)")
+                                        has_preexisting_error = True
                             except:
                                 pass
-                        
-                        # Build result message
-                        # Consider it success if:
-                        # 1. At least one operation generated successfully, OR
-                        # 2. All operations that failed have pre-existing errors (not our fault)
-                        
-                        if operations_with_toolpaths > 0:
-                            # At least some operations succeeded
-                            msg = f'Regenerated {operations_with_toolpaths}/{operations_total} toolpaths'
                             
-                            # Add brief warning summary
-                            if warning_messages:
-                                failed_count = operations_total - operations_with_toolpaths
-                                if failed_count > 0:
-                                    msg += f' ({failed_count} operation(s) have errors - not regenerated)'
-                            
+                            if not has_preexisting_error:
+                                # No error info, just no toolpath
+                                warning_messages.append(f"'{op_name}' (no toolpath generated)")
+                        
+                        # Check for warnings
+                        try:
+                            if hasattr(operation, 'warning') and operation.warning:
+                                warning_text = str(operation.warning)
+                                if warning_text and warning_text.strip():
+                                    warning_messages.append(f"'{op_name}': {warning_text}")
+                        except:
+                            pass
+                    
+                    # Build result message for this setup
+                    # Consider it success if:
+                    # 1. At least one operation generated successfully, OR
+                    # 2. All operations that failed have pre-existing errors (not our fault)
+                    
+                    if operations_with_toolpaths > 0:
+                        # At least some operations succeeded
+                        msg = f'Regenerated {operations_with_toolpaths}/{operations_total} toolpaths'
+                        
+                        # Add brief warning summary
+                        if warning_messages:
+                            failed_count = operations_total - operations_with_toolpaths
+                            if failed_count > 0:
+                                msg += f' ({failed_count} operation(s) have errors - not regenerated)'
+                        
+                        results.append((setup_name, True, msg))
+                        self.logger.info(f'{setup_name}: {msg}')
+                    else:
+                        # No operations generated - check if they all have pre-existing errors
+                        # If so, it's a warning not a failure
+                        if operations_total > 0 and len(warning_messages) >= operations_total:
+                            # All operations have errors - log as warning
+                            msg = f'All {operations_total} operation(s) have errors - none regenerated'
                             results.append((setup_name, True, msg))
+                            self.logger.warning(f'{setup_name}: {msg}')
                         else:
-                            # No operations generated - check if they all have pre-existing errors
-                            # If so, it's a warning not a failure
-                            if operations_total > 0 and len(warning_messages) >= operations_total:
-                                # All operations have errors - log as warning
-                                msg = f'All {operations_total} operation(s) have errors - none regenerated'
-                                results.append((setup_name, True, msg))
-                            else:
-                                # Unexpected failure
-                                msg = f'No operations regenerated ({operations_total} total)'
-                                results.append((setup_name, False, msg))
-                                all_success = False
-                        
-            except Exception as e:
-                for setup in setups:
-                    results.append((setup.name, False, f'Exception: {str(e)}'))
-                all_success = False
+                            # Unexpected failure
+                            msg = f'No operations regenerated ({operations_total} total)'
+                            results.append((setup_name, False, msg))
+                            all_success = False
+                            self.logger.error(f'{setup_name}: {msg}')
+                    
+                except Exception as e:
+                    # Error with this setup - log and continue to next
+                    error_msg = f'Error regenerating toolpath: {str(e)}'
+                    results.append((setup_name, False, error_msg))
+                    all_success = False
+                    self.logger.error(f'{setup_name}: {error_msg}')
             
             # Build summary message
             if all_success:

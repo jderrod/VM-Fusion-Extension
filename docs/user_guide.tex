@@ -1,0 +1,493 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+
+% Color definitions
+\definecolor{codebackground}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,255}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% Code listing style
+\lstset{
+    backgroundcolor=\color{codebackground},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{keywordcolor},
+    stringstyle=\color{stringcolor},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    tabsize=2
+}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Specs to Machine | Fusion Manufacturing Pipeline}
+\fancyhead[R]{User Guide}
+\fancyfoot[C]{\thepage}
+
+% Title information
+\title{\textbf{Specs to Machine | Fusion Manufacturing Pipeline}\\
+\large User Guide}
+\author{Bobrick Washroom Equipment\\James Derrod}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\vspace{1cm}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================================
+\section{Overview}
+
+The Specs to Machine manufacturing pipeline is a fully automated system that processes manufacturing orders for bathroom partition components (doors, panels, and stiles). Orders from iBob are automatically sent to the \texttt{order\_dropbox} folder as JSON files, where the Fusion 360 extension processes them using a queue system. The system automatically generates:
+
+\begin{itemize}
+    \item 3D STEP models
+    \item CNC G-code programs (.nc files)
+    \item Parameter documentation (CSV and JSON)
+    \item Processing logs
+\end{itemize}
+
+\subsection{Key Features}
+
+\begin{itemize}
+    \item \textbf{Fully Automated:} No manual intervention required - iBob orders are processed automatically
+    \item \textbf{Queue System:} Handles multiple orders in sequence, ensuring reliable processing
+    \item \textbf{Batch Processing:} Processes multiple components per order (doors, panels, stiles)
+    \item \textbf{Network Storage:} All files stored on shared network drive
+    \item \textbf{Comprehensive Logging:} Full audit trail for each order
+    \item \textbf{Error Handling:} Failed orders moved to separate folder for review
+\end{itemize}
+
+\subsection{System Architecture}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Processing Flow]
+\begin{enumerate}[noitemsep]
+    \item iBob generates JSON order file and places in \texttt{order\_dropbox} folder
+    \item Extension detects file and adds to processing queue
+    \item System processes order: apply parameters → export model → generate G-code
+    \item Outputs saved to \texttt{output} folder organized by order ID
+    \item Completed order moved to \texttt{order\_completed} or \texttt{order\_failed}
+\end{enumerate}
+\end{tcolorbox}
+
+% ============================================================================
+\section{System Requirements}
+
+\subsection{Software Requirements}
+
+\begin{itemize}
+    \item \textbf{Autodesk Fusion 360 Desktop Edition:} Current version with CAM capabilities
+    \item \textbf{Virtual Machine:} Windows 10/11 VM
+    \item \textbf{Network Access:} VM must have read/write access to \texttt{M:\textbackslash S2S File Test}
+\end{itemize}
+
+\subsection{Hardware Requirements}
+
+\begin{itemize}
+    \item \textbf{Processor:} Intel Core i5 or better (i7 recommended)
+    \item \textbf{RAM:} 8 GB minimum (16 GB recommended)
+    \item \textbf{Storage:} Network access with adequate bandwidth
+\end{itemize}
+
+% ============================================================================
+\section{Installation \& Setup (IT Department)}
+
+\subsection{System Setup}
+
+The Specs to Machine manufacturing pipeline runs in a Windows virtual machine with Fusion 360 Desktop Edition installed. Once configured, the system automatically monitors the network folders and processes incoming orders.
+
+\subsection{Network Folder Structure}
+
+The following folder structure will be created automatically on the network drive at \texttt{M:\textbackslash S2S File Test}:
+
+\begin{lstlisting}[language=bash]
+M:\S2S File Test\
+├── input\
+│   ├── door\
+│   ├── panel\
+│   └── stile\
+├── order_dropbox\
+├── order_processing\
+├── order_completed\
+├── order_failed\
+└── output\
+    ├── models\
+    ├── gcode\
+    ├── parameters\
+    └── logs\
+\end{lstlisting}
+
+\subsection{Installing the Fusion 360 Extension}
+
+\begin{enumerate}
+    \item Install Fusion 360 Desktop Edition on the virtual machine
+    
+    \item Copy the \texttt{FusionExtension} folder to:\\
+    \texttt{C:\textbackslash Users\textbackslash [username]\textbackslash AppData\textbackslash Roaming\textbackslash Autodesk\textbackslash}\\
+    \texttt{Autodesk Fusion 360\textbackslash API\textbackslash AddIns\textbackslash}
+    
+    \item Open Fusion 360 on the virtual machine
+    
+    \item Click \textbf{Utilities} → \textbf{ADD-INS}
+    
+    \item Find \textbf{FusionManufacturingPipeline} in the list
+    
+    \item Click \textbf{Run} to start the extension
+    
+    \item Check \textbf{Run on Startup} for automatic loading on VM startup
+\end{enumerate}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Success]
+If installation is successful, the extension will create all necessary network folders and display a confirmation message. The system will immediately begin monitoring the \texttt{order\_dropbox} folder for incoming orders from iBob.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Automatic Processing]
+Once running, the extension uses a queue system to automatically process any JSON files that appear in the \texttt{order\_dropbox} folder. No manual intervention is required.
+\end{tcolorbox}
+
+\subsection{Placing Model Files}
+
+Place the master Fusion 360 model files (.f3d) in the input folders:
+
+\begin{itemize}
+    \item \texttt{M:\textbackslash S2S File Test\textbackslash input\textbackslash door\textbackslash door.f3d}
+    \item \texttt{M:\textbackslash S2S File Test\textbackslash input\textbackslash panel\textbackslash panel.f3d}
+    \item \texttt{M:\textbackslash S2S File Test\textbackslash input\textbackslash stile\textbackslash stile.f3d}
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,title=Important]
+Each folder should contain exactly ONE .f3d file. Multiple files may cause conflicts.
+\end{tcolorbox}
+
+\subsection{Machine Configuration}
+
+The system is configured to use the Anderson Stratos CNC router for all G-code generation:
+
+\begin{itemize}
+    \item \textbf{Machine:} Anderson Stratos Pro Full line
+    \item \textbf{Post Processor:} Anderson Stratos 2.cps (custom)
+    \item \textbf{Travel:} X: 3149mm, Y: 2184mm, Z: 254mm
+    \item \textbf{Spindle:} 24,000 RPM max
+    \item \textbf{Tool Changer:} 10 tools
+\end{itemize}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=CAM Setup Requirement]
+The master model files (.f3d) must have CAM setups configured to use the Anderson Stratos machine definition. The extension automatically applies the Anderson Stratos 2 post processor when generating G-code - no manual post processor selection is needed.
+\end{tcolorbox}
+
+% ============================================================================
+\section{How to Use (ME Department \& Business Unit)}
+
+\subsection{Starting the System}
+
+The system automatically starts when the extension loads on VM startup. To manually start or restart:
+
+\begin{enumerate}
+    \item Open Fusion 360 on the virtual machine
+    
+    \item Click the \textbf{Utilities} tab
+    
+    \item Locate the extension icon in the Utilities panel
+    
+    \item Click the extension icon to start monitoring
+    
+    \item Choose \textbf{YES} to start Folder Monitor mode
+    
+    \item The system will display: \textit{"Folder monitor started. Watching for orders..."}
+\end{enumerate}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Automatic Operation]
+Once started, the extension continuously monitors the \texttt{order\_dropbox} folder. Files from iBob are automatically queued and processed in order. The VM should remain running 24/7 for continuous operation.
+\end{tcolorbox}
+
+\subsection{Processing an Order}
+
+Orders are automatically submitted from iBob to the \texttt{order\_dropbox} folder. The processing is completely automated:
+
+\begin{enumerate}
+    \item iBob generates a JSON order file (see Section \ref{sec:json_format})
+    
+    \item iBob places the file in:\\
+    \texttt{M:\textbackslash S2S File Test\textbackslash order\_dropbox\textbackslash}
+    
+    \item The extension automatically:
+    \begin{itemize}
+        \item Detects the new file using the queue system
+        \item Moves it to \texttt{order\_processing}
+        \item Processes each component (doors, panels, stiles)
+        \item Generates all outputs (models, G-code, parameters)
+        \item Moves completed order to \texttt{order\_completed} or \texttt{order\_failed}
+    \end{itemize}
+\end{enumerate}
+
+\begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,title=Note]
+No manual intervention is required. The system processes all orders from iBob automatically as they arrive in the \texttt{order\_dropbox} folder.
+\end{tcolorbox}
+
+\subsection{Finding Your Outputs}
+
+All outputs are organized by order ID (IBUSXXXX) in the \texttt{output} folder:
+
+\begin{lstlisting}[language=bash]
+M:\S2S File Test\output\
+├── models\IBUS366574\
+│   ├── D1.step
+│   ├── D2.step
+│   └── ...
+├── gcode\IBUS366574\
+│   ├── 1-D1-IBUS366574.nc
+│   ├── 1-D2-IBUS366574.nc
+│   └── ...
+├── parameters\IBUS366574\
+│   ├── D1_all_parameters.csv
+│   ├── D1_all_parameters.json
+│   └── ...
+└── logs\
+    └── IBUS366574_log.txt
+\end{lstlisting}
+
+\subsection{Understanding File Names}
+
+\begin{itemize}
+    \item \textbf{Models:} \texttt{[ComponentID].step}\\
+    Example: \texttt{D1.step}, \texttt{P2.step}
+    
+    \item \textbf{G-Code:} \texttt{1-[ComponentID]-[OrderID].nc}\\
+    Example: \texttt{1-D1-IBUS366574.nc}
+    
+    \item \textbf{Parameters:} \texttt{[ComponentID]\_all\_parameters.[csv|json]}\\
+    Example: \texttt{D1\_all\_parameters.csv}
+    
+    \item \textbf{Logs:} \texttt{[OrderID]\_log.txt}\\
+    Example: \texttt{IBUS366574\_log.txt}
+\end{itemize}
+
+% ============================================================================
+\section{JSON Order Format}
+\label{sec:json_format}
+
+\subsection{Structure Overview}
+
+Each order file contains:
+\begin{itemize}
+    \item Order ID (IBUSXXXX format)
+    \item List of doors (if any)
+    \item List of panels (if any)
+    \item List of stiles (if any)
+\end{itemize}
+
+Each parameter uses the format: \texttt{[value, datatype, description]}
+
+\subsection{Example Order File}
+
+\begin{lstlisting}[language=json,caption={Example Order: IBUS366574.json}]
+{
+  "order_id": ["IBUS366574", "string", "Order identifier"],
+  "doors": [
+    {
+      "id": ["D1", "string", "Door ID"],
+      "parameters": {
+        "series_id": ["3082G.67P", "string", "Series ID"],
+        "component_height": [96.0, "float", "Height in inches"],
+        "component_width": [10.5, "float", "Width in inches"],
+        "door_hinge_height": [75.0, "float", "Hinge height"],
+        "door_keep_height": [75.0, "float", "Keep height"],
+        "door_floor_clearance": [1.0, "float", "Floor clearance"]
+      }
+    }
+  ],
+  "panels": [
+    {
+      "id": ["P1", "string", "Panel ID"],
+      "parameters": {
+        "series_id": ["3082G.67P", "string", "Series ID"],
+        "component_height": [97.75, "float", "Height in inches"],
+        "component_width": [36.0, "float", "Width in inches"]
+      }
+    }
+  ],
+  "stiles": []
+}
+\end{lstlisting}
+
+\subsection{Required Parameters by Component Type}
+
+\subsubsection{Doors}
+
+\begin{itemize}[noitemsep]
+    \item \texttt{series\_id}: Series identifier (string)
+    \item \texttt{component\_height}: Height in inches (float)
+    \item \texttt{component\_width}: Width in inches (float)
+    \item \texttt{door\_hinge\_height}: Hinge pilaster height (float)
+    \item \texttt{door\_keep\_height}: Keep pilaster height (float)
+    \item \texttt{door\_floor\_clearance}: Floor clearance (float)
+\end{itemize}
+
+\subsubsection{Panels}
+
+\begin{itemize}[noitemsep]
+    \item \texttt{series\_id}: Series identifier (string)
+    \item \texttt{component\_height}: Height in inches (float)
+    \item \texttt{component\_width}: Width in inches (float)
+\end{itemize}
+
+\subsubsection{Stiles}
+
+\begin{itemize}[noitemsep]
+    \item \texttt{series\_id}: Series identifier (string)
+    \item \texttt{component\_height}: Height in inches (float)
+    \item \texttt{component\_width}: Width in inches (float)
+    \item \texttt{stile\_left\_side\_door}: Door on left side (bool)
+    \item \texttt{stile\_left\_side\_hinging}: Left side is hinge stile (bool)
+    \item \texttt{stile\_left\_side\_door\_height}: Left door height (float or null)
+    \item \texttt{stile\_left\_side\_door\_floor\_clearance}: Left door clearance (float or null)
+    \item \texttt{stile\_left\_side\_door\_swinging\_out}: Left door swings out (bool or null)
+    \item \texttt{stile\_right\_side\_door}: Door on right side (bool)
+    \item \texttt{stile\_right\_side\_hinging}: Right side is hinge stile (bool)
+    \item \texttt{stile\_right\_side\_door\_height}: Right door height (float or null)
+    \item \texttt{stile\_right\_side\_door\_floor\_clearance}: Right door clearance (float or null)
+    \item \texttt{stile\_right\_side\_door\_swinging\_out}: Right door swings out (bool or null)
+\end{itemize}
+
+% ============================================================================
+\section{Monitoring \& Troubleshooting}
+
+\subsection{Monitoring Active Processing}
+
+\begin{enumerate}
+    \item Check the \texttt{order\_processing} folder - files currently being processed
+    \item Check Fusion 360 - progress dialog shows current component
+    \item Check \texttt{order\_completed} - successfully processed orders
+    \item Check \texttt{order\_failed} - failed orders with error logs
+\end{enumerate}
+
+\subsection{Understanding Log Files}
+
+Each order generates a detailed log file in:\\
+\texttt{M:\textbackslash S2S File Test\textbackslash output\textbackslash logs\textbackslash [OrderID]\_log.txt}
+
+The log contains:
+\begin{itemize}
+    \item Timestamp for each operation
+    \item Parameter values being applied
+    \item CAM regeneration status
+    \item G-code generation results
+    \item Any errors or warnings
+\end{itemize}
+
+\subsection{Common Issues}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Problem: Order moved to failed folder]
+\textbf{Solution:}
+\begin{enumerate}[noitemsep]
+    \item Open the corresponding \texttt{.txt} file in \texttt{order\_failed} folder
+    \item Read the error message
+    \item Common causes:
+    \begin{itemize}
+        \item Invalid JSON format
+        \item Missing required parameters
+        \item Model file not found in input folder
+        \item CAM setup issues in master model
+    \end{itemize}
+    \item Fix the issue and re-submit the JSON file
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Problem: No G-code files generated]
+\textbf{Solution:}
+\begin{enumerate}[noitemsep]
+    \item Check that CAM setups exist in the master model
+    \item Verify CAM toolpaths are generated
+    \item Check log file for post-processing errors
+    \item Verify richauto.cps post-processor is installed in Fusion 360
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Problem: Parameters not updating correctly]
+\textbf{Solution:}
+\begin{enumerate}[noitemsep]
+    \item Verify parameter names in JSON match model parameter names
+    \item Check that parameter values are within valid ranges
+    \item Review parameter CSV/JSON output to see actual values applied
+    \item For stiles, ensure you're using correct stile-specific parameter names
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{Restarting the System}
+
+If the system becomes unresponsive:
+
+\begin{enumerate}
+    \item In Fusion 360, click \textbf{Utilities} → \textbf{ADD-INS}
+    \item Select \textbf{FusionManufacturingPipeline}
+    \item Click \textbf{Stop}
+    \item Wait 3 seconds
+    \item Click \textbf{Run}
+    \item Start the folder monitor again
+\end{enumerate}
+
+% ============================================================================
+\section{Appendix}
+
+\subsection{Parameter Unit Conversion}
+
+The system automatically converts all parameter values to display units:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Input Unit} & \textbf{Fusion Internal} & \textbf{Output Unit} \\
+\hline
+inches (in) & centimeters & inches (in) \\
+millimeters (mm) & centimeters & millimeters (mm) \\
+feet (ft) & centimeters & feet (ft) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{File Size Guidelines}
+
+Typical file sizes:
+
+\begin{itemize}
+    \item STEP models: 500 KB - 5 MB per file
+    \item G-code files: 50 KB - 500 KB per file
+    \item Parameter files: 5 KB - 20 KB per file
+    \item Log files: 10 KB - 100 KB per order
+\end{itemize}
+
+\subsection{Processing Time Estimates}
+
+Per component:
+
+\begin{itemize}
+    \item Parameter application: 5-10 seconds
+    \item CAM regeneration: 30-60 seconds
+    \item G-code generation: 10-20 seconds
+    \item Model export: 5-10 seconds
+\end{itemize}
+
+\textbf{Total per component:} Approximately 1-2 minutes
+
+\textbf{Full order estimate:} Number of components × 1.5 minutes
+
+% ============================================================================
+
+\end{document}

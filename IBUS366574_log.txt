@@ -1,0 +1,480 @@
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Order log created: M:\S2S File Test\output\logs\IBUS366574_log.txt
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Available models: {'door': 'M:\\S2S File Test\\input\\door\\3X8X-Door Rev 7.f3d', 'panel': 'M:\\S2S File Test\\input\\panel\\3X8X_Panel v2 2025_11_20.f3d', 'stile': 'M:\\S2S File Test\\input\\stile\\3X8X_Stile_v3_2025_11_20.f3d'}
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Processing 4 panels
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Processing panel 1/4: P1
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO -   Parameters to apply: 6
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Activating cached panel model: Untitled
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - P1: Switched to panel model
+2025-12-08 10:04:49 - FusionManufacturingPipeline - INFO - Applying parameters to P1
+2025-12-08 10:04:52 - FusionManufacturingPipeline - INFO - P1: Successfully updated 5 parameter(s)
+2025-12-08 10:05:06 - FusionManufacturingPipeline - INFO - P1: Model exported: Exported P1.step (1095309 bytes)
+2025-12-08 10:05:08 - FusionManufacturingPipeline - INFO - P1: Parameters exported (CSV): Exported 60 parameters to P1_all_parameters.csv (3474 bytes)
+2025-12-08 10:05:08 - FusionManufacturingPipeline - INFO - P1: Parameters exported (JSON): Exported 59 parameters to P1_all_parameters.json (8791 bytes)
+2025-12-08 10:05:08 - FusionManufacturingPipeline - INFO - P1: Starting CAM regeneration
+2025-12-08 10:05:08 - FusionManufacturingPipeline - INFO - P1: Accessing CAM product
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - P1: CAM product accessed
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - P1: Found 0 CAM setup(s): 
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - Processing panel 2/4: P2
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO -   Parameters to apply: 6
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - Activating cached panel model: Untitled
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - P2: Switched to panel model
+2025-12-08 10:05:09 - FusionManufacturingPipeline - INFO - Applying parameters to P2
+2025-12-08 10:05:15 - FusionManufacturingPipeline - INFO - P2: Successfully updated 5 parameter(s)
+2025-12-08 10:05:28 - FusionManufacturingPipeline - INFO - P2: Model exported: Exported P2.step (1051113 bytes)
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: Parameters exported (CSV): Exported 60 parameters to P2_all_parameters.csv (3474 bytes)
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: Parameters exported (JSON): Exported 59 parameters to P2_all_parameters.json (8791 bytes)
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: Starting CAM regeneration
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: Accessing CAM product
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: CAM product accessed
+2025-12-08 10:05:30 - FusionManufacturingPipeline - INFO - P2: Found 0 CAM setup(s): 
+2025-12-08 10:05:31 - FusionManufacturingPipeline - INFO - Processing panel 3/4: P3
+2025-12-08 10:05:31 - FusionManufacturingPipeline - INFO -   Parameters to apply: 6
+2025-12-08 10:05:31 - FusionManufacturingPipeline - INFO - Activating cached panel model: Untitled
+2025-12-08 10:05:31 - FusionManufacturingPipeline - INFO - P3: Switched to panel model
+2025-12-08 10:05:31 - FusionManufacturingPipeline - INFO - Applying parameters to P3
+2025-12-08 10:05:35 - FusionManufacturingPipeline - INFO - P3: Successfully updated 5 parameter(s)
+2025-12-08 10:05:49 - FusionManufacturingPipeline - INFO - P3: Model exported: Exported P3.step (1051113 bytes)
+2025-12-08 10:05:50 - FusionManufacturingPipeline - INFO - P3: Parameters exported (CSV): Exported 60 parameters to P3_all_parameters.csv (3474 bytes)
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P3: Parameters exported (JSON): Exported 59 parameters to P3_all_parameters.json (8791 bytes)
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P3: Starting CAM regeneration
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P3: Accessing CAM product
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P3: CAM product accessed
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P3: Found 0 CAM setup(s): 
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - Processing panel 4/4: P4
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO -   Parameters to apply: 6
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - Activating cached panel model: Untitled
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - P4: Switched to panel model
+2025-12-08 10:05:51 - FusionManufacturingPipeline - INFO - Applying parameters to P4
+2025-12-08 10:05:57 - FusionManufacturingPipeline - INFO - P4: Successfully updated 5 parameter(s)
+2025-12-08 10:06:11 - FusionManufacturingPipeline - INFO - P4: Model exported: Exported P4.step (1051113 bytes)
+2025-12-08 10:06:12 - FusionManufacturingPipeline - INFO - P4: Parameters exported (CSV): Exported 60 parameters to P4_all_parameters.csv (3474 bytes)
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - P4: Parameters exported (JSON): Exported 59 parameters to P4_all_parameters.json (8791 bytes)
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - P4: Starting CAM regeneration
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - P4: Accessing CAM product
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - P4: CAM product accessed
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - P4: Found 0 CAM setup(s): 
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - Processing 4 doors
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO - Processing door 1/4: D1
+2025-12-08 10:06:13 - FusionManufacturingPipeline - INFO -   Parameters to apply: 8
+2025-12-08 10:06:14 - FusionManufacturingPipeline - INFO - Activating cached door model: Untitled
+2025-12-08 10:06:14 - FusionManufacturingPipeline - INFO - D1: Switched to door model
+2025-12-08 10:06:14 - FusionManufacturingPipeline - INFO - Applying parameters to D1
+2025-12-08 10:06:21 - FusionManufacturingPipeline - INFO - D1: Successfully updated 7 parameter(s)
+2025-12-08 10:06:33 - FusionManufacturingPipeline - INFO - D1: Model exported: Exported D1.step (864266 bytes)
+2025-12-08 10:06:34 - FusionManufacturingPipeline - INFO - D1: Parameters exported (CSV): Exported 98 parameters to D1_all_parameters.csv (10135 bytes)
+2025-12-08 10:06:35 - FusionManufacturingPipeline - INFO - D1: Parameters exported (JSON): Exported 97 parameters to D1_all_parameters.json (18879 bytes)
+2025-12-08 10:06:35 - FusionManufacturingPipeline - INFO - D1: Searching for drilling parameters in design
+2025-12-08 10:06:35 - FusionManufacturingPipeline - INFO - D1: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-D1-IBUS366574-drilling.json
+2025-12-08 10:06:35 - FusionManufacturingPipeline - INFO - D1: Door component detected
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Total parameters in design: 97
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found hinge_hole_x_dist parameter
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added door_hinge_hole_y_dist = 0.968 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: top_hinge_hole_1_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: top_hinge_hole_2_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: bottom_hinge_hole_1_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: bottom_hinge_hole_2_y_value
+2025-12-08 10:06:36 - FusionManufacturingPipeline - INFO - D1: Added bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:06:37 - FusionManufacturingPipeline - INFO - D1: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D1-IBUS366574-drilling.json (2665 bytes)
+2025-12-08 10:06:37 - FusionManufacturingPipeline - INFO - D1: Drilling data loaded for compiled file
+2025-12-08 10:06:38 - FusionManufacturingPipeline - WARNING - D1: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - D1: Starting CAM regeneration
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - D1: Accessing CAM product
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - D1: CAM product accessed
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - D1: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - D1: Regenerating toolpaths for all setups
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - Regenerating toolpaths for 2 setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:06:38 - FusionManufacturingPipeline - INFO - Regenerating setup: Left_Rabbet_Notch
+2025-12-08 10:06:39 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:06:39 - FusionManufacturingPipeline - INFO - Regenerating setup: Right_Rabbet_Notch
+2025-12-08 10:06:40 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:06:40 - FusionManufacturingPipeline - INFO - D1: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:06:41 - FusionManufacturingPipeline - INFO - D1: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:06:41 - FusionManufacturingPipeline - INFO - D1: Starting post processing
+2025-12-08 10:06:41 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2025-12-08 10:06:41 - FusionManufacturingPipeline - INFO - Post processing setup: Left_Rabbet_Notch (File: 1-D1-IBUS366574.nc)
+2025-12-08 10:06:41 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:06:43 - FusionManufacturingPipeline - INFO - Post processing setup: Right_Rabbet_Notch (File: 1-D1-IBUS366574.nc)
+2025-12-08 10:06:43 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - D1: Post "Left_Rabbet_Notch": Generated 1-D1-IBUS366574.nc (807 bytes)
+2025-12-08 10:06:45 - FusionManufacturingPipeline - ERROR - D1: Post "Right_Rabbet_Notch": Post processing failed: [WinError 183] Cannot create a file when that file already exists: 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1254.nc' -> 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1-D1-IBUS366574.nc'
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - D1: All operations complete - 1 NC files generated
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - D1: Adding drilling data to compiled collection
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - Processing door 2/4: D2
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO -   Parameters to apply: 8
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - Activating cached door model: Untitled
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - D2: Switched to door model
+2025-12-08 10:06:45 - FusionManufacturingPipeline - INFO - Applying parameters to D2
+2025-12-08 10:06:52 - FusionManufacturingPipeline - INFO - D2: Successfully updated 7 parameter(s)
+2025-12-08 10:07:04 - FusionManufacturingPipeline - INFO - D2: Model exported: Exported D2.step (858503 bytes)
+2025-12-08 10:07:05 - FusionManufacturingPipeline - INFO - D2: Parameters exported (CSV): Exported 98 parameters to D2_all_parameters.csv (10135 bytes)
+2025-12-08 10:07:06 - FusionManufacturingPipeline - INFO - D2: Parameters exported (JSON): Exported 97 parameters to D2_all_parameters.json (18879 bytes)
+2025-12-08 10:07:06 - FusionManufacturingPipeline - INFO - D2: Searching for drilling parameters in design
+2025-12-08 10:07:06 - FusionManufacturingPipeline - INFO - D2: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-D2-IBUS366574-drilling.json
+2025-12-08 10:07:06 - FusionManufacturingPipeline - INFO - D2: Door component detected
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Total parameters in design: 97
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found hinge_hole_x_dist parameter
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added door_hinge_hole_y_dist = 0.968 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: top_hinge_hole_1_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: top_hinge_hole_2_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: bottom_hinge_hole_1_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: bottom_hinge_hole_2_y_value
+2025-12-08 10:07:07 - FusionManufacturingPipeline - INFO - D2: Added bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:07:08 - FusionManufacturingPipeline - INFO - D2: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D2-IBUS366574-drilling.json (2665 bytes)
+2025-12-08 10:07:08 - FusionManufacturingPipeline - INFO - D2: Drilling data loaded for compiled file
+2025-12-08 10:07:09 - FusionManufacturingPipeline - WARNING - D2: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - D2: Starting CAM regeneration
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - D2: Accessing CAM product
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - D2: CAM product accessed
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - D2: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - D2: Regenerating toolpaths for all setups
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - Regenerating toolpaths for 2 setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:07:09 - FusionManufacturingPipeline - INFO - Regenerating setup: Left_Rabbet_Notch
+2025-12-08 10:07:10 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:10 - FusionManufacturingPipeline - INFO - Regenerating setup: Right_Rabbet_Notch
+2025-12-08 10:07:11 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:11 - FusionManufacturingPipeline - INFO - D2: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:11 - FusionManufacturingPipeline - INFO - D2: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:11 - FusionManufacturingPipeline - INFO - D2: Starting post processing
+2025-12-08 10:07:11 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:12 - FusionManufacturingPipeline - INFO - Post processing setup: Left_Rabbet_Notch (File: 1-D2-IBUS366574.nc)
+2025-12-08 10:07:12 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:14 - FusionManufacturingPipeline - INFO - Post processing setup: Right_Rabbet_Notch (File: 1-D2-IBUS366574.nc)
+2025-12-08 10:07:14 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:15 - FusionManufacturingPipeline - INFO - D2: Post "Left_Rabbet_Notch": Generated 1-D2-IBUS366574.nc (807 bytes)
+2025-12-08 10:07:15 - FusionManufacturingPipeline - ERROR - D2: Post "Right_Rabbet_Notch": Post processing failed: [WinError 183] Cannot create a file when that file already exists: 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1256.nc' -> 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1-D2-IBUS366574.nc'
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - D2: All operations complete - 1 NC files generated
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - D2: Adding drilling data to compiled collection
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - Processing door 3/4: D3
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO -   Parameters to apply: 8
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - Activating cached door model: Untitled
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - D3: Switched to door model
+2025-12-08 10:07:16 - FusionManufacturingPipeline - INFO - Applying parameters to D3
+2025-12-08 10:07:21 - FusionManufacturingPipeline - INFO - D3: Successfully updated 7 parameter(s)
+2025-12-08 10:07:33 - FusionManufacturingPipeline - INFO - D3: Model exported: Exported D3.step (858503 bytes)
+2025-12-08 10:07:34 - FusionManufacturingPipeline - INFO - D3: Parameters exported (CSV): Exported 98 parameters to D3_all_parameters.csv (10135 bytes)
+2025-12-08 10:07:35 - FusionManufacturingPipeline - INFO - D3: Parameters exported (JSON): Exported 97 parameters to D3_all_parameters.json (18879 bytes)
+2025-12-08 10:07:35 - FusionManufacturingPipeline - INFO - D3: Searching for drilling parameters in design
+2025-12-08 10:07:35 - FusionManufacturingPipeline - INFO - D3: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-D3-IBUS366574-drilling.json
+2025-12-08 10:07:35 - FusionManufacturingPipeline - INFO - D3: Door component detected
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Total parameters in design: 97
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found hinge_hole_x_dist parameter
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added door_hinge_hole_y_dist = 0.968 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: top_hinge_hole_1_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: top_hinge_hole_2_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: bottom_hinge_hole_1_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: bottom_hinge_hole_2_y_value
+2025-12-08 10:07:36 - FusionManufacturingPipeline - INFO - D3: Added bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:07:37 - FusionManufacturingPipeline - INFO - D3: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D3-IBUS366574-drilling.json (2665 bytes)
+2025-12-08 10:07:37 - FusionManufacturingPipeline - INFO - D3: Drilling data loaded for compiled file
+2025-12-08 10:07:38 - FusionManufacturingPipeline - WARNING - D3: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - D3: Starting CAM regeneration
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - D3: Accessing CAM product
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - D3: CAM product accessed
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - D3: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - D3: Regenerating toolpaths for all setups
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - Regenerating toolpaths for 2 setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:07:38 - FusionManufacturingPipeline - INFO - Regenerating setup: Left_Rabbet_Notch
+2025-12-08 10:07:39 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:39 - FusionManufacturingPipeline - INFO - Regenerating setup: Right_Rabbet_Notch
+2025-12-08 10:07:40 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:40 - FusionManufacturingPipeline - INFO - D3: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:40 - FusionManufacturingPipeline - INFO - D3: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:07:40 - FusionManufacturingPipeline - INFO - D3: Starting post processing
+2025-12-08 10:07:40 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:41 - FusionManufacturingPipeline - INFO - Post processing setup: Left_Rabbet_Notch (File: 1-D3-IBUS366574.nc)
+2025-12-08 10:07:41 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:43 - FusionManufacturingPipeline - INFO - Post processing setup: Right_Rabbet_Notch (File: 1-D3-IBUS366574.nc)
+2025-12-08 10:07:43 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:07:44 - FusionManufacturingPipeline - INFO - D3: Post "Left_Rabbet_Notch": Generated 1-D3-IBUS366574.nc (807 bytes)
+2025-12-08 10:07:44 - FusionManufacturingPipeline - ERROR - D3: Post "Right_Rabbet_Notch": Post processing failed: [WinError 183] Cannot create a file when that file already exists: 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1258.nc' -> 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1-D3-IBUS366574.nc'
+2025-12-08 10:07:44 - FusionManufacturingPipeline - INFO - D3: All operations complete - 1 NC files generated
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO - D3: Adding drilling data to compiled collection
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO - Processing door 4/4: D4
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO -   Parameters to apply: 8
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO - Activating cached door model: Untitled
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO - D4: Switched to door model
+2025-12-08 10:07:45 - FusionManufacturingPipeline - INFO - Applying parameters to D4
+2025-12-08 10:07:50 - FusionManufacturingPipeline - INFO - D4: Successfully updated 7 parameter(s)
+2025-12-08 10:08:01 - FusionManufacturingPipeline - INFO - D4: Model exported: Exported D4.step (858516 bytes)
+2025-12-08 10:08:03 - FusionManufacturingPipeline - INFO - D4: Parameters exported (CSV): Exported 98 parameters to D4_all_parameters.csv (10135 bytes)
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Parameters exported (JSON): Exported 97 parameters to D4_all_parameters.json (18879 bytes)
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Searching for drilling parameters in design
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-D4-IBUS366574-drilling.json
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Door component detected
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Total parameters in design: 97
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Found hinge_hole_x_dist parameter
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Added door_hinge_hole_y_dist = 0.968 in
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: top_hinge_hole_1_y_value
+2025-12-08 10:08:04 - FusionManufacturingPipeline - INFO - D4: Added top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: top_hinge_hole_2_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: bottom_hinge_hole_1_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Found drilling parameter: bottom_hinge_hole_2_y_value
+2025-12-08 10:08:05 - FusionManufacturingPipeline - INFO - D4: Added bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:08:06 - FusionManufacturingPipeline - INFO - D4: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D4-IBUS366574-drilling.json (2665 bytes)
+2025-12-08 10:08:06 - FusionManufacturingPipeline - INFO - D4: Drilling data loaded for compiled file
+2025-12-08 10:08:07 - FusionManufacturingPipeline - WARNING - D4: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - D4: Starting CAM regeneration
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - D4: Accessing CAM product
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - D4: CAM product accessed
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - D4: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - D4: Regenerating toolpaths for all setups
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - Regenerating toolpaths for 2 setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2025-12-08 10:08:07 - FusionManufacturingPipeline - INFO - Regenerating setup: Left_Rabbet_Notch
+2025-12-08 10:08:08 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:08:08 - FusionManufacturingPipeline - INFO - Regenerating setup: Right_Rabbet_Notch
+2025-12-08 10:08:09 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:08:09 - FusionManufacturingPipeline - INFO - D4: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:08:09 - FusionManufacturingPipeline - INFO - D4: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths (1 operation(s) have errors - not regenerated)
+2025-12-08 10:08:09 - FusionManufacturingPipeline - INFO - D4: Starting post processing
+2025-12-08 10:08:09 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2025-12-08 10:08:10 - FusionManufacturingPipeline - INFO - Post processing setup: Left_Rabbet_Notch (File: 1-D4-IBUS366574.nc)
+2025-12-08 10:08:10 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:08:12 - FusionManufacturingPipeline - INFO - Post processing setup: Right_Rabbet_Notch (File: 1-D4-IBUS366574.nc)
+2025-12-08 10:08:12 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Using custom post processor: Anderson Stratos 2.cps
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - D4: Post "Left_Rabbet_Notch": Generated 1-D4-IBUS366574.nc (807 bytes)
+2025-12-08 10:08:14 - FusionManufacturingPipeline - ERROR - D4: Post "Right_Rabbet_Notch": Post processing failed: [WinError 183] Cannot create a file when that file already exists: 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1260.nc' -> 'M:\\S2S File Test\\output\\gcode\\IBUS366574\\1-D4-IBUS366574.nc'
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - D4: All operations complete - 1 NC files generated
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - D4: Adding drilling data to compiled collection
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - Processing 6 stiles
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - Processing stile 1/6: S1
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - S1: Switched to stile model
+2025-12-08 10:08:14 - FusionManufacturingPipeline - INFO - Applying parameters to S1
+2025-12-08 10:08:24 - FusionManufacturingPipeline - INFO - S1: Successfully updated 12 parameter(s)
+2025-12-08 10:08:37 - FusionManufacturingPipeline - INFO - S1: Model exported: Exported S1.step (967485 bytes)
+2025-12-08 10:08:39 - FusionManufacturingPipeline - INFO - S1: Parameters exported (CSV): Exported 169 parameters to S1_all_parameters.csv (22388 bytes)
+2025-12-08 10:08:40 - FusionManufacturingPipeline - INFO - S1: Parameters exported (JSON): Exported 168 parameters to S1_all_parameters.json (37539 bytes)
+2025-12-08 10:08:40 - FusionManufacturingPipeline - INFO - S1: Searching for drilling parameters in design
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S1-IBUS366574-drilling.json
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Stile component detected - checking drilling flags
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: right_exterior_drilling is true
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Capturing RIGHT side drilling parameters
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Total parameters in design: 168
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Found hinge_hole_x_dist parameter
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Added stile_hinge_hole_y_dist = 1.268 in
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_top_hinge_hole_1_y_value
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Added RD_top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:08:41 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_top_hinge_hole_2_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_mid_top_hinge_hole_1_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_mid_top_hinge_hole_2_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_bottom_hinge_hole_1_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Found drilling parameter: RD_bottom_hinge_hole_2_y_value
+2025-12-08 10:08:42 - FusionManufacturingPipeline - INFO - S1: Added RD_bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:08:43 - FusionManufacturingPipeline - INFO - S1: Drilling coordinates exported: Exported 9 drilling coordinates to 1-S1-IBUS366574-drilling.json (2783 bytes)
+2025-12-08 10:08:43 - FusionManufacturingPipeline - INFO - S1: Drilling data loaded for compiled file
+2025-12-08 10:08:44 - FusionManufacturingPipeline - WARNING - S1: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - S1: Starting CAM regeneration
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - S1: Accessing CAM product
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - S1: CAM product accessed
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - S1: Found 0 CAM setup(s): 
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - Processing stile 2/6: S2
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - S2: Switched to stile model
+2025-12-08 10:08:44 - FusionManufacturingPipeline - INFO - Applying parameters to S2
+2025-12-08 10:08:56 - FusionManufacturingPipeline - INFO - S2: Successfully updated 12 parameter(s)
+2025-12-08 10:09:09 - FusionManufacturingPipeline - INFO - S2: Model exported: Exported S2.step (951072 bytes)
+2025-12-08 10:09:11 - FusionManufacturingPipeline - INFO - S2: Parameters exported (CSV): Exported 169 parameters to S2_all_parameters.csv (22357 bytes)
+2025-12-08 10:09:12 - FusionManufacturingPipeline - INFO - S2: Parameters exported (JSON): Exported 168 parameters to S2_all_parameters.json (37508 bytes)
+2025-12-08 10:09:13 - FusionManufacturingPipeline - INFO - S2: Searching for drilling parameters in design
+2025-12-08 10:09:13 - FusionManufacturingPipeline - INFO - S2: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S2-IBUS366574-drilling.json
+2025-12-08 10:09:13 - FusionManufacturingPipeline - INFO - S2: Stile component detected - checking drilling flags
+2025-12-08 10:09:13 - FusionManufacturingPipeline - INFO - S2: No drilling required (all flags are 0)
+2025-12-08 10:09:13 - FusionManufacturingPipeline - WARNING - S2: Drilling coordinate export failed: No drilling required for S2 (all flags are 0)
+2025-12-08 10:09:13 - FusionManufacturingPipeline - WARNING - S2: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - S2: Starting CAM regeneration
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - S2: Accessing CAM product
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - S2: CAM product accessed
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - S2: Found 0 CAM setup(s): 
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - Processing stile 3/6: S3
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - S3: Switched to stile model
+2025-12-08 10:09:14 - FusionManufacturingPipeline - INFO - Applying parameters to S3
+2025-12-08 10:09:25 - FusionManufacturingPipeline - INFO - S3: Successfully updated 12 parameter(s)
+2025-12-08 10:09:39 - FusionManufacturingPipeline - INFO - S3: Model exported: Exported S3.step (967551 bytes)
+2025-12-08 10:09:41 - FusionManufacturingPipeline - INFO - S3: Parameters exported (CSV): Exported 169 parameters to S3_all_parameters.csv (22381 bytes)
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: Parameters exported (JSON): Exported 168 parameters to S3_all_parameters.json (37532 bytes)
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: Searching for drilling parameters in design
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S3-IBUS366574-drilling.json
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: Stile component detected - checking drilling flags
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: right_interior_drilling is true
+2025-12-08 10:09:42 - FusionManufacturingPipeline - INFO - S3: Capturing RIGHT side drilling parameters
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Total parameters in design: 168
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found hinge_hole_x_dist parameter
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added stile_hinge_hole_y_dist = 1.268 in
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_top_hinge_hole_1_y_value
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added RD_top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_top_hinge_hole_2_y_value
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added RD_top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_mid_top_hinge_hole_1_y_value
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added RD_mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_mid_top_hinge_hole_2_y_value
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added RD_mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:09:43 - FusionManufacturingPipeline - INFO - S3: Added RD_mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Added RD_mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_bottom_hinge_hole_1_y_value
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Added RD_bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Found drilling parameter: RD_bottom_hinge_hole_2_y_value
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Added RD_bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:09:44 - FusionManufacturingPipeline - INFO - S3: Drilling coordinates exported: Exported 9 drilling coordinates to 1-S3-IBUS366574-drilling.json (2783 bytes)
+2025-12-08 10:09:45 - FusionManufacturingPipeline - INFO - S3: Drilling data loaded for compiled file
+2025-12-08 10:09:46 - FusionManufacturingPipeline - WARNING - S3: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - S3: Starting CAM regeneration
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - S3: Accessing CAM product
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - S3: CAM product accessed
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - S3: Found 0 CAM setup(s): 
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - Processing stile 4/6: S4
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - S4: Switched to stile model
+2025-12-08 10:09:46 - FusionManufacturingPipeline - INFO - Applying parameters to S4
+2025-12-08 10:09:55 - FusionManufacturingPipeline - INFO - S4: Successfully updated 12 parameter(s)
+2025-12-08 10:10:08 - FusionManufacturingPipeline - INFO - S4: Model exported: Exported S4.step (970690 bytes)
+2025-12-08 10:10:10 - FusionManufacturingPipeline - INFO - S4: Parameters exported (CSV): Exported 169 parameters to S4_all_parameters.csv (22368 bytes)
+2025-12-08 10:10:11 - FusionManufacturingPipeline - INFO - S4: Parameters exported (JSON): Exported 168 parameters to S4_all_parameters.json (37519 bytes)
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Searching for drilling parameters in design
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S4-IBUS366574-drilling.json
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Stile component detected - checking drilling flags
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: right_interior_drilling is true
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Capturing RIGHT side drilling parameters
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Total parameters in design: 168
+2025-12-08 10:10:12 - FusionManufacturingPipeline - INFO - S4: Found hinge_hole_x_dist parameter
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added stile_hinge_hole_y_dist = 1.268 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_top_hinge_hole_1_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_top_hinge_hole_2_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_mid_top_hinge_hole_1_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_mid_top_hinge_hole_2_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_bottom_hinge_hole_1_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Found drilling parameter: RD_bottom_hinge_hole_2_y_value
+2025-12-08 10:10:13 - FusionManufacturingPipeline - INFO - S4: Added RD_bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:10:14 - FusionManufacturingPipeline - INFO - S4: Drilling coordinates exported: Exported 9 drilling coordinates to 1-S4-IBUS366574-drilling.json (2783 bytes)
+2025-12-08 10:10:14 - FusionManufacturingPipeline - INFO - S4: Drilling data loaded for compiled file
+2025-12-08 10:10:15 - FusionManufacturingPipeline - WARNING - S4: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:10:15 - FusionManufacturingPipeline - INFO - S4: Starting CAM regeneration
+2025-12-08 10:10:15 - FusionManufacturingPipeline - INFO - S4: Accessing CAM product
+2025-12-08 10:10:15 - FusionManufacturingPipeline - INFO - S4: CAM product accessed
+2025-12-08 10:10:15 - FusionManufacturingPipeline - INFO - S4: Found 0 CAM setup(s): 
+2025-12-08 10:10:15 - FusionManufacturingPipeline - INFO - Processing stile 5/6: S5
+2025-12-08 10:10:16 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:10:16 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:10:16 - FusionManufacturingPipeline - INFO - S5: Switched to stile model
+2025-12-08 10:10:16 - FusionManufacturingPipeline - INFO - Applying parameters to S5
+2025-12-08 10:10:25 - FusionManufacturingPipeline - INFO - S5: Successfully updated 12 parameter(s)
+2025-12-08 10:10:39 - FusionManufacturingPipeline - INFO - S5: Model exported: Exported S5.step (970690 bytes)
+2025-12-08 10:10:41 - FusionManufacturingPipeline - INFO - S5: Parameters exported (CSV): Exported 169 parameters to S5_all_parameters.csv (22368 bytes)
+2025-12-08 10:10:42 - FusionManufacturingPipeline - INFO - S5: Parameters exported (JSON): Exported 168 parameters to S5_all_parameters.json (37519 bytes)
+2025-12-08 10:10:42 - FusionManufacturingPipeline - INFO - S5: Searching for drilling parameters in design
+2025-12-08 10:10:42 - FusionManufacturingPipeline - INFO - S5: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S5-IBUS366574-drilling.json
+2025-12-08 10:10:42 - FusionManufacturingPipeline - INFO - S5: Stile component detected - checking drilling flags
+2025-12-08 10:10:42 - FusionManufacturingPipeline - INFO - S5: right_interior_drilling is true
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Capturing RIGHT side drilling parameters
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Total parameters in design: 168
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Found hinge_hole_x_dist parameter
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Added stile_hinge_hole_y_dist = 1.268 in
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_top_hinge_hole_1_y_value
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Added RD_top_hinge_hole_1_x_value = 1.72 in
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_top_hinge_hole_2_y_value
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Added RD_top_hinge_hole_2_x_value = 3.22 in
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_mid_top_hinge_hole_1_y_value
+2025-12-08 10:10:43 - FusionManufacturingPipeline - INFO - S5: Added RD_mid_top_hinge_hole_1_x_value = 30.147 in
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_mid_top_hinge_hole_2_y_value
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Added RD_mid_top_hinge_hole_2_x_value = 31.647 in
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_mid_bottom_hinge_hole_1_y_value
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Added RD_mid_bottom_hinge_hole_1_x_value = 61.043 in
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_mid_bottom_hinge_hole_2_y_value
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Added RD_mid_bottom_hinge_hole_2_x_value = 62.543 in
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_bottom_hinge_hole_1_y_value
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Added RD_bottom_hinge_hole_1_x_value = 89.47 in
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Found drilling parameter: RD_bottom_hinge_hole_2_y_value
+2025-12-08 10:10:44 - FusionManufacturingPipeline - INFO - S5: Added RD_bottom_hinge_hole_2_x_value = 90.97 in
+2025-12-08 10:10:45 - FusionManufacturingPipeline - INFO - S5: Drilling coordinates exported: Exported 9 drilling coordinates to 1-S5-IBUS366574-drilling.json (2783 bytes)
+2025-12-08 10:10:45 - FusionManufacturingPipeline - INFO - S5: Drilling data loaded for compiled file
+2025-12-08 10:10:46 - FusionManufacturingPipeline - WARNING - S5: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - S5: Starting CAM regeneration
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - S5: Accessing CAM product
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - S5: CAM product accessed
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - S5: Found 0 CAM setup(s): 
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - Processing stile 6/6: S6
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO -   Parameters to apply: 13
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - Activating cached stile model: Untitled
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - S6: Switched to stile model
+2025-12-08 10:10:46 - FusionManufacturingPipeline - INFO - Applying parameters to S6
+2025-12-08 10:10:58 - FusionManufacturingPipeline - INFO - S6: Successfully updated 12 parameter(s)
+2025-12-08 10:11:11 - FusionManufacturingPipeline - INFO - S6: Model exported: Exported S6.step (950873 bytes)
+2025-12-08 10:11:13 - FusionManufacturingPipeline - INFO - S6: Parameters exported (CSV): Exported 169 parameters to S6_all_parameters.csv (22362 bytes)
+2025-12-08 10:11:14 - FusionManufacturingPipeline - INFO - S6: Parameters exported (JSON): Exported 168 parameters to S6_all_parameters.json (37513 bytes)
+2025-12-08 10:11:15 - FusionManufacturingPipeline - INFO - S6: Searching for drilling parameters in design
+2025-12-08 10:11:15 - FusionManufacturingPipeline - INFO - S6: Output path: M:\S2S File Test\output\gcode\IBUS366574\1-S6-IBUS366574-drilling.json
+2025-12-08 10:11:15 - FusionManufacturingPipeline - INFO - S6: Stile component detected - checking drilling flags
+2025-12-08 10:11:15 - FusionManufacturingPipeline - INFO - S6: No drilling required (all flags are 0)
+2025-12-08 10:11:15 - FusionManufacturingPipeline - WARNING - S6: Drilling coordinate export failed: No drilling required for S6 (all flags are 0)
+2025-12-08 10:11:15 - FusionManufacturingPipeline - WARNING - S6: Paired drilling coordinate export failed: Paired drilling coordinate export failed: 'function' object has no attribute 'warning'
+2025-12-08 10:11:16 - FusionManufacturingPipeline - INFO - S6: Starting CAM regeneration
+2025-12-08 10:11:16 - FusionManufacturingPipeline - INFO - S6: Accessing CAM product
+2025-12-08 10:11:16 - FusionManufacturingPipeline - INFO - S6: CAM product accessed
+2025-12-08 10:11:16 - FusionManufacturingPipeline - INFO - S6: Found 0 CAM setup(s): 
+2025-12-08 10:11:16 - FusionManufacturingPipeline - INFO - Created compiled drilling file: IBUS366574-all-drilling.json with 4 component(s)

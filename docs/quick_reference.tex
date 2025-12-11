@@ -1,0 +1,169 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\columnseprule}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+{\huge\textbf{Fusion 360 Manufacturing Pipeline}}\\
+\large Quick Reference Guide
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{multicols}{3}
+
+% COLUMN 1
+\begin{tcolorbox}[colback=blue!10,colframe=blue!70!black,title=\textbf{Quick Start}]
+\textbf{1. Start System}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item Open Fusion 360
+    \item SOLID → CREATE → Run Order
+    \item Click YES (Start Monitor)
+\end{itemize}
+
+\textbf{2. Submit Order}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item Create JSON file
+    \item Copy to \texttt{order\_dropbox}
+    \item Wait for completion
+\end{itemize}
+
+\textbf{3. Find Outputs}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item Check \texttt{output} folder
+    \item Look for order ID folder
+    \item Retrieve files
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.2cm}
+
+\begin{tcolorbox}[colback=green!10,colframe=green!70!black,title=\textbf{Folder Structure}]
+\texttt{\small
+M:\textbackslash S2S File Test\textbackslash\\
+├── input\textbackslash (models)\\
+├── order\_dropbox\textbackslash (submit here)\\
+├── order\_completed\textbackslash\\
+├── order\_failed\textbackslash (check errors)\\
+└── output\textbackslash\\
+\quad ├── models\textbackslash (STEP files)\\
+\quad ├── gcode\textbackslash (NC programs)\\
+\quad ├── parameters\textbackslash (CSV/JSON)\\
+\quad └── logs\textbackslash (order logs)
+}
+\end{tcolorbox}
+
+\vspace{0.2cm}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=orange!70!black,title=\textbf{File Naming}]
+\textbf{Models:} \texttt{D1.step}\\
+\textbf{G-Code:} \texttt{1-D1-IBUS366574.nc}\\
+\textbf{Parameters:} \texttt{D1\_all\_parameters.csv}\\
+\textbf{Logs:} \texttt{IBUS366574\_log.txt}
+\end{tcolorbox}
+
+% COLUMN 2
+\begin{tcolorbox}[colback=purple!10,colframe=purple!70!black,title=\textbf{JSON Format}]
+\texttt{\tiny
+\{\\
+\quad "order\_id": ["IBUS366574", "string", ""],\\
+\quad "doors": [\{\\
+\quad\quad "id": ["D1", "string", ""],\\
+\quad\quad "parameters": \{\\
+\quad\quad\quad "series\_id": ["3082G.67P", "string", ""],\\
+\quad\quad\quad "component\_height": [96.0, "float", ""],\\
+\quad\quad\quad "component\_width": [10.5, "float", ""]\\
+\quad\quad \}\\
+\quad \}],\\
+\quad "panels": [],\\
+\quad "stiles": []\\
+\}
+}
+\end{tcolorbox}
+
+\vspace{0.2cm}
+
+\begin{tcolorbox}[colback=blue!10,colframe=blue!70!black,title=\textbf{Required Parameters}]
+\textbf{All Components:}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item series\_id
+    \item component\_height
+    \item component\_width
+\end{itemize}
+
+\textbf{Doors Only:}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item door\_hinge\_height
+    \item door\_keep\_height
+    \item door\_floor\_clearance
+\end{itemize}
+
+\textbf{Stiles Only:}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item stile\_left\_side\_*
+    \item stile\_right\_side\_*
+\end{itemize}
+\end{tcolorbox}
+
+% COLUMN 3
+\begin{tcolorbox}[colback=red!10,colframe=red!70!black,title=\textbf{Troubleshooting}]
+\textbf{Order Failed?}
+\begin{enumerate}[noitemsep,leftmargin=*]
+    \item Check \texttt{order\_failed} folder
+    \item Read error log (.txt file)
+    \item Fix issue in JSON
+    \item Re-submit order
+\end{enumerate}
+
+\textbf{No Output Files?}
+\begin{itemize}[noitemsep,leftmargin=*]
+    \item Verify monitor is running
+    \item Check \texttt{order\_processing}
+    \item Check log file in \texttt{output\textbackslash logs}
+    \item Verify network access
+\end{itemize}
+
+\textbf{Restart System:}
+\begin{enumerate}[noitemsep,leftmargin=*]
+    \item Utilities → ADD-INS
+    \item Stop add-in
+    \item Run add-in
+    \item Start monitor
+\end{enumerate}
+\end{tcolorbox}
+
+\vspace{0.2cm}
+
+\begin{tcolorbox}[colback=gray!10,colframe=gray!70!black,title=\textbf{Component IDs}]
+\textbf{Doors:} D1, D2, D3, ...\\
+\textbf{Panels:} P1, P2, P3, ...\\
+\textbf{Stiles:} S1, S2, S3, ...\\
+
+\textbf{Order ID:} IBUSxxxxxx format
+\end{tcolorbox}
+
+\vspace{0.2cm}
+
+\begin{tcolorbox}[colback=green!10,colframe=green!70!black,title=\textbf{Contact}]
+\textbf{Engineering:} ME Department\\
+\textbf{System Issues:} IT Help Desk\\
+\textbf{Orders:} Business Unit Lead
+\end{tcolorbox}
+
+\end{multicols}
+
+\vspace{0.3cm}
+\hrule
+\vspace{0.2cm}
+\begin{center}
+\textbf{Processing Time:} $\sim$1-2 minutes per component \quad $\vert$ \quad \textbf{Network:} M:\textbackslash S2S File Test \quad $\vert$ \quad \textbf{Version:} 1.0
+\end{center}
+
+\end{document}

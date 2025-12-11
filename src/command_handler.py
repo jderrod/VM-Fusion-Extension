@@ -24,7 +24,7 @@ class RunOrderCommandHandler(adsk.core.CommandCreatedEventHandler):
     def notify(self, args: adsk.core.CommandCreatedEventArgs):
         """
         Called when command is created.
-        For Phase 1, execute immediately without showing a dialog.
+        Shows dialog to choose between single order or folder monitoring.
         """
         try:
             app_obj = adsk.core.Application.get()
@@ -36,6 +36,50 @@ class RunOrderCommandHandler(adsk.core.CommandCreatedEventHandler):
             logger.info("RUN ORDER COMMAND STARTED")
             logger.info(f"Log file: {logger.get_log_path()}")
             logger.info("=" * 80)
+            
+            # Check if monitor is running
+            from folder_monitor import get_monitor
+            monitor = get_monitor(app_obj)
+            
+            if monitor.is_running:
+                # Monitor is running - offer to stop it
+                result = ui.messageBox(
+                    'Folder Monitor is currently running.\n\n'
+                    'Click OK to stop monitoring, or Cancel to keep it running.',
+                    'Stop Monitor?',
+                    adsk.core.MessageBoxButtonTypes.OKCancelButtonType,
+                    adsk.core.MessageBoxIconTypes.QuestionIconType
+                )
+                
+                if result == adsk.core.DialogResults.DialogOK:
+                    monitor.stop()
+                return
+            
+            # Ask user what they want to do
+            from config import ORDER_DROPBOX
+            result = ui.messageBox(
+                'Choose an option:\n\n'
+                'YES = Start Folder Monitor (continuous processing)\n'
+                f'       Watch {ORDER_DROPBOX}\\ and process files automatically\n\n'
+                'NO = Process Single Order\n'
+                '       Process samples/JSON_9013830.json once\n\n'
+                'CANCEL = Exit',
+                'Specs to Machine - Choose Mode',
+                adsk.core.MessageBoxButtonTypes.YesNoCancelButtonType,
+                adsk.core.MessageBoxIconTypes.QuestionIconType
+            )
+            
+            if result == adsk.core.DialogResults.DialogYes:
+                # Start folder monitoring
+                logger.info("Starting folder monitor mode")
+                monitor.start()
+                return
+            elif result == adsk.core.DialogResults.DialogCancel:
+                # User cancelled
+                return
+            
+            # Continue with single order processing (NO was clicked)
+            logger.info("Processing single order")
             
             # Get order file path (v2 format only)
             repo_root = app.get_repo_root()

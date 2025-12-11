@@ -25,7 +25,7 @@ class ModelManager:
         
         Args:
             app: Fusion Application object
-            inputs_folder: Path to inputs folder (defaults to repo_root/inputs)
+            inputs_folder: Path to inputs folder (defaults to network INPUT_BASE from config)
         """
         self.app = app
         self.ui = app.userInterface
@@ -33,9 +33,9 @@ class ModelManager:
         
         # Set up inputs folder
         if inputs_folder is None:
-            # Default to repo_root/inputs
-            from app import get_repo_root
-            inputs_folder = str(get_repo_root() / 'inputs')
+            # Default to network INPUT_BASE from config
+            from config import INPUT_BASE
+            inputs_folder = str(INPUT_BASE)
         
         self.inputs_folder = Path(inputs_folder)
         self._ensure_folder_structure()

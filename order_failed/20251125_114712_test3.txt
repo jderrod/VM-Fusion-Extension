@@ -1,0 +1,19 @@
+Order IBUS366574 failed.
+
+0/14 components successful
+
+Failed components:
+  panels: P1: No CAM setups found in panel model
+  panels: P2: No CAM setups found in panel model
+  panels: P3: No CAM setups found in panel model
+  panels: P4: No CAM setups found in panel model
+  doors: D1: Exception: 'PostProcessor' object has no attribute 'logger'
+  doors: D2: Exception: 'PostProcessor' object has no attribute 'logger'
+  doors: D3: Exception: 'PostProcessor' object has no attribute 'logger'
+  doors: D4: Exception: 'PostProcessor' object has no attribute 'logger'
+  stiles: S1: No CAM setups found in stile model
+  stiles: S2: No CAM setups found in stile model
+  stiles: S3: No CAM setups found in stile model
+  stiles: S4: No CAM setups found in stile model
+  stiles: S5: No CAM setups found in stile model
+  stiles: S6: No CAM setups found in stile model
