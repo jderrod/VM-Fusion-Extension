@@ -1,0 +1,343 @@
+Type,Parameter Name,Value,Unit,Expression,Comment
+Metadata,series_id,3082G.67P,,3082G.67P,Input parameter (not in model)
+User,component_height,108.50000000000001,in,108.5 in,"001) Input - Model
+    Height of the stile"
+User,component_width,6.0,in,6.0 in,"000) Input - Model
+    Width of the component in inches"
+User,levelling_gap,1.0,in,1 in,"009) Fixed - Helper
+    We leave a 1"" gap between the bottom of the stile and the floor to account for anchoring hardware"
+User,hole_radius,0.25,in,0.25 in,"016) Fixed - Model
+    Radius of drilled holes"
+User,component_thickness,0.75,in,0.75 in,"017) Fixed - Helper
+    Thickness of the component"
+User,door_top_margin,1.72,in,1.72 in,"007) Fixed - Helper
+    Distance between top-most hole and top of door"
+User,LD_bottom_margin,1.72,in,1.72 in + if(LD_bottom_notching_actual_y_dist > 0 in; LD_bottom_notching_actual_y_dist; 0 in),"108) Derived - Helper
+    Distance between bottom-most hole and bottom of door on the door adjacent to the LEFT side of the stile"
+User,LD_swinging_out,0.0,,0,"103) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door"
+User,hinge_hole_space,1.5,in,1.5 in,"008) Fixed - Helper
+    Distance between a hinge's tope and bottom hole"
+User,hinge_hole_x_dist,1.268,in,1.268 in,"005) Fixed - Model
+    Horizontal distance between hinge holes and edge of stile"
+User,rabbeting_width,0.3,in,0.3 in,"015) Fixed - Model
+    Width of the rabbeting"
+User,rabbeting_depth,0.5,in,0.5 in,"018) Fixed - Helper
+    Depth of rabbeting"
+User,hinge_hole_depth,0.5625,in,0.5625 in,"019) Fixed - Helper
+    Depth of hinge hole"
+User,LD_top_hinge_hole_1_y_value,1.72,in,door_top_margin,"121) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_top_hinge_hole_2_y_value,3.22,in,LD_top_hinge_hole_1_y_value + hinge_hole_space,"122) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_inter_hinge_gap,23.374166666666667,in,( LD_height - ( door_top_margin ) - ( LD_bottom_margin + hinge_hole_space ) ) / 3,"107) Derived - Helper
+    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the LEFT side of the stile"
+User,LD_mid_top_hinge_offset,-0.0,in,( -1 * 0.823 * if(LD_floor_clearance == 1 in; 1; 0) ) * 1 in,"109) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile"
+User,LD_mid_top_hinge_hole_1_y_value,25.094166666666666,in,LD_top_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_top_hinge_offset,"123) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_mid_top_hinge_hole_2_y_value,26.594166666666666,in,LD_mid_top_hinge_hole_1_y_value + hinge_hole_space,"124) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_mid_bottom_hinge_offset,0.0,in,( 2 * 0.823 * if(LD_floor_clearance == 1 in; 1; 0) ) * 1 in,"110) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile"
+User,LD_mid_bottom_hinge_hole_1_y_value,48.468333333333334,in,LD_mid_top_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_bottom_hinge_offset,"125) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_mid_bottom_hinge_hole_2_y_value,49.968333333333334,in,LD_mid_bottom_hinge_hole_1_y_value + hinge_hole_space,"126) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_bottom_hinge_hole_1_y_value,71.8425,in,LD_mid_bottom_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_top_hinge_offset,"127) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,LD_bottom_hinge_hole_2_y_value,73.3425,in,LD_bottom_hinge_hole_1_y_value + hinge_hole_space,"128) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole"
+User,left_rabbeting_activation_offset,0.125,in,if(left_interior_rabbeting; ( 1 / 8 ) * 1 in; if(left_exterior_rabbeting; ( -1 / 8 ) * 1 in; component_thickness)),"113) Fixed - Helper
+    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create left rabbeting on the model"
+User,right_rabbeting_activation_offset,0.125,in,if(right_interior_rabbeting; ( 1 / 8 ) * 1 in; if(right_exterior_rabbeting; ( -1 / 8 ) * 1 in; component_thickness)),"213) Fixed - Helper
+    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create right rabbeting on the model"
+User,LD_floor_clearance,4.5,in,4.5 in,"105) Input - Helper
+    Floor clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)"
+User,LD_height,75.0625,in,75.0625 in,"104) Input - Helper
+    Height of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)"
+User,LD_stile_hole_modifier,29.937500000000007,in,component_height - ( LD_height + LD_floor_clearance - levelling_gap ),"111) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates"
+User,rabbeting_start_above_door,1.386,in,( ( 0.75 + 2.022 ) / 2 ) * 1 in,"013) Fixed - Helper
+    Distance by which rabbeting extends above door"
+User,rabbeting_stop_below_door,1.386,in,( ( 0.75 + 2.022 ) / 2 ) * 1 in,"014) Fixed - Helper
+    Distance by which rabbeting extends below door"
+User,rabbeting_insertion_radius,2.3,in,2.3 in,"020) Fixed - Helper
+    Radius of the rabbetting insertion curve"
+User,RD_swinging_out,0.0,,0,"203) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door"
+User,RD_floor_clearance,9.0,in,9.0 in,"205) Input - Helper
+    Floor clearance of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)"
+User,RD_height,98.75,in,98.75 in,"204) Input - Helper
+    Height of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)"
+User,RD_stile_hole_modifier,1.7500000000000198,in,component_height - ( RD_height + RD_floor_clearance - levelling_gap ),"211) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates"
+User,RD_top_hinge_hole_1_y_value,1.72,in,door_top_margin,"221) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_top_hinge_hole_2_y_value,3.22,in,RD_top_hinge_hole_1_y_value + hinge_hole_space,"222) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_inter_hinge_gap,31.270000000000003,in,( RD_height - ( door_top_margin ) - ( RD_bottom_margin + hinge_hole_space ) ) / 3,"207) Derived - Helper
+    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the RIGHT side of the stile
+"
+User,RD_mid_top_hinge_offset,-0.0,in,( -1 * 0.823 * if(RD_floor_clearance == 1 in; 1; 0) ) * 1 in,"209) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile"
+User,RD_mid_top_hinge_hole_1_y_value,32.99,in,RD_top_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_top_hinge_offset,"223) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_mid_top_hinge_hole_2_y_value,34.49,in,RD_mid_top_hinge_hole_1_y_value + hinge_hole_space,"224) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_mid_bottom_hinge_offset,0.0,in,( 2 * 0.823 * if(RD_floor_clearance == 1 in; 1; 0) ) * 1 in,"210) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile"
+User,RD_mid_bottom_hinge_hole_1_y_value,64.26,in,RD_mid_top_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_bottom_hinge_offset,"225) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_mid_bottom_hinge_hole_2_y_value,65.76,in,RD_mid_bottom_hinge_hole_1_y_value + hinge_hole_space,"226) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_bottom_hinge_hole_1_y_value,95.53,in,RD_mid_bottom_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_top_hinge_offset,"227) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,RD_bottom_hinge_hole_2_y_value,97.03,in,RD_bottom_hinge_hole_1_y_value + hinge_hole_space,"228) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole"
+User,left_side_door,1.0,,1,"101) Input - Helper
+    Whether there is a door adjacent to the left side of the stile"
+User,right_side_door,1.0,,1,"201) Input - Helper
+    Whether there is a door adjacent to the left side of the stile"
+User,LD_full_rabbeting_top,0.0,,if(LD_stile_hole_modifier - rabbeting_start_above_door < 2 in and left_side_door; 1; 0),"114) Derived - Helper
+    Whether rabbeting on the stile's left side extends all the way to the top"
+User,RD_full_rabbeting_top,1.0,,if(RD_stile_hole_modifier - rabbeting_start_above_door <= 2 in and right_side_door; 1; 0),"214) Derived - Helper
+    Whether rabbeting on the stile's right side extends all the way to the top"
+User,LD_full_rabbeting_bottom,1.0,,if(LD_floor_clearance < through_rabbeting_threshold and left_side_door; 1; 0),"115) Derived - Helper
+    Whether rabbeting on the stile's left side extends all the way to the bottom"
+User,RD_full_rabbeting_bottom,0.0,,if(RD_floor_clearance < through_rabbeting_threshold and right_side_door; 1; 0),"215) Derived - Helper
+    Whether rabbeting on the stile's right side extends all the way to the bottom"
+User,door_bottom_notching_standard_y_dist,3.3100000000000005,in,3.31 in,"006) Fixed - Helper
+    Height of door bottom notching cutout from bottom of door"
+User,stile_mid_top_hinge_offset,0.03125,in,1 / 32 * in,"010) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door"
+User,stile_mid_bottom_hinge_offset,0.03125,in,( 1 / 32 ) * 1 in,"011) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door"
+User,stile_bottom_hinge_offset,-0.3125,in,( -5 / 16 ) * 1 in,"012) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door"
+User,LD_hinging_right,0.0,,0,"102) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door"
+User,left_interior_rabbeting,1.0,,if(left_side_door and not(LD_swinging_out); 1; 0),"111) Derived - Model
+    Whether rabbeting is present the interior left edge of the stile"
+User,left_exterior_rabbeting,0.0,,if(left_side_door and LD_swinging_out; 1; 0),"112) Derived - Model
+    Whether rabbeting is present the exterior left edge of the stile"
+User,left_interior_drilling,0.0,,if(left_side_door and LD_hinging_right and not(LD_swinging_out); 1; 0),"119) Derived - Model
+    Whether drilling is present the interior left edge of the stile"
+User,left_exterior_drilling,0.0,,if(left_side_door and LD_hinging_right and LD_swinging_out; 1; 0),"120) Derived - Model
+    Whether drilling is present the exterior left edge of the stile"
+User,LD_stile_top_hinge_hole_1_y_value,31.657500000000006,in,LD_top_hinge_hole_1_y_value + LD_stile_hole_modifier,"131) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_top_hinge_hole_2_y_value,33.157500000000006,in,LD_stile_top_hinge_hole_1_y_value + hinge_hole_space,"132) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_mid_top_hinge_hole_1_y_value,55.06291666666667,in,LD_mid_top_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_mid_top_hinge_offset,"133) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_mid_top_hinge_hole_2_y_value,56.56291666666667,in,LD_stile_mid_top_hinge_hole_1_y_value + hinge_hole_space,"134) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_mid_bottom_hinge_hole_1_y_value,78.43708333333333,in,LD_mid_bottom_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_mid_bottom_hinge_offset,"135) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_mid_bottom_hinge_hole_2_y_value,79.93708333333333,in,LD_stile_mid_bottom_hinge_hole_1_y_value + hinge_hole_space,"136) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_bottom_hinge_hole_1_y_value,101.46750000000002,in,LD_bottom_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_bottom_hinge_offset,"137) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,LD_stile_bottom_hinge_hole_2_y_value,102.96750000000002,in,LD_stile_bottom_hinge_hole_1_y_value + hinge_hole_space,"138) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole"
+User,left_rabbeting_top,78.511,in,if(LD_stile_hole_modifier - rabbeting_start_above_door <= 2 in; component_net_height + 2 in; component_net_height - ( LD_stile_hole_modifier - rabbeting_start_above_door )),"116) Derived - Model
+    Distance from the top edge of the stile to the beginning of rabbeting on the left side of the stile. if the distance between the door and the top of the still is <2"""" then the rabbeting starts at the beginning of the stile with no radius cut in."
+User,left_rabbeting_bottom,-2.0,in,if(LD_floor_clearance < through_rabbeting_threshold; -2 in; component_net_height - ( LD_stile_hole_modifier + LD_height + rabbeting_stop_below_door )),"117) Derived - Model
+    Distance from the top edge of the stile to the end of rabbeting on the left side of the stile. if the door_floor_clearance equals 1"" or 4.5"", then the rabbeting goes all the way to the end of the stile with no radius cut in."
+User,RD_hinging_right,1.0,,1,"202) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door"
+User,RD_bottom_margin,1.72,in,1.72 in + if(RD_bottom_notching_actual_y_dist > 0 in; RD_bottom_notching_actual_y_dist; 0 in),"208) Derived - Helper
+    Distance between bottom-most hole and bottom of door on the door adjacent to the RIGHT side of the stile
+"
+User,right_interior_rabbeting,1.0,,if(right_side_door and not(RD_swinging_out); 1; 0),"211) Derived - Model
+    Whether rabbeting is present the interior right edge of the stile"
+User,right_exterior_rabbeting,0.0,,if(right_side_door and RD_swinging_out; 1; 0),"212) Derived - Model
+    Whether rabbeting is present the exterior right edge of the stile"
+User,right_interior_drilling,0.0,,if(right_side_door and not(RD_hinging_right) and not(RD_swinging_out); 1; 0),"219) Derived - Model
+    Whether drilling is present the interior right edge of the stile"
+User,right_exterior_drilling,0.0,,if(right_side_door and not(RD_hinging_right) and RD_swinging_out; 1; 0),"220) Derived - Model
+    Whether drilling is present the exterior right edge of the stile"
+User,RD_stile_top_hinge_hole_1_y_value,3.4700000000000197,in,RD_top_hinge_hole_1_y_value + RD_stile_hole_modifier,"231) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_top_hinge_hole_2_y_value,4.97000000000002,in,RD_stile_top_hinge_hole_1_y_value + hinge_hole_space,"232) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_mid_top_hinge_hole_1_y_value,34.77125000000002,in,RD_mid_top_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_mid_top_hinge_offset,"233) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_mid_top_hinge_hole_2_y_value,36.27125000000002,in,RD_stile_mid_top_hinge_hole_1_y_value + hinge_hole_space,"234) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_mid_bottom_hinge_hole_1_y_value,66.04125000000002,in,RD_mid_bottom_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_mid_bottom_hinge_offset,"235) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_mid_bottom_hinge_hole_2_y_value,67.54125000000002,in,RD_stile_mid_bottom_hinge_hole_1_y_value + hinge_hole_space,"236) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_bottom_hinge_hole_1_y_value,96.96750000000003,in,RD_bottom_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_bottom_hinge_offset,"237) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,RD_stile_bottom_hinge_hole_2_y_value,98.46750000000003,in,RD_stile_bottom_hinge_hole_1_y_value + hinge_hole_space,"238) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole"
+User,right_rabbeting_top,109.0625,in,if(RD_stile_hole_modifier - rabbeting_start_above_door <= 2 in; component_net_height + 2 in; component_net_height - ( RD_stile_hole_modifier - rabbeting_start_above_door )),"216) Derived - Model
+    Distance from the bottom edge of the stile to the beginning of rabbeting on the right side of the stile. if the distance between the door and the top of the still is <2"""" then the rabbeting starts at the beginning of the stile with no radius cut in."
+User,right_rabbeting_bottom,5.176499999999993,in,if(RD_floor_clearance < through_rabbeting_threshold; -2 in; component_net_height - ( RD_stile_hole_modifier + RD_height + rabbeting_stop_below_door )),"217) Derived - Model
+    Distance from the top edge of the stile to the end of rabbeting on the right side of the stile. if the door_floor_clearance equals 1"" or 4.5"", then the rabbeting goes all the way to the end of the stile with no radius cut in."
+User,LD_bottom_notching_actual_y_dist,-0.18999999999999917,in,( door_bottom_notching_standard_y_dist + 1 in ) - LD_floor_clearance,"106) Derived - Model
+    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch"
+User,RD_bottom_notching_actual_y_dist,-4.689999999999999,in,( door_bottom_notching_standard_y_dist + 1 in ) - RD_floor_clearance,"206) Derived - Model
+    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch"
+User,a_order_number,'N 001',Text,'N 001',501) Tag
+User,component_id,'3X82 Stile',Text,'3X82 Stile',502) Tag
+User,a_series,'3X82',Text,'3X82',503) Tag
+User,component_ceiling_clearance,5.0,in,5 in,"002) Input - Model
+    Allowance distance above the component"
+User,LD_swing,if(LD_swinging_out == 1; 'Outswing'; 'Inswing'),Text,if(LD_swinging_out == 1; 'Outswing'; 'Inswing'),103a
+User,RD_swing,if(RD_swinging_out == 1; 'Outswing'; 'Inswing'),Text,if(RD_swinging_out == 1; 'Outswing'; 'Inswing'),203a
+User,LD_hinge,if(LD_hinging_right; 'right-hand hinging'; 'left-hand hinging'),Text,if(LD_hinging_right; 'right-hand hinging'; 'left-hand hinging'),102a
+User,RD_hinge,if(RD_hinging_right; 'right-hand hinging'; 'left-hand hinging'),Text,if(RD_hinging_right; 'right-hand hinging'; 'left-hand hinging'),202a
+User,leveling_bar_additional_height,1.4375,in,1.4375 in,"003) Fixed - Model
+    Height by which levelling bar extends beyond the compact laminate"
+User,component_net_height,107.06250000000001,in,component_height - leveling_bar_additional_height,"004) Derived - Model
+    Height of the compact laminate component exclusive of the leveling bar"
+User,through_rabbeting_threshold,7.625,in,7.625 in,"021) Fixed - Helper
+    Threshold for engaging through-rabbeting
+"
+User,left_rabbeting_length,80.511,in,left_rabbeting_top - left_rabbeting_bottom,"118) Derived - Model
+    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting"
+User,right_rabbeting_length,103.88600000000001,in,right_rabbeting_top - right_rabbeting_bottom,"218) Derived - Model
+    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting"
+User,left_rabbet_tag,if(left_interior_rabbeting; 'interior - G59'; if(left_exterior_rabbeting; 'exterior - G57'; 'no rabbet')),Text,if(left_interior_rabbeting; 'interior - G59'; if(left_exterior_rabbeting; 'exterior - G57'; 'no rabbet')),504) Tag
+User,right_rabbet_tag,if(right_interior_rabbeting; 'interior - G57'; if(right_exterior_rabbeting; 'exterior - G59'; 'no rabbet')),Text,if(right_interior_rabbeting; 'interior - G57'; if(right_exterior_rabbeting; 'exterior - G59'; 'no rabbet')),505 ) Tag
+User,LD_rabbeting_top_tag,28.551500000000015,in,component_net_height - left_rabbeting_top,"139)
+Distance of the left rabbet start from the top of the panel"
+User,RD_rabbet_top_tag,-1.9999999999999938,in,component_net_height - right_rabbeting_top,"239)
+Distance of the right rabbet start from the top of the panel"
+Model,d10,1.0,in,levelling_gap,
+Model,d11,108.50000000000001,in,component_height,
+Model,d12,6.0,in,component_width,
+Model,d24,0.25,in,hole_radius,
+Model,d27,0.25,in,hole_radius,
+Model,d30,0.25,in,hole_radius,
+Model,d32,0.25,in,hole_radius,
+Model,d117,0.25,in,hole_radius,
+Model,d118,0.25,in,hole_radius,
+Model,d119,0.25,in,hole_radius,
+Model,d120,0.25,in,hole_radius,
+Model,d122,1.268,in,hinge_hole_x_dist,
+Model,d123,1.268,in,hinge_hole_x_dist,
+Model,d125,2.3,in,2.3 in,
+Model,d137,0.3,in,rabbeting_width,
+Model,d144,4.5,in,if(LD_floor_clearance <= 4.5 in; 4.5 in; LD_floor_clearance),
+Model,d145,31.657500000000006,in,LD_stile_top_hinge_hole_1_y_value,
+Model,d146,33.157500000000006,in,LD_stile_top_hinge_hole_2_y_value,
+Model,d147,55.06291666666667,in,LD_stile_mid_top_hinge_hole_1_y_value,
+Model,d148,56.56291666666667,in,LD_stile_mid_top_hinge_hole_2_y_value,
+Model,d149,78.43708333333333,in,LD_stile_mid_bottom_hinge_hole_1_y_value,
+Model,d150,79.93708333333333,in,LD_stile_mid_bottom_hinge_hole_2_y_value,
+Model,d151,101.46750000000002,in,LD_stile_bottom_hinge_hole_1_y_value,
+Model,d152,102.96750000000002,in,LD_stile_bottom_hinge_hole_2_y_value,
+Model,d161,2.0325,in,2.0325 in,
+Model,d163,0.3,in,rabbeting_width,
+Model,d164,2.3,in,rabbeting_insertion_radius,
+Model,d185,3.4700000000000197,in,RD_stile_top_hinge_hole_1_y_value,
+Model,d186,4.97000000000002,in,RD_stile_top_hinge_hole_2_y_value,
+Model,d187,34.77125000000002,in,RD_stile_mid_top_hinge_hole_1_y_value,
+Model,d188,36.27125000000002,in,RD_stile_mid_top_hinge_hole_2_y_value,
+Model,d189,66.04125000000002,in,RD_stile_mid_bottom_hinge_hole_1_y_value,
+Model,d190,67.54125000000002,in,RD_stile_mid_bottom_hinge_hole_2_y_value,
+Model,d191,96.96750000000003,in,RD_stile_bottom_hinge_hole_1_y_value,
+Model,d192,98.46750000000003,in,RD_stile_bottom_hinge_hole_2_y_value,
+Model,d194,9.0,in,if(RD_floor_clearance <= 4.5 in; 4.5 in; RD_floor_clearance),
+Model,d260,1.4375,in,leveling_bar_additional_height,
+Model,d261,0.5,in,0.5 in,
+Model,d262,0.5,in,0.5 in,
+Model,d317,-2.0,in,left_rabbeting_bottom,
+Model,d318,78.511,in,left_rabbeting_top,
+Model,d320,5.176499999999993,in,right_rabbeting_bottom,
+Model,d321,109.0625,in,right_rabbeting_top,
+Model,d78,2.0,in,2 in,
+Model,d79,'outside surface',Text,'outside surface',
+Model,d220,11.0,in,11.0000 in,
+Model,d221,6.0,in,6.0000 in,
+Model,d263,0.179,in,0.179 in,
+Model,d264,0.179,in,0.179 in,
+Model,d265,0.94,in,0.94 in,
+Model,d266,2.5,in,2.5 in,
+Model,d270,1.0,in,1 in,
+Model,d271,1.0,in,1 in,
+Model,d272,1.0,in,1 in,
+Model,d273,1.0,in,1 in,
+Model,d274,2.3,in,rabbeting_insertion_radius,
+Model,d275,4.25,in,( if(RD_full_rabbeting_top; 4.25; 1) ) * 1 in,
+Model,d276,1.0,in,( if(RD_full_rabbeting_bottom; 2.75; 1) ) * 1 in,
+Model,d277,1.0,in,( if(LD_full_rabbeting_top; 4.25; 1) ) * 1 in,
+Model,d278,2.75,in,( if(LD_full_rabbeting_bottom; 2.75; 1) ) * 1 in,
+Model,d281,0.25,in,0.25 in,
+Model,d282,0.25,in,0.25 in,
+Model,d283,0.25,in,0.25 in,
+Model,d284,0.25,in,0.25 in,
+Model,d286,0.25,in,0.25 in,
+Model,d287,0.25,in,0.25 in,
+Model,d288,0.25,in,0.25 in,
+Model,d289,0.25,in,0.25 in,
+Model,d290,0.25,in,0.25 in,
+Model,d291,0.5,in,0.5 in,
+Model,d292,0.5,in,0.5 in,
+Model,d343,1.0,in,1 in,
+Model,d344,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_top_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d345,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_top_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d346,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_mid_top_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d347,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_mid_top_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d348,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_mid_bottom_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d349,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_mid_bottom_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d350,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_bottom_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d351,1.0,in,if(left_side_door and LD_hinging_right; LD_stile_bottom_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d352,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_top_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d353,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_top_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d354,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_mid_top_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d355,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_mid_top_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d356,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_mid_bottom_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d357,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_mid_bottom_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d358,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_bottom_hinge_hole_1_y_value + 1 in; 1 in),
+Model,d359,1.0,in,if(right_side_door and not(RD_hinging_right); RD_stile_bottom_hinge_hole_2_y_value + 1 in; 1 in),
+Model,d293,0.75,in,component_thickness,
+Model,d294,2.0,in,2 in,
+Model,d295,2.0,in,2 in,
+Model,d296,0.3,in,0.3 in,
+Model,d297,0.5,in,0.5 in,
+Model,d306,0.5,in,hole_radius * 2,
+Model,d307,0.5625,in,hinge_hole_depth,
+Model,d322,0.75,in,component_thickness,
+Model,d323,0.25,in,0.25 in,
+Model,d324,0.25,in,0.25 in,
+Model,d325,0.25,in,0.25 in,
+Model,d326,0.25,in,0.25 in,
+Model,d39,0.75,in,component_thickness,
+Model,d40,0.0,deg,0.00 deg,
+Model,d47,0.125,in,left_rabbeting_activation_offset,
+Model,d48,0.5,in,rabbeting_depth,
+Model,d49,0.0,deg,0.00 deg,
+Model,d51,0.5625,in,hinge_hole_depth,
+Model,d52,0.0,deg,0.00 deg,
+Model,d53,0.75,in,if(right_exterior_drilling; -component_thickness / 2 + hinge_hole_depth / 2; if(right_interior_drilling; component_thickness / 2 - hinge_hole_depth / 2; component_thickness)),
+Model,d114,0.5,in,rabbeting_depth,
+Model,d115,0.0,deg,0.00 deg,
+Model,d116,0.125,in,right_rabbeting_activation_offset,
+Model,d217,0.75,in,if(left_exterior_drilling; -component_thickness / 2 + hinge_hole_depth / 2; if(left_interior_drilling; component_thickness / 2 - hinge_hole_depth / 2; component_thickness)),
+Model,d218,0.5625,in,hinge_hole_depth,
+Model,d219,0.0,deg,0.00 deg,
+Model,d82,0.125,in,( 1 / 8 ) * 1 in,
+Model,d83,0.125,in,( 1 / 8 ) * 1 in,
+Model,d84,0.0,deg,0.00 deg,
+Model,d267,5.0,in,component_width - 1 in,
+Model,d268,0.0,deg,0.00 deg,

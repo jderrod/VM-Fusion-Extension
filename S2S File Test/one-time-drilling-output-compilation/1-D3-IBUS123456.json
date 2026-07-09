@@ -1,0 +1,119 @@
+{
+  "IBUS123456": {
+    "unit": "in",
+    "description": "Compiled paired drilling coordinates for all components organized by type",
+    "doors": [
+      {
+        "component_id": "1-D3-IBUS123456",
+        "coordinates": [
+          {
+            "ProgramName": "top_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 5.22,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "top_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 6.72,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 29.168,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 30.668,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 55.585,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 57.085,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 79.532,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 81.032,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": 1,
+            "SSMA_TimeStamp": null,
+            "Fusion_TimeStamp": "2026-03-17 10:36:36",
+            "DrillName": "3082G.67P LH O/S DOOR"
+          }
+        ]
+      }
+    ],
+    "panels": [],
+    "stiles": []
+  }
+}

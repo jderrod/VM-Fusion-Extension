@@ -1,0 +1,14 @@
+{
+  "Panel XX8X (XX8X_PV)": {
+    "expected_csv": "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\expected_output\\3X86 Stile inputs & outputs v08 macro_enabled 2026_03_12(ValidationOutputs).csv",
+    "actual_dirs": [
+      "C:\\Users\\james.derrod\\VM Fusion Extension\\S2S File Test\\output\\parameters",
+      "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\actual_output"
+    ],
+    "scenario_prefix": "XX8X_PV_",
+    "actual_file_pattern": "P1_all_parameters.json",
+    "param_name_mapping": {},
+    "scenario_json_dir": "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\panel_validation_tests",
+    "generator_script": "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\generate_panel_jsons.py"
+  }
+}

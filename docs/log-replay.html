@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fusion Manufacturing Pipeline — Log Replay</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1e1e1e;
+    color: #cccccc;
+    font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.45;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Title bar ── */
+  .titlebar {
+    background: #323233;
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 12px;
+    user-select: none;
+    flex-shrink: 0;
+    border-bottom: 1px solid #252526;
+  }
+  .titlebar .dots { display: flex; gap: 6px; margin-right: 14px; }
+  .titlebar .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red   { background: #ff5f57; }
+  .dot.yel   { background: #febc2e; }
+  .dot.grn   { background: #28c840; }
+  .titlebar .title { flex: 1; text-align: center; opacity: 0.7; }
+
+  /* ── Terminal body ── */
+  #terminal {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 14px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  #terminal::-webkit-scrollbar { width: 8px; }
+  #terminal::-webkit-scrollbar-track { background: #1e1e1e; }
+  #terminal::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+
+  /* ── Line styling ── */
+  .line { min-height: 1.45em; }
+  .ts   { color: #6a9955; }          /* timestamp green */
+  .src  { color: #569cd6; }          /* MONITOR blue */
+  .lvl-info  { color: #dcdcaa; }     /* INFO yellow */
+  .lvl-warn  { color: #ce9178; }     /* WARN orange */
+  .lvl-err   { color: #f44747; }     /* ERROR red */
+  .sep  { color: #555; }             /* separators */
+  .msg  { color: #cccccc; }
+  .highlight { color: #4ec9b0; }     /* filenames / paths */
+
+  /* blinking cursor */
+  #cursor {
+    display: inline-block;
+    width: 7px;
+    height: 14px;
+    background: #cccccc;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── Controls bar ── */
+  .controls {
+    background: #252526;
+    border-top: 1px solid #3c3c3c;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    font-size: 12px;
+  }
+  .controls button {
+    background: #0e639c;
+    color: #fff;
+    border: none;
+    padding: 4px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  .controls button:hover { background: #1177bb; }
+  .controls button:disabled { opacity: 0.4; cursor: default; }
+  .controls .status { opacity: 0.6; }
+  .controls label { opacity: 0.7; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+  .controls input[type="range"] { width: 90px; }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="dots">
+    <div class="dot red"></div>
+    <div class="dot yel"></div>
+    <div class="dot grn"></div>
+  </div>
+  <div class="title">folder_monitor.log — Fusion Manufacturing Pipeline v2.4.21</div>
+</div>
+
+<div id="terminal"></div>
+
+<div class="controls">
+  <button id="btnPlay">&#9654; Play</button>
+  <button id="btnPause" disabled>&#10074;&#10074; Pause</button>
+  <button id="btnSkip">&#9193; Skip to End</button>
+  <label>Speed <input type="range" id="speedSlider" min="1" max="20" value="10"><span id="speedLabel">1&times;</span></label>
+  <span class="status" id="status">Ready</span>
+</div>
+
+<script>
+const RAW_LOG = [
+"2026-04-08 16:26:50 - MONITOR - ============================================================",
+"2026-04-08 16:26:50 - MONITOR - MONITOR LOG INITIALIZED",
+"2026-04-08 16:26:50 - MONITOR - Log file: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\logs\\folder_monitor.log",
+"2026-04-08 16:26:50 - MONITOR - Dropbox folder: \\\\ddc-mefs\\iBob-Export\\S2S_Export",
+"2026-04-08 16:26:50 - MONITOR - ============================================================",
+"2026-04-08 16:26:50 - MONITOR - INFO - ================================================================================",
+"2026-04-08 16:26:50 - MONITOR - INFO - FOLDER MONITOR STARTED  v2.4.21  (mode=VM)",
+"2026-04-08 16:26:50 - MONITOR - INFO - Watching: \\\\ddc-mefs\\iBob-Export\\S2S_Export",
+"2026-04-08 16:26:50 - MONITOR - INFO - CAM generation: ENABLED",
+"2026-04-08 16:26:50 - MONITOR - INFO - Drawing generation: ENABLED",
+"2026-04-08 16:26:50 - MONITOR - INFO - ================================================================================",
+"2026-04-08 16:26:50 - MONITOR - INFO - Inputs folder structure ready: \\\\ddc-mefs\\Fusion\\Fusion Folders\\input",
+"2026-04-08 16:26:50 - MONITOR - INFO - Found door model: door_3X8X.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Found panel model: panel_3X8X.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Found stile model for series 3081: stile_3X81.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Found stile model for series 3082: stile_3X82.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Found stile model for series 3086: stile_3X86.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Default stile model: stile_3X81.f3d",
+"2026-04-08 16:26:50 - MONITOR - INFO - Discovered 3 stile model(s): ['3081', '3082', '3086']",
+"2026-04-08 16:26:50 - MONITOR - INFO - Setting up cloud models from Fusion Hub...",
+"2026-04-08 16:26:50 - MONITOR - INFO - Cloud config: door=3X8X_Door, panel=3X8X_Panel_Standard",
+"2026-04-08 16:26:50 - MONITOR - INFO - ========== CLOUD MODEL SETUP ==========",
+"2026-04-08 16:26:50 - MONITOR - INFO - Project: \"Bobrick - Component modeling\"",
+"2026-04-08 16:26:50 - MONITOR - INFO - Folder: \"3X8X Components\"",
+"2026-04-08 16:26:50 - MONITOR - INFO - Door: \"3X8X_Door\", Drawing: \"3X8X_Door Drawing\"",
+"2026-04-08 16:26:50 - MONITOR - INFO - Panel: \"3X8X_Panel_Standard\", Drawing: \"3X8X_Panel_Standard Drawing\"",
+"2026-04-08 16:26:50 - MONITOR - INFO - Stiles: {'3082': '3X82_Stile', '3086': '3X86_Stile'}",
+"2026-04-08 16:26:50 - MONITOR - INFO - Clearing stale cloud cache in: C:\\Users\\mefusion\\AppData\\Local\\Autodesk\\Autodesk Fusion 360\\UnknownUser\\W.login\\F",
+"2026-04-08 16:26:50 - MONITOR - INFO - Cloud cache cleanup: no stale files found",
+"2026-04-08 16:26:50 - MONITOR - INFO - Searching for door model: \"3X8X_Door\"...",
+"2026-04-08 16:26:51 - MONITOR - INFO - Found cloud door model: 3X8X_Door",
+"2026-04-08 16:26:53 - MONITOR - INFO - Found cloud door drawing: 3X8X_Door Drawing",
+"2026-04-08 16:26:55 - MONITOR - INFO - Found cloud panel model: 3X8X_Panel_Standard",
+"2026-04-08 16:26:56 - MONITOR - INFO - Found cloud panel drawing: 3X8X_Panel_Standard Drawing",
+"2026-04-08 16:26:58 - MONITOR - INFO - Found cloud stile model for series 3082: 3X82_Stile",
+"2026-04-08 16:26:59 - MONITOR - INFO - Found cloud stile model for series 3086: 3X86_Stile",
+"2026-04-08 16:27:01 - MONITOR - INFO - Found cloud stile drawing for series 3082: 3X82_Stile Drawing",
+"2026-04-08 16:27:02 - MONITOR - INFO - Found cloud stile drawing for series 3086: 3X86_Stile Drawing",
+"2026-04-08 16:27:02 - MONITOR - INFO - Cloud models configured: 4 found",
+"2026-04-08 16:27:02 - MONITOR - INFO - Cloud models: Cloud models configured: 4 found",
+"2026-04-08 16:27:02 - MONITOR - INFO - Opening all models...",
+"2026-04-08 16:27:02 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Door...",
+"2026-04-08 16:27:04 - MONITOR - INFO - Using fresh DataFile for 3X8X_Door",
+"2026-04-08 16:27:04 - MONITOR - INFO - Opening cloud door model: 3X8X_Door (documents count before: 1)",
+"2026-04-08 16:27:09 - MONITOR - INFO - Opened cloud door model: 3X8X_Door (documents count after: 2)",
+"2026-04-08 16:27:09 - MONITOR - INFO - Opened cloud door model at startup: Opened cloud door model: 3X8X_Door",
+"2026-04-08 16:27:11 - MONITOR - INFO - ========== STARTUP MODEL SUMMARY ==========",
+"2026-04-08 16:27:11 - MONITOR - INFO - Opened: door (cloud)  Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3082, 3086)",
+"2026-04-08 16:27:11 - MONITOR - INFO - Models opened: Opened: door (cloud)  Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3082, 3086)",
+"2026-04-08 16:27:11 - MONITOR - INFO - Drawing generation enabled   drawings will be opened on-demand (first order that needs one)",
+"2026-04-08 16:27:22 - MONITOR - Starting periodic file check (3 second interval)...",
+"2026-04-08 16:28:22 - MONITOR - Timer heartbeat #20 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:28:34 - MONITOR - NEW FILE detected: 20260325_163916_3X8X_DV_0022.json",
+"2026-04-08 16:28:34 - MONITOR - INFO - New file detected: 20260325_163916_3X8X_DV_0022.json",
+"2026-04-08 16:28:34 - MONITOR - INFO - Processing order: 20260325_163916_3X8X_DV_0022.json",
+"2026-04-08 16:28:34 - MONITOR - INFO - Moved to processing folder",
+"2026-04-08 16:28:34 - MONITOR - INFO - Loading order (v2) from: \\\\ddc-mefs\\Fusion\\Fusion Folders\\order_processing\\20260325_163916_3X8X_DV_0022.json",
+"2026-04-08 16:28:34 - MONITOR - INFO - Processing order (v2): 3X8X_DV_0022",
+"2026-04-08 16:28:34 - MONITOR - INFO - Order log created: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\logs\\3X8X_DV_0022_log.txt",
+"2026-04-08 16:28:34 - MONITOR - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3082, 3086)'}",
+"2026-04-08 16:28:34 - MONITOR - INFO - No panels in order",
+"2026-04-08 16:28:34 - MONITOR - INFO - Processing 1 doors",
+"2026-04-08 16:28:34 - MONITOR - INFO - Processing door 1/1: D1",
+"2026-04-08 16:28:34 - MONITOR - INFO -   Parameters to apply: 12",
+"2026-04-08 16:28:34 - MONITOR - INFO - Cached cloud door model already active: 3X8X_Door",
+"2026-04-08 16:28:34 - MONITOR - INFO - D1: Switched to cloud door model: 3X8X_Door",
+"2026-04-08 16:28:34 - MONITOR - INFO - Applying parameters to D1",
+"2026-04-08 16:28:34 - MONITOR - INFO - D1: Model has 62 user params, JSON has 12 params",
+"2026-04-08 16:28:34 - MONITOR - INFO - D1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'door_wall_post_latching', 'floor_to_ceiling']",
+"2026-04-08 16:28:34 - MONITOR - INFO - D1: Skipped (not in model): ['series_id']",
+"2026-04-08 16:28:42 - MONITOR - INFO - D1: Successfully updated 11 parameter(s)",
+"2026-04-08 16:28:42 - MONITOR - INFO - D1: Updated 'a_order_number' from ''3X8X_DV_0009'' to ''3X8X_DV_0022'' (actual: ''3X8X_DV_0022'')",
+"2026-04-08 16:28:42 - MONITOR - INFO - Saving 3X8X_Door (v364, isModified=True)",
+"2026-04-08 16:28:43 - MONITOR - INFO - Save completed for 3X8X_Door",
+"2026-04-08 16:28:43 - MONITOR - INFO - D1: Post-parameter save: 3X8X_Door: saved (clearing dirty flag)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Model exported: Exported D1.step (857815 bytes)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Parameters exported (CSV): Exported 143 parameters to D1_all_parameters.csv (16466 bytes)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Parameters exported (JSON): Exported 142 parameters to D1_all_parameters.json (29247 bytes)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Found hinge_hole_x_dist = 0.968 in",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: workstop=4, DrillName=3082G.67P RH I/S DOOR (hinging_right=True, swinging_out=False)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: FlipRotate=1 (rotate, door)",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Only workstop 4 used, added dummy entry on workstop 1",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Computed 9 paired coordinates for D1",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Exporting cutlist CSV to \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\3X8X_DV_0022\\1-D1-3X8X_DV_0022.csv",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Width=36.0625, Length=79.75",
+"2026-04-08 16:28:51 - MONITOR - INFO - D1: Cutlist - Series=3082G.67P, FC=9.0, Gapping=[1,1,0,0], GappingTop=[1,1,0,0], Thickness=0.75",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: Cutlist CSV exported successfully (1095 bytes)",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: Cutlist CSV exported: Exported cutlist to 1-D1-3X8X_DV_0022.csv (1095 bytes)",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: Cutlist CSV copied to network: \\\\ddc-mefs\\Voorwood\\1-D1-3X8X_DV_0022.csv",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: Starting drawing export",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: Model not modified, skipping save",
+"2026-04-08 16:28:52 - MONITOR - INFO - DrawingExporter initialized. Output: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings",
+"2026-04-08 16:28:52 - MONITOR - INFO - D1: No cached drawing   first order will open from cloud (may take minutes)",
+"2026-04-08 16:28:52 - MONITOR - INFO - === open_drawing: 3X8X_Door Drawing ===",
+"2026-04-08 16:28:52 - MONITOR - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ",
+"2026-04-08 16:28:52 - MONITOR - INFO -   data_file.versionNumber: 12",
+"2026-04-08 16:28:52 - MONITOR - INFO -   data_file.fileExtension: f2d",
+"2026-04-08 16:28:52 - MONITOR - INFO -   pre_opened_doc: False",
+"2026-04-08 16:28:52 - MONITOR - INFO -   documents.count: 1",
+"2026-04-08 16:28:52 - MONITOR - INFO -   consecutive_open_failures: 0",
+"2026-04-08 16:28:52 - MONITOR - INFO - Scanning 1 open documents for drawing...",
+"2026-04-08 16:28:52 - MONITOR - INFO -   doc[0]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:28:52 - MONITOR - INFO - Skipping doc cleanup   cloud docs stay open to avoid poisoning Fusion state",
+"2026-04-08 16:28:52 - MONITOR - INFO - === PRE-OPEN STATE ===",
+"2026-04-08 16:28:52 - MONITOR - INFO -   documents.count: 1",
+"2026-04-08 16:28:52 - MONITOR - INFO -   doc[0]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:28:52 - MONITOR - INFO -   activeDocument: 3X8X_Door",
+"2026-04-08 16:28:52 - MONITOR - INFO -   activeProduct: adsk::fusion::Design",
+"2026-04-08 16:28:52 - MONITOR - INFO -   data_file to open: 3X8X_Door Drawing (id=urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ)",
+"2026-04-08 16:28:52 - MONITOR - INFO - === CALLING documents.open() NOW ===",
+"2026-04-08 16:28:59 - MONITOR - NEW FILE detected: 20260326_165711_XX8X_PV_0154.json",
+"2026-04-08 16:28:59 - MONITOR - INFO - New file detected: 20260326_165711_XX8X_PV_0154.json",
+"2026-04-08 16:28:59 - MONITOR - NEW FILE detected: 20260331_104627_3X82_SV_0013.json",
+"2026-04-08 16:28:59 - MONITOR - INFO - New file detected: 20260331_104627_3X82_SV_0013.json",
+"2026-04-08 16:29:01 - MONITOR - INFO - documents.open() returned (9.3s), docs after: 3",
+"2026-04-08 16:29:01 - MONITOR - INFO - Returned doc: name=3X8X_Door Drawing, isValid=True",
+"2026-04-08 16:29:01 - MONITOR - INFO - Settling drawing after open (sleep only, no doEvents)...",
+"2026-04-08 16:29:06 - MONITOR - INFO - Settle-open complete",
+"2026-04-08 16:29:06 - MONITOR - INFO - Activating drawing document...",
+"2026-04-08 16:29:07 - MONITOR - INFO - doc.activate() returned",
+"2026-04-08 16:29:12 - MONITOR - INFO - Settle-activate complete",
+"2026-04-08 16:29:12 - MONITOR - INFO - After settle: activeDoc=3X8X_Door Drawing, activeProduct=adsk::drawing::Drawing",
+"2026-04-08 16:29:12 - MONITOR - INFO - DrawingDocument cast succeeded (0.0s)",
+"2026-04-08 16:29:12 - MONITOR - INFO - Drawing opened successfully: 3X8X_Door Drawing (9.3s)",
+"2026-04-08 16:29:12 - MONITOR - INFO - First drawing update: using updateAllReferences() (no close/reopen)...",
+"2026-04-08 16:29:12 - MONITOR - INFO - Drawing references (1):",
+"2026-04-08 16:29:12 - MONITOR - INFO -   Ref[0]: unknown, isOutOfDate=True, refDoc=3X8X_Door, version=v364, latestVersion=365, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']",
+"2026-04-08 16:29:13 - MONITOR - INFO - Calling updateAllReferences()...",
+"2026-04-08 16:29:13 - MONITOR - INFO - Waiting for drawing views to regenerate...",
+"2026-04-08 16:29:14 - MONITOR - INFO - Drawing views regenerated after 1s",
+"2026-04-08 16:29:14 - MONITOR - INFO - updateAllReferences() completed",
+"2026-04-08 16:29:14 - MONITOR - INFO - Drawing references (1):",
+"2026-04-08 16:29:14 - MONITOR - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door, version=v365, latestVersion=365, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']",
+"2026-04-08 16:29:14 - MONITOR - INFO - Drawing isUpToDate after update: True",
+"2026-04-08 16:29:14 - MONITOR - INFO - Settling before PDF export (sleep only)...",
+"2026-04-08 16:29:19 - MONITOR - INFO - Settle complete",
+"2026-04-08 16:29:19 - MONITOR - INFO - Starting PDF export (door)",
+"2026-04-08 16:29:19 - MONITOR - INFO - export_drawing_to_pdf: re-activating drawing...",
+"2026-04-08 16:29:19 - MONITOR - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Door Drawing",
+"2026-04-08 16:29:22 - MONITOR - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Door Drawing",
+"2026-04-08 16:29:22 - MONITOR - INFO - Exporting drawing to PDF: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\3X8X_DV_0022\\1-D1-3X8X_DV_0022-drawing.pdf",
+"2026-04-08 16:29:22 - MONITOR - INFO - Network path detected   exporting to local temp: C:\\Users\\mefusion\\AppData\\Local\\Temp\\fusion_drawing_f__gi6m9\\1-D1-3X8X_DV_0022-drawing.pdf",
+"2026-04-08 16:29:22 - MONITOR - INFO - Executing PDF export...",
+"2026-04-08 16:29:23 - MONITOR - INFO - PDF exported locally: 1-D1-3X8X_DV_0022-drawing.pdf (263417 bytes)",
+"2026-04-08 16:29:23 - MONITOR - INFO - PDF copied to network: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\3X8X_DV_0022\\1-D1-3X8X_DV_0022-drawing.pdf",
+"2026-04-08 16:29:23 - MONITOR - INFO - Drawing exported: 1-D1-3X8X_DV_0022-drawing.pdf (263417 bytes)",
+"2026-04-08 16:29:23 - MONITOR - INFO - D1: Drawing exported: Exported drawing to 1-D1-3X8X_DV_0022-drawing.pdf (263417 bytes)",
+"2026-04-08 16:29:23 - MONITOR - INFO - D1: Door drawing cached for future orders",
+"2026-04-08 16:29:23 - MONITOR - INFO - Activating cached cloud door model: 3X8X_Door",
+"2026-04-08 16:29:26 - MONITOR - INFO - D1: Door model re-activated after drawing export",
+"2026-04-08 16:29:26 - MONITOR - INFO - Model 3X8X_Door is not modified, skip save",
+"2026-04-08 16:29:26 - MONITOR - INFO - D1: Pre-CAM save: 3X8X_Door: not modified, no save needed",
+"2026-04-08 16:29:26 - MONITOR - INFO - D1: Starting CAM regeneration",
+"2026-04-08 16:29:26 - MONITOR - INFO - D1: Accessing CAM product",
+"2026-04-08 16:29:28 - MONITOR - INFO - Activated Manufacturing workspace",
+"2026-04-08 16:29:28 - MONITOR - INFO - D1: CAM product accessed",
+"2026-04-08 16:29:28 - MONITOR - INFO - D1: Found 2 CAM setup(s): G57 Left, G59 Right",
+"2026-04-08 16:29:28 - MONITOR - INFO - unsuppress_all_door_operations: Unsuppressed \"G57 Left\" / \"Bottom Notch\"",
+"2026-04-08 16:29:28 - MONITOR - INFO - unsuppress_all_door_operations: Unsuppressed \"G57 Left\" / \"Top Notch\"",
+"2026-04-08 16:29:28 - MONITOR - INFO - unsuppress_all_door_operations: Unsuppressed \"G59 Right\" / \"Bottom Notch\"",
+"2026-04-08 16:29:28 - MONITOR - INFO - unsuppress_all_door_operations: Unsuppressed \"G59 Right\" / \"Top Notch\"",
+"2026-04-08 16:29:28 - MONITOR - INFO - D1: Pre-regen unsuppress: Unsuppressed 4 operation(s)",
+"2026-04-08 16:29:28 - MONITOR - INFO - D1: Regenerating toolpaths for all setups",
+"2026-04-08 16:29:28 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (2 setup(s))",
+"2026-04-08 16:29:35 - MONITOR - Timer heartbeat #40 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:29:43 - MONITOR - INFO - generateAllToolpaths completed in 14.8s",
+"2026-04-08 16:29:43 - MONITOR - INFO - G57 Left: Regenerated 3/3 toolpaths",
+"2026-04-08 16:29:43 - MONITOR - INFO - G59 Right: Regenerated 3/3 toolpaths",
+"2026-04-08 16:29:43 - MONITOR - INFO - D1: Setup \"G57 Left\": Regenerated 3/3 toolpaths",
+"2026-04-08 16:29:43 - MONITOR - INFO - D1: Setup \"G59 Right\": Regenerated 3/3 toolpaths",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"left_interior_rabbeting\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"left_exterior_rabbeting\" value=1.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"right_interior_rabbeting\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"right_exterior_rabbeting\" value=1.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"bottom_left_notching\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"bottom_right_notching\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"top_left_notching\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: \"top_right_notching\" value=0.0",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: desired active state: {('G57 Left', 'Rabbet'): True, ('G57 Left', 'Bottom Notch'): False, ('G57 Left', 'Top Notch'): False, ('G59 Right', 'Rabbet'): True, ('G59 Right', 'Bottom Notch'): False, ('G59 Right', 'Top Notch'): False}",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: setup \"G57 Left\" operations: ['Rabbet', 'Bottom Notch', 'Top Notch']",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: setup \"G59 Right\" operations: ['Rabbet', 'Bottom Notch', 'Top Notch']",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: Suppressed \"G57 Left\" / \"Bottom Notch\"",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: Suppressed \"G57 Left\" / \"Top Notch\"",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: Suppressed \"G59 Right\" / \"Bottom Notch\"",
+"2026-04-08 16:29:43 - MONITOR - INFO - suppress_door_toolpaths: Suppressed \"G59 Right\" / \"Top Notch\"",
+"2026-04-08 16:29:43 - MONITOR - INFO - D1: Door toolpath suppression: Updated 4 toolpath(s): Suppressed \"G57 Left\" / \"Bottom Notch\"; Suppressed \"G57 Left\" / \"Top Notch\"; Suppressed \"G59 Right\" / \"Bottom Notch\"; Suppressed \"G59 Right\" / \"Top Notch\"",
+"2026-04-08 16:29:43 - MONITOR - INFO - D1: Starting post processing",
+"2026-04-08 16:29:43 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:29:43 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:29:43 - MONITOR - INFO - Post processing entire Setups folder (2 setup(s)) to: 1-D1-3X8X_DV_0022.nc",
+"2026-04-08 16:29:44 - MONITOR - INFO - Successfully generated 1-D1-3X8X_DV_0022.nc (1094 bytes)",
+"2026-04-08 16:29:44 - MONITOR - INFO - D1: Post \"Setups\": Generated 1-D1-3X8X_DV_0022.nc (1094 bytes) from 2 setup(s)",
+"2026-04-08 16:29:44 - MONITOR - INFO - D1: NC file copied to network: \\\\ddc-mefs\\Anderson\\1-D1-3X8X_DV_0022.nc",
+"2026-04-08 16:29:45 - MONITOR - INFO - D1: Switched back to Design workspace",
+"2026-04-08 16:29:45 - MONITOR - INFO - D1: All operations complete - 1 NC file(s) generated, drawing exported",
+"2026-04-08 16:29:45 - MONITOR - INFO - D1: Adding drilling data to compiled collection",
+"2026-04-08 16:29:45 - MONITOR - INFO - No stiles in order",
+"2026-04-08 16:29:45 - MONITOR - INFO - Created compiled paired drilling file: 3X8X_DV_0022.json with 1 component(s)",
+"2026-04-08 16:29:45 - MONITOR - INFO - Drilling JSON copied to network: \\\\ddc-mefs\\Gannomat\\F360_output\\3X8X_DV_0022.json",
+"2026-04-08 16:29:45 - MONITOR - INFO - Order log handler removed for: 3X8X_DV_0022",
+"2026-04-08 16:29:45 - MONITOR - INFO - Moved to: 20260408_162945_20260325_163916_3X8X_DV_0022.json",
+"2026-04-08 16:29:45 - MONITOR - INFO - Cache status before cleanup: 1 documents",
+"2026-04-08 16:29:46 - MONITOR - INFO - Memory cleanup: preserved 1 document(s)",
+"2026-04-08 16:29:46 - MONITOR - INFO - Memory cleanup: Memory cleanup: preserved 1 document(s)",
+"2026-04-08 16:29:46 - MONITOR - INFO - Garbage collection: freed 0 objects",
+"2026-04-08 16:29:46 - MONITOR - INFO - Stabilization delay between orders (3s)...",
+"2026-04-08 16:29:49 - MONITOR - Order complete - restarting timer for continuous monitoring",
+"2026-04-08 16:29:49 - MONITOR - Starting periodic file check (3 second interval)...",
+"2026-04-08 16:29:49 - MONITOR - INFO - Processing order: 20260326_165711_XX8X_PV_0154.json",
+"2026-04-08 16:29:49 - MONITOR - INFO - Moved to processing folder",
+"2026-04-08 16:29:49 - MONITOR - INFO - Loading order (v2) from: \\\\ddc-mefs\\Fusion\\Fusion Folders\\order_processing\\20260326_165711_XX8X_PV_0154.json",
+"2026-04-08 16:29:49 - MONITOR - INFO - Processing order (v2): XX8X_PV_0154",
+"2026-04-08 16:29:49 - MONITOR - INFO - Order log created: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\logs\\XX8X_PV_0154_log.txt",
+"2026-04-08 16:29:49 - MONITOR - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3082, 3086)'}",
+"2026-04-08 16:29:49 - MONITOR - INFO - Processing 1 panels",
+"2026-04-08 16:29:49 - MONITOR - INFO - Processing panel 1/1: P1",
+"2026-04-08 16:29:49 - MONITOR - INFO -   Parameters to apply: 10",
+"2026-04-08 16:29:49 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Panel_Standard...",
+"2026-04-08 16:29:51 - MONITOR - INFO - Using fresh DataFile for 3X8X_Panel_Standard",
+"2026-04-08 16:29:51 - MONITOR - INFO - Opening cloud panel model: 3X8X_Panel_Standard (documents count before: 4)",
+"2026-04-08 16:29:52 - MONITOR - INFO - Opened cloud panel model: 3X8X_Panel_Standard (documents count after: 5)",
+"2026-04-08 16:29:52 - MONITOR - INFO - P1: Opened cloud panel model: 3X8X_Panel_Standard",
+"2026-04-08 16:29:52 - MONITOR - INFO - Applying parameters to P1",
+"2026-04-08 16:29:52 - MONITOR - INFO - P1: Model has 34 user params, JSON has 10 params",
+"2026-04-08 16:29:52 - MONITOR - INFO - P1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'panel_section']",
+"2026-04-08 16:29:52 - MONITOR - INFO - P1: Skipped (not in model): ['cutout', 'panel_abuts_stile_back', 'panel_abuts_stile_front', 'panel_back_stile_floor_to_ceiling', 'series_id']",
+"2026-04-08 16:29:56 - MONITOR - INFO - P1: Successfully updated 5 parameter(s)",
+"2026-04-08 16:29:56 - MONITOR - INFO - Saving 3X8X_Panel_Standard (v107, isModified=True)",
+"2026-04-08 16:29:58 - MONITOR - INFO - Save completed for 3X8X_Panel_Standard",
+"2026-04-08 16:29:58 - MONITOR - INFO - P1: Post-parameter save: 3X8X_Panel_Standard: saved (clearing dirty flag)",
+"2026-04-08 16:29:58 - MONITOR - INFO - P1: Setting cutout params: cutout_A=\"B-34715\", cutout_B=\"\"",
+"2026-04-08 16:29:58 - MONITOR - INFO - P1: Applied cutout parameters: B-34715",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Model exported: Exported P1.step (535961 bytes)",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Parameters exported (CSV): Exported 120 parameters to P1_all_parameters.csv (14843 bytes)",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Parameters exported (JSON): Exported 119 parameters to P1_all_parameters.json (25563 bytes)",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Exporting cutlist CSV to \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\XX8X_PV_0154\\1-P1-XX8X_PV_0154.csv",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Width=53.9375, Length=96.0",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Cutlist - Series=3082G.67P, FC=5.4375, Gapping=[0,0,0,0], GappingTop=[0,0,0,0], Thickness=0.5",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Cutlist CSV exported successfully (1088 bytes)",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Cutlist CSV exported: Exported cutlist to 1-P1-XX8X_PV_0154.csv (1088 bytes)",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Cutlist CSV copied to network: \\\\ddc-mefs\\Voorwood\\1-P1-XX8X_PV_0154.csv",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Starting panel drawing export",
+"2026-04-08 16:30:07 - MONITOR - INFO - P1: Saving model before drawing export...",
+"2026-04-08 16:30:11 - MONITOR - INFO - P1: Model saved",
+"2026-04-08 16:30:11 - MONITOR - INFO - P1: No cached drawing   first order will open from cloud (may take minutes)",
+"2026-04-08 16:30:11 - MONITOR - INFO - === open_drawing: 3X8X_Panel_Standard Drawing ===",
+"2026-04-08 16:30:11 - MONITOR - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:-6329spARyOPDtaj8jaFbg",
+"2026-04-08 16:30:11 - MONITOR - INFO -   data_file.versionNumber: 2",
+"2026-04-08 16:30:11 - MONITOR - INFO -   data_file.fileExtension: f2d",
+"2026-04-08 16:30:11 - MONITOR - INFO -   pre_opened_doc: False",
+"2026-04-08 16:30:12 - MONITOR - INFO -   documents.count: 5",
+"2026-04-08 16:30:12 - MONITOR - INFO -   consecutive_open_failures: 0",
+"2026-04-08 16:30:12 - MONITOR - INFO - Scanning 5 open documents for drawing...",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[0]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[1]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[2]: name=3X8X_Door Drawing, id=urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[3]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[4]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg",
+"2026-04-08 16:30:12 - MONITOR - INFO - Skipping doc cleanup   cloud docs stay open to avoid poisoning Fusion state",
+"2026-04-08 16:30:12 - MONITOR - INFO - === PRE-OPEN STATE ===",
+"2026-04-08 16:30:12 - MONITOR - INFO -   documents.count: 5",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[0]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[1]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[2]: 3X8X_Door Drawing type=adsk::drawing::DrawingDocument",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[3]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:30:12 - MONITOR - INFO -   doc[4]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument",
+"2026-04-08 16:30:12 - MONITOR - INFO -   activeDocument: 3X8X_Panel_Standard",
+"2026-04-08 16:30:12 - MONITOR - INFO -   activeProduct: adsk::fusion::Design",
+"2026-04-08 16:30:12 - MONITOR - INFO -   data_file to open: 3X8X_Panel_Standard Drawing (id=urn:adsk.wipprod:dm.lineage:-6329spARyOPDtaj8jaFbg)",
+"2026-04-08 16:30:12 - MONITOR - INFO - === CALLING documents.open() NOW ===",
+"2026-04-08 16:30:19 - MONITOR - INFO - documents.open() returned (6.9s), docs after: 7",
+"2026-04-08 16:30:19 - MONITOR - INFO - Returned doc: name=3X8X_Panel_Standard Drawing, isValid=True",
+"2026-04-08 16:30:19 - MONITOR - INFO - Settling drawing after open (sleep only, no doEvents)...",
+"2026-04-08 16:30:24 - MONITOR - INFO - Settle-open complete",
+"2026-04-08 16:30:24 - MONITOR - INFO - Activating drawing document...",
+"2026-04-08 16:30:24 - MONITOR - INFO - doc.activate() returned",
+"2026-04-08 16:30:29 - MONITOR - INFO - Settle-activate complete",
+"2026-04-08 16:30:29 - MONITOR - INFO - After settle: activeDoc=3X8X_Panel_Standard Drawing, activeProduct=adsk::drawing::Drawing",
+"2026-04-08 16:30:29 - MONITOR - INFO - DrawingDocument cast succeeded (0.0s)",
+"2026-04-08 16:30:29 - MONITOR - INFO - Drawing opened successfully: 3X8X_Panel_Standard Drawing (6.9s)",
+"2026-04-08 16:30:29 - MONITOR - INFO - Drawing already open from previous order, calling updateAllReferences()...",
+"2026-04-08 16:30:30 - MONITOR - INFO - Calling updateAllReferences()...",
+"2026-04-08 16:30:30 - MONITOR - INFO - Waiting for drawing views to regenerate...",
+"2026-04-08 16:30:31 - MONITOR - INFO - Drawing views regenerated after 1s",
+"2026-04-08 16:30:31 - MONITOR - INFO - updateAllReferences() completed",
+"2026-04-08 16:30:31 - MONITOR - INFO - Drawing references (1):",
+"2026-04-08 16:30:31 - MONITOR - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Panel_Standard, version=v109, latestVersion=109, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']",
+"2026-04-08 16:30:31 - MONITOR - INFO - Drawing isUpToDate after update: True",
+"2026-04-08 16:30:31 - MONITOR - INFO - Settling before PDF export (sleep only)...",
+"2026-04-08 16:30:36 - MONITOR - INFO - Settle complete",
+"2026-04-08 16:30:36 - MONITOR - INFO - Starting PDF export (panel)",
+"2026-04-08 16:30:36 - MONITOR - INFO - export_drawing_to_pdf: re-activating drawing...",
+"2026-04-08 16:30:36 - MONITOR - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Panel_Standard Drawing",
+"2026-04-08 16:30:38 - MONITOR - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Panel_Standard Drawing",
+"2026-04-08 16:30:38 - MONITOR - INFO - Exporting drawing to PDF: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\XX8X_PV_0154\\1-P1-XX8X_PV_0154-drawing.pdf",
+"2026-04-08 16:30:39 - MONITOR - INFO - Network path detected   exporting to local temp: C:\\Users\\mefusion\\AppData\\Local\\Temp\\fusion_drawing_y2ndp1ns\\1-P1-XX8X_PV_0154-drawing.pdf",
+"2026-04-08 16:30:39 - MONITOR - INFO - Executing PDF export...",
+"2026-04-08 16:30:39 - MONITOR - INFO - PDF exported locally: 1-P1-XX8X_PV_0154-drawing.pdf (226719 bytes)",
+"2026-04-08 16:30:39 - MONITOR - INFO - PDF copied to network: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\XX8X_PV_0154\\1-P1-XX8X_PV_0154-drawing.pdf",
+"2026-04-08 16:30:39 - MONITOR - INFO - Drawing exported: 1-P1-XX8X_PV_0154-drawing.pdf (226719 bytes)",
+"2026-04-08 16:30:39 - MONITOR - INFO - P1: Panel drawing exported: Exported drawing to 1-P1-XX8X_PV_0154-drawing.pdf (226719 bytes)",
+"2026-04-08 16:30:39 - MONITOR - INFO - P1: Panel drawing cached for future orders",
+"2026-04-08 16:30:39 - MONITOR - INFO - Activating cached cloud panel model: 3X8X_Panel_Standard",
+"2026-04-08 16:30:42 - MONITOR - INFO - P1: Panel model re-activated after drawing export",
+"2026-04-08 16:30:42 - MONITOR - INFO - Model 3X8X_Panel_Standard is not modified, skip save",
+"2026-04-08 16:30:42 - MONITOR - INFO - P1: Pre-CAM save: 3X8X_Panel_Standard: not modified, no save needed",
+"2026-04-08 16:30:42 - MONITOR - INFO - P1: Starting CAM regeneration",
+"2026-04-08 16:30:42 - MONITOR - INFO - P1: Accessing CAM product",
+"2026-04-08 16:30:45 - MONITOR - INFO - Activated Manufacturing workspace",
+"2026-04-08 16:30:45 - MONITOR - INFO - P1: CAM product accessed",
+"2026-04-08 16:30:45 - MONITOR - INFO - P1: Found 3 CAM setup(s): Front_Notch G57, Back_Notch G59, Back_Cutouts G59",
+"2026-04-08 16:30:45 - MONITOR - INFO - P1: Regenerating toolpaths for all setups",
+"2026-04-08 16:30:45 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (3 setup(s))",
+"2026-04-08 16:31:02 - MONITOR - Timer heartbeat #20 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:31:02 - MONITOR - INFO - generateAllToolpaths completed in 17.4s",
+"2026-04-08 16:31:02 - MONITOR - INFO - Front_Notch G57: Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - Back_Notch G59: Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - Back_Cutouts G59: Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - P1: Setup \"Front_Notch G57\": Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - P1: Setup \"Back_Notch G59\": Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - P1: Setup \"Back_Cutouts G59\": Regenerated 2/2 toolpaths",
+"2026-04-08 16:31:02 - MONITOR - INFO - P1: Starting post processing",
+"2026-04-08 16:31:02 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:31:02 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:31:02 - MONITOR - INFO - Post processing entire Setups folder (3 setup(s)) to: 1-P1-XX8X_PV_0154.nc",
+"2026-04-08 16:31:03 - MONITOR - INFO - Successfully generated 1-P1-XX8X_PV_0154.nc (2206 bytes)",
+"2026-04-08 16:31:03 - MONITOR - INFO - P1: Post \"Setups\": Generated 1-P1-XX8X_PV_0154.nc (2206 bytes) from 3 setup(s)",
+"2026-04-08 16:31:03 - MONITOR - INFO - P1: NC file copied to network: \\\\ddc-mefs\\Anderson\\1-P1-XX8X_PV_0154.nc",
+"2026-04-08 16:31:05 - MONITOR - INFO - P1: Switched back to Design workspace",
+"2026-04-08 16:31:05 - MONITOR - INFO - P1: All operations complete - 1 NC file(s) generated, drawing exported",
+"2026-04-08 16:31:05 - MONITOR - INFO - No doors in order",
+"2026-04-08 16:31:05 - MONITOR - INFO - No stiles in order",
+"2026-04-08 16:31:05 - MONITOR - INFO - Order log handler removed for: XX8X_PV_0154",
+"2026-04-08 16:31:05 - MONITOR - INFO - Moved to: 20260408_163105_20260326_165711_XX8X_PV_0154.json",
+"2026-04-08 16:31:05 - MONITOR - INFO - Cache status before cleanup: 2 documents",
+"2026-04-08 16:31:05 - MONITOR - INFO - Memory cleanup: preserved 2 document(s)",
+"2026-04-08 16:31:05 - MONITOR - INFO - Memory cleanup: Memory cleanup: preserved 2 document(s)",
+"2026-04-08 16:31:05 - MONITOR - INFO - Garbage collection: freed 0 objects",
+"2026-04-08 16:31:05 - MONITOR - INFO - Stabilization delay between orders (3s)...",
+"2026-04-08 16:31:09 - MONITOR - Order complete - restarting timer for continuous monitoring",
+"2026-04-08 16:31:09 - MONITOR - Starting periodic file check (3 second interval)...",
+"2026-04-08 16:31:09 - MONITOR - INFO - Processing order: 20260331_104627_3X82_SV_0013.json",
+"2026-04-08 16:31:09 - MONITOR - INFO - Moved to processing folder",
+"2026-04-08 16:31:09 - MONITOR - INFO - Loading order (v2) from: \\\\ddc-mefs\\Fusion\\Fusion Folders\\order_processing\\20260331_104627_3X82_SV_0013.json",
+"2026-04-08 16:31:09 - MONITOR - INFO - Processing order (v2): 3X82_SV_0013",
+"2026-04-08 16:31:09 - MONITOR - INFO - Order log created: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\logs\\3X82_SV_0013_log.txt",
+"2026-04-08 16:31:09 - MONITOR - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3082, 3086)'}",
+"2026-04-08 16:31:09 - MONITOR - INFO - No panels in order",
+"2026-04-08 16:31:09 - MONITOR - INFO - No doors in order",
+"2026-04-08 16:31:09 - MONITOR - INFO - Processing 1 stiles",
+"2026-04-08 16:31:09 - MONITOR - INFO - Processing stile 1/1: S1",
+"2026-04-08 16:31:09 - MONITOR - INFO -   Parameters to apply: 13",
+"2026-04-08 16:31:09 - MONITOR - INFO - Re-fetching DataFile for 3X82_Stile...",
+"2026-04-08 16:31:10 - MONITOR - INFO - Using fresh DataFile for 3X82_Stile",
+"2026-04-08 16:31:10 - MONITOR - INFO - Opening cloud stile (3082) model: 3X82_Stile (documents count before: 8)",
+"2026-04-08 16:31:12 - MONITOR - INFO - Opened cloud stile (3082) model: 3X82_Stile (documents count after: 9)",
+"2026-04-08 16:31:12 - MONITOR - INFO - S1: Opened cloud stile (3082) model: 3X82_Stile",
+"2026-04-08 16:31:12 - MONITOR - INFO - Applying parameters to S1",
+"2026-04-08 16:31:12 - MONITOR - INFO - S1: Model has 103 user params, JSON has 13 params",
+"2026-04-08 16:31:12 - MONITOR - INFO - S1: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']",
+"2026-04-08 16:31:12 - MONITOR - INFO - S1: Skipped (not in model): ['series_id']",
+"2026-04-08 16:31:21 - MONITOR - INFO - S1: Successfully updated 12 parameter(s)",
+"2026-04-08 16:31:21 - MONITOR - INFO - Saving 3X82_Stile (v572, isModified=True)",
+"2026-04-08 16:31:23 - MONITOR - INFO - Save completed for 3X82_Stile",
+"2026-04-08 16:31:23 - MONITOR - INFO - S1: Post-parameter save: 3X82_Stile: saved (clearing dirty flag)",
+"2026-04-08 16:31:30 - MONITOR - INFO - S1: Model exported: Exported S1.step (972099 bytes)",
+"2026-04-08 16:31:31 - MONITOR - INFO - S1: Parameters exported (CSV): Exported 223 parameters to S1_all_parameters.csv (27375 bytes)",
+"2026-04-08 16:31:31 - MONITOR - INFO - S1: Parameters exported (JSON): Exported 222 parameters to S1_all_parameters.json (47381 bytes)",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Found hinge_hole_x_dist = 1.268 in",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: From JSON - left_side_door=True, right_side_door=True",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: LEFT side - workstop=1, segment=LH I/S KEEP",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: RIGHT side - workstop=1, segment=RH O/S KEEP",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Stile DrillName=3082G.67P LH I/S KEEP, RH O/S KEEP",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Drilling flags - LI=0, LE=0, RI=0, RE=0",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: FlipRotate=1 (rotate)",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Only workstop 1 used, added dummy entry on workstop 4",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Computed 17 paired coordinates for S1",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Exporting cutlist CSV to \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\3X82_SV_0013\\1-S1-3X82_SV_0013.csv",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Width=18.0, Length=111.1875",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Cutlist - Series=3082G.67P, FC=9.0, Gapping=[1,1,0,0], GappingTop=[1,0,0,0], Thickness=0.75",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Cutlist CSV exported successfully (1127 bytes)",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Cutlist CSV exported: Exported cutlist to 1-S1-3X82_SV_0013.csv (1127 bytes)",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Cutlist CSV copied to network: \\\\ddc-mefs\\Voorwood\\1-S1-3X82_SV_0013.csv",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Starting stile drawing export",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: Model not modified, skipping save",
+"2026-04-08 16:31:32 - MONITOR - INFO - S1: No cached drawing   first order will open from cloud (may take minutes)",
+"2026-04-08 16:31:32 - MONITOR - INFO - === open_drawing: 3X82_Stile Drawing ===",
+"2026-04-08 16:31:32 - MONITOR - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw",
+"2026-04-08 16:31:32 - MONITOR - INFO -   data_file.versionNumber: 15",
+"2026-04-08 16:31:32 - MONITOR - INFO -   data_file.fileExtension: f2d",
+"2026-04-08 16:31:32 - MONITOR - INFO -   pre_opened_doc: False",
+"2026-04-08 16:31:32 - MONITOR - INFO -   documents.count: 9",
+"2026-04-08 16:31:32 - MONITOR - INFO -   consecutive_open_failures: 0",
+"2026-04-08 16:31:32 - MONITOR - INFO - Scanning 9 open documents for drawing...",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[0]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[1]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[2]: name=3X8X_Door Drawing, id=urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[3]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[4]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[5]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[6]: name=3X8X_Panel_Standard Drawing, id=urn:adsk.wipprod:dm.lineage:-6329spARyOPDtaj8jaFbg",
+"2026-04-08 16:31:32 - MONITOR - INFO -   doc[7]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[8]: name=3X82_Stile, id=urn:adsk.wipprod:dm.lineage:oEXMLgzETniKzs8Lpc0lWQ",
+"2026-04-08 16:31:33 - MONITOR - INFO - Skipping doc cleanup   cloud docs stay open to avoid poisoning Fusion state",
+"2026-04-08 16:31:33 - MONITOR - INFO - === PRE-OPEN STATE ===",
+"2026-04-08 16:31:33 - MONITOR - INFO -   documents.count: 9",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[0]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[1]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[2]: 3X8X_Door Drawing type=adsk::drawing::DrawingDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[3]: 3X8X_Door type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[4]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[5]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[6]: 3X8X_Panel_Standard Drawing type=adsk::drawing::DrawingDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[7]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   doc[8]: 3X82_Stile type=adsk::fusion::FusionDocument",
+"2026-04-08 16:31:33 - MONITOR - INFO -   activeDocument: 3X82_Stile",
+"2026-04-08 16:31:33 - MONITOR - INFO -   activeProduct: adsk::fusion::Design",
+"2026-04-08 16:31:33 - MONITOR - INFO -   data_file to open: 3X82_Stile Drawing (id=urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw)",
+"2026-04-08 16:31:33 - MONITOR - INFO - === CALLING documents.open() NOW ===",
+"2026-04-08 16:31:40 - MONITOR - INFO - documents.open() returned (7.1s), docs after: 11",
+"2026-04-08 16:31:40 - MONITOR - INFO - Returned doc: name=3X82_Stile Drawing, isValid=True",
+"2026-04-08 16:31:40 - MONITOR - INFO - Settling drawing after open (sleep only, no doEvents)...",
+"2026-04-08 16:31:45 - MONITOR - INFO - Settle-open complete",
+"2026-04-08 16:31:45 - MONITOR - INFO - Activating drawing document...",
+"2026-04-08 16:31:45 - MONITOR - INFO - doc.activate() returned",
+"2026-04-08 16:31:50 - MONITOR - INFO - Settle-activate complete",
+"2026-04-08 16:31:50 - MONITOR - INFO - After settle: activeDoc=3X82_Stile Drawing, activeProduct=adsk::drawing::Drawing",
+"2026-04-08 16:31:50 - MONITOR - INFO - DrawingDocument cast succeeded (0.0s)",
+"2026-04-08 16:31:50 - MONITOR - INFO - Drawing opened successfully: 3X82_Stile Drawing (7.1s)",
+"2026-04-08 16:31:50 - MONITOR - INFO - Drawing already open from previous order, calling updateAllReferences()...",
+"2026-04-08 16:31:51 - MONITOR - INFO - Calling updateAllReferences()...",
+"2026-04-08 16:31:52 - MONITOR - INFO - Waiting for drawing views to regenerate...",
+"2026-04-08 16:31:53 - MONITOR - INFO - Drawing views regenerated after 1s",
+"2026-04-08 16:31:53 - MONITOR - INFO - updateAllReferences() completed",
+"2026-04-08 16:31:53 - MONITOR - INFO - Drawing references (1):",
+"2026-04-08 16:31:53 - MONITOR - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X82_Stile, version=v573, latestVersion=573, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']",
+"2026-04-08 16:31:53 - MONITOR - INFO - Drawing isUpToDate after update: True",
+"2026-04-08 16:31:53 - MONITOR - INFO - Settling before PDF export (sleep only)...",
+"2026-04-08 16:31:58 - MONITOR - INFO - Settle complete",
+"2026-04-08 16:31:58 - MONITOR - INFO - Starting PDF export (stile)",
+"2026-04-08 16:31:58 - MONITOR - INFO - export_drawing_to_pdf: re-activating drawing...",
+"2026-04-08 16:31:58 - MONITOR - INFO - _reactivate_drawing: cached doc is valid, activating: 3X82_Stile Drawing",
+"2026-04-08 16:32:01 - MONITOR - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X82_Stile Drawing",
+"2026-04-08 16:32:01 - MONITOR - INFO - Exporting drawing to PDF: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\3X82_SV_0013\\1-S1-3X82_SV_0013-drawing.pdf",
+"2026-04-08 16:32:01 - MONITOR - INFO - Network path detected   exporting to local temp: C:\\Users\\mefusion\\AppData\\Local\\Temp\\fusion_drawing_2_gwymb9\\1-S1-3X82_SV_0013-drawing.pdf",
+"2026-04-08 16:32:01 - MONITOR - INFO - Executing PDF export...",
+"2026-04-08 16:32:02 - MONITOR - INFO - PDF exported locally: 1-S1-3X82_SV_0013-drawing.pdf (262102 bytes)",
+"2026-04-08 16:32:02 - MONITOR - INFO - PDF copied to network: \\\\ddc-mefs\\Fusion\\Fusion Folders\\output\\gcode\\drawings\\3X82_SV_0013\\1-S1-3X82_SV_0013-drawing.pdf",
+"2026-04-08 16:32:02 - MONITOR - INFO - Drawing exported: 1-S1-3X82_SV_0013-drawing.pdf (262102 bytes)",
+"2026-04-08 16:32:02 - MONITOR - INFO - S1: Stile drawing exported: Exported drawing to 1-S1-3X82_SV_0013-drawing.pdf (262102 bytes)",
+"2026-04-08 16:32:02 - MONITOR - INFO - S1: Stile drawing cached for future orders (key=stile_3082_drawing)",
+"2026-04-08 16:32:02 - MONITOR - INFO - Activating cached cloud stile (3082) model: 3X82_Stile",
+"2026-04-08 16:32:05 - MONITOR - INFO - S1: Stile model re-activated after drawing export",
+"2026-04-08 16:32:05 - MONITOR - INFO - Model 3X82_Stile is not modified, skip save",
+"2026-04-08 16:32:05 - MONITOR - INFO - S1: Pre-CAM save: 3X82_Stile: not modified, no save needed",
+"2026-04-08 16:32:05 - MONITOR - INFO - S1: Starting CAM regeneration",
+"2026-04-08 16:32:05 - MONITOR - INFO - S1: Accessing CAM product",
+"2026-04-08 16:32:08 - MONITOR - INFO - Activated Manufacturing workspace",
+"2026-04-08 16:32:08 - MONITOR - INFO - S1: CAM product accessed",
+"2026-04-08 16:32:08 - MONITOR - INFO - S1: Found 4 CAM setup(s): Left Rabbet - Out, Left Rabbet - In, Right Rabbet - Out, Right Rabbet - In",
+"2026-04-08 16:32:08 - MONITOR - INFO - S1: Regenerating toolpaths for all setups",
+"2026-04-08 16:32:08 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (4 setup(s))",
+"2026-04-08 16:32:17 - MONITOR - INFO - generateAllToolpaths completed in 9.1s",
+"2026-04-08 16:32:17 - MONITOR - INFO - Left Rabbet - Out: Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - Left Rabbet - In: Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - Right Rabbet - Out: Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - Right Rabbet - In: Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - S1: Setup \"Left Rabbet - Out\": Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - S1: Setup \"Left Rabbet - In\": Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - S1: Setup \"Right Rabbet - Out\": Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - S1: Setup \"Right Rabbet - In\": Regenerated 1/1 toolpaths",
+"2026-04-08 16:32:17 - MONITOR - INFO - S1: Starting post processing",
+"2026-04-08 16:32:17 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:32:17 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps",
+"2026-04-08 16:32:17 - MONITOR - INFO - Post processing entire Setups folder (4 setup(s)) to: 1-S1-3X82_SV_0013.nc",
+"2026-04-08 16:32:18 - MONITOR - INFO - Successfully generated 1-S1-3X82_SV_0013.nc (2506 bytes)",
+"2026-04-08 16:32:18 - MONITOR - INFO - S1: Post \"Setups\": Generated 1-S1-3X82_SV_0013.nc (2506 bytes) from 4 setup(s)",
+"2026-04-08 16:32:18 - MONITOR - INFO - S1: NC file copied to network: \\\\ddc-mefs\\Anderson\\1-S1-3X82_SV_0013.nc",
+"2026-04-08 16:32:19 - MONITOR - INFO - S1: Switched back to Design workspace",
+"2026-04-08 16:32:19 - MONITOR - INFO - S1: All operations complete - 1 NC file(s) generated, drawing exported",
+"2026-04-08 16:32:19 - MONITOR - INFO - S1: Adding drilling data to compiled collection",
+"2026-04-08 16:32:19 - MONITOR - INFO - Created compiled paired drilling file: 3X82_SV_0013.json with 1 component(s)",
+"2026-04-08 16:32:19 - MONITOR - INFO - Drilling JSON copied to network: \\\\ddc-mefs\\Gannomat\\F360_output\\3X82_SV_0013.json",
+"2026-04-08 16:32:19 - MONITOR - INFO - Order log handler removed for: 3X82_SV_0013",
+"2026-04-08 16:32:19 - MONITOR - INFO - Moved to: 20260408_163219_20260331_104627_3X82_SV_0013.json",
+"2026-04-08 16:32:19 - MONITOR - INFO - Cache status before cleanup: 3 documents",
+"2026-04-08 16:32:20 - MONITOR - INFO - Memory cleanup: preserved 3 document(s)",
+"2026-04-08 16:32:20 - MONITOR - INFO - Memory cleanup: Memory cleanup: preserved 3 document(s)",
+"2026-04-08 16:32:20 - MONITOR - INFO - Garbage collection: freed 0 objects",
+"2026-04-08 16:32:20 - MONITOR - INFO - Stabilization delay between orders (3s)...",
+"2026-04-08 16:32:23 - MONITOR - Order complete - restarting timer for continuous monitoring",
+"2026-04-08 16:32:23 - MONITOR - Starting periodic file check (3 second interval)...",
+"2026-04-08 16:33:23 - MONITOR - Timer heartbeat #20 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:34:24 - MONITOR - Timer heartbeat #40 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:35:24 - MONITOR - Timer heartbeat #60 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:36:24 - MONITOR - Timer heartbeat #80 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:37:24 - MONITOR - Timer heartbeat #100 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:38:24 - MONITOR - Timer heartbeat #120 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:39:24 - MONITOR - Timer heartbeat #140 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:40:24 - MONITOR - Timer heartbeat #160 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:41:24 - MONITOR - Timer heartbeat #180 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:42:24 - MONITOR - Timer heartbeat #200 (event_id=FolderMonitorProcessFile_2044597577648)",
+"2026-04-08 16:43:16 - MONITOR - INFO - ================================================================================",
+"2026-04-08 16:43:16 - MONITOR - INFO - RUN ORDER COMMAND STARTED",
+"2026-04-08 16:43:16 - MONITOR - INFO - Log file: C:\\Users\\mefusion\\AppData\\Roaming\\Autodesk\\Autodesk Fusion 360\\API\\AddIns\\FusionManufacturingPipeline\\logs\\pipeline_20260408_162644.log",
+"2026-04-08 16:43:16 - MONITOR - INFO - ================================================================================",
+"2026-04-08 16:43:18 - MONITOR - INFO - ================================================================================",
+"2026-04-08 16:43:18 - MONITOR - INFO - FOLDER MONITOR STOPPED",
+"2026-04-08 16:43:18 - MONITOR - INFO - ================================================================================",
+];
+
+// ── Parse lines with timestamps ──
+function parseTimestamp(line) {
+  const m = line.match(/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/);
+  if (!m) return null;
+  return new Date(m[1].replace(' ', 'T'));
+}
+
+const entries = RAW_LOG.map(line => ({
+  text: line,
+  time: parseTimestamp(line)
+}));
+
+// Compute delays (ms) between consecutive lines
+// Cap at 5s so the heartbeat idle periods don't make you wait forever
+const MAX_DELAY = 5000;
+const delays = [0];
+for (let i = 1; i < entries.length; i++) {
+  if (entries[i].time && entries[i - 1].time) {
+    delays.push(Math.min(MAX_DELAY, Math.max(0, entries[i].time - entries[i - 1].time)));
+  } else {
+    delays.push(0);
+  }
+}
+
+// ── Colorize a log line ──
+function colorize(text) {
+  // Separator lines
+  if (/^[\d-]+ [\d:]+ - MONITOR - (INFO - )?[=]+$/.test(text)) {
+    return `<span class="sep">${esc(text)}</span>`;
+  }
+
+  const m = text.match(/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})( - )(MONITOR)( - )(INFO|WARN|ERROR)?( - )?(.*)$/);
+  if (!m) return esc(text);
+
+  const ts = `<span class="ts">${esc(m[1])}</span>`;
+  const src = `<span class="src">${esc(m[3])}</span>`;
+  let lvl = '';
+  let msg = m[7] || '';
+
+  if (m[5]) {
+    const cls = m[5] === 'INFO' ? 'lvl-info' : m[5] === 'WARN' ? 'lvl-warn' : 'lvl-err';
+    lvl = `<span class="${cls}">${esc(m[5])}</span>${esc(m[6] || '')}`;
+  }
+
+  // Highlight filenames / paths / key items in the message
+  msg = esc(msg)
+    .replace(/((?:[A-Za-z]:\\|\\\\)[^\s,)]+)/g, '<span class="highlight">$1</span>')
+    .replace(/([\w_-]+\.(f3d|f2d|step|csv|json|nc|pdf|cps|mch|log|txt))/g, '<span class="highlight">$1</span>')
+    .replace(/(NEW FILE detected:)/g, '<span style="color:#f44747;font-weight:bold">$1</span>')
+    .replace(/(FOLDER MONITOR STARTED)/g, '<span style="color:#4ec9b0;font-weight:bold">$1</span>')
+    .replace(/(FOLDER MONITOR STOPPED)/g, '<span style="color:#f44747;font-weight:bold">$1</span>')
+    .replace(/(RUN ORDER COMMAND STARTED)/g, '<span style="color:#4ec9b0;font-weight:bold">$1</span>')
+    .replace(/(MONITOR LOG INITIALIZED)/g, '<span style="color:#4ec9b0;font-weight:bold">$1</span>')
+    .replace(/(ENABLED)/g, '<span style="color:#28c840;font-weight:bold">$1</span>')
+    .replace(/(All operations complete[^<]*)/g, '<span style="color:#28c840;font-weight:bold">$1</span>')
+    .replace(/(Order complete[^<]*)/g, '<span style="color:#28c840;font-weight:bold">$1</span>')
+    .replace(/(Successfully (?:updated|generated)[^<]*)/g, '<span style="color:#28c840">$1</span>');
+
+  return `${ts}${esc(m[2])}${src}${esc(m[4])}${lvl}<span class="msg">${msg}</span>`;
+}
+
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ── Playback engine ──
+const terminal = document.getElementById('terminal');
+const btnPlay = document.getElementById('btnPlay');
+const btnPause = document.getElementById('btnPause');
+const btnSkip = document.getElementById('btnSkip');
+const speedSlider = document.getElementById('speedSlider');
+const speedLabel = document.getElementById('speedLabel');
+const statusEl = document.getElementById('status');
+
+let currentLine = 0;
+let playing = false;
+let timerId = null;
+let speedMultiplier = 1;
+
+// Lines that share the same timestamp get a small stagger (30ms) for visual effect
+const MIN_STAGGER = 30;
+
+function getSpeedMultiplier() {
+  const v = parseInt(speedSlider.value);
+  if (v <= 10) return v / 10;       // 0.1x to 1x
+  return 1 + (v - 10) * 1.5;        // 1x to 16x
+}
+
+speedSlider.addEventListener('input', () => {
+  speedMultiplier = getSpeedMultiplier();
+  speedLabel.textContent = speedMultiplier < 1
+    ? speedMultiplier.toFixed(1) + '\u00d7'
+    : Math.round(speedMultiplier) + '\u00d7';
+});
+
+function appendLine(idx) {
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = colorize(entries[idx].text);
+  // Remove old cursor
+  const oldCur = terminal.querySelector('#cursor');
+  if (oldCur) oldCur.remove();
+  // Add cursor at end
+  const cur = document.createElement('span');
+  cur.id = 'cursor';
+  div.appendChild(cur);
+  terminal.appendChild(div);
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function scheduleNext() {
+  if (currentLine >= entries.length) {
+    finish();
+    return;
+  }
+  let delay = delays[currentLine];
+  if (delay === 0) delay = MIN_STAGGER;
+  delay = delay / speedMultiplier;
+  // Cap minimum at 10ms for responsiveness
+  delay = Math.max(10, delay);
+
+  timerId = setTimeout(() => {
+    appendLine(currentLine);
+    currentLine++;
+    statusEl.textContent = `Line ${currentLine}/${entries.length}`;
+    scheduleNext();
+  }, delay);
+}
+
+function play() {
+  if (currentLine >= entries.length) {
+    // Reset
+    terminal.innerHTML = '';
+    currentLine = 0;
+  }
+  playing = true;
+  btnPlay.disabled = true;
+  btnPause.disabled = false;
+  statusEl.textContent = 'Playing...';
+  scheduleNext();
+}
+
+function pause() {
+  playing = false;
+  clearTimeout(timerId);
+  btnPlay.disabled = false;
+  btnPause.disabled = true;
+  statusEl.textContent = `Paused at line ${currentLine}/${entries.length}`;
+}
+
+function skipToEnd() {
+  clearTimeout(timerId);
+  // Dump remaining lines instantly
+  const oldCur = terminal.querySelector('#cursor');
+  if (oldCur) oldCur.remove();
+  for (let i = currentLine; i < entries.length; i++) {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.innerHTML = colorize(entries[i].text);
+    terminal.appendChild(div);
+  }
+  // Final cursor
+  const last = terminal.lastElementChild;
+  if (last) {
+    const cur = document.createElement('span');
+    cur.id = 'cursor';
+    last.appendChild(cur);
+  }
+  terminal.scrollTop = terminal.scrollHeight;
+  currentLine = entries.length;
+  finish();
+}
+
+function finish() {
+  playing = false;
+  btnPlay.disabled = false;
+  btnPause.disabled = true;
+  btnPlay.innerHTML = '&#8635; Replay';
+  statusEl.textContent = `Done \u2014 ${entries.length} lines`;
+}
+
+btnPlay.addEventListener('click', play);
+btnPause.addEventListener('click', pause);
+btnSkip.addEventListener('click', skipToEnd);
+
+// Auto-play on load
+play();
+</script>
+</body>
+</html>

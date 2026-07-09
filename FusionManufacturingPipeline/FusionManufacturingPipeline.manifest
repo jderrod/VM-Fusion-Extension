@@ -1,0 +1,13 @@
+{
+  "autodeskProduct": "Fusion360",
+  "type": "addin",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "author": "Manufacturing Automation Team",
+  "description": {
+    "": "Automated manufacturing pipeline for parametric Fusion 360 models. Processes JSON orders to update parameters, regenerate toolpaths, and generate G-code."
+  },
+  "version": "1.0.0",
+  "runOnStartup": false,
+  "supportedOS": "windows|mac",
+  "editEnabled": true
+}

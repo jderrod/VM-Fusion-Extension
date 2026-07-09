@@ -1,0 +1,54 @@
+Door 3X8X: Drilling & Rabbeting Validation Table,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Blue cells are the Boolean input parameters.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Green cells are a human readable intepretation of the blue input parameters.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Yellow cells are the human readable interpretation of the drilling Boolean outputs.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Reddish cells are the human readable interpretation of the rabbeting Boolean outputs.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Inputs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+door_hinging_right,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0
+door_swinging_out,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0
+door_wall_post_hinging,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0
+door_wall_post_latching,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+door_wall_keep_latching,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+door_perp_stile_keeper,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1
+Hinging side,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH,RH,LH
+Swing,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS,OS,OS,IS,IS
+Special hinging,WP,WP,WP,WP,-,-,-,-,WP,WP,WP,WP,-,-,-,-,WP,WP,WP,WP,-,-,-,-,WP,WP,WP,WP,-,-,-,-
+Special latching,-,-,-,-,-,-,-,-,WP,WP,WP,WP,WP,WP,WP,WP,WK,WK,WK,WK,WK,WK,WK,WK,Perp,Perp,Perp,Perp,Perp,Perp,Perp,Perp
+Drilling outputs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+left_interior_drilling,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1
+left_exterior_drilling,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0
+right_interior_drilling,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0
+right_exterior_drilling,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0
+Drill hole position,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior,Right exterior,Left exterior,Right interior,Left interior
+Rabbeting outputs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+left_interior_rabbeting,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0
+left_exterior_rabbeting,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1
+right_interior_rabbeting,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0
+right_exterior_rabbeting,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0
+Rabbeting,Interior both sides,Interior both sides,Exterior both sides,Exterior both sides,Interior both sides,Interior both sides,Exterior both sides,Exterior both sides,Interior both sides,Interior both sides,Exterior both sides,Exterior both sides,Interior both sides,Interior both sides,Exterior both sides,Exterior both sides,Right interior only,Left interior only,Right exterior only,Left exterior only,Right interior only,Left interior only,Right exterior only,Left exterior only,Right interior only,Left interior only,Right exterior only,Left exterior only,Right interior only,Left interior only,Right exterior only,Left exterior only
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,Interior,,,,,,Interior,,,,Interior,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,Exterior,,,,,,Exterior,,,,Exterior,,,,,,,,,
+Look Up Tables for Human Readable values,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Special latching table,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+000,-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+100,WP,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+010,WK,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+001,Perp,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Drilling table,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1000,Left interior,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0100,Left exterior,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0010,Right interior,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0001,Right exterior,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Rabbeting table,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1010,Interior both sides,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0101,Exterior both sides,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1000,Left interior only,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0100,Left exterior only,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0010,Right interior only,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0001,Right exterior only,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

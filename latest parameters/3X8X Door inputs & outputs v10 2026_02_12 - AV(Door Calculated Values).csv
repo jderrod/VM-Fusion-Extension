@@ -1,0 +1,205 @@
+Variable,Order,Dependency,Relation,Explanation,Comments,Value,Expression,Previous parameter name,,Scenario
+component_height,1,Input,Model,Height of the component,"001) Input - Model
+    Height of the component",96,#N/A,,,#REF!
+component_width,2,Input,Model,Width of the component,"002) Input - Model
+    Width of the component",33.4375,#N/A,,,#REF!
+component_thickness,3,Fixed,Model,The thickness of the component,"003) Fixed - Model
+    The thickness of the component",0.75,#N/A,,,
+component_floor_clearance,4,Input,Model,Floor clearance of the component,"004) Input - Model
+    Floor clearance of the component",1,#N/A,,,#REF!
+component_ceiling_clearance,5,Input,Model,Ceiling clearance of the component,"005) Input - Model
+    Ceiling clearance of the component",1,#N/A,,,#REF!
+floor_to_ceiling,6,Input,Model,Whether the door is a 3X86 Floor-to-Ceiling door,"006) Input - Model
+    Whether the door is a 3X86 Floor-to-Ceiling door",0,#N/A,,,
+door_hinging_right,7,Input,Model,Whether the door's hinges are on the right side of the door,"007) Input - Model
+    Whether the door's hinges are on the right side of the door",0,#N/A,,,#REF!
+door_swinging_out,8,Input,Model,Whether the door is an outswing door,"008) Input - Model
+    Whether the door is an outswing door",0,#N/A,,,#REF!
+door_wall_post_hinging,9,Input,Model,Whether the door hinges on a wall post,"009) Input - Model
+    Whether the door hinges on a wall post",0,#N/A,,,#REF!
+door_wall_post_latching,10,Input,Model,Whether the door is keeping on a wall post,"010) Input - Model
+    Whether the door is keeping on a wall post",0,#N/A,,,#REF!
+door_wall_keep_latching,11,Input,Model,Whether the door latches on a wall keep,"011) Input - Model
+    Whether the door latches on a wall keep",0,#N/A,,,#REF!
+door_perp_stile_keeper,12,Input,Model,Whether the door latches on a perpendiculat stile,"012) Input - Model
+    Whether the door latches on a perpendiculat stile",0,#N/A,,,#REF!
+hinge_hole_x_dist,20,Fixed,Model,Horizontal distance between hinge holes and edge of stile,"020) Fixed - Model
+    Horizontal distance between hinge holes and edge of stile",0.968,= 0.968,,,
+hinge_hole_radius,21,Fixed,Model,The radius of the hinge holes,"021) Fixed - Model
+    The radius of the hinge holes",0.25,=0.25,,,
+hinge_hole_depth,22,Fixed,Model,The depth of the hinge holes,"022) Fixed - Model
+    The depth of the hinge holes",0.5625,=0.5625,,,
+bottom_notching_standard_y_dist,30,Fixed,Model,Height of notching cutout from bottom of door for standard one inch foor clearance,"030) Fixed - Model
+    Height of notching cutout from bottom of door for standard one inch foor clearance",3.31,= 3.31,,,
+bottom_notching_actual_y_dist,31,Fixed,Model,Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch,"031) Fixed - Model
+    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch",3.31,= (bottom_notching_standard_y_dist + 1) - component_floor_clearance,,,
+top_notching_y_dist,32,Derived,Helper,Distance between top-most hole and top of door,"032) Derived - Helper
+    Distance between top-most hole and top of door",3.5,"= IF( ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ),
+      ( shoe_height + shoe_door_top_notch_gap ) - ceiling_clearance,
+      0 )",,,
+notching_x_dist,33,Fixed,Model,The horizontal width of the notching,"033) Fixed - Model
+    The horizontal width of the notching",0.4414,=0.4414,,,
+door_bottom_margin,34,Derived,Helper,Distance between bottom-most hole and bottom of door,"034) Derived - Helper
+    Distance between bottom-most hole and bottom of door",5.03,"= 1.72 + IF(
+              AND( bottom_notching_actual_y_dist > 0,
+                   door_wall_post_hinging=0),
+              bottom_notching_actual_y_dist,
+              0
+            )",,,
+door_top_margin,35,Derived,Helper,Distance between top-most hole and top of door,"035) Derived - Helper
+    Distance between top-most hole and top of door",1.72,"=1.72 +
+ IF(AND(floor_to_ceiling=1,door_wall_post_hinging=0),top_notching_y_dist,0)",,,
+shoe_height,36,Fixed,Model,Height of the shoe,"036) Fixed - Model
+    Height of the shoe",4,= 4,,,
+shoe_door_top_notch_gap,37,Fixed,Model,Height of the shoe,"037) Fixed - Model
+    Height of the shoe",0.5,= 0.5,,,
+hinge_hole_space,40,Fixed,Helper,Distance between the top and bottom hole on a single hinge,"040) Fixed - Helper
+    Distance between the top and bottom hole on a single hinge",1.5,= 1.5,,,
+inter_hinge_gap,41,Derived,Helper,Distance between top holes of adjacent hinges,"041) Derived - Helper
+    Distance between top holes of adjacent hinges",29.250,= (component_height-door_top_margin-(door_bottom_margin + hinge_hole_space)) / 3,,,
+mid_top_hinge_offset,42,Derived,Helper,"An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile","042) Derived - Helper
+    An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile",-0.823,"= -1 * 0.823 * IF( AND(component_floor_clearance = 1, door_wall_post_hinging = 0), 1, 0 )",,,
+mid_bottom_hinge_offset,43,Derived,Helper,"An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile","043) Derived - Helper
+    An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile",1.646,"= 2 * 0.823 * IF( AND(component_floor_clearance = 1, door_wall_post_hinging = 0), 1, 0 )",,,
+rabbeting_width,50,Fixed,Model,The horizontal width of the rabbeting,"050) Fixed - Model
+    The horizontal width of the rabbeting",0.3,= 0.3,,,
+rabbeting_depth,51,Fixed,Model,The depth of the rabbeting,"051) Fixed - Model
+    The depth of the rabbeting",0.5,= 0.5,,,
+,,,,,,,,,,
+Drilling,,,,,,,,,,
+left_interior_drilling,101,Derived,Model,Whether drilling is present the interior left edge of the stile,"101) Derived - Model
+    Whether drilling is present the interior left edge of the stile",1,"=IF(AND(door_hinging_right=0,door_swinging_out=0),1,0)",,,
+left_exterior_drilling,102,Derived,Model,Whether drilling is present the exterior left edge of the stile,"102) Derived - Model
+    Whether drilling is present the exterior left edge of the stile",0,"=IF(AND(door_hinging_right=0,door_swinging_out=1),1,0)",,,
+right_interior_drilling,103,Derived,Model,Whether drilling is present the interior right edge of the stile,"103) Derived - Model
+    Whether drilling is present the interior right edge of the stile",0,"=IF(AND(door_hinging_right=1,door_swinging_out=0),1,0)",,,
+right_exterior_drilling,104,Derived,Model,Whether drilling is present the exterior right edge of the stile,"104) Derived - Model
+    Whether drilling is present the exterior right edge of the stile",0,"=IF(AND(door_hinging_right=1,door_swinging_out=1),1,0)",,,
+hole_placement,105,Derived,Model,An offset that shifts the hinge holes to the appropriate side of the component,"105) Derived - Model
+    An offset that shifts the hinge holes to the appropriate side of the component",32.4695,"=IF(
+     OR(left_exterior_drilling = 1, right_interior_drilling = 1),
+     hinge_hole_x_dist,
+     component_width - hinge_hole_x_dist)",,,
+label_in_positioning_offset,106,Derived,Model,"An offset that repositions the ""in"" label relative to the door, to change which face is treated as the interior","106) Derived - Model
+    An offset that repositions the ""in"" label relative to the door, to change which face is treated as the interior",1,"=IF(door_swinging_out = 0, 1, -1)",,,
+label_out_positioning_offset,107,Derived,Model,"An offset that repositions the ""out"" label relative to the door, to change which face is treated as the exterior","107) Derived - Model
+    An offset that repositions the ""out"" label relative to the door, to change which face is treated as the exterior",-1,"=IF(door_swinging_out = 0, -1, 1)",,,
+,,,,,,,,,,
+Rabbeting,,,,,,,,,,
+left_interior_rabbeting,201,Derived,Model,Whether rabbeting is present the interior left edge of the stile,"201) Derived - Model
+    Whether rabbeting is present the interior left edge of the stile",0,"=IF(
+    AND(door_swinging_out=1,
+        OR(door_hinging_right=0,
+            AND(door_hinging_right=1,door_wall_keep_latching=0,door_perp_stile_keeper=0)
+           )
+        ),
+    1,0)",,,
+left_exterior_rabbeting,202,Derived,Model,Whether rabbeting is present the exterior left edge of the stile,"202) Derived - Model
+    Whether rabbeting is present the exterior left edge of the stile",1,"=IF(
+    AND(door_swinging_out=0,
+        OR(door_hinging_right=0,
+            AND(door_hinging_right=1,door_wall_keep_latching=0,door_perp_stile_keeper=0)
+           )
+        ),
+    1,0)",,,
+left_rabbeting_model,203,Derived,Model,Controls rabbeting in model's left side as seen from the FRONT ,"203) Derived - Model
+    Controls rabbeting in model's left side as seen from the FRONT ",-0.5,"=IF(
+     OR(right_exterior_rabbeting = 1, left_interior_rabbeting = 1),
+     -rabbeting_depth,
+     rabbeting_depth
+   )",,,
+right_interior_rabbeting,204,Derived,Model,Whether rabbeting is present the interior right edge of the stile,"204) Derived - Model
+    Whether rabbeting is present the interior right edge of the stile",0,"=IF(
+    AND(door_swinging_out=1,
+        OR(door_hinging_right=1,
+            AND(door_hinging_right=0,door_wall_keep_latching=0,door_perp_stile_keeper=0)
+           )
+        ),
+    1,0)",,,
+right_exterior_rabbeting,205,Derived,Model,Whether rabbeting is present the exterior right edge of the stile,"205) Derived - Model
+    Whether rabbeting is present the exterior right edge of the stile",1,"=IF(
+    AND(door_swinging_out=0,
+        OR(door_hinging_right=1,
+            AND(door_hinging_right=0,door_wall_keep_latching=0,door_perp_stile_keeper=0)
+           )
+        ),
+    1,0)",,,
+right_rabbeting_model,206,Derived,Model,Controls rabbeting in model's right side as seen from the FRONT ,"206) Derived - Model
+    Controls rabbeting in model's right side as seen from the FRONT ",-0.5,"=IF(
+     OR(left_exterior_rabbeting = 1, right_interior_rabbeting = 1),
+     -rabbeting_depth,
+     rabbeting_depth
+   )",,,
+,,,,,,,,,,
+Notching,,,,,,,,,,
+bottom_left_notching,301,Derived,Model,Whether the bottom left corner of the door is notched to accommodate the shoe on a stile,"301) Derived - Model
+    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile",1,"=IF(
+    AND(
+        bottom_notching_actual_y_dist > 0,
+        OR(
+            AND(door_hinging_right=0,door_wall_post_hinging=0),
+            AND(door_hinging_right=1,AND(door_wall_keep_latching=0,door_wall_post_latching=0))
+            )
+         ),
+    1,0)",,[(bottom_notching_y_dist + 1)-component_floor_clearance],
+bottom_right_notching,302,Derived,Model,Whether the bottom right corner of the door is notched to accommodate the shoe on a stile,"302) Derived - Model
+    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile",1,"=IF(
+    AND(
+        bottom_notching_actual_y_dist > 0,
+        OR(
+            AND(door_hinging_right=1,door_wall_post_hinging=0),
+            AND(door_hinging_right=0,AND(door_wall_keep_latching=0,door_wall_post_latching=0))
+            )
+         ),
+    1,0)",,,
+top_left_notching,303,Derived,Model,Whether the bottom left corner of the door is notched to accommodate the shoe on a stile,"303) Derived - Model
+    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile",0,"=IF(
+    AND(
+        floor_to_ceiling=1,
+        ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ),
+        OR(
+            AND(door_hinging_right=0,door_wall_post_hinging=0),
+            AND(door_hinging_right=1,AND(door_wall_keep_latching=0,door_wall_post_latching=0))
+            )
+         ),
+    1,0)",,,
+top_right_notching,304,Derived,Model,Whether the bottom right corner of the door is notched to accommodate the shoe on a stile,"304) Derived - Model
+    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile",0,"=IF(
+    AND(
+        floor_to_ceiling=1,
+        ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ),
+        OR(
+            AND(door_hinging_right=1,door_wall_post_hinging=0),
+            AND(door_hinging_right=0,AND(door_wall_keep_latching=0,door_wall_post_latching=0))
+            )
+         ),
+    1,0)",,,
+,,,,,,,,,,
+Drill hole coordinates for a specific door_height,,,,,,,,,,
+top_hinge_hole_1_y_value,401,Derived,Model,Distance between top of the door and the center of the door hinge hole,"401) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",1.720,=door_top_margin,,,
+top_hinge_hole_2_y_value,402,Derived,Model,Distance between top of the door and the center of the door hinge hole,"402) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",3.220,=top_hinge_hole_1_y_value+hinge_hole_space,,,
+mid_top_hinge_hole_1_y_value,403,Derived,Model,Distance between top of the door and the center of the door hinge hole,"403) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",30.147,=top_hinge_hole_1_y_value+inter_hinge_gap+mid_top_hinge_offset,,,
+mid_top_hinge_hole_2_y_value,404,Derived,Model,Distance between top of the door and the center of the door hinge hole,"404) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",31.647,=mid_top_hinge_hole_1_y_value+hinge_hole_space,,,
+mid_bottom_hinge_hole_1_y_value,405,Derived,Model,Distance between top of the door and the center of the door hinge hole,"405) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",61.043,=mid_top_hinge_hole_1_y_value+inter_hinge_gap+mid_bottom_hinge_offset,,,
+mid_bottom_hinge_hole_2_y_value,406,Derived,Model,Distance between top of the door and the center of the door hinge hole,"406) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",62.543,=mid_bottom_hinge_hole_1_y_value+hinge_hole_space,,,
+bottom_hinge_hole_1_y_value,407,Derived,Model,Distance between top of the door and the center of the door hinge hole,"407) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",89.470,=mid_bottom_hinge_hole_1_y_value+inter_hinge_gap+mid_top_hinge_offset,,,
+bottom_hinge_hole_2_y_value,408,Derived,Model,Distance between top of the door and the center of the door hinge hole,"408) Derived - Model
+    Distance between top of the door and the center of the door hinge hole",90.970,=bottom_hinge_hole_1_y_value+hinge_hole_space,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,

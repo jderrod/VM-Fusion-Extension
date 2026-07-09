@@ -1,0 +1,104 @@
+{
+    "order_id": ["IBUS366574", "string", "identifier for the order"],
+    "panels": [{
+            "id": ["P1", "string", "panel ID"],
+            "parameters": {
+                "series_id": ["3082G.67P", "string", "series ID of the component"],
+                "component_height": [96, "float", "height of the component in inches"],
+                "component_width": [10.5, "float", "width of the component in inches"],
+                "component_floor_clearance": [1, "float", "floor clearance of the component in inches"],
+                "panel_inline_front": [false, "bool", "indicates whether the panel’s front edge aligns with an in-line stile rather than a wall or perpendicular stile"],
+                "panel_inline_back": [false, "bool", "indicates whether the panel’s back edge aligns with an in-line stile rather than a wall or perpendicular stile"]
+            }
+        }, {
+            "id": ["P2", "string", "panel ID"],
+            "parameters": {
+                "series_id": ["3082G.67P", "string", "series ID of the component"],
+                "component_height": [96, "float", "height of the component in inches"],
+                "component_width": [58.5, "float", "width of the component in inches"],
+                "component_floor_clearance": [1, "float", "floor clearance of the component in inches"],
+                "panel_inline_front": [false, "bool", "indicates whether the panel’s front edge aligns with an in-line stile rather than a wall or perpendicular stile"],
+                "panel_inline_back": [false, "bool", "indicates whether the panel’s back edge aligns with an in-line stile rather than a wall or perpendicular stile"]
+            }
+        }
+    ],
+    "doors": [{
+            "id": ["D1", "string", "door ID"],
+            "parameters": {
+                "series_id": ["3082G.67P", "string", "series ID of the component"],
+                "component_height": [96, "float", "height of the component in inches"],
+                "component_width": [34.375, "float", "width of the component in inches"],
+                "component_floor_clearance": [1, "float", "floor clearance of the component in inches"],
+                "door_hinging_right": [false, "bool", "indicates whether the door is hinged on the right side when viewed from outside the stall"],
+                "door_swinging_out": [true, "bool", "indicates whether the door swings outward into the bathroom"],
+                "door_wall_post_hinging": [false, "bool", "indicates whether the door is hinged on a wall post"],
+                "door_wall_keep_latching": [false, "bool", "indicates whether the door latches to a wall keep"]
+            }
+        }, {
+            "id": ["D2", "string", "door ID"],
+            "parameters": {
+                "series_id": ["3082G.67P", "string", "series ID of the component"],
+                "component_height": [96, "float", "height of the component in inches"],
+                "component_width": [24.375, "float", "width of the component in inches"],
+                "component_floor_clearance": [1, "float", "floor clearance of the component in inches"],
+                "door_hinging_right": [false, "bool", "indicates whether the door is hinged on the right side when viewed from outside the stall"],
+                "door_swinging_out": [false, "bool", "indicates whether the door swings outward into the bathroom"],
+                "door_wall_post_hinging": [false, "bool", "indicates whether the door is hinged on a wall post"],
+                "door_wall_keep_latching": [false, "bool", "indicates whether the door latches to a wall keep"]
+            }
+        }
+    ],
+    "stiles": [{
+            "id": ["S1", "string", "stile ID"],
+            "parameters": {
+                "series_id": ["3081G.67P", "string", "series ID of the component"],
+                "component_height": [97.75, "float", "height of the component in inches"],
+                "component_width": [3, "float", "width of the component in inches"],
+                "stile_left_side_door": [false, "bool", "indicates whether there is a door on the stile’s left side when viewed from the room"],
+                "stile_left_side_hinging": [false, "bool", "indicates whether the left side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_left_side_door_height": [null, "float", "height of the door on the left side of the stile"],
+                "stile_left_side_door_floor_clearance": [null, "float", "floor clearance of the door on the left side of the stile"],
+                "stile_left_side_door_swinging_out": [null, "bool", "indicates whether the door on the left side of the stile swings outward into the bathroom"],
+                "stile_right_side_door": [true, "bool", "indicates whether there is a door on the stile’s right side when viewed from the room"],
+                "stile_right_side_hinging": [true, "bool", "indicates whether the right side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_right_side_door_height": [96, "float", "height of the door on the right side of the stile"],
+                "stile_right_side_door_floor_clearance": [1, "float", "floor clearance of the door on the right side of the stile"],
+                "stile_right_side_door_swinging_out": [true, "bool", "indicates whether the door on the right side of the stile swings outward into the bathroom"]
+            }
+        }, {
+            "id": ["S2", "string", "stile ID"],
+            "parameters": {
+                "series_id": ["3082G.67P", "string", "series ID of the component"],
+                "component_height": [97.75, "float", "height of the component in inches"],
+                "component_width": [24, "float", "width of the component in inches"],
+                "stile_left_side_door": [true, "bool", "indicates whether there is a door on the stile’s left side when viewed from the room"],
+                "stile_left_side_hinging": [false, "bool", "indicates whether the left side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_left_side_door_height": [96, "float", "height of the door on the left side of the stile"],
+                "stile_left_side_door_floor_clearance": [1, "float", "floor clearance of the door on the left side of the stile"],
+                "stile_left_side_door_swinging_out": [true, "bool", "indicates whether the door on the left side of the stile swings outward into the bathroom"],
+                "stile_right_side_door": [false, "bool", "indicates whether there is a door on the stile’s right side when viewed from the room"],
+                "stile_right_side_hinging": [false, "bool", "indicates whether the right side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_right_side_door_height": [null, "float", "height of the door on the right side of the stile"],
+                "stile_right_side_door_floor_clearance": [null, "float", "floor clearance of the door on the right side of the stile"],
+                "stile_right_side_door_swinging_out": [null, "bool", "indicates whether the door on the right side of the stile swings outward into the bathroom"]
+            }
+        }, {
+            "id": ["S3", "string", "stile ID"],
+            "parameters": {
+                "series_id": ["3086G.67P", "string", "series ID of the component"],
+                "component_height": [97.75, "float", "height of the component in inches"],
+                "component_width": [6, "float", "width of the component in inches"],
+                "stile_left_side_door": [false, "bool", "indicates whether there is a door on the stile’s left side when viewed from the room"],
+                "stile_left_side_hinging": [false, "bool", "indicates whether the left side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_left_side_door_height": [null, "float", "height of the door on the left side of the stile"],
+                "stile_left_side_door_floor_clearance": [null, "float", "floor clearance of the door on the left side of the stile"],
+                "stile_left_side_door_swinging_out": [null, "bool", "indicates whether the door on the left side of the stile swings outward into the bathroom"],
+                "stile_right_side_door": [true, "bool", "indicates whether there is a door on the stile’s right side when viewed from the room"],
+                "stile_right_side_hinging": [true, "bool", "indicates whether the right side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"],
+                "stile_right_side_door_height": [96, "float", "height of the door on the right side of the stile"],
+                "stile_right_side_door_floor_clearance": [1, "float", "floor clearance of the door on the right side of the stile"],
+                "stile_right_side_door_swinging_out": [false, "bool", "indicates whether the door on the right side of the stile swings outward into the bathroom"]
+            }
+        }
+    ]
+}

@@ -1,0 +1,363 @@
+,Parameter name,Order,Dependency,Relation,Explanation,Comments,Favorite,Value,Expression,Previous parameter name
+,component_height,1,Input,Model,Height of the stile,"001) Input - Model
+    Height of the stile",Yes,107.5625,#N/A,
+,component_width,2,Input,Model,Width of the component,"002) Input - Model
+    Width of the component",Yes,8,#N/A,
+,leveling_bar_additional_height,3,Fixed,Model,Height by which levelling bar extends beyond the compact laminate,"003) Fixed - Model
+    Height by which levelling bar extends beyond the compact laminate",No,1.4375,= 1.4375,
+,component_net_height,4,Derived,Model,Height of the compact laminate component exclusive of the leveling bar,"004) Derived - Model
+    Height of the compact laminate component exclusive of the leveling bar",No,104.6875,= component_height - ( 2 * leveling_bar_additional_height ),
+,component_thickness,5,Fixed,Helper,Thickness of the component,"005) Fixed - Helper
+    Thickness of the component",No,0.75,= 0.75,
+,hinge_hole_x_dist,6,Fixed,Model,Horizontal distance between hinge holes and edge of stile,"006) Fixed - Model
+    Horizontal distance between hinge holes and edge of stile",No,1.268,= 1.268,
+,door_bottom_notching_standard_y_dist,7,Fixed,Helper,Height of door bottom notching cutout from bottom of door,"007) Fixed - Helper
+    Height of door bottom notching cutout from bottom of door",No,3.31,=3.31,
+,hinge_hole_space,8,Fixed,Helper,Distance between a hinge's top and bottom hole,"008) Fixed - Helper
+    Distance between a hinge's top and bottom hole",No,1.5,=1.5,
+,levelling_gap,9,Fixed,Helper,"We leave a 1"" gap between the bottom of the stile and the floor to account for anchoring hardware","009) Fixed - Helper
+    We leave a 1"" gap between the bottom of the stile and the floor to account for anchoring hardware",No,1,=1,
+,stile_mid_top_hinge_offset,10,Fixed,Helper,an offset between the position of this hinge on the stile vs the door,"010) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door",No,0.03125,=1/32,
+,stile_mid_bottom_hinge_offset,11,Fixed,Helper,an offset between the position of this hinge on the stile vs the door,"011) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door",No,0.03125,=1/32,
+,stile_bottom_hinge_offset,12,Fixed,Helper,an offset between the position of this hinge on the stile vs the door,"012) Fixed - Helper
+    an offset between the position of this hinge on the stile vs the door",No,-0.3125,=-5/16,
+,rabbeting_start_above_door,13,Fixed,Helper,Distance by which rabbeting extends above door,"013) Fixed - Helper
+    Distance by which rabbeting extends above door",No,1.386,= (0.75 +2.022) / 2,
+,rabbeting_stop_below_door,14,Fixed,Helper,Distance by which rabbeting extends below door,"014) Fixed - Helper
+    Distance by which rabbeting extends below door",No,1.386,= (0.75 +2.022) / 2,
+,rabbeting_width,15,Fixed,Helper,Width of rabbetting,"015) Fixed - Helper
+    Width of rabbetting",No,0.3,,
+,hole_radius,16,Fixed,Helper,Radius of drill holes,"016) Fixed - Helper
+    Radius of drill holes",No,0.25,,
+,rabbeting_depth,17,Fixed,Helper,Depth of rabbeting,"017) Fixed - Helper
+    Depth of rabbeting",No,0.5,,
+,hinge_hole_depth,18,Fixed,Helper,Depth of hinge hole,"018) Fixed - Helper
+    Depth of hinge hole",No,0.5625,,
+,rabbeting_insertion_radius,19,Fixed,Helper,Radius of the rabbetting insertion curve,"019) Fixed - Helper
+    Radius of the rabbetting insertion curve",No,2.3,,
+,shoe_height,20,Fixed,Model,Height of the shoe,"020) Fixed - Model
+    Height of the shoe",No,4,= 4,
+,shoe_door_top_notch_gap,21,Fixed,Model,Distance between bottom of shoe and end of notch,"021) Fixed - Model
+    Distance between bottom of shoe and end of notch",No,0.5,= 0.5,
+,through_rabbeting_threshold,22,Fixed,Model,Distance between bottom of shoe and end of notch,"022) Fixed - Model
+    Distance between bottom of shoe and end of notch",,7.625,= 7.625,
+,,,,,,,,,,
+STILE LEFT SIDE,,,,,,,,,,
+,left_side_door,101,Input,Helper,Whether there is a door adjacent to the left side of the stile,"101) Input - Helper
+    Whether there is a door adjacent to the left side of the stile",Yes,1,#N/A,
+,LD_hinging_right,102,Input,Helper,"For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door","102) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door",Yes,1,#N/A,
+,LD_swinging_out,103,Input,Helper,"For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door ","103) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door ",Yes,0,#N/A,
+,LD_height,104,Input,Helper,"Height of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)","104) Input - Helper
+    Height of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)",Yes,97.5,#N/A,
+,LD_floor_clearance,105,Input,Helper,"Floor clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)","105) Input - Helper
+    Floor clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)",Yes,9,#N/A,
+,LD_ceiling_clearance,106,Input,Helper,"Ceiling clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)","106) Input - Helper
+    Ceiling clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)",Yes,3.0625,#N/A,
+,LD_bottom_notching_actual_y_dist,107,Derived,Model,Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch,"107) Derived - Model
+    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch",No,-4.69,= (door_bottom_notching_standard_y_dist + 1) - LD_floor_clearance,
+,LD_top_notching_y_dist,108,Derived,Helper,Distance between top-most hole and top of door,"108) Derived - Helper
+    Distance between top-most hole and top of door",Yes,1.4375,"= IF( LD_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ),
+      ( shoe_height + shoe_door_top_notch_gap ) - LD_ceiling_clearance,
+      0 )",
+,LD_inter_hinge_gap,109,Derived,Helper,Distance between top_hinge_holes of adjacent hinges on the door adjacent to the LEFT side of the stile,"109) Derived - Helper
+    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the LEFT side of the stile",No,30.374,=(LD_height-(LD_top_margin)-(LD_bottom_margin+hinge_hole_space))/3,
+,LD_top_margin,110,Derived,Helper,Distance between top-most hole and top of door,"110) Derived - Helper
+    Distance between top-most hole and top of door",No,3.1575,= 1.72 + LD_top_notching_y_dist,
+,LD_bottom_margin,111,Derived,Helper,Distance between bottom-most hole and bottom of door on the door adjacent to the LEFT side of the stile,"111) Derived - Helper
+    Distance between bottom-most hole and bottom of door on the door adjacent to the LEFT side of the stile",No,1.72,"=1.72+IF(LD_bottom_notching_actual_y_dist>0,LD_bottom_notching_actual_y_dist,0)",
+,LD_mid_top_hinge_offset,112,Derived,Helper,"For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile","112) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile",No,0,"= -1 * 0.823 * IF(LD_floor_clearance = 1, 1, 0)",
+,LD_mid_bottom_hinge_offset,113,Derived,Helper,"For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile","113) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile",No,0,"= 2 * 0.823 * IF(LD_floor_clearance = 1, 1, 0)",
+,LD_stile_hole_modifier,114,Derived,Helper,"For the door adjacent to the LEFT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates","114) Derived - Helper
+    For the door adjacent to the LEFT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates",No,2.0625,=component_height-(LD_height+LD_floor_clearance-leveling_gap),
+,,,,,,,,,,
+Routing - LEFT side,,,,,,,,,,
+,left_interior_rabbeting,111,Derived,Model,Whether rabbeting is present the interior left edge of the stile,"111) Derived - Model
+    Whether rabbeting is present the interior left edge of the stile",No,1,"=IF(AND(left_side_door=1,LD_swinging_out=0),1,0)",
+,left_exterior_rabbeting,112,Derived,Model,Whether rabbeting is present the exterior left edge of the stile,"112) Derived - Model
+    Whether rabbeting is present the exterior left edge of the stile",No,0,"=IF(AND(left_side_door=1,LD_swinging_out=1),1,0)",
+,left_rabbeting_activation_offset,113,Fixed,Helper,"An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create left rabbeting on the model","113) Fixed - Helper
+    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create left rabbeting on the model",No,0.125,"=IF(
+     left_interior_rabbeting = 1,
+     (1/8),
+     IF(
+          left_exterior_rabbeting = 1,
+          -(1/8),
+          component_thickness
+        )
+    )",
+,LD_full_rabbeting_top,114,Derived,Helper,Whether rabbeting on the stile's left side extends all the way to the top,"114) Derived - Helper
+    Whether rabbeting on the stile's left side extends all the way to the top",No,1,"=IF(
+     AND( LD_ceiling_clearance < through_rabbeting_threshold, left_side_door = 1),
+     1,
+     0
+   )",
+,LD_full_rabbeting_bottom,115,Derived,Helper,Whether rabbeting on the stile's left side extends all the way to the bottom,"115) Derived - Helper
+    Whether rabbeting on the stile's left side extends all the way to the bottom",No,0,"=IF(
+     AND(LD_floor_clearance < through_rabbeting_threshold, left_side_door = 1),
+     1,
+     0
+   )",
+,left_rabbeting_top,116,Derived,Model,Distance from the bottom edge of the stile's compact laminate to the top of rabbeting on the left side of the stile. If the distance between the top of door and the top of the stile's compact laminate is small then the rabbeting starts at the beginning of the stile with no radius cut in.,"116) Derived - Model
+    Distance from the bottom edge of the stile's compact laminate to the top of rabbeting on the left side of the stile. If the distance between the top of door and the top of the stile's compact laminate is small then the rabbeting starts at the beginning of the stile with no radius cut in.",No,106.6875,"=IF(
+  LD_ceiling_clearance < through_rabbeting_threshold,
+  component_net_height + 2,
+  LD_floor_clearance + LD_height - (leveling_bar_additional_height + leveling_gap) + rabbeting_start_above_door
+)",
+,left_rabbeting_bottom,117,Derived,Model,"Distance from the bottom edge of the stile's compact laminate to the bottm of rabbeting on the left side of the stile.If the door_floor_clearanceis small, then the rabbeting goes all the way to the end of the stile with no radius cut in.","117) Derived - Model
+    Distance from the bottom edge of the stile's compact laminate to the bottm of rabbeting on the left side of the stile.If the door_floor_clearanceis small, then the rabbeting goes all the way to the end of the stile with no radius cut in.",No,3.739,"=IF(
+      LD_floor_clearance < through_rabbeting_threshold,
+      -2,
+      component_net_height - (LD_stile_hole_modifier + LD_height + rabbeting_stop_below_door)
+   )",
+,left_rabbeting_length,118,Derived,Model,Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting,"118) Derived - Model
+    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting",,102.9485,= left_rabbeting_top - left_rabbeting_bottom,
+,left_interior_drilling,119,Derived,Model,Whether drilling is present the interior left edge of the stile,"119) Derived - Model
+    Whether drilling is present the interior left edge of the stile",No,1,"=IF(AND(left_side_door=1,LD_hinging_right=1,LD_swinging_out=0),1,0)",
+,left_exterior_drilling,120,Derived,Model,Whether drilling is present the exterior left edge of the stile,"120) Derived - Model
+    Whether drilling is present the exterior left edge of the stile",No,0,"=IF(AND(left_side_door=1,LD_hinging_right=1,LD_swinging_out=1),1,0)",
+,,,,,,,,,,
+Door drill hole coordinates - LEFT side,,,,,,,,,,
+,LD_top_hinge_hole_1_y_value,121,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"121) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,3.158,= LD_top_margin,
+,LD_top_hinge_hole_2_y_value,122,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"122) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,4.658,=LD_top_hinge_hole_1_y_value+hinge_hole_space,
+,LD_mid_top_hinge_hole_1_y_value,123,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"123) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,33.532,=LD_top_hinge_hole_1_y_value+LD_inter_hinge_gap+LD_mid_top_hinge_offset,
+,LD_mid_top_hinge_hole_2_y_value,124,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"124) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,35.032,=LD_mid_top_hinge_hole_1_y_value+hinge_hole_space,
+,LD_mid_bottom_hinge_hole_1_y_value,125,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"125) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,63.906,=LD_mid_top_hinge_hole_1_y_value+LD_inter_hinge_gap+LD_mid_bottom_hinge_offset,
+,LD_mid_bottom_hinge_hole_2_y_value,126,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"126) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,65.406,=LD_mid_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,LD_bottom_hinge_hole_1_y_value,127,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"127) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,94.280,=LD_mid_bottom_hinge_hole_1_y_value+LD_inter_hinge_gap+LD_mid_top_hinge_offset,
+,LD_bottom_hinge_hole_2_y_value,128,Derived,Helper,Distance between top of the left door and the center of the door hinge hole,"128) Derived - Helper
+    Distance between top of the left door and the center of the door hinge hole",No,95.780,=LD_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,,,,,,,,,,
+Stile drill hole coordinates - LEFT side,,,,,,,,,,
+,LD_stile_top_hinge_hole_1_y_value,131,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"131) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,5.220,=LD_top_hinge_hole_1_y_value+LD_stile_hole_modifier,
+,LD_stile_top_hinge_hole_2_y_value,132,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"132) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,6.720,=LD_stile_top_hinge_hole_1_y_value+hinge_hole_space,
+,LD_stile_mid_top_hinge_hole_1_y_value,133,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"133) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,35.625,=LD_mid_top_hinge_hole_1_y_value+LD_stile_hole_modifier+stile_mid_top_hinge_offset,
+,LD_stile_mid_top_hinge_hole_2_y_value,134,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"134) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,37.125,=LD_stile_mid_top_hinge_hole_1_y_value+hinge_hole_space,
+,LD_stile_mid_bottom_hinge_hole_1_y_value,135,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"135) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,66.000,=LD_mid_bottom_hinge_hole_1_y_value+LD_stile_hole_modifier+stile_mid_bottom_hinge_offset,
+,LD_stile_mid_bottom_hinge_hole_2_y_value,136,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"136) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,67.500,=LD_stile_mid_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,LD_stile_bottom_hinge_hole_1_y_value,137,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"137) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,96.030,=LD_bottom_hinge_hole_1_y_value+LD_stile_hole_modifier+stile_bottom_hinge_offset,
+,LD_stile_bottom_hinge_hole_2_y_value,138,Derived,Model,Distance between top of stile and center of stile's left side hinge hole,"138) Derived - Model
+    Distance between top of stile and center of stile's left side hinge hole",No,97.530,=LD_stile_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,,,,,,,,,,
+,LD_stile_top_hinge_hole_1_y_value_from_bottom,139,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"139) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,100.905,= ( component_height - leveling_bar_additional_height ) - LD_stile_top_hinge_hole_1_y_value,
+,LD_stile_top_hinge_hole_2_y_value_from_bottom,140,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"140) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,99.405,= ( component_height - leveling_bar_additional_height ) - LD_stile_top_hinge_hole_2_y_value,
+,LD_stile_mid_top_hinge_hole_1_y_value_from_bottom,141,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"141) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,70.500,= ( component_height - leveling_bar_additional_height ) - LD_stile_mid_top_hinge_hole_1_y_value,
+,LD_stile_mid_top_hinge_hole_2_y_value_from_bottom,142,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"142) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,69.000,= ( component_height - leveling_bar_additional_height ) - LD_stile_mid_top_hinge_hole_2_y_value,
+,LD_stile_mid_bottom_hinge_hole_1_y_value_from_bottom,143,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"143) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,40.125,= ( component_height - leveling_bar_additional_height ) - LD_stile_mid_bottom_hinge_hole_1_y_value,
+,LD_stile_mid_bottom_hinge_hole_2_y_value_from_bottom,144,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"144) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,38.625,= ( component_height - leveling_bar_additional_height ) - LD_stile_mid_bottom_hinge_hole_2_y_value,
+,LD_stile_bottom_hinge_hole_1_y_value_from_bottom,145,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"145) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,10.095,= ( component_height - leveling_bar_additional_height ) - LD_stile_bottom_hinge_hole_1_y_value,
+,LD_stile_bottom_hinge_hole_2_y_value_from_bottom,146,Derived,Model,Distance between bottom of stile blank and center of stile's left side hinge hole,"146) Derived - Model
+    Distance between bottom of stile blank and center of stile's left side hinge hole",No,8.595,= ( component_height - leveling_bar_additional_height ) - LD_stile_bottom_hinge_hole_2_y_value,
+,,,,,,,,,,
+Routing coordinates - LEFT side,,,,,,,,,,
+,,,,,,,,,,
+STILE RIGHT SIDE,,,,,,,,,,
+,right_side_door,201,Input,Helper,Whether there is a door adjacent to the left side of the stile,"201) Input - Helper
+    Whether there is a door adjacent to the left side of the stile",Yes,1,#N/A,
+,RD_hinging_right,202,Input,Helper,"For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door","202) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it's hinges are on the right side of the door",Yes,1,#N/A,
+,RD_swinging_out,203,Input,Helper,"For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door","203) Input - Helper
+    For the door adjacent to the LEFT side of the stile:
+whether it is an outswing door",Yes,1,#N/A,
+,RD_height,204,Input,Helper,"Height of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)","204) Input - Helper
+    Height of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)",Yes,73.125,#N/A,
+,RD_floor_clearance,205,Input,Helper,"Floor clearance of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)","205) Input - Helper
+    Floor clearance of the door adjacent to the RIGHT side of the stile
+(when viewed from outside the stall)",Yes,4.5,#N/A,
+,RD_ceiling_clearance,206,Input,Helper,"Ceiling clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)","206) Input - Helper
+    Ceiling clearance of the door adjacent to the LEFT side of the stile
+(when viewed from outside the stall)",Yes,45.125,#N/A,
+,RD_bottom_notching_actual_y_dist,207,Derived,Model,Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch,"207) Derived - Model
+    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch",No,-0.19,= (door_bottom_notching_standard_y_dist + 1) - RD_floor_clearance,
+,RD_top_notching_y_dist,208,Derived,Helper,Distance between top-most hole and top of door,"208) Derived - Helper
+    Distance between top-most hole and top of door",Yes,0,"= IF( RD_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ),
+      ( shoe_height + shoe_door_top_notch_gap ) - RD_ceiling_clearance,
+      0 )",
+,RD_inter_hinge_gap,209,Derived,Helper,Distance between top_hinge_holes of adjacent hinges on the door adjacent to the RIGHT side of the stile,"209) Derived - Helper
+    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the RIGHT side of the stile",No,22.728,=(RD_height-(RD_top_margin)-(RD_bottom_margin+hinge_hole_space))/3,
+,RD_top_margin,210,Derived,Helper,Distance between top-most hole and top of door,"210) Derived - Helper
+    Distance between top-most hole and top of door",No,1.72,= 1.72 + RD_top_notching_y_dist,
+,RD_bottom_margin,211,Derived,Helper,Distance between bottom-most hole and bottom of door on the door adjacent to the RIGHT side of the stile,"211) Derived - Helper
+    Distance between bottom-most hole and bottom of door on the door adjacent to the RIGHT side of the stile",No,1.72,"=1.72+IF(RD_bottom_notching_actual_y_dist>0,RD_bottom_notching_actual_y_dist,0)",
+,RD_mid_top_hinge_offset,212,Derived,Helper,"For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile","212) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-top hinge when the floor clearance is 1"" the door hinges on a stile",No,0,"= -1 * 0.823 * IF(RD_floor_clearance = 1, 1, 0)",
+,RD_mid_bottom_hinge_offset,213,Derived,Helper,"For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile","213) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+An offset applying to the mid-bottom hinge when the floor clearance is 1"" the door hinges on a stile",No,0,"= 2 * 0.823 * IF(RD_floor_clearance = 1, 1, 0)",
+,RD_stile_hole_modifier,214,Derived,Helper,"For the door adjacent to the RIGHT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates","214) Derived - Helper
+    For the door adjacent to the RIGHT side of the stile:
+Adjustment factor convert door y coordinates to stile y coordinates",No,30.9375,=component_height-(RD_height+RD_floor_clearance-leveling_gap),
+,,,,,,,,,,
+Routing and drilling - RIGHT side,,,,,,,,,,
+,right_interior_rabbeting,211,Derived,Model,Whether rabbeting is present the interior right edge of the stile,"211) Derived - Model
+    Whether rabbeting is present the interior right edge of the stile",No,0,"=IF(AND(right_side_door=1,RD_swinging_out=0),1,0)",
+,right_exterior_rabbeting,212,Derived,Model,Whether rabbeting is present the exterior right edge of the stile,"212) Derived - Model
+    Whether rabbeting is present the exterior right edge of the stile",No,1,"=IF(AND(right_side_door=1,RD_swinging_out=1),1,0)",
+,right_rabbeting_activation_offset,213,Fixed,Helper,"An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create right rabbeting on the model","213) Fixed - Helper
+    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create right rabbeting on the model",No,-0.125,"=IF(
+     right_interior_rabbeting = 1,
+     (1/8),
+     IF(
+          right_exterior_rabbeting = 1,
+          -(1/8),
+          component_thickness
+        )
+    )",
+,RD_full_rabbeting_top,214,Derived,Helper,Whether rabbeting on the stile's right side extends all the way to the top,"214) Derived - Helper
+    Whether rabbeting on the stile's right side extends all the way to the top",No,0,"=IF(
+     AND( RD_ceiling_clearance < through_rabbeting_threshold, right_side_door = 1),
+     1,
+     0
+   )",
+,RD_full_rabbeting_bottom,215,Derived,Helper,Whether rabbeting on the stile's right side extends all the way to the bottom,"215) Derived - Helper
+    Whether rabbeting on the stile's right side extends all the way to the bottom",No,1,"=IF(
+     AND(RD_floor_clearance < through_rabbeting_threshold, right_side_door = 1),
+     1,
+     0
+   )",
+,right_rabbeting_top,216,Derived,Model,Distance from the bottom edge of the stile's compact laminate to the top of rabbeting on the right side of the stile. If the distance between the top of the door and the top of the stile's compact laminate is small then the rabbeting starts at the beginning of the stile with no radius cut in.,"216) Derived - Model
+    Distance from the bottom edge of the stile's compact laminate to the top of rabbeting on the right side of the stile. If the distance between the top of the door and the top of the stile's compact laminate is small then the rabbeting starts at the beginning of the stile with no radius cut in.",No,76.5735,"=IF(
+  RD_ceiling_clearance < through_rabbeting_threshold,
+  component_net_height + 2,
+  RD_floor_clearance + RD_height - (leveling_bar_additional_height + leveling_gap) + rabbeting_start_above_door
+)",
+,right_rabbeting_bottom,217,Derived,Model,"Distance from the bottom edge of the stile's compact laminate to the bottom of rabbeting on the right side of the stile. If the door_floor_clearance is small, then the rabbeting goes all the way to the end of the stile with no radius cut in.","217) Derived - Model
+    Distance from the bottom edge of the stile's compact laminate to the bottom of rabbeting on the right side of the stile. If the door_floor_clearance is small, then the rabbeting goes all the way to the end of the stile with no radius cut in.",No,-2,"=IF(
+    RD_floor_clearance < through_rabbeting_threshold,
+    -2,
+    component_net_height - (RD_stile_hole_modifier + RD_height + rabbeting_stop_below_door)
+)",
+,right_rabbeting_length,218,Derived,Model,Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting,"218) Derived - Model
+    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting",No,78.5735,= right_rabbeting_top - right_rabbeting_bottom,
+,right_interior_drilling,219,Derived,Model,Whether drilling is present the interior right edge of the stile,"219) Derived - Model
+    Whether drilling is present the interior right edge of the stile",No,0,"=IF(AND(right_side_door=1,RD_hinging_right=0,RD_swinging_out=0),1,0)",
+,right_exterior_drilling,220,Derived,Model,Whether drilling is present the exterior right edge of the stile,"220) Derived - Model
+    Whether drilling is present the exterior right edge of the stile",No,0,"=IF(AND(right_side_door=1,RD_hinging_right=0,RD_swinging_out=1),1,0)",
+,,,,,,,,,,
+Door drill hole coordinates - RIGHT side,,,,,,,,,,
+,RD_top_hinge_hole_1_y_value,221,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"221) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,1.720,= RD_top_margin,
+,RD_top_hinge_hole_2_y_value,222,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"222) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,3.220,=RD_top_hinge_hole_1_y_value+hinge_hole_space,
+,RD_mid_top_hinge_hole_1_y_value,223,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"223) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,24.448,=RD_top_hinge_hole_1_y_value+RD_inter_hinge_gap+RD_mid_top_hinge_offset,
+,RD_mid_top_hinge_hole_2_y_value,224,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"224) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,25.948,=RD_mid_top_hinge_hole_1_y_value+hinge_hole_space,
+,RD_mid_bottom_hinge_hole_1_y_value,225,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"225) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,47.177,=RD_mid_top_hinge_hole_1_y_value+RD_inter_hinge_gap+RD_mid_bottom_hinge_offset,
+,RD_mid_bottom_hinge_hole_2_y_value,226,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"226) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,48.677,=RD_mid_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,RD_bottom_hinge_hole_1_y_value,227,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"227) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,69.905,=RD_mid_bottom_hinge_hole_1_y_value+RD_inter_hinge_gap+RD_mid_top_hinge_offset,
+,RD_bottom_hinge_hole_2_y_value,228,Derived,Helper,Distance between top of the right door and the center of the door hinge hole,"228) Derived - Helper
+    Distance between top of the right door and the center of the door hinge hole",No,71.405,=RD_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,,,,,,,,,,
+Stile drill hole coordinates - RIGHT side,,,,,,,,,,
+,RD_stile_top_hinge_hole_1_y_value,231,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"231) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,32.658,=RD_top_hinge_hole_1_y_value+RD_stile_hole_modifier,
+,RD_stile_top_hinge_hole_2_y_value,232,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"232) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,34.158,=RD_stile_top_hinge_hole_1_y_value+hinge_hole_space,
+,RD_stile_mid_top_hinge_hole_1_y_value,233,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"233) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,55.417,=RD_mid_top_hinge_hole_1_y_value+RD_stile_hole_modifier+stile_mid_top_hinge_offset,
+,RD_stile_mid_top_hinge_hole_2_y_value,234,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"234) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,56.917,=RD_stile_mid_top_hinge_hole_1_y_value+hinge_hole_space,
+,RD_stile_mid_bottom_hinge_hole_1_y_value,235,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"235) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,78.145,=RD_mid_bottom_hinge_hole_1_y_value+RD_stile_hole_modifier+stile_mid_bottom_hinge_offset,
+,RD_stile_mid_bottom_hinge_hole_2_y_value,236,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"236) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,79.645,=RD_stile_mid_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,RD_stile_bottom_hinge_hole_1_y_value,237,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"237) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,100.530,=RD_bottom_hinge_hole_1_y_value+RD_stile_hole_modifier+stile_bottom_hinge_offset,
+,RD_stile_bottom_hinge_hole_2_y_value,238,Derived,Model,Distance between top of stile and center of stile's right side hinge hole,"238) Derived - Model
+    Distance between top of stile and center of stile's right side hinge hole",No,102.030,=RD_stile_bottom_hinge_hole_1_y_value+hinge_hole_space,
+,,,,,,,,,,
+,RD_stile_top_hinge_hole_1_y_value_from_bottom,239,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"239) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,73.468,= ( component_height - leveling_bar_additional_height ) - RD_stile_top_hinge_hole_1_y_value,
+,RD_stile_top_hinge_hole_2_y_value_from_bottom,240,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"240) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,71.968,= ( component_height - leveling_bar_additional_height ) - RD_stile_top_hinge_hole_2_y_value,
+,RD_stile_mid_top_hinge_hole_1_y_value_from_bottom,241,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"241) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,50.708,= ( component_height - leveling_bar_additional_height ) - RD_stile_mid_top_hinge_hole_1_y_value,
+,RD_stile_mid_top_hinge_hole_2_y_value_from_bottom,242,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"242) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,49.208,= ( component_height - leveling_bar_additional_height ) - RD_stile_mid_top_hinge_hole_2_y_value,
+,RD_stile_mid_bottom_hinge_hole_1_y_value_from_bottom,243,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"243) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,27.980,= ( component_height - leveling_bar_additional_height ) - RD_stile_mid_bottom_hinge_hole_1_y_value,
+,RD_stile_mid_bottom_hinge_hole_2_y_value_from_bottom,244,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"244) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,26.480,= ( component_height - leveling_bar_additional_height ) - RD_stile_mid_bottom_hinge_hole_2_y_value,
+,RD_stile_bottom_hinge_hole_1_y_value_from_bottom,245,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"245) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,5.595,= ( component_height - leveling_bar_additional_height ) - RD_stile_bottom_hinge_hole_1_y_value,
+,RD_stile_bottom_hinge_hole_2_y_value_from_bottom,246,Derived,Model,Distance between bottom of stile blank and center of stile's right side hinge hole,"246) Derived - Model
+    Distance between bottom of stile blank and center of stile's right side hinge hole",No,4.095,= ( component_height - leveling_bar_additional_height ) - RD_stile_bottom_hinge_hole_2_y_value,
+,,,,,,,,,,
+Routing coordinates - RIGHT side,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,

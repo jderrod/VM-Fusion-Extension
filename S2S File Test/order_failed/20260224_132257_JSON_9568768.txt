@@ -1,0 +1,9 @@
+Order IBUS367294 partially completed.
+
+6/10 components successful
+
+Failed components:
+  stiles: S1: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S2: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S3: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S4: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)

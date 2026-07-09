@@ -1,0 +1,18 @@
+Order IBUS367294 partially completed.
+
+3/10 components successful
+
+Failed components:
+  panels: P1: Some parameters failed to update:
+  Failed to update 'panel_section': 3 : Expression is invalid.
+
+  panels: P2: Some parameters failed to update:
+  Failed to update 'panel_section': 3 : Expression is invalid.
+
+  panels: P3: Some parameters failed to update:
+  Failed to update 'panel_section': 3 : Expression is invalid.
+
+  stiles: S1: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S2: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S3: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S4: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)

@@ -1,0 +1,1215 @@
+2026-06-17 14:50:05 - FusionManufacturingPipeline - INFO - Order log created: \\ddc-mefs\Fusion\Fusion Folders\output\logs\IBUS447889_log.txt
+2026-06-17 14:50:05 - FusionManufacturingPipeline - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3081, 3082, 3086)'}
+2026-06-17 14:50:05 - FusionManufacturingPipeline - INFO - Processing 4 panels
+2026-06-17 14:50:05 - FusionManufacturingPipeline - INFO - Processing panel 1/4: P1
+2026-06-17 14:50:05 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-06-17 14:50:06 - FusionManufacturingPipeline - INFO - Re-fetching DataFile for 3X8X_Panel_Standard Drawing...
+2026-06-17 14:50:07 - FusionManufacturingPipeline - INFO - Using fresh DataFile for 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:07 - FusionManufacturingPipeline - INFO - Opening cloud panel model: 3X8X_Panel_Standard Drawing (documents count before: 1)
+2026-06-17 14:50:15 - FusionManufacturingPipeline - INFO - Opened cloud panel model: 3X8X_Panel_Standard Drawing (documents count after: 3)
+2026-06-17 14:50:15 - FusionManufacturingPipeline - INFO - P1: Opened cloud panel model: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:15 - FusionManufacturingPipeline - ERROR - Component processing failed: P1
+Traceback (most recent call last):
+  File "C:\Users/mefusion/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/AddIns/FusionManufacturingPipeline\src\order_processor.py", line 347, in process_component_v2
+    design = adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users/mefusion/AppData/Local/Autodesk/webdeploy/production/09c0b27154daf1d1e28796415439b91cda785e24/Api/Python/packages\adsk\core.py", line 19041, in itemByProductType
+    return _core.Products_itemByProductType(self, productType)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+RuntimeError: 3 : failed to find product
+2026-06-17 14:50:18 - FusionManufacturingPipeline - INFO - Processing panel 2/4: P2
+2026-06-17 14:50:18 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-06-17 14:50:18 - FusionManufacturingPipeline - INFO - Cached cloud panel model already active: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:18 - FusionManufacturingPipeline - INFO - P2: Switched to cloud panel model: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:18 - FusionManufacturingPipeline - ERROR - Component processing failed: P2
+Traceback (most recent call last):
+  File "C:\Users/mefusion/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/AddIns/FusionManufacturingPipeline\src\order_processor.py", line 347, in process_component_v2
+    design = adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users/mefusion/AppData/Local/Autodesk/webdeploy/production/09c0b27154daf1d1e28796415439b91cda785e24/Api/Python/packages\adsk\core.py", line 19041, in itemByProductType
+    return _core.Products_itemByProductType(self, productType)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+RuntimeError: 3 : failed to find product
+2026-06-17 14:50:21 - FusionManufacturingPipeline - INFO - Processing panel 3/4: P3
+2026-06-17 14:50:22 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-06-17 14:50:22 - FusionManufacturingPipeline - INFO - Cached cloud panel model already active: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:22 - FusionManufacturingPipeline - INFO - P3: Switched to cloud panel model: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:22 - FusionManufacturingPipeline - ERROR - Component processing failed: P3
+Traceback (most recent call last):
+  File "C:\Users/mefusion/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/AddIns/FusionManufacturingPipeline\src\order_processor.py", line 347, in process_component_v2
+    design = adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users/mefusion/AppData/Local/Autodesk/webdeploy/production/09c0b27154daf1d1e28796415439b91cda785e24/Api/Python/packages\adsk\core.py", line 19041, in itemByProductType
+    return _core.Products_itemByProductType(self, productType)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+RuntimeError: 3 : failed to find product
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO - Processing panel 4/4: P4
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO - Cached cloud panel model already active: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO - P4: Switched to cloud panel model: 3X8X_Panel_Standard Drawing
+2026-06-17 14:50:25 - FusionManufacturingPipeline - ERROR - Component processing failed: P4
+Traceback (most recent call last):
+  File "C:\Users/mefusion/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/AddIns/FusionManufacturingPipeline\src\order_processor.py", line 347, in process_component_v2
+    design = adsk.fusion.Design.cast(doc.products.itemByProductType('DesignProductType'))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users/mefusion/AppData/Local/Autodesk/webdeploy/production/09c0b27154daf1d1e28796415439b91cda785e24/Api/Python/packages\adsk\core.py", line 19041, in itemByProductType
+    return _core.Products_itemByProductType(self, productType)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+RuntimeError: 3 : failed to find product
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO - Processing 4 doors
+2026-06-17 14:50:25 - FusionManufacturingPipeline - INFO - Processing door 1/4: D1
+2026-06-17 14:50:26 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-06-17 14:50:26 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door
+2026-06-17 14:50:27 - FusionManufacturingPipeline - INFO - D1: Switched to cloud door model: 3X8X_Door
+2026-06-17 14:50:27 - FusionManufacturingPipeline - INFO - Applying parameters to D1
+2026-06-17 14:50:27 - FusionManufacturingPipeline - INFO - D1: Model has 174 user params, JSON has 12 params
+2026-06-17 14:50:28 - FusionManufacturingPipeline - INFO - D1: All model user params: ['Hinge', 'Operations', 'Swing', 'a_order_number', 'a_series', 'bottom_hinge_hole_1_y_value', 'bottom_hinge_hole_2_y_value', 'bottom_left_notching', 'bottom_left_tag', 'bottom_notch_tag', 'bottom_notching_actual_y_dist', 'bottom_notching_standard_y_dist', 'bottom_right_notching', 'bottom_right_tag', 'component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_id', 'component_thickness', 'component_width', 'd10', 'd101', 'd102', 'd103', 'd104', 'd105', 'd106', 'd107', 'd11', 'd114', 'd115', 'd116', 'd12', 'd129', 'd139', 'd140', 'd141', 'd142', 'd143', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd153', 'd154', 'd155', 'd156', 'd157', 'd158', 'd159', 'd160', 'd161', 'd162', 'd175', 'd176', 'd177', 'd178', 'd179', 'd180', 'd181', 'd182', 'd190', 'd191', 'd192', 'd195', 'd198', 'd199', 'd200', 'd201', 'd202', 'd203', 'd204', 'd205', 'd206', 'd207', 'd208', 'd209', 'd210', 'd211', 'd212', 'd213', 'd214', 'd215', 'd216', 'd217', 'd218', 'd219', 'd220', 'd221', 'd222', 'd223', 'd224', 'd225', 'd226', 'd24', 'd26', 'd27', 'd30', 'd32', 'd38', 'd39', 'd40', 'd45', 'd46', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd56', 'd57', 'd58', 'd59', 'd70', 'd71', 'd72', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_margin', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_top_margin', 'door_wall_keep_latching', 'door_wall_post_hinging', 'door_wall_post_latching', 'facing', 'floor_to_ceiling', 'hinge_hole_depth', 'hinge_hole_radius', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_placement', 'inter_hinge_gap', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbeting_model', 'mid_bottom_hinge_hole_1_y_value', 'mid_bottom_hinge_hole_2_y_value', 'mid_bottom_hinge_offset', 'mid_top_hinge_hole_1_y_value', 'mid_top_hinge_hole_2_y_value', 'mid_top_hinge_offset', 'notch_corner_radius', 'notching_x_dist', 'rabbeting_depth', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbeting_model', 'set_up', 'shoe_door_top_notch_gap', 'shoe_height', 'top_hinge_hole_1_y_value', 'top_hinge_hole_2_y_value', 'top_left_notching', 'top_left_tag', 'top_notch_tag', 'top_notching_y_dist', 'top_right_notching', 'top_right_tag']
+2026-06-17 14:50:28 - FusionManufacturingPipeline - INFO - D1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-06-17 14:50:28 - FusionManufacturingPipeline - INFO - D1: Skipped (not in model): ['program_name', 'series_id']
+2026-06-17 14:50:33 - FusionManufacturingPipeline - INFO - D1: Successfully updated 10 parameter(s)
+2026-06-17 14:50:33 - FusionManufacturingPipeline - INFO - D1: Updated 'a_order_number' from ''IBUS447928'' to ''IBUS447889'' (actual: ''IBUS447889'')
+2026-06-17 14:50:33 - FusionManufacturingPipeline - INFO - Saving 3X8X_Door (v927, isModified=True)
+2026-06-17 14:50:35 - FusionManufacturingPipeline - INFO - Save completed for 3X8X_Door in 1.2s
+2026-06-17 14:50:35 - FusionManufacturingPipeline - INFO - D1: Post-parameter save: 3X8X_Door: saved (clearing dirty flag, 1.2s)
+2026-06-17 14:50:58 - FusionManufacturingPipeline - INFO - D1: Model exported: Exported D1.step (857884 bytes)
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: Parameters exported (CSV): Exported 175 parameters to D1_all_parameters.csv (19223 bytes)
+2026-06-17 14:50:59 - FusionManufacturingPipeline - WARNING - D1: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: Found hinge_hole_x_dist = 0.968 in
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: workstop=4, DrillName=3082G LH O/S DOOR (hinging_right=False, swinging_out=True)
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: FlipRotate=1 (rotate, door)
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: Only workstop 4 used, added air drilling entry on workstop 1 at (121, 0.197)
+2026-06-17 14:50:59 - FusionManufacturingPipeline - INFO - D1: Computed 9 paired coordinates for D1
+2026-06-17 14:51:00 - FusionManufacturingPipeline - INFO - D1: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-D1-IBUS447889.csv
+2026-06-17 14:51:00 - FusionManufacturingPipeline - INFO - D1: Width=36.375, Length=79.0
+2026-06-17 14:51:00 - FusionManufacturingPipeline - INFO - D1: Cutlist - Series=3082G, FC=12, Gapping=[1,1,0,0], GappingTop=[0,0,0,0], Thickness=0.75
+2026-06-17 14:51:00 - FusionManufacturingPipeline - INFO - D1: Cutlist CSV exported successfully (1080 bytes)
+2026-06-17 14:51:00 - FusionManufacturingPipeline - INFO - D1: Cutlist CSV exported: Exported cutlist to 1-D1-IBUS447889.csv (1080 bytes)
+2026-06-17 14:51:01 - FusionManufacturingPipeline - INFO - D1: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-D1-IBUS447889.csv
+2026-06-17 14:51:01 - FusionManufacturingPipeline - INFO - D1: Starting drawing export
+2026-06-17 14:51:01 - FusionManufacturingPipeline - INFO - D1: Model not modified, skipping save
+2026-06-17 14:51:01 - FusionManufacturingPipeline - INFO - DrawingExporter initialized. Output: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO - D1: No cached drawing — first order will open from cloud (may take minutes)
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO - === open_drawing: 3X8X_Door Drawing ===
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   pre_opened_doc: False
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   documents.count: 3
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:51:02 - FusionManufacturingPipeline - INFO - Scanning 3 open documents for drawing...
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[0]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[1]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[2]: name=3X8X_Panel_Standard Drawing, id=urn:adsk.wipprod:dm.lineage:-6329spARyOPDtaj8jaFbg
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO - Skipping doc cleanup — cloud docs stay open to avoid poisoning Fusion state
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO - === PRE-OPEN STATE ===
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   documents.count: 3
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[0]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[1]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument
+2026-06-17 14:51:05 - FusionManufacturingPipeline - INFO -   doc[2]: 3X8X_Panel_Standard Drawing type=adsk::drawing::DrawingDocument
+2026-06-17 14:51:06 - FusionManufacturingPipeline - INFO -   activeDocument: 3X8X_Door
+2026-06-17 14:51:06 - FusionManufacturingPipeline - INFO -   activeProduct: adsk::fusion::Design
+2026-06-17 14:51:06 - FusionManufacturingPipeline - INFO -   data_file to open: 3X8X_Door Drawing (id=urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ)
+2026-06-17 14:51:06 - FusionManufacturingPipeline - INFO - === CALLING documents.open() NOW ===
+2026-06-17 14:51:13 - FusionManufacturingPipeline - INFO - documents.open() returned (7.0s), docs after: 5
+2026-06-17 14:51:13 - FusionManufacturingPipeline - INFO - Returned doc: name=3X8X_Door Drawing, isValid=True
+2026-06-17 14:51:13 - FusionManufacturingPipeline - INFO - Settling drawing after open (sleep only, no doEvents)...
+2026-06-17 14:51:18 - FusionManufacturingPipeline - INFO - Settle-open complete
+2026-06-17 14:51:18 - FusionManufacturingPipeline - INFO - Activating drawing document...
+2026-06-17 14:51:18 - FusionManufacturingPipeline - INFO - doc.activate() returned
+2026-06-17 14:51:23 - FusionManufacturingPipeline - INFO - Settle-activate complete
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO - After settle: activeDoc=3X8X_Door Drawing, activeProduct=adsk::drawing::Drawing
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO - DrawingDocument cast succeeded (0.0s)
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO - Drawing opened successfully: 3X8X_Door Drawing (7.0s)
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO - First drawing update: using updateAllReferences() (no close/reopen)...
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:51:24 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=True, refDoc=3X8X_Door, version=v679, latestVersion=927, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:51:25 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:51:27 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:51:28 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:51:28 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:51:28 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:51:28 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door, version=v928, latestVersion=927, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:51:28 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:51:29 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:51:34 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:51:34 - FusionManufacturingPipeline - INFO - Starting PDF export (door)
+2026-06-17 14:51:34 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:51:34 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Door Drawing
+2026-06-17 14:51:36 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Door Drawing
+2026-06-17 14:51:37 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D1-IBUS447889-drawing.pdf
+2026-06-17 14:51:37 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing__1k9uy99\1-D1-IBUS447889-drawing.pdf
+2026-06-17 14:51:37 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:51:38 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-D1-IBUS447889-drawing.pdf (261643 bytes)
+2026-06-17 14:51:39 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D1-IBUS447889-drawing.pdf
+2026-06-17 14:51:39 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D1-IBUS447889-drawing.pdf (261643 bytes)
+2026-06-17 14:51:39 - FusionManufacturingPipeline - INFO - D1: Drawing exported: Exported drawing to 1-D1-IBUS447889-drawing.pdf (261643 bytes)
+2026-06-17 14:51:39 - FusionManufacturingPipeline - INFO - D1: Door drawing cached for future orders
+2026-06-17 14:51:39 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door
+2026-06-17 14:51:42 - FusionManufacturingPipeline - INFO - D1: Door model re-activated after drawing export
+2026-06-17 14:51:42 - FusionManufacturingPipeline - INFO - Model 3X8X_Door is not modified, skip save
+2026-06-17 14:51:43 - FusionManufacturingPipeline - INFO - D1: Pre-CAM save: 3X8X_Door: not modified, no save needed
+2026-06-17 14:51:43 - FusionManufacturingPipeline - INFO - D1: Starting CAM regeneration
+2026-06-17 14:51:43 - FusionManufacturingPipeline - INFO - D1: Accessing CAM product
+2026-06-17 14:51:46 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:51:46 - FusionManufacturingPipeline - INFO - D1: CAM product accessed
+2026-06-17 14:51:46 - FusionManufacturingPipeline - INFO - D1: Found 8 CAM setup(s): Setup 1 - G57, Setup 2 - G59, Setup 3 - G57, Setup 4 - G59, Setup 5 - G57, Setup 6 - G59, Setup 7 - G57, Setup 8 - G59
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Bottom Notch "
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Bottom Notch"
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Exterior Rabbet"
+2026-06-17 14:51:47 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Bottom Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Exterior Rabbet"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Bottom Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Bottom Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Bottom Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Exterior Rabbet"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Bottom Notch"
+2026-06-17 14:51:48 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Exterior Rabbet"
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Bottom Notch"
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Top Notch "
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - D1: Pre-regen unsuppress: Unsuppressed 20 operation(s)
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - D1: Regenerating toolpaths for all setups
+2026-06-17 14:51:49 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:52:05 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 14.4s
+2026-06-17 14:52:05 - FusionManufacturingPipeline - INFO - Setup 1 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 2 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 3 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 4 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 5 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 6 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 7 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - Setup 8 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 1 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 2 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 3 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:52:06 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 4 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 5 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 6 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 7 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - D1: Setup "Setup 8 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_interior_rabbeting" value=1.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_exterior_rabbeting" value=0.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_interior_rabbeting" value=1.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_exterior_rabbeting" value=0.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_left_notching" value=0.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_right_notching" value=0.0
+2026-06-17 14:52:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_left_notching" value=0.0
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_right_notching" value=0.0
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: desired active state: {('Setup 1 - G57', 'Left Interior Rabbet'): True, ('Setup 1 - G57', 'Left Bottom Notch'): False, ('Setup 1 - G57', 'Left Top Notch'): False, ('Setup 2 - G59', 'Left Interior Rabbet'): True, ('Setup 2 - G59', 'Left Bottom Notch'): False, ('Setup 2 - G59', 'Left Top Notch'): False, ('Setup 3 - G57', 'Left Exterior Rabbet'): False, ('Setup 3 - G57', 'Left Bottom Notch'): False, ('Setup 3 - G57', 'Left Top Notch'): False, ('Setup 4 - G59', 'Left Exterior Rabbet'): False, ('Setup 4 - G59', 'Left Bottom Notch'): False, ('Setup 4 - G59', 'Left Top Notch'): False, ('Setup 5 - G57', 'Right Interior Rabbet'): True, ('Setup 5 - G57', 'Right Bottom Notch'): False, ('Setup 5 - G57', 'Right Top Notch'): False, ('Setup 6 - G59', 'Right Interior Rabbet'): True, ('Setup 6 - G59', 'Right Bottom Notch'): False, ('Setup 6 - G59', 'Right Top Notch'): False, ('Setup 7 - G57', 'Right Exterior Rabbet'): False, ('Setup 7 - G57', 'Right Bottom Notch'): False, ('Setup 7 - G57', 'Right Top Notch'): False, ('Setup 8 - G59', 'Right Exterior Rabbet'): False, ('Setup 8 - G59', 'Right Bottom Notch'): False, ('Setup 8 - G59', 'Right Top Notch'): False}
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 1 - G57" operations: ['Left Interior Rabbet', 'Left Bottom Notch ', 'Left Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 2 - G59" operations: ['Left Interior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 3 - G57" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 4 - G59" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 5 - G57" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 6 - G59" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 7 - G57" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:52:08 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 8 - G59" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch ']
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Bottom Notch"
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Bottom Notch"
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Exterior Rabbet"
+2026-06-17 14:52:09 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Bottom Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Exterior Rabbet"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Bottom Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Bottom Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Bottom Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Exterior Rabbet"
+2026-06-17 14:52:10 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Bottom Notch"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Exterior Rabbet"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Bottom Notch"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - D1: Door toolpath suppression: Updated 20 toolpath(s): Suppressed "Setup 1 - G57" / "Left Bottom Notch"; Suppressed "Setup 1 - G57" / "Left Top Notch"; Suppressed "Setup 2 - G59" / "Left Bottom Notch"; Suppressed "Setup 2 - G59" / "Left Top Notch"; Suppressed "Setup 3 - G57" / "Left Exterior Rabbet"; Suppressed "Setup 3 - G57" / "Left Bottom Notch"; Suppressed "Setup 3 - G57" / "Left Top Notch"; Suppressed "Setup 4 - G59" / "Left Exterior Rabbet"; Suppressed "Setup 4 - G59" / "Left Bottom Notch"; Suppressed "Setup 4 - G59" / "Left Top Notch"; Suppressed "Setup 5 - G57" / "Right Bottom Notch"; Suppressed "Setup 5 - G57" / "Right Top Notch"; Suppressed "Setup 6 - G59" / "Right Bottom Notch"; Suppressed "Setup 6 - G59" / "Right Top Notch"; Suppressed "Setup 7 - G57" / "Right Exterior Rabbet"; Suppressed "Setup 7 - G57" / "Right Bottom Notch"; Suppressed "Setup 7 - G57" / "Right Top Notch"; Suppressed "Setup 8 - G59" / "Right Exterior Rabbet"; Suppressed "Setup 8 - G59" / "Right Bottom Notch"; Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - D1: Starting post processing
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - D1: Door features: swing_out=True, left=[int_rab=True, ext_rab=False, bot_notch=False, top_notch=False], right=[int_rab=True, ext_rab=False, bot_notch=False, top_notch=False]
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - D1: Door setup selection: swing out, both sides (left G59 + right G57), sequence = ['Setup 2 - G59', 'Setup 5 - G57']
+2026-06-17 14:52:11 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Setup 2 - G59', 'Setup 5 - G57']
+2026-06-17 14:52:12 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:52:12 - FusionManufacturingPipeline - INFO - Posting setup "Setup 2 - G59" (sequence 1/2) as 1668.nc
+2026-06-17 14:52:13 - FusionManufacturingPipeline - INFO -   -> 1668.nc (662 bytes)
+2026-06-17 14:52:13 - FusionManufacturingPipeline - INFO - Posting setup "Setup 5 - G57" (sequence 2/2) as 1669.nc
+2026-06-17 14:52:14 - FusionManufacturingPipeline - INFO -   -> 1669.nc (663 bytes)
+2026-06-17 14:52:15 - FusionManufacturingPipeline - INFO - Successfully generated 1-D1-IBUS447889.txt (1280 bytes) from 2 section(s)
+2026-06-17 14:52:15 - FusionManufacturingPipeline - INFO - D1: Post "Setups": Generated 1-D1-IBUS447889.txt (1280 bytes) from 2 section(s)
+2026-06-17 14:52:16 - FusionManufacturingPipeline - INFO - D1: G-code file copied to network: \\ddc-mefs\Anderson\1-D1-IBUS447889.txt
+2026-06-17 14:52:17 - FusionManufacturingPipeline - INFO - D1: Switched back to Design workspace
+2026-06-17 14:52:17 - FusionManufacturingPipeline - INFO - D1: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:52:17 - FusionManufacturingPipeline - INFO - D1: Adding drilling data to compiled collection
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - Processing door 2/4: D2
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - Cached cloud door model already active: 3X8X_Door
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - D2: Switched to cloud door model: 3X8X_Door
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - Applying parameters to D2
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - D2: Model has 174 user params, JSON has 12 params
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - D2: All model user params: ['Hinge', 'Operations', 'Swing', 'a_order_number', 'a_series', 'bottom_hinge_hole_1_y_value', 'bottom_hinge_hole_2_y_value', 'bottom_left_notching', 'bottom_left_tag', 'bottom_notch_tag', 'bottom_notching_actual_y_dist', 'bottom_notching_standard_y_dist', 'bottom_right_notching', 'bottom_right_tag', 'component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_id', 'component_thickness', 'component_width', 'd10', 'd101', 'd102', 'd103', 'd104', 'd105', 'd106', 'd107', 'd11', 'd114', 'd115', 'd116', 'd12', 'd129', 'd139', 'd140', 'd141', 'd142', 'd143', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd153', 'd154', 'd155', 'd156', 'd157', 'd158', 'd159', 'd160', 'd161', 'd162', 'd175', 'd176', 'd177', 'd178', 'd179', 'd180', 'd181', 'd182', 'd190', 'd191', 'd192', 'd195', 'd198', 'd199', 'd200', 'd201', 'd202', 'd203', 'd204', 'd205', 'd206', 'd207', 'd208', 'd209', 'd210', 'd211', 'd212', 'd213', 'd214', 'd215', 'd216', 'd217', 'd218', 'd219', 'd220', 'd221', 'd222', 'd223', 'd224', 'd225', 'd226', 'd24', 'd26', 'd27', 'd30', 'd32', 'd38', 'd39', 'd40', 'd45', 'd46', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd56', 'd57', 'd58', 'd59', 'd70', 'd71', 'd72', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_margin', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_top_margin', 'door_wall_keep_latching', 'door_wall_post_hinging', 'door_wall_post_latching', 'facing', 'floor_to_ceiling', 'hinge_hole_depth', 'hinge_hole_radius', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_placement', 'inter_hinge_gap', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbeting_model', 'mid_bottom_hinge_hole_1_y_value', 'mid_bottom_hinge_hole_2_y_value', 'mid_bottom_hinge_offset', 'mid_top_hinge_hole_1_y_value', 'mid_top_hinge_hole_2_y_value', 'mid_top_hinge_offset', 'notch_corner_radius', 'notching_x_dist', 'rabbeting_depth', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbeting_model', 'set_up', 'shoe_door_top_notch_gap', 'shoe_height', 'top_hinge_hole_1_y_value', 'top_hinge_hole_2_y_value', 'top_left_notching', 'top_left_tag', 'top_notch_tag', 'top_notching_y_dist', 'top_right_notching', 'top_right_tag']
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - D2: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-06-17 14:52:21 - FusionManufacturingPipeline - INFO - D2: Skipped (not in model): ['program_name', 'series_id']
+2026-06-17 14:52:29 - FusionManufacturingPipeline - INFO - D2: Successfully updated 10 parameter(s)
+2026-06-17 14:52:29 - FusionManufacturingPipeline - INFO - D2: Updated 'a_order_number' from ''IBUS447889'' to ''IBUS447889'' (actual: ''IBUS447889'')
+2026-06-17 14:52:29 - FusionManufacturingPipeline - INFO - Saving 3X8X_Door (v928, isModified=True)
+2026-06-17 14:52:30 - FusionManufacturingPipeline - INFO - Save completed for 3X8X_Door in 1.1s
+2026-06-17 14:52:30 - FusionManufacturingPipeline - INFO - D2: Post-parameter save: 3X8X_Door: saved (clearing dirty flag, 1.1s)
+2026-06-17 14:52:47 - FusionManufacturingPipeline - INFO - D2: Model exported: Exported D2.step (867773 bytes)
+2026-06-17 14:52:47 - FusionManufacturingPipeline - INFO - D2: Parameters exported (CSV): Exported 175 parameters to D2_all_parameters.csv (19124 bytes)
+2026-06-17 14:52:48 - FusionManufacturingPipeline - WARNING - D2: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Found hinge_hole_x_dist = 0.968 in
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: workstop=4, DrillName=3082G RH I/S DOOR (hinging_right=True, swinging_out=False)
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: FlipRotate=1 (rotate, door)
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Only workstop 4 used, added air drilling entry on workstop 1 at (121, 0.197)
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Computed 9 paired coordinates for D2
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-D2-IBUS447889.csv
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Width=24.375, Length=89.0
+2026-06-17 14:52:48 - FusionManufacturingPipeline - INFO - D2: Cutlist - Series=3082G, FC=2, Gapping=[1,1,0,0], GappingTop=[1,1,0,0], Thickness=0.75
+2026-06-17 14:52:49 - FusionManufacturingPipeline - INFO - D2: Cutlist CSV exported successfully (1079 bytes)
+2026-06-17 14:52:49 - FusionManufacturingPipeline - INFO - D2: Cutlist CSV exported: Exported cutlist to 1-D2-IBUS447889.csv (1079 bytes)
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO - D2: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-D2-IBUS447889.csv
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO - D2: Starting drawing export
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO - D2: Model not modified, skipping save
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO - D2: Using cached door drawing document
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO - === open_drawing: 3X8X_Door Drawing ===
+2026-06-17 14:52:50 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO -   documents.count: 6
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:52:51 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X8X_Door Drawing (isValid=True)
+2026-06-17 14:52:55 - FusionManufacturingPipeline - INFO - Active document after activate: 3X8X_Door Drawing
+2026-06-17 14:52:55 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X8X_Door Drawing
+2026-06-17 14:52:55 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:52:56 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:52:58 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:52:59 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:52:59 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:52:59 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:53:01 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door, version=v929, latestVersion=928, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:53:01 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:53:01 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:53:06 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:53:06 - FusionManufacturingPipeline - INFO - Starting PDF export (door)
+2026-06-17 14:53:07 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:53:07 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Door Drawing
+2026-06-17 14:53:09 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Door Drawing
+2026-06-17 14:53:09 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D2-IBUS447889-drawing.pdf
+2026-06-17 14:53:09 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_9t8g7s8t\1-D2-IBUS447889-drawing.pdf
+2026-06-17 14:53:09 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:53:11 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-D2-IBUS447889-drawing.pdf (264393 bytes)
+2026-06-17 14:53:12 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D2-IBUS447889-drawing.pdf
+2026-06-17 14:53:12 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D2-IBUS447889-drawing.pdf (264393 bytes)
+2026-06-17 14:53:12 - FusionManufacturingPipeline - INFO - D2: Drawing exported: Exported drawing to 1-D2-IBUS447889-drawing.pdf (264393 bytes)
+2026-06-17 14:53:12 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door
+2026-06-17 14:53:15 - FusionManufacturingPipeline - INFO - D2: Door model re-activated after drawing export
+2026-06-17 14:53:15 - FusionManufacturingPipeline - INFO - Model 3X8X_Door is not modified, skip save
+2026-06-17 14:53:15 - FusionManufacturingPipeline - INFO - D2: Pre-CAM save: 3X8X_Door: not modified, no save needed
+2026-06-17 14:53:15 - FusionManufacturingPipeline - INFO - D2: Starting CAM regeneration
+2026-06-17 14:53:15 - FusionManufacturingPipeline - INFO - D2: Accessing CAM product
+2026-06-17 14:53:18 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:53:18 - FusionManufacturingPipeline - INFO - D2: CAM product accessed
+2026-06-17 14:53:18 - FusionManufacturingPipeline - INFO - D2: Found 8 CAM setup(s): Setup 1 - G57, Setup 2 - G59, Setup 3 - G57, Setup 4 - G59, Setup 5 - G57, Setup 6 - G59, Setup 7 - G57, Setup 8 - G59
+2026-06-17 14:53:19 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Bottom Notch "
+2026-06-17 14:53:19 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:53:19 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Bottom Notch"
+2026-06-17 14:53:19 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Exterior Rabbet"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Bottom Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Exterior Rabbet"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Bottom Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Bottom Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Bottom Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:53:20 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Exterior Rabbet"
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Bottom Notch"
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Exterior Rabbet"
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Bottom Notch"
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Top Notch "
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - D2: Pre-regen unsuppress: Unsuppressed 20 operation(s)
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - D2: Regenerating toolpaths for all setups
+2026-06-17 14:53:21 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 16.2s
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - Setup 1 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - Setup 2 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - Setup 3 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - Setup 4 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:53:40 - FusionManufacturingPipeline - INFO - Setup 5 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - Setup 6 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - Setup 7 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - Setup 8 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 1 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 2 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 3 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 4 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 5 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 6 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 7 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:53:41 - FusionManufacturingPipeline - INFO - D2: Setup "Setup 8 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_interior_rabbeting" value=0.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_exterior_rabbeting" value=1.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_interior_rabbeting" value=0.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_exterior_rabbeting" value=1.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_left_notching" value=1.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_right_notching" value=1.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_left_notching" value=0.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_right_notching" value=0.0
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: desired active state: {('Setup 1 - G57', 'Left Interior Rabbet'): False, ('Setup 1 - G57', 'Left Bottom Notch'): True, ('Setup 1 - G57', 'Left Top Notch'): False, ('Setup 2 - G59', 'Left Interior Rabbet'): False, ('Setup 2 - G59', 'Left Bottom Notch'): True, ('Setup 2 - G59', 'Left Top Notch'): False, ('Setup 3 - G57', 'Left Exterior Rabbet'): True, ('Setup 3 - G57', 'Left Bottom Notch'): True, ('Setup 3 - G57', 'Left Top Notch'): False, ('Setup 4 - G59', 'Left Exterior Rabbet'): True, ('Setup 4 - G59', 'Left Bottom Notch'): True, ('Setup 4 - G59', 'Left Top Notch'): False, ('Setup 5 - G57', 'Right Interior Rabbet'): False, ('Setup 5 - G57', 'Right Bottom Notch'): True, ('Setup 5 - G57', 'Right Top Notch'): False, ('Setup 6 - G59', 'Right Interior Rabbet'): False, ('Setup 6 - G59', 'Right Bottom Notch'): True, ('Setup 6 - G59', 'Right Top Notch'): False, ('Setup 7 - G57', 'Right Exterior Rabbet'): True, ('Setup 7 - G57', 'Right Bottom Notch'): True, ('Setup 7 - G57', 'Right Top Notch'): False, ('Setup 8 - G59', 'Right Exterior Rabbet'): True, ('Setup 8 - G59', 'Right Bottom Notch'): True, ('Setup 8 - G59', 'Right Top Notch'): False}
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 1 - G57" operations: ['Left Interior Rabbet', 'Left Bottom Notch ', 'Left Top Notch']
+2026-06-17 14:53:42 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 2 - G59" operations: ['Left Interior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 3 - G57" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 4 - G59" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 5 - G57" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 6 - G59" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 7 - G57" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 8 - G59" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch ']
+2026-06-17 14:53:43 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Interior Rabbet"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Interior Rabbet"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Interior Rabbet"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Interior Rabbet"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:53:44 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - D2: Door toolpath suppression: Updated 12 toolpath(s): Suppressed "Setup 1 - G57" / "Left Interior Rabbet"; Suppressed "Setup 1 - G57" / "Left Top Notch"; Suppressed "Setup 2 - G59" / "Left Interior Rabbet"; Suppressed "Setup 2 - G59" / "Left Top Notch"; Suppressed "Setup 3 - G57" / "Left Top Notch"; Suppressed "Setup 4 - G59" / "Left Top Notch"; Suppressed "Setup 5 - G57" / "Right Interior Rabbet"; Suppressed "Setup 5 - G57" / "Right Top Notch"; Suppressed "Setup 6 - G59" / "Right Interior Rabbet"; Suppressed "Setup 6 - G59" / "Right Top Notch"; Suppressed "Setup 7 - G57" / "Right Top Notch"; Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - D2: Starting post processing
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - D2: Door features: swing_out=False, left=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False], right=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False]
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - D2: Door setup selection: swing in, both sides (left G57 + right G59), sequence = ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:53:45 - FusionManufacturingPipeline - INFO - Posting setup "Setup 3 - G57" (sequence 1/2) as 1670.nc
+2026-06-17 14:53:46 - FusionManufacturingPipeline - INFO -   -> 1670.nc (818 bytes)
+2026-06-17 14:53:46 - FusionManufacturingPipeline - INFO - Posting setup "Setup 8 - G59" (sequence 2/2) as 1671.nc
+2026-06-17 14:53:47 - FusionManufacturingPipeline - INFO -   -> 1671.nc (840 bytes)
+2026-06-17 14:53:49 - FusionManufacturingPipeline - INFO - Successfully generated 1-D2-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:53:49 - FusionManufacturingPipeline - INFO - D2: Post "Setups": Generated 1-D2-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:53:50 - FusionManufacturingPipeline - INFO - D2: G-code file copied to network: \\ddc-mefs\Anderson\1-D2-IBUS447889.txt
+2026-06-17 14:53:51 - FusionManufacturingPipeline - INFO - D2: Switched back to Design workspace
+2026-06-17 14:53:51 - FusionManufacturingPipeline - INFO - D2: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:53:51 - FusionManufacturingPipeline - INFO - D2: Adding drilling data to compiled collection
+2026-06-17 14:53:54 - FusionManufacturingPipeline - INFO - Processing door 3/4: D3
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - Cached cloud door model already active: 3X8X_Door
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - D3: Switched to cloud door model: 3X8X_Door
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - Applying parameters to D3
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - D3: Model has 174 user params, JSON has 12 params
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - D3: All model user params: ['Hinge', 'Operations', 'Swing', 'a_order_number', 'a_series', 'bottom_hinge_hole_1_y_value', 'bottom_hinge_hole_2_y_value', 'bottom_left_notching', 'bottom_left_tag', 'bottom_notch_tag', 'bottom_notching_actual_y_dist', 'bottom_notching_standard_y_dist', 'bottom_right_notching', 'bottom_right_tag', 'component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_id', 'component_thickness', 'component_width', 'd10', 'd101', 'd102', 'd103', 'd104', 'd105', 'd106', 'd107', 'd11', 'd114', 'd115', 'd116', 'd12', 'd129', 'd139', 'd140', 'd141', 'd142', 'd143', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd153', 'd154', 'd155', 'd156', 'd157', 'd158', 'd159', 'd160', 'd161', 'd162', 'd175', 'd176', 'd177', 'd178', 'd179', 'd180', 'd181', 'd182', 'd190', 'd191', 'd192', 'd195', 'd198', 'd199', 'd200', 'd201', 'd202', 'd203', 'd204', 'd205', 'd206', 'd207', 'd208', 'd209', 'd210', 'd211', 'd212', 'd213', 'd214', 'd215', 'd216', 'd217', 'd218', 'd219', 'd220', 'd221', 'd222', 'd223', 'd224', 'd225', 'd226', 'd24', 'd26', 'd27', 'd30', 'd32', 'd38', 'd39', 'd40', 'd45', 'd46', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd56', 'd57', 'd58', 'd59', 'd70', 'd71', 'd72', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_margin', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_top_margin', 'door_wall_keep_latching', 'door_wall_post_hinging', 'door_wall_post_latching', 'facing', 'floor_to_ceiling', 'hinge_hole_depth', 'hinge_hole_radius', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_placement', 'inter_hinge_gap', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbeting_model', 'mid_bottom_hinge_hole_1_y_value', 'mid_bottom_hinge_hole_2_y_value', 'mid_bottom_hinge_offset', 'mid_top_hinge_hole_1_y_value', 'mid_top_hinge_hole_2_y_value', 'mid_top_hinge_offset', 'notch_corner_radius', 'notching_x_dist', 'rabbeting_depth', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbeting_model', 'set_up', 'shoe_door_top_notch_gap', 'shoe_height', 'top_hinge_hole_1_y_value', 'top_hinge_hole_2_y_value', 'top_left_notching', 'top_left_tag', 'top_notch_tag', 'top_notching_y_dist', 'top_right_notching', 'top_right_tag']
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - D3: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-06-17 14:53:55 - FusionManufacturingPipeline - INFO - D3: Skipped (not in model): ['program_name', 'series_id']
+2026-06-17 14:53:56 - FusionManufacturingPipeline - INFO - D3: Successfully updated 10 parameter(s)
+2026-06-17 14:53:56 - FusionManufacturingPipeline - INFO - D3: Updated 'a_order_number' from ''IBUS447889'' to ''IBUS447889'' (actual: ''IBUS447889'')
+2026-06-17 14:53:56 - FusionManufacturingPipeline - INFO - Saving 3X8X_Door (v929, isModified=True)
+2026-06-17 14:53:58 - FusionManufacturingPipeline - INFO - Save completed for 3X8X_Door in 1.1s
+2026-06-17 14:53:58 - FusionManufacturingPipeline - INFO - D3: Post-parameter save: 3X8X_Door: saved (clearing dirty flag, 1.1s)
+2026-06-17 14:54:14 - FusionManufacturingPipeline - INFO - D3: Model exported: Exported D3.step (867829 bytes)
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: Parameters exported (CSV): Exported 175 parameters to D3_all_parameters.csv (19122 bytes)
+2026-06-17 14:54:15 - FusionManufacturingPipeline - WARNING - D3: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: Found hinge_hole_x_dist = 0.968 in
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: workstop=1, DrillName=3082G LH I/S DOOR (hinging_right=False, swinging_out=False)
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: FlipRotate=1 (rotate, door)
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: Only workstop 1 used, added air drilling entry on workstop 4 at (121, 0.197)
+2026-06-17 14:54:15 - FusionManufacturingPipeline - INFO - D3: Computed 9 paired coordinates for D3
+2026-06-17 14:54:16 - FusionManufacturingPipeline - INFO - D3: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-D3-IBUS447889.csv
+2026-06-17 14:54:16 - FusionManufacturingPipeline - INFO - D3: Width=24.375, Length=89.0
+2026-06-17 14:54:16 - FusionManufacturingPipeline - INFO - D3: Cutlist - Series=3082G, FC=2, Gapping=[1,1,0,0], GappingTop=[1,1,0,0], Thickness=0.75
+2026-06-17 14:54:16 - FusionManufacturingPipeline - INFO - D3: Cutlist CSV exported successfully (1079 bytes)
+2026-06-17 14:54:16 - FusionManufacturingPipeline - INFO - D3: Cutlist CSV exported: Exported cutlist to 1-D3-IBUS447889.csv (1079 bytes)
+2026-06-17 14:54:17 - FusionManufacturingPipeline - INFO - D3: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-D3-IBUS447889.csv
+2026-06-17 14:54:17 - FusionManufacturingPipeline - INFO - D3: Starting drawing export
+2026-06-17 14:54:17 - FusionManufacturingPipeline - INFO - D3: Model not modified, skipping save
+2026-06-17 14:54:17 - FusionManufacturingPipeline - INFO - D3: Using cached door drawing document
+2026-06-17 14:54:17 - FusionManufacturingPipeline - INFO - === open_drawing: 3X8X_Door Drawing ===
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   documents.count: 7
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:54:18 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X8X_Door Drawing (isValid=True)
+2026-06-17 14:54:22 - FusionManufacturingPipeline - INFO - Active document after activate: 3X8X_Door Drawing
+2026-06-17 14:54:22 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X8X_Door Drawing
+2026-06-17 14:54:23 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:54:24 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:54:25 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:54:26 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:54:26 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:54:26 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:54:28 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door, version=v930, latestVersion=929, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:54:28 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:54:28 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:54:33 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:54:33 - FusionManufacturingPipeline - INFO - Starting PDF export (door)
+2026-06-17 14:54:33 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:54:33 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Door Drawing
+2026-06-17 14:54:36 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Door Drawing
+2026-06-17 14:54:36 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D3-IBUS447889-drawing.pdf
+2026-06-17 14:54:36 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_amybstjv\1-D3-IBUS447889-drawing.pdf
+2026-06-17 14:54:36 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:54:37 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-D3-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:54:37 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D3-IBUS447889-drawing.pdf
+2026-06-17 14:54:38 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D3-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:54:38 - FusionManufacturingPipeline - INFO - D3: Drawing exported: Exported drawing to 1-D3-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:54:38 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door
+2026-06-17 14:54:41 - FusionManufacturingPipeline - INFO - D3: Door model re-activated after drawing export
+2026-06-17 14:54:41 - FusionManufacturingPipeline - INFO - Model 3X8X_Door is not modified, skip save
+2026-06-17 14:54:41 - FusionManufacturingPipeline - INFO - D3: Pre-CAM save: 3X8X_Door: not modified, no save needed
+2026-06-17 14:54:41 - FusionManufacturingPipeline - INFO - D3: Starting CAM regeneration
+2026-06-17 14:54:41 - FusionManufacturingPipeline - INFO - D3: Accessing CAM product
+2026-06-17 14:54:43 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:54:43 - FusionManufacturingPipeline - INFO - D3: CAM product accessed
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - D3: Found 8 CAM setup(s): Setup 1 - G57, Setup 2 - G59, Setup 3 - G57, Setup 4 - G59, Setup 5 - G57, Setup 6 - G59, Setup 7 - G57, Setup 8 - G59
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Interior Rabbet"
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Interior Rabbet"
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:54:44 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Interior Rabbet"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Interior Rabbet"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Top Notch "
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - D3: Pre-regen unsuppress: Unsuppressed 12 operation(s)
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - D3: Regenerating toolpaths for all setups
+2026-06-17 14:54:45 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 14.4s
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 1 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 2 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 3 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 4 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 5 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 6 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 7 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - Setup 8 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 1 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:55:03 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 2 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 3 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 4 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 5 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 6 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 7 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - D3: Setup "Setup 8 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_interior_rabbeting" value=0.0
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_exterior_rabbeting" value=1.0
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_interior_rabbeting" value=0.0
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_exterior_rabbeting" value=1.0
+2026-06-17 14:55:04 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_left_notching" value=1.0
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_right_notching" value=1.0
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_left_notching" value=0.0
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_right_notching" value=0.0
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: desired active state: {('Setup 1 - G57', 'Left Interior Rabbet'): False, ('Setup 1 - G57', 'Left Bottom Notch'): True, ('Setup 1 - G57', 'Left Top Notch'): False, ('Setup 2 - G59', 'Left Interior Rabbet'): False, ('Setup 2 - G59', 'Left Bottom Notch'): True, ('Setup 2 - G59', 'Left Top Notch'): False, ('Setup 3 - G57', 'Left Exterior Rabbet'): True, ('Setup 3 - G57', 'Left Bottom Notch'): True, ('Setup 3 - G57', 'Left Top Notch'): False, ('Setup 4 - G59', 'Left Exterior Rabbet'): True, ('Setup 4 - G59', 'Left Bottom Notch'): True, ('Setup 4 - G59', 'Left Top Notch'): False, ('Setup 5 - G57', 'Right Interior Rabbet'): False, ('Setup 5 - G57', 'Right Bottom Notch'): True, ('Setup 5 - G57', 'Right Top Notch'): False, ('Setup 6 - G59', 'Right Interior Rabbet'): False, ('Setup 6 - G59', 'Right Bottom Notch'): True, ('Setup 6 - G59', 'Right Top Notch'): False, ('Setup 7 - G57', 'Right Exterior Rabbet'): True, ('Setup 7 - G57', 'Right Bottom Notch'): True, ('Setup 7 - G57', 'Right Top Notch'): False, ('Setup 8 - G59', 'Right Exterior Rabbet'): True, ('Setup 8 - G59', 'Right Bottom Notch'): True, ('Setup 8 - G59', 'Right Top Notch'): False}
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 1 - G57" operations: ['Left Interior Rabbet', 'Left Bottom Notch ', 'Left Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 2 - G59" operations: ['Left Interior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 3 - G57" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 4 - G59" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 5 - G57" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 6 - G59" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:55:05 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 7 - G57" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 8 - G59" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch ']
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Interior Rabbet"
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Interior Rabbet"
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:55:06 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Interior Rabbet"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Interior Rabbet"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - D3: Door toolpath suppression: Updated 12 toolpath(s): Suppressed "Setup 1 - G57" / "Left Interior Rabbet"; Suppressed "Setup 1 - G57" / "Left Top Notch"; Suppressed "Setup 2 - G59" / "Left Interior Rabbet"; Suppressed "Setup 2 - G59" / "Left Top Notch"; Suppressed "Setup 3 - G57" / "Left Top Notch"; Suppressed "Setup 4 - G59" / "Left Top Notch"; Suppressed "Setup 5 - G57" / "Right Interior Rabbet"; Suppressed "Setup 5 - G57" / "Right Top Notch"; Suppressed "Setup 6 - G59" / "Right Interior Rabbet"; Suppressed "Setup 6 - G59" / "Right Top Notch"; Suppressed "Setup 7 - G57" / "Right Top Notch"; Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - D3: Starting post processing
+2026-06-17 14:55:07 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:55:08 - FusionManufacturingPipeline - INFO - D3: Door features: swing_out=False, left=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False], right=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False]
+2026-06-17 14:55:08 - FusionManufacturingPipeline - INFO - D3: Door setup selection: swing in, both sides (left G57 + right G59), sequence = ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:55:08 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:55:08 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:55:08 - FusionManufacturingPipeline - INFO - Posting setup "Setup 3 - G57" (sequence 1/2) as 1672.nc
+2026-06-17 14:55:09 - FusionManufacturingPipeline - INFO -   -> 1672.nc (818 bytes)
+2026-06-17 14:55:09 - FusionManufacturingPipeline - INFO - Posting setup "Setup 8 - G59" (sequence 2/2) as 1673.nc
+2026-06-17 14:55:10 - FusionManufacturingPipeline - INFO -   -> 1673.nc (840 bytes)
+2026-06-17 14:55:11 - FusionManufacturingPipeline - INFO - Successfully generated 1-D3-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:55:11 - FusionManufacturingPipeline - INFO - D3: Post "Setups": Generated 1-D3-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:55:12 - FusionManufacturingPipeline - INFO - D3: G-code file copied to network: \\ddc-mefs\Anderson\1-D3-IBUS447889.txt
+2026-06-17 14:55:13 - FusionManufacturingPipeline - INFO - D3: Switched back to Design workspace
+2026-06-17 14:55:13 - FusionManufacturingPipeline - INFO - D3: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:55:13 - FusionManufacturingPipeline - INFO - D3: Adding drilling data to compiled collection
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - Processing door 4/4: D4
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - Cached cloud door model already active: 3X8X_Door
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - D4: Switched to cloud door model: 3X8X_Door
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - Applying parameters to D4
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - D4: Model has 174 user params, JSON has 12 params
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - D4: All model user params: ['Hinge', 'Operations', 'Swing', 'a_order_number', 'a_series', 'bottom_hinge_hole_1_y_value', 'bottom_hinge_hole_2_y_value', 'bottom_left_notching', 'bottom_left_tag', 'bottom_notch_tag', 'bottom_notching_actual_y_dist', 'bottom_notching_standard_y_dist', 'bottom_right_notching', 'bottom_right_tag', 'component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_id', 'component_thickness', 'component_width', 'd10', 'd101', 'd102', 'd103', 'd104', 'd105', 'd106', 'd107', 'd11', 'd114', 'd115', 'd116', 'd12', 'd129', 'd139', 'd140', 'd141', 'd142', 'd143', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd153', 'd154', 'd155', 'd156', 'd157', 'd158', 'd159', 'd160', 'd161', 'd162', 'd175', 'd176', 'd177', 'd178', 'd179', 'd180', 'd181', 'd182', 'd190', 'd191', 'd192', 'd195', 'd198', 'd199', 'd200', 'd201', 'd202', 'd203', 'd204', 'd205', 'd206', 'd207', 'd208', 'd209', 'd210', 'd211', 'd212', 'd213', 'd214', 'd215', 'd216', 'd217', 'd218', 'd219', 'd220', 'd221', 'd222', 'd223', 'd224', 'd225', 'd226', 'd24', 'd26', 'd27', 'd30', 'd32', 'd38', 'd39', 'd40', 'd45', 'd46', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd56', 'd57', 'd58', 'd59', 'd70', 'd71', 'd72', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_margin', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_top_margin', 'door_wall_keep_latching', 'door_wall_post_hinging', 'door_wall_post_latching', 'facing', 'floor_to_ceiling', 'hinge_hole_depth', 'hinge_hole_radius', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_placement', 'inter_hinge_gap', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbeting_model', 'mid_bottom_hinge_hole_1_y_value', 'mid_bottom_hinge_hole_2_y_value', 'mid_bottom_hinge_offset', 'mid_top_hinge_hole_1_y_value', 'mid_top_hinge_hole_2_y_value', 'mid_top_hinge_offset', 'notch_corner_radius', 'notching_x_dist', 'rabbeting_depth', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbeting_model', 'set_up', 'shoe_door_top_notch_gap', 'shoe_height', 'top_hinge_hole_1_y_value', 'top_hinge_hole_2_y_value', 'top_left_notching', 'top_left_tag', 'top_notch_tag', 'top_notching_y_dist', 'top_right_notching', 'top_right_tag']
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - D4: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-06-17 14:55:17 - FusionManufacturingPipeline - INFO - D4: Skipped (not in model): ['program_name', 'series_id']
+2026-06-17 14:55:18 - FusionManufacturingPipeline - INFO - D4: Successfully updated 10 parameter(s)
+2026-06-17 14:55:18 - FusionManufacturingPipeline - INFO - D4: Updated 'a_order_number' from ''IBUS447889'' to ''IBUS447889'' (actual: ''IBUS447889'')
+2026-06-17 14:55:18 - FusionManufacturingPipeline - INFO - Saving 3X8X_Door (v930, isModified=True)
+2026-06-17 14:55:20 - FusionManufacturingPipeline - INFO - Save completed for 3X8X_Door in 1.1s
+2026-06-17 14:55:20 - FusionManufacturingPipeline - INFO - D4: Post-parameter save: 3X8X_Door: saved (clearing dirty flag, 1.1s)
+2026-06-17 14:55:35 - FusionManufacturingPipeline - INFO - D4: Model exported: Exported D4.step (867829 bytes)
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: Parameters exported (CSV): Exported 175 parameters to D4_all_parameters.csv (19122 bytes)
+2026-06-17 14:55:36 - FusionManufacturingPipeline - WARNING - D4: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: Found hinge_hole_x_dist = 0.968 in
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: workstop=1, DrillName=3082G LH I/S DOOR (hinging_right=False, swinging_out=False)
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: FlipRotate=1 (rotate, door)
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: Only workstop 1 used, added air drilling entry on workstop 4 at (121, 0.197)
+2026-06-17 14:55:36 - FusionManufacturingPipeline - INFO - D4: Computed 9 paired coordinates for D4
+2026-06-17 14:55:37 - FusionManufacturingPipeline - INFO - D4: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-D4-IBUS447889.csv
+2026-06-17 14:55:37 - FusionManufacturingPipeline - INFO - D4: Width=24.375, Length=89.0
+2026-06-17 14:55:37 - FusionManufacturingPipeline - INFO - D4: Cutlist - Series=3082G, FC=2, Gapping=[1,1,0,0], GappingTop=[1,1,0,0], Thickness=0.75
+2026-06-17 14:55:37 - FusionManufacturingPipeline - INFO - D4: Cutlist CSV exported successfully (1079 bytes)
+2026-06-17 14:55:37 - FusionManufacturingPipeline - INFO - D4: Cutlist CSV exported: Exported cutlist to 1-D4-IBUS447889.csv (1079 bytes)
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO - D4: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-D4-IBUS447889.csv
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO - D4: Starting drawing export
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO - D4: Model not modified, skipping save
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO - D4: Using cached door drawing document
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO - === open_drawing: 3X8X_Door Drawing ===
+2026-06-17 14:55:38 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO -   documents.count: 8
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:55:39 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X8X_Door Drawing (isValid=True)
+2026-06-17 14:55:43 - FusionManufacturingPipeline - INFO - Active document after activate: 3X8X_Door Drawing
+2026-06-17 14:55:43 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X8X_Door Drawing
+2026-06-17 14:55:43 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:55:44 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:55:46 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:55:47 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:55:47 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:55:47 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:55:48 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door, version=v931, latestVersion=930, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:55:49 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:55:49 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:55:54 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:55:54 - FusionManufacturingPipeline - INFO - Starting PDF export (door)
+2026-06-17 14:55:54 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:55:54 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X8X_Door Drawing
+2026-06-17 14:55:56 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X8X_Door Drawing
+2026-06-17 14:55:56 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D4-IBUS447889-drawing.pdf
+2026-06-17 14:55:56 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_itv0peo5\1-D4-IBUS447889-drawing.pdf
+2026-06-17 14:55:57 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:56:00 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-D4-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:56:00 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-D4-IBUS447889-drawing.pdf
+2026-06-17 14:56:00 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D4-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:56:00 - FusionManufacturingPipeline - INFO - D4: Drawing exported: Exported drawing to 1-D4-IBUS447889-drawing.pdf (264433 bytes)
+2026-06-17 14:56:01 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door
+2026-06-17 14:56:03 - FusionManufacturingPipeline - INFO - D4: Door model re-activated after drawing export
+2026-06-17 14:56:03 - FusionManufacturingPipeline - INFO - Model 3X8X_Door is not modified, skip save
+2026-06-17 14:56:03 - FusionManufacturingPipeline - INFO - D4: Pre-CAM save: 3X8X_Door: not modified, no save needed
+2026-06-17 14:56:04 - FusionManufacturingPipeline - INFO - D4: Starting CAM regeneration
+2026-06-17 14:56:04 - FusionManufacturingPipeline - INFO - D4: Accessing CAM product
+2026-06-17 14:56:06 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:56:06 - FusionManufacturingPipeline - INFO - D4: CAM product accessed
+2026-06-17 14:56:06 - FusionManufacturingPipeline - INFO - D4: Found 8 CAM setup(s): Setup 1 - G57, Setup 2 - G59, Setup 3 - G57, Setup 4 - G59, Setup 5 - G57, Setup 6 - G59, Setup 7 - G57, Setup 8 - G59
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Interior Rabbet"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Interior Rabbet"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Interior Rabbet"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Interior Rabbet"
+2026-06-17 14:56:07 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:56:08 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:56:08 - FusionManufacturingPipeline - INFO - unsuppress_all_door_operations: Unsuppressed "Setup 8 - G59" / "Right Top Notch "
+2026-06-17 14:56:08 - FusionManufacturingPipeline - INFO - D4: Pre-regen unsuppress: Unsuppressed 12 operation(s)
+2026-06-17 14:56:08 - FusionManufacturingPipeline - INFO - D4: Regenerating toolpaths for all setups
+2026-06-17 14:56:08 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 15.9s
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 1 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 2 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 3 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 4 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 5 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 6 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 7 - G57: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - Setup 8 - G59: Regenerated 3/3 toolpaths
+2026-06-17 14:56:25 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 1 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 2 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 3 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 4 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 5 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 6 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 7 - G57": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - D4: Setup "Setup 8 - G59": Regenerated 3/3 toolpaths
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_interior_rabbeting" value=0.0
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "left_exterior_rabbeting" value=1.0
+2026-06-17 14:56:26 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_interior_rabbeting" value=0.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "right_exterior_rabbeting" value=1.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_left_notching" value=1.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "bottom_right_notching" value=1.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_left_notching" value=0.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: "top_right_notching" value=0.0
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: desired active state: {('Setup 1 - G57', 'Left Interior Rabbet'): False, ('Setup 1 - G57', 'Left Bottom Notch'): True, ('Setup 1 - G57', 'Left Top Notch'): False, ('Setup 2 - G59', 'Left Interior Rabbet'): False, ('Setup 2 - G59', 'Left Bottom Notch'): True, ('Setup 2 - G59', 'Left Top Notch'): False, ('Setup 3 - G57', 'Left Exterior Rabbet'): True, ('Setup 3 - G57', 'Left Bottom Notch'): True, ('Setup 3 - G57', 'Left Top Notch'): False, ('Setup 4 - G59', 'Left Exterior Rabbet'): True, ('Setup 4 - G59', 'Left Bottom Notch'): True, ('Setup 4 - G59', 'Left Top Notch'): False, ('Setup 5 - G57', 'Right Interior Rabbet'): False, ('Setup 5 - G57', 'Right Bottom Notch'): True, ('Setup 5 - G57', 'Right Top Notch'): False, ('Setup 6 - G59', 'Right Interior Rabbet'): False, ('Setup 6 - G59', 'Right Bottom Notch'): True, ('Setup 6 - G59', 'Right Top Notch'): False, ('Setup 7 - G57', 'Right Exterior Rabbet'): True, ('Setup 7 - G57', 'Right Bottom Notch'): True, ('Setup 7 - G57', 'Right Top Notch'): False, ('Setup 8 - G59', 'Right Exterior Rabbet'): True, ('Setup 8 - G59', 'Right Bottom Notch'): True, ('Setup 8 - G59', 'Right Top Notch'): False}
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 1 - G57" operations: ['Left Interior Rabbet', 'Left Bottom Notch ', 'Left Top Notch']
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 2 - G59" operations: ['Left Interior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 3 - G57" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 4 - G59" operations: ['Left Exterior Rabbet', 'Left Bottom Notch', 'Left Top Notch']
+2026-06-17 14:56:27 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 5 - G57" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 6 - G59" operations: ['Right Interior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 7 - G57" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch']
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: setup "Setup 8 - G59" operations: ['Right Exterior Rabbet', 'Right Bottom Notch', 'Right Top Notch ']
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Interior Rabbet"
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 1 - G57" / "Left Top Notch"
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Interior Rabbet"
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 2 - G59" / "Left Top Notch"
+2026-06-17 14:56:28 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 3 - G57" / "Left Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 4 - G59" / "Left Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Interior Rabbet"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 5 - G57" / "Right Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Interior Rabbet"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 6 - G59" / "Right Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 7 - G57" / "Right Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - suppress_door_toolpaths: Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - D4: Door toolpath suppression: Updated 12 toolpath(s): Suppressed "Setup 1 - G57" / "Left Interior Rabbet"; Suppressed "Setup 1 - G57" / "Left Top Notch"; Suppressed "Setup 2 - G59" / "Left Interior Rabbet"; Suppressed "Setup 2 - G59" / "Left Top Notch"; Suppressed "Setup 3 - G57" / "Left Top Notch"; Suppressed "Setup 4 - G59" / "Left Top Notch"; Suppressed "Setup 5 - G57" / "Right Interior Rabbet"; Suppressed "Setup 5 - G57" / "Right Top Notch"; Suppressed "Setup 6 - G59" / "Right Interior Rabbet"; Suppressed "Setup 6 - G59" / "Right Top Notch"; Suppressed "Setup 7 - G57" / "Right Top Notch"; Suppressed "Setup 8 - G59" / "Right Top Notch"
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - D4: Starting post processing
+2026-06-17 14:56:29 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:56:30 - FusionManufacturingPipeline - INFO - D4: Door features: swing_out=False, left=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False], right=[int_rab=False, ext_rab=True, bot_notch=True, top_notch=False]
+2026-06-17 14:56:30 - FusionManufacturingPipeline - INFO - D4: Door setup selection: swing in, both sides (left G57 + right G59), sequence = ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:56:30 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Setup 3 - G57', 'Setup 8 - G59']
+2026-06-17 14:56:30 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:56:30 - FusionManufacturingPipeline - INFO - Posting setup "Setup 3 - G57" (sequence 1/2) as 1674.nc
+2026-06-17 14:56:31 - FusionManufacturingPipeline - INFO -   -> 1674.nc (818 bytes)
+2026-06-17 14:56:31 - FusionManufacturingPipeline - INFO - Posting setup "Setup 8 - G59" (sequence 2/2) as 1675.nc
+2026-06-17 14:56:32 - FusionManufacturingPipeline - INFO -   -> 1675.nc (840 bytes)
+2026-06-17 14:56:33 - FusionManufacturingPipeline - INFO - Successfully generated 1-D4-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:56:33 - FusionManufacturingPipeline - INFO - D4: Post "Setups": Generated 1-D4-IBUS447889.txt (1615 bytes) from 2 section(s)
+2026-06-17 14:56:34 - FusionManufacturingPipeline - INFO - D4: G-code file copied to network: \\ddc-mefs\Anderson\1-D4-IBUS447889.txt
+2026-06-17 14:56:35 - FusionManufacturingPipeline - INFO - D4: Switched back to Design workspace
+2026-06-17 14:56:35 - FusionManufacturingPipeline - INFO - D4: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:56:35 - FusionManufacturingPipeline - INFO - D4: Adding drilling data to compiled collection
+2026-06-17 14:56:35 - FusionManufacturingPipeline - INFO - Processing 4 stiles
+2026-06-17 14:56:35 - FusionManufacturingPipeline - INFO - Processing stile 1/4: S1
+2026-06-17 14:56:36 - FusionManufacturingPipeline - INFO -   Parameters to apply: 16
+2026-06-17 14:56:36 - FusionManufacturingPipeline - INFO - Re-fetching DataFile for 3X82_Stile...
+2026-06-17 14:56:37 - FusionManufacturingPipeline - INFO - Using fresh DataFile for 3X82_Stile
+2026-06-17 14:56:37 - FusionManufacturingPipeline - INFO - Opening cloud stile (3082) model: 3X82_Stile (documents count before: 9)
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - Opened cloud stile (3082) model: 3X82_Stile (documents count after: 10)
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - S1: Opened cloud stile (3082) model: 3X82_Stile
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - Applying parameters to S1
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - S1: Model has 226 user params, JSON has 16 params
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - S1: All model user params: ['LD_bottom_hinge_hole_1_y_value', 'LD_bottom_hinge_hole_2_y_value', 'LD_bottom_margin', 'LD_bottom_notching_actual_y_dist', 'LD_floor_clearance', 'LD_full_rabbeting_bottom', 'LD_full_rabbeting_top', 'LD_height', 'LD_hinge', 'LD_hinging_right', 'LD_inter_hinge_gap', 'LD_mid_bottom_hinge_hole_1_y_value', 'LD_mid_bottom_hinge_hole_2_y_value', 'LD_mid_bottom_hinge_offset', 'LD_mid_top_hinge_hole_1_y_value', 'LD_mid_top_hinge_hole_2_y_value', 'LD_mid_top_hinge_offset', 'LD_rabbeting_top_tag', 'LD_stile_bottom_hinge_hole_1_y_value', 'LD_stile_bottom_hinge_hole_2_y_value', 'LD_stile_hole_modifier', 'LD_stile_mid_bottom_hinge_hole_1_y_value', 'LD_stile_mid_bottom_hinge_hole_2_y_value', 'LD_stile_mid_top_hinge_hole_1_y_value', 'LD_stile_mid_top_hinge_hole_2_y_value', 'LD_stile_top_hinge_hole_1_y_value', 'LD_stile_top_hinge_hole_2_y_value', 'LD_swing', 'LD_swinging_out', 'LD_top_hinge_hole_1_y_value', 'LD_top_hinge_hole_2_y_value', 'RD_bottom_hinge_hole_1_y_value', 'RD_bottom_hinge_hole_2_y_value', 'RD_bottom_margin', 'RD_bottom_notching_actual_y_dist', 'RD_floor_clearance', 'RD_full_rabbeting_bottom', 'RD_full_rabbeting_top', 'RD_height', 'RD_hinge', 'RD_hinging_right', 'RD_inter_hinge_gap', 'RD_mid_bottom_hinge_hole_1_y_value', 'RD_mid_bottom_hinge_hole_2_y_value', 'RD_mid_bottom_hinge_offset', 'RD_mid_top_hinge_hole_1_y_value', 'RD_mid_top_hinge_hole_2_y_value', 'RD_mid_top_hinge_offset', 'RD_rabbet_top_tag', 'RD_stile_bottom_hinge_hole_1_y_value', 'RD_stile_bottom_hinge_hole_2_y_value', 'RD_stile_hole_modifier', 'RD_stile_mid_bottom_hinge_hole_1_y_value', 'RD_stile_mid_bottom_hinge_hole_2_y_value', 'RD_stile_mid_top_hinge_hole_1_y_value', 'RD_stile_mid_top_hinge_hole_2_y_value', 'RD_stile_top_hinge_hole_1_y_value', 'RD_stile_top_hinge_hole_2_y_value', 'RD_swing', 'RD_swinging_out', 'RD_top_hinge_hole_1_y_value', 'RD_top_hinge_hole_2_y_value', 'a_order_number', 'a_series', 'component_ceiling_clearance', 'component_height', 'component_id', 'component_net_height', 'component_thickness', 'component_width', 'd10', 'd11', 'd114', 'd115', 'd116', 'd117', 'd118', 'd119', 'd12', 'd120', 'd122', 'd123', 'd125', 'd137', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd161', 'd163', 'd164', 'd185', 'd186', 'd187', 'd188', 'd189', 'd190', 'd191', 'd192', 'd194', 'd217', 'd218', 'd219', 'd220', 'd221', 'd24', 'd260', 'd261', 'd262', 'd263', 'd264', 'd265', 'd266', 'd267', 'd268', 'd27', 'd270', 'd271', 'd272', 'd273', 'd274', 'd275', 'd276', 'd277', 'd278', 'd281', 'd282', 'd283', 'd284', 'd286', 'd287', 'd288', 'd289', 'd290', 'd291', 'd292', 'd293', 'd294', 'd295', 'd296', 'd297', 'd30', 'd306', 'd307', 'd317', 'd318', 'd32', 'd320', 'd321', 'd322', 'd323', 'd324', 'd325', 'd326', 'd343', 'd344', 'd345', 'd346', 'd347', 'd348', 'd349', 'd350', 'd351', 'd352', 'd353', 'd354', 'd355', 'd356', 'd357', 'd358', 'd359', 'd39', 'd40', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_notching_standard_y_dist', 'door_top_margin', 'hinge_hole_depth', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_radius', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbet_tag', 'left_rabbeting_activation_offset', 'left_rabbeting_bottom', 'left_rabbeting_length', 'left_rabbeting_top', 'left_side_door', 'leveling_bar_additional_height', 'levelling_gap', 'rabbeting_depth', 'rabbeting_insertion_radius', 'rabbeting_start_above_door', 'rabbeting_stop_below_door', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbet_tag', 'right_rabbeting_activation_offset', 'right_rabbeting_bottom', 'right_rabbeting_length', 'right_rabbeting_top', 'right_side_door', 'stile_bottom_hinge_offset', 'stile_mid_bottom_hinge_offset', 'stile_mid_top_hinge_offset', 'through_rabbeting_threshold']
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - S1: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-06-17 14:56:39 - FusionManufacturingPipeline - INFO - S1: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'program_name', 'series_id']
+2026-06-17 14:56:45 - FusionManufacturingPipeline - INFO - S1: Successfully updated 12 parameter(s)
+2026-06-17 14:56:46 - FusionManufacturingPipeline - INFO - Saving 3X82_Stile (v1013, isModified=True)
+2026-06-17 14:56:47 - FusionManufacturingPipeline - INFO - Save completed for 3X82_Stile in 1.2s
+2026-06-17 14:56:48 - FusionManufacturingPipeline - INFO - S1: Post-parameter save: 3X82_Stile: saved (clearing dirty flag, 1.2s)
+2026-06-17 14:57:09 - FusionManufacturingPipeline - INFO - S1: Model exported: Exported S1.step (968323 bytes)
+2026-06-17 14:57:09 - FusionManufacturingPipeline - INFO - S1: Parameters exported (CSV): Exported 227 parameters to S1_all_parameters.csv (28548 bytes)
+2026-06-17 14:57:09 - FusionManufacturingPipeline - WARNING - S1: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:57:09 - FusionManufacturingPipeline - INFO - S1: Found hinge_hole_x_dist = 1.268 in
+2026-06-17 14:57:09 - FusionManufacturingPipeline - INFO - S1: Left side - door present, LH hinging (hinges away from stile) -> no drilling
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: Right side - door present, RH hinging (hinges away from stile) -> no drilling
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: Drilling sides - capture_left=False, capture_right=False
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: No drilling coordinates (No drilling required for S1 (no door hinges onto stile)) — adding air drilling at workstop 1
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-S1-IBUS447889.csv
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: Width=24.0, Length=91.75
+2026-06-17 14:57:10 - FusionManufacturingPipeline - INFO - S1: Cutlist - Series=3082G.67P, FC=2, Gapping=[1,1,0,0], GappingTop=[0,1,0,0], Thickness=0.75
+2026-06-17 14:57:11 - FusionManufacturingPipeline - INFO - S1: Cutlist CSV exported successfully (1121 bytes)
+2026-06-17 14:57:11 - FusionManufacturingPipeline - INFO - S1: Cutlist CSV exported: Exported cutlist to 1-S1-IBUS447889.csv (1121 bytes)
+2026-06-17 14:57:11 - FusionManufacturingPipeline - INFO - S1: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-S1-IBUS447889.csv
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO - S1: Starting stile drawing export
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO - S1: Model not modified, skipping save
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO - S1: No cached drawing — first order will open from cloud (may take minutes)
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO - === open_drawing: 3X82_Stile Drawing ===
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   pre_opened_doc: False
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   documents.count: 10
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:57:12 - FusionManufacturingPipeline - INFO - Scanning 10 open documents for drawing...
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[0]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[1]: name=3X8X_Panel_Standard, id=urn:adsk.wipprod:dm.lineage:lPpSvOEvQTudkeBdWzAphg
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[2]: name=3X8X_Panel_Standard Drawing, id=urn:adsk.wipprod:dm.lineage:-6329spARyOPDtaj8jaFbg
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[3]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[4]: name=3X8X_Door Drawing, id=urn:adsk.wipprod:dm.lineage:vjLzauQ-Ra2P8QMpASv2NQ
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[5]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[6]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[7]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:13 - FusionManufacturingPipeline - INFO -   doc[8]: name=3X8X_Door, id=urn:adsk.wipprod:dm.lineage:IFeILtEVQMO86VHUIss0YA
+2026-06-17 14:57:16 - FusionManufacturingPipeline - INFO -   doc[9]: name=3X82_Stile, id=urn:adsk.wipprod:dm.lineage:oEXMLgzETniKzs8Lpc0lWQ
+2026-06-17 14:57:16 - FusionManufacturingPipeline - INFO - Skipping doc cleanup — cloud docs stay open to avoid poisoning Fusion state
+2026-06-17 14:57:16 - FusionManufacturingPipeline - INFO - === PRE-OPEN STATE ===
+2026-06-17 14:57:16 - FusionManufacturingPipeline - INFO -   documents.count: 10
+2026-06-17 14:57:16 - FusionManufacturingPipeline - INFO -   doc[0]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[1]: 3X8X_Panel_Standard type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[2]: 3X8X_Panel_Standard Drawing type=adsk::drawing::DrawingDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[3]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[4]: 3X8X_Door Drawing type=adsk::drawing::DrawingDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[5]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[6]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[7]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[8]: 3X8X_Door type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   doc[9]: 3X82_Stile type=adsk::fusion::FusionDocument
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   activeDocument: 3X82_Stile
+2026-06-17 14:57:17 - FusionManufacturingPipeline - INFO -   activeProduct: adsk::fusion::Design
+2026-06-17 14:57:18 - FusionManufacturingPipeline - INFO -   data_file to open: 3X82_Stile Drawing (id=urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw)
+2026-06-17 14:57:18 - FusionManufacturingPipeline - INFO - === CALLING documents.open() NOW ===
+2026-06-17 14:57:23 - FusionManufacturingPipeline - INFO - documents.open() returned (5.5s), docs after: 12
+2026-06-17 14:57:23 - FusionManufacturingPipeline - INFO - Returned doc: name=3X82_Stile Drawing, isValid=True
+2026-06-17 14:57:23 - FusionManufacturingPipeline - INFO - Settling drawing after open (sleep only, no doEvents)...
+2026-06-17 14:57:29 - FusionManufacturingPipeline - INFO - Settle-open complete
+2026-06-17 14:57:29 - FusionManufacturingPipeline - INFO - Activating drawing document...
+2026-06-17 14:57:29 - FusionManufacturingPipeline - INFO - doc.activate() returned
+2026-06-17 14:57:34 - FusionManufacturingPipeline - INFO - Settle-activate complete
+2026-06-17 14:57:34 - FusionManufacturingPipeline - INFO - After settle: activeDoc=3X82_Stile Drawing, activeProduct=adsk::drawing::Drawing
+2026-06-17 14:57:34 - FusionManufacturingPipeline - INFO - DrawingDocument cast succeeded (0.0s)
+2026-06-17 14:57:34 - FusionManufacturingPipeline - INFO - Drawing opened successfully: 3X82_Stile Drawing (5.5s)
+2026-06-17 14:57:34 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:57:35 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:57:36 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X82_Stile, version=v1014, latestVersion=1013, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:57:37 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:57:43 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:57:43 - FusionManufacturingPipeline - INFO - Starting PDF export (stile)
+2026-06-17 14:57:43 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:57:43 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X82_Stile Drawing
+2026-06-17 14:57:45 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X82_Stile Drawing
+2026-06-17 14:57:45 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S1-IBUS447889-drawing.pdf
+2026-06-17 14:57:45 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_58euf74p\1-S1-IBUS447889-drawing.pdf
+2026-06-17 14:57:46 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:57:47 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-S1-IBUS447889-drawing.pdf (269204 bytes)
+2026-06-17 14:57:48 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S1-IBUS447889-drawing.pdf
+2026-06-17 14:57:48 - FusionManufacturingPipeline - INFO - Drawing exported: 1-S1-IBUS447889-drawing.pdf (269204 bytes)
+2026-06-17 14:57:48 - FusionManufacturingPipeline - INFO - S1: Stile drawing exported: Exported drawing to 1-S1-IBUS447889-drawing.pdf (269204 bytes)
+2026-06-17 14:57:48 - FusionManufacturingPipeline - INFO - S1: Stile drawing cached for future orders (key=stile_3082_drawing)
+2026-06-17 14:57:48 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile
+2026-06-17 14:57:51 - FusionManufacturingPipeline - INFO - S1: Stile model re-activated after drawing export
+2026-06-17 14:57:51 - FusionManufacturingPipeline - INFO - Model 3X82_Stile is not modified, skip save
+2026-06-17 14:57:51 - FusionManufacturingPipeline - INFO - S1: Pre-CAM save: 3X82_Stile: not modified, no save needed
+2026-06-17 14:57:51 - FusionManufacturingPipeline - INFO - S1: Starting CAM regeneration
+2026-06-17 14:57:51 - FusionManufacturingPipeline - INFO - S1: Accessing CAM product
+2026-06-17 14:57:54 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:57:54 - FusionManufacturingPipeline - INFO - S1: CAM product accessed
+2026-06-17 14:57:54 - FusionManufacturingPipeline - INFO - S1: Found 8 CAM setup(s): Left Rabbet - Out G57, Left Rabbet - Out G59, Left Rabbet - In G57, Left Rabbet - In G59, Right Rabbet - Out G57, Right Rabbet - Out G59, Right Rabbet - In G57, Right Rabbet - In G59
+2026-06-17 14:57:54 - FusionManufacturingPipeline - INFO - S1: Regenerating toolpaths for all setups
+2026-06-17 14:57:54 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:57:58 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 3.4s
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Left Rabbet - Out G57: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Left Rabbet - Out G59: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Left Rabbet - In G57: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Left Rabbet - In G59: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Right Rabbet - Out G57: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Right Rabbet - Out G59: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Right Rabbet - In G57: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - Right Rabbet - In G59: Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - S1: Setup "Left Rabbet - Out G57": Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - S1: Setup "Left Rabbet - Out G59": Regenerated 1/1 toolpaths
+2026-06-17 14:57:59 - FusionManufacturingPipeline - INFO - S1: Setup "Left Rabbet - In G57": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Setup "Left Rabbet - In G59": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Setup "Right Rabbet - Out G57": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Setup "Right Rabbet - Out G59": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Setup "Right Rabbet - In G57": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Setup "Right Rabbet - In G59": Regenerated 1/1 toolpaths
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Starting post processing
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: 2-door drilling flags: LI=False, LE=False, RI=False, RE=False, left_has_drilling=False, right_has_drilling=False
+2026-06-17 14:58:00 - FusionManufacturingPipeline - INFO - S1: Stile sequence logic: series=3082G.67P, doors=2, LD_swing=O/S, RD_swing=I/S, handling=2-door no drilling, left first (3082)
+2026-06-17 14:58:01 - FusionManufacturingPipeline - INFO - S1: Anderson handling = 2-door no drilling, left first (3082), sequence = ['Left Rabbet - Out G57', 'Right Rabbet - In G57']
+2026-06-17 14:58:01 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Left Rabbet - Out G57', 'Right Rabbet - In G57']
+2026-06-17 14:58:01 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:58:01 - FusionManufacturingPipeline - INFO - Posting setup "Left Rabbet - Out G57" (sequence 1/2) as 1676.nc
+2026-06-17 14:58:02 - FusionManufacturingPipeline - INFO -   -> 1676.nc (784 bytes)
+2026-06-17 14:58:02 - FusionManufacturingPipeline - INFO - Posting setup "Right Rabbet - In G57" (sequence 2/2) as 1677.nc
+2026-06-17 14:58:02 - FusionManufacturingPipeline - INFO -   -> 1677.nc (790 bytes)
+2026-06-17 14:58:04 - FusionManufacturingPipeline - INFO - Successfully generated 1-S1-IBUS447889.txt (1529 bytes) from 2 section(s)
+2026-06-17 14:58:04 - FusionManufacturingPipeline - INFO - S1: Post "Setups": Generated 1-S1-IBUS447889.txt (1529 bytes) from 2 section(s)
+2026-06-17 14:58:05 - FusionManufacturingPipeline - INFO - S1: G-code file copied to network: \\ddc-mefs\Anderson\1-S1-IBUS447889.txt
+2026-06-17 14:58:06 - FusionManufacturingPipeline - INFO - S1: Switched back to Design workspace
+2026-06-17 14:58:06 - FusionManufacturingPipeline - INFO - S1: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:58:06 - FusionManufacturingPipeline - INFO - S1: Adding drilling data to compiled collection
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - Processing stile 2/4: S2
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO -   Parameters to apply: 16
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - Cached cloud stile (3082) model already active: 3X82_Stile
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - S2: Switched to cloud stile (3082) model: 3X82_Stile
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - Applying parameters to S2
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - S2: Model has 226 user params, JSON has 16 params
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - S2: All model user params: ['LD_bottom_hinge_hole_1_y_value', 'LD_bottom_hinge_hole_2_y_value', 'LD_bottom_margin', 'LD_bottom_notching_actual_y_dist', 'LD_floor_clearance', 'LD_full_rabbeting_bottom', 'LD_full_rabbeting_top', 'LD_height', 'LD_hinge', 'LD_hinging_right', 'LD_inter_hinge_gap', 'LD_mid_bottom_hinge_hole_1_y_value', 'LD_mid_bottom_hinge_hole_2_y_value', 'LD_mid_bottom_hinge_offset', 'LD_mid_top_hinge_hole_1_y_value', 'LD_mid_top_hinge_hole_2_y_value', 'LD_mid_top_hinge_offset', 'LD_rabbeting_top_tag', 'LD_stile_bottom_hinge_hole_1_y_value', 'LD_stile_bottom_hinge_hole_2_y_value', 'LD_stile_hole_modifier', 'LD_stile_mid_bottom_hinge_hole_1_y_value', 'LD_stile_mid_bottom_hinge_hole_2_y_value', 'LD_stile_mid_top_hinge_hole_1_y_value', 'LD_stile_mid_top_hinge_hole_2_y_value', 'LD_stile_top_hinge_hole_1_y_value', 'LD_stile_top_hinge_hole_2_y_value', 'LD_swing', 'LD_swinging_out', 'LD_top_hinge_hole_1_y_value', 'LD_top_hinge_hole_2_y_value', 'RD_bottom_hinge_hole_1_y_value', 'RD_bottom_hinge_hole_2_y_value', 'RD_bottom_margin', 'RD_bottom_notching_actual_y_dist', 'RD_floor_clearance', 'RD_full_rabbeting_bottom', 'RD_full_rabbeting_top', 'RD_height', 'RD_hinge', 'RD_hinging_right', 'RD_inter_hinge_gap', 'RD_mid_bottom_hinge_hole_1_y_value', 'RD_mid_bottom_hinge_hole_2_y_value', 'RD_mid_bottom_hinge_offset', 'RD_mid_top_hinge_hole_1_y_value', 'RD_mid_top_hinge_hole_2_y_value', 'RD_mid_top_hinge_offset', 'RD_rabbet_top_tag', 'RD_stile_bottom_hinge_hole_1_y_value', 'RD_stile_bottom_hinge_hole_2_y_value', 'RD_stile_hole_modifier', 'RD_stile_mid_bottom_hinge_hole_1_y_value', 'RD_stile_mid_bottom_hinge_hole_2_y_value', 'RD_stile_mid_top_hinge_hole_1_y_value', 'RD_stile_mid_top_hinge_hole_2_y_value', 'RD_stile_top_hinge_hole_1_y_value', 'RD_stile_top_hinge_hole_2_y_value', 'RD_swing', 'RD_swinging_out', 'RD_top_hinge_hole_1_y_value', 'RD_top_hinge_hole_2_y_value', 'a_order_number', 'a_series', 'component_ceiling_clearance', 'component_height', 'component_id', 'component_net_height', 'component_thickness', 'component_width', 'd10', 'd11', 'd114', 'd115', 'd116', 'd117', 'd118', 'd119', 'd12', 'd120', 'd122', 'd123', 'd125', 'd137', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd161', 'd163', 'd164', 'd185', 'd186', 'd187', 'd188', 'd189', 'd190', 'd191', 'd192', 'd194', 'd217', 'd218', 'd219', 'd220', 'd221', 'd24', 'd260', 'd261', 'd262', 'd263', 'd264', 'd265', 'd266', 'd267', 'd268', 'd27', 'd270', 'd271', 'd272', 'd273', 'd274', 'd275', 'd276', 'd277', 'd278', 'd281', 'd282', 'd283', 'd284', 'd286', 'd287', 'd288', 'd289', 'd290', 'd291', 'd292', 'd293', 'd294', 'd295', 'd296', 'd297', 'd30', 'd306', 'd307', 'd317', 'd318', 'd32', 'd320', 'd321', 'd322', 'd323', 'd324', 'd325', 'd326', 'd343', 'd344', 'd345', 'd346', 'd347', 'd348', 'd349', 'd350', 'd351', 'd352', 'd353', 'd354', 'd355', 'd356', 'd357', 'd358', 'd359', 'd39', 'd40', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_notching_standard_y_dist', 'door_top_margin', 'hinge_hole_depth', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_radius', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbet_tag', 'left_rabbeting_activation_offset', 'left_rabbeting_bottom', 'left_rabbeting_length', 'left_rabbeting_top', 'left_side_door', 'leveling_bar_additional_height', 'levelling_gap', 'rabbeting_depth', 'rabbeting_insertion_radius', 'rabbeting_start_above_door', 'rabbeting_stop_below_door', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbet_tag', 'right_rabbeting_activation_offset', 'right_rabbeting_bottom', 'right_rabbeting_length', 'right_rabbeting_top', 'right_side_door', 'stile_bottom_hinge_offset', 'stile_mid_bottom_hinge_offset', 'stile_mid_top_hinge_offset', 'through_rabbeting_threshold']
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - S2: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-06-17 14:58:10 - FusionManufacturingPipeline - INFO - S2: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'program_name', 'series_id']
+2026-06-17 14:58:17 - FusionManufacturingPipeline - INFO - S2: Successfully updated 12 parameter(s)
+2026-06-17 14:58:17 - FusionManufacturingPipeline - INFO - Saving 3X82_Stile (v1014, isModified=True)
+2026-06-17 14:58:19 - FusionManufacturingPipeline - INFO - Save completed for 3X82_Stile in 1.1s
+2026-06-17 14:58:19 - FusionManufacturingPipeline - INFO - S2: Post-parameter save: 3X82_Stile: saved (clearing dirty flag, 1.1s)
+2026-06-17 14:58:38 - FusionManufacturingPipeline - INFO - S2: Model exported: Exported S2.step (1000727 bytes)
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Parameters exported (CSV): Exported 227 parameters to S2_all_parameters.csv (28516 bytes)
+2026-06-17 14:58:39 - FusionManufacturingPipeline - WARNING - S2: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Found hinge_hole_x_dist = 1.268 in
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Left side - door present, RH hinging (hinges onto stile) -> drilling required
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Right side - door present, LH hinging (hinges onto stile) -> drilling required
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Drilling sides - capture_left=True, capture_right=True
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: LEFT side - workstop=1, HINGE
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: RIGHT side - workstop=4, HINGE
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Stile DrillName=3082G.67P RH I/S HINGE | LH I/S HINGE
+2026-06-17 14:58:39 - FusionManufacturingPipeline - INFO - S2: Drilling flags - LI=1, LE=0, RI=1, RE=0
+2026-06-17 14:58:40 - FusionManufacturingPipeline - INFO - S2: FlipRotate=1 (rotate)
+2026-06-17 14:58:40 - FusionManufacturingPipeline - INFO - S2: Computed 16 paired coordinates for S2
+2026-06-17 14:58:40 - FusionManufacturingPipeline - INFO - S2: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-S2-IBUS447889.csv
+2026-06-17 14:58:40 - FusionManufacturingPipeline - INFO - S2: Width=12.0, Length=91.75
+2026-06-17 14:58:40 - FusionManufacturingPipeline - INFO - S2: Cutlist - Series=3082G.67P, FC=2, Gapping=[1,1,0,0], GappingTop=[0,0,0,0], Thickness=0.75
+2026-06-17 14:58:41 - FusionManufacturingPipeline - INFO - S2: Cutlist CSV exported successfully (1122 bytes)
+2026-06-17 14:58:41 - FusionManufacturingPipeline - INFO - S2: Cutlist CSV exported: Exported cutlist to 1-S2-IBUS447889.csv (1122 bytes)
+2026-06-17 14:58:41 - FusionManufacturingPipeline - INFO - S2: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-S2-IBUS447889.csv
+2026-06-17 14:58:41 - FusionManufacturingPipeline - INFO - S2: Starting stile drawing export
+2026-06-17 14:58:41 - FusionManufacturingPipeline - INFO - S2: Model not modified, skipping save
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO - S2: Using cached drawing document (key=stile_3082_drawing)
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO - === open_drawing: 3X82_Stile Drawing ===
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   documents.count: 13
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:58:42 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X82_Stile Drawing (isValid=True)
+2026-06-17 14:58:46 - FusionManufacturingPipeline - INFO - Active document after activate: 3X82_Stile Drawing
+2026-06-17 14:58:46 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X82_Stile Drawing
+2026-06-17 14:58:46 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:58:48 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:58:48 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:58:50 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:58:50 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:58:50 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:58:52 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X82_Stile, version=v1015, latestVersion=1014, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:58:52 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:58:52 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 14:58:57 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 14:58:58 - FusionManufacturingPipeline - INFO - Starting PDF export (stile)
+2026-06-17 14:58:58 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 14:58:58 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X82_Stile Drawing
+2026-06-17 14:59:00 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X82_Stile Drawing
+2026-06-17 14:59:00 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S2-IBUS447889-drawing.pdf
+2026-06-17 14:59:00 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_qp9lllts\1-S2-IBUS447889-drawing.pdf
+2026-06-17 14:59:00 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 14:59:02 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-S2-IBUS447889-drawing.pdf (273707 bytes)
+2026-06-17 14:59:02 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S2-IBUS447889-drawing.pdf
+2026-06-17 14:59:02 - FusionManufacturingPipeline - INFO - Drawing exported: 1-S2-IBUS447889-drawing.pdf (273707 bytes)
+2026-06-17 14:59:03 - FusionManufacturingPipeline - INFO - S2: Stile drawing exported: Exported drawing to 1-S2-IBUS447889-drawing.pdf (273707 bytes)
+2026-06-17 14:59:03 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile
+2026-06-17 14:59:06 - FusionManufacturingPipeline - INFO - S2: Stile model re-activated after drawing export
+2026-06-17 14:59:06 - FusionManufacturingPipeline - INFO - Model 3X82_Stile is not modified, skip save
+2026-06-17 14:59:06 - FusionManufacturingPipeline - INFO - S2: Pre-CAM save: 3X82_Stile: not modified, no save needed
+2026-06-17 14:59:06 - FusionManufacturingPipeline - INFO - S2: Starting CAM regeneration
+2026-06-17 14:59:06 - FusionManufacturingPipeline - INFO - S2: Accessing CAM product
+2026-06-17 14:59:09 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 14:59:09 - FusionManufacturingPipeline - INFO - S2: CAM product accessed
+2026-06-17 14:59:09 - FusionManufacturingPipeline - INFO - S2: Found 8 CAM setup(s): Left Rabbet - Out G57, Left Rabbet - Out G59, Left Rabbet - In G57, Left Rabbet - In G59, Right Rabbet - Out G57, Right Rabbet - Out G59, Right Rabbet - In G57, Right Rabbet - In G59
+2026-06-17 14:59:09 - FusionManufacturingPipeline - INFO - S2: Regenerating toolpaths for all setups
+2026-06-17 14:59:09 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 14:59:11 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 1.8s
+2026-06-17 14:59:11 - FusionManufacturingPipeline - INFO - 6 operation(s) still need toolpaths after generateAllToolpaths, generating individually...
+2026-06-17 14:59:11 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G57" / "Left rabbet out"
+2026-06-17 14:59:11 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G57" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 14:59:11 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G59" / "Left rabbet out"
+2026-06-17 14:59:12 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G59" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 14:59:12 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G57" / "Right rabbet out"
+2026-06-17 14:59:12 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G57" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 14:59:12 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G59" / "Right rabbet out"
+2026-06-17 14:59:12 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G59" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 14:59:12 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G57" / "Right rabbet In"
+2026-06-17 14:59:12 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G57" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 14:59:12 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G59" / "Right rabbet In"
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G59" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - INFO - Left Rabbet - In G57: Regenerated 1/1 toolpaths
+2026-06-17 14:59:13 - FusionManufacturingPipeline - INFO - Left Rabbet - In G59: Regenerated 1/1 toolpaths
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G57: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G59: No toolpaths generated (1 operations)
+2026-06-17 14:59:13 - FusionManufacturingPipeline - ERROR - S2: Setup "Left Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - ERROR - S2: Setup "Left Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - INFO - S2: Setup "Left Rabbet - In G57": Regenerated 1/1 toolpaths
+2026-06-17 14:59:14 - FusionManufacturingPipeline - INFO - S2: Setup "Left Rabbet - In G59": Regenerated 1/1 toolpaths
+2026-06-17 14:59:14 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - In G57": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - In G59": No toolpaths generated (1 operations)
+2026-06-17 14:59:14 - FusionManufacturingPipeline - INFO - S2: Starting post processing
+2026-06-17 14:59:14 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 14:59:14 - FusionManufacturingPipeline - INFO - S2: 2-door drilling flags: LI=True, LE=False, RI=True, RE=False, left_has_drilling=True, right_has_drilling=True
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - S2: FlipRotate determination: left=4, right=4
+2026-06-17 14:59:15 - FusionManufacturingPipeline - WARNING - S2: Both sides have FlipRotate=4, defaulting to left first
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - S2: Stile sequence logic: series=3082G.67P, doors=2, LD_swing=I/S, RD_swing=I/S, handling=2-door drilling both, left first (FlipRotate=3 on left)
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - S2: Anderson handling = 2-door drilling both, left first (FlipRotate=3 on left), sequence = ['Left Rabbet - In G59', 'Right Rabbet - In G57']
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Left Rabbet - In G59']
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 14:59:15 - FusionManufacturingPipeline - INFO - Posting setup "Left Rabbet - In G59" (sequence 1/1) as 1678.nc
+2026-06-17 14:59:16 - FusionManufacturingPipeline - INFO -   -> 1678.nc (789 bytes)
+2026-06-17 14:59:17 - FusionManufacturingPipeline - INFO - Successfully generated 1-S2-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 14:59:17 - FusionManufacturingPipeline - INFO - S2: Post "Setups": Generated 1-S2-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 14:59:18 - FusionManufacturingPipeline - INFO - S2: G-code file copied to network: \\ddc-mefs\Anderson\1-S2-IBUS447889.txt
+2026-06-17 14:59:19 - FusionManufacturingPipeline - INFO - S2: Switched back to Design workspace
+2026-06-17 14:59:19 - FusionManufacturingPipeline - INFO - S2: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 14:59:19 - FusionManufacturingPipeline - INFO - S2: Adding drilling data to compiled collection
+2026-06-17 14:59:22 - FusionManufacturingPipeline - INFO - Processing stile 3/4: S3
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO -   Parameters to apply: 16
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - Cached cloud stile (3082) model already active: 3X82_Stile
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - S3: Switched to cloud stile (3082) model: 3X82_Stile
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - Applying parameters to S3
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - S3: Model has 226 user params, JSON has 16 params
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - S3: All model user params: ['LD_bottom_hinge_hole_1_y_value', 'LD_bottom_hinge_hole_2_y_value', 'LD_bottom_margin', 'LD_bottom_notching_actual_y_dist', 'LD_floor_clearance', 'LD_full_rabbeting_bottom', 'LD_full_rabbeting_top', 'LD_height', 'LD_hinge', 'LD_hinging_right', 'LD_inter_hinge_gap', 'LD_mid_bottom_hinge_hole_1_y_value', 'LD_mid_bottom_hinge_hole_2_y_value', 'LD_mid_bottom_hinge_offset', 'LD_mid_top_hinge_hole_1_y_value', 'LD_mid_top_hinge_hole_2_y_value', 'LD_mid_top_hinge_offset', 'LD_rabbeting_top_tag', 'LD_stile_bottom_hinge_hole_1_y_value', 'LD_stile_bottom_hinge_hole_2_y_value', 'LD_stile_hole_modifier', 'LD_stile_mid_bottom_hinge_hole_1_y_value', 'LD_stile_mid_bottom_hinge_hole_2_y_value', 'LD_stile_mid_top_hinge_hole_1_y_value', 'LD_stile_mid_top_hinge_hole_2_y_value', 'LD_stile_top_hinge_hole_1_y_value', 'LD_stile_top_hinge_hole_2_y_value', 'LD_swing', 'LD_swinging_out', 'LD_top_hinge_hole_1_y_value', 'LD_top_hinge_hole_2_y_value', 'RD_bottom_hinge_hole_1_y_value', 'RD_bottom_hinge_hole_2_y_value', 'RD_bottom_margin', 'RD_bottom_notching_actual_y_dist', 'RD_floor_clearance', 'RD_full_rabbeting_bottom', 'RD_full_rabbeting_top', 'RD_height', 'RD_hinge', 'RD_hinging_right', 'RD_inter_hinge_gap', 'RD_mid_bottom_hinge_hole_1_y_value', 'RD_mid_bottom_hinge_hole_2_y_value', 'RD_mid_bottom_hinge_offset', 'RD_mid_top_hinge_hole_1_y_value', 'RD_mid_top_hinge_hole_2_y_value', 'RD_mid_top_hinge_offset', 'RD_rabbet_top_tag', 'RD_stile_bottom_hinge_hole_1_y_value', 'RD_stile_bottom_hinge_hole_2_y_value', 'RD_stile_hole_modifier', 'RD_stile_mid_bottom_hinge_hole_1_y_value', 'RD_stile_mid_bottom_hinge_hole_2_y_value', 'RD_stile_mid_top_hinge_hole_1_y_value', 'RD_stile_mid_top_hinge_hole_2_y_value', 'RD_stile_top_hinge_hole_1_y_value', 'RD_stile_top_hinge_hole_2_y_value', 'RD_swing', 'RD_swinging_out', 'RD_top_hinge_hole_1_y_value', 'RD_top_hinge_hole_2_y_value', 'a_order_number', 'a_series', 'component_ceiling_clearance', 'component_height', 'component_id', 'component_net_height', 'component_thickness', 'component_width', 'd10', 'd11', 'd114', 'd115', 'd116', 'd117', 'd118', 'd119', 'd12', 'd120', 'd122', 'd123', 'd125', 'd137', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd161', 'd163', 'd164', 'd185', 'd186', 'd187', 'd188', 'd189', 'd190', 'd191', 'd192', 'd194', 'd217', 'd218', 'd219', 'd220', 'd221', 'd24', 'd260', 'd261', 'd262', 'd263', 'd264', 'd265', 'd266', 'd267', 'd268', 'd27', 'd270', 'd271', 'd272', 'd273', 'd274', 'd275', 'd276', 'd277', 'd278', 'd281', 'd282', 'd283', 'd284', 'd286', 'd287', 'd288', 'd289', 'd290', 'd291', 'd292', 'd293', 'd294', 'd295', 'd296', 'd297', 'd30', 'd306', 'd307', 'd317', 'd318', 'd32', 'd320', 'd321', 'd322', 'd323', 'd324', 'd325', 'd326', 'd343', 'd344', 'd345', 'd346', 'd347', 'd348', 'd349', 'd350', 'd351', 'd352', 'd353', 'd354', 'd355', 'd356', 'd357', 'd358', 'd359', 'd39', 'd40', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_notching_standard_y_dist', 'door_top_margin', 'hinge_hole_depth', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_radius', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbet_tag', 'left_rabbeting_activation_offset', 'left_rabbeting_bottom', 'left_rabbeting_length', 'left_rabbeting_top', 'left_side_door', 'leveling_bar_additional_height', 'levelling_gap', 'rabbeting_depth', 'rabbeting_insertion_radius', 'rabbeting_start_above_door', 'rabbeting_stop_below_door', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbet_tag', 'right_rabbeting_activation_offset', 'right_rabbeting_bottom', 'right_rabbeting_length', 'right_rabbeting_top', 'right_side_door', 'stile_bottom_hinge_offset', 'stile_mid_bottom_hinge_offset', 'stile_mid_top_hinge_offset', 'through_rabbeting_threshold']
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - S3: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-06-17 14:59:23 - FusionManufacturingPipeline - INFO - S3: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'program_name', 'series_id']
+2026-06-17 14:59:24 - FusionManufacturingPipeline - INFO - S3: Successfully updated 12 parameter(s)
+2026-06-17 14:59:24 - FusionManufacturingPipeline - INFO - Saving 3X82_Stile (v1015, isModified=True)
+2026-06-17 14:59:26 - FusionManufacturingPipeline - INFO - Save completed for 3X82_Stile in 1.1s
+2026-06-17 14:59:26 - FusionManufacturingPipeline - INFO - S3: Post-parameter save: 3X82_Stile: saved (clearing dirty flag, 1.1s)
+2026-06-17 14:59:44 - FusionManufacturingPipeline - INFO - S3: Model exported: Exported S3.step (983617 bytes)
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Parameters exported (CSV): Exported 227 parameters to S3_all_parameters.csv (28427 bytes)
+2026-06-17 14:59:45 - FusionManufacturingPipeline - WARNING - S3: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Found hinge_hole_x_dist = 1.268 in
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Left side - door present, LH hinging (hinges away from stile) -> no drilling
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Right side - door present, LH hinging (hinges onto stile) -> drilling required
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Drilling sides - capture_left=False, capture_right=True
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: LEFT side - KEEPING (no drilling)
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: RIGHT side - workstop=4, HINGE
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Stile DrillName=3082G.67P LH I/S KEEPING | LH I/S HINGE
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: Drilling flags - LI=0, LE=0, RI=1, RE=0
+2026-06-17 14:59:45 - FusionManufacturingPipeline - INFO - S3: FlipRotate=1 (rotate)
+2026-06-17 14:59:46 - FusionManufacturingPipeline - INFO - S3: Only workstop 4 used, added air drilling entry on workstop 1 at (121, 0.197)
+2026-06-17 14:59:46 - FusionManufacturingPipeline - INFO - S3: Computed 9 paired coordinates for S3
+2026-06-17 14:59:46 - FusionManufacturingPipeline - INFO - S3: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-S3-IBUS447889.csv
+2026-06-17 14:59:46 - FusionManufacturingPipeline - INFO - S3: Width=12.0, Length=91.75
+2026-06-17 14:59:46 - FusionManufacturingPipeline - INFO - S3: Cutlist - Series=3082G.67P, FC=2, Gapping=[1,1,0,0], GappingTop=[0,0,0,0], Thickness=0.75
+2026-06-17 14:59:47 - FusionManufacturingPipeline - INFO - S3: Cutlist CSV exported successfully (1122 bytes)
+2026-06-17 14:59:47 - FusionManufacturingPipeline - INFO - S3: Cutlist CSV exported: Exported cutlist to 1-S3-IBUS447889.csv (1122 bytes)
+2026-06-17 14:59:47 - FusionManufacturingPipeline - INFO - S3: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-S3-IBUS447889.csv
+2026-06-17 14:59:47 - FusionManufacturingPipeline - INFO - S3: Starting stile drawing export
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO - S3: Model not modified, skipping save
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO - S3: Using cached drawing document (key=stile_3082_drawing)
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO - === open_drawing: 3X82_Stile Drawing ===
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   documents.count: 14
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 14:59:48 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X82_Stile Drawing (isValid=True)
+2026-06-17 14:59:52 - FusionManufacturingPipeline - INFO - Active document after activate: 3X82_Stile Drawing
+2026-06-17 14:59:52 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X82_Stile Drawing
+2026-06-17 14:59:52 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 14:59:54 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 14:59:54 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 14:59:55 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 14:59:56 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 14:59:56 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 14:59:57 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X82_Stile, version=v1016, latestVersion=1015, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 14:59:58 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 14:59:58 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 15:00:03 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 15:00:03 - FusionManufacturingPipeline - INFO - Starting PDF export (stile)
+2026-06-17 15:00:03 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 15:00:03 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X82_Stile Drawing
+2026-06-17 15:00:05 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X82_Stile Drawing
+2026-06-17 15:00:05 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S3-IBUS447889-drawing.pdf
+2026-06-17 15:00:05 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_s962jzns\1-S3-IBUS447889-drawing.pdf
+2026-06-17 15:00:06 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 15:00:07 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-S3-IBUS447889-drawing.pdf (271129 bytes)
+2026-06-17 15:00:08 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S3-IBUS447889-drawing.pdf
+2026-06-17 15:00:08 - FusionManufacturingPipeline - INFO - Drawing exported: 1-S3-IBUS447889-drawing.pdf (271129 bytes)
+2026-06-17 15:00:08 - FusionManufacturingPipeline - INFO - S3: Stile drawing exported: Exported drawing to 1-S3-IBUS447889-drawing.pdf (271129 bytes)
+2026-06-17 15:00:08 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile
+2026-06-17 15:00:11 - FusionManufacturingPipeline - INFO - S3: Stile model re-activated after drawing export
+2026-06-17 15:00:11 - FusionManufacturingPipeline - INFO - Model 3X82_Stile is not modified, skip save
+2026-06-17 15:00:11 - FusionManufacturingPipeline - INFO - S3: Pre-CAM save: 3X82_Stile: not modified, no save needed
+2026-06-17 15:00:11 - FusionManufacturingPipeline - INFO - S3: Starting CAM regeneration
+2026-06-17 15:00:11 - FusionManufacturingPipeline - INFO - S3: Accessing CAM product
+2026-06-17 15:00:14 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 15:00:14 - FusionManufacturingPipeline - INFO - S3: CAM product accessed
+2026-06-17 15:00:14 - FusionManufacturingPipeline - INFO - S3: Found 8 CAM setup(s): Left Rabbet - Out G57, Left Rabbet - Out G59, Left Rabbet - In G57, Left Rabbet - In G59, Right Rabbet - Out G57, Right Rabbet - Out G59, Right Rabbet - In G57, Right Rabbet - In G59
+2026-06-17 15:00:14 - FusionManufacturingPipeline - INFO - S3: Regenerating toolpaths for all setups
+2026-06-17 15:00:14 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 15:00:17 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 1.9s
+2026-06-17 15:00:17 - FusionManufacturingPipeline - INFO - 6 operation(s) still need toolpaths after generateAllToolpaths, generating individually...
+2026-06-17 15:00:17 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G57" / "Left rabbet out"
+2026-06-17 15:00:17 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G57" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 15:00:17 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G59" / "Left rabbet out"
+2026-06-17 15:00:17 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G59" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 15:00:17 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G57" / "Right rabbet out"
+2026-06-17 15:00:18 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G57" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 15:00:18 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G59" / "Right rabbet out"
+2026-06-17 15:00:18 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G59" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 15:00:18 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G57" / "Right rabbet In"
+2026-06-17 15:00:18 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G57" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 15:00:18 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G59" / "Right rabbet In"
+2026-06-17 15:00:18 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G59" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 15:00:18 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - INFO - Left Rabbet - In G57: Regenerated 1/1 toolpaths
+2026-06-17 15:00:19 - FusionManufacturingPipeline - INFO - Left Rabbet - In G59: Regenerated 1/1 toolpaths
+2026-06-17 15:00:19 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G57: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G59: No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - ERROR - S3: Setup "Left Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - ERROR - S3: Setup "Left Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 15:00:19 - FusionManufacturingPipeline - INFO - S3: Setup "Left Rabbet - In G57": Regenerated 1/1 toolpaths
+2026-06-17 15:00:19 - FusionManufacturingPipeline - INFO - S3: Setup "Left Rabbet - In G59": Regenerated 1/1 toolpaths
+2026-06-17 15:00:20 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 15:00:20 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 15:00:20 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - In G57": No toolpaths generated (1 operations)
+2026-06-17 15:00:20 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - In G59": No toolpaths generated (1 operations)
+2026-06-17 15:00:20 - FusionManufacturingPipeline - INFO - S3: Starting post processing
+2026-06-17 15:00:20 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 15:00:20 - FusionManufacturingPipeline - INFO - S3: 2-door drilling flags: LI=False, LE=False, RI=True, RE=False, left_has_drilling=False, right_has_drilling=True
+2026-06-17 15:00:20 - FusionManufacturingPipeline - INFO - S3: Stile sequence logic: series=3082G.67P, doors=2, LD_swing=I/S, RD_swing=I/S, handling=2-door drilling right only, right first
+2026-06-17 15:00:20 - FusionManufacturingPipeline - INFO - S3: Anderson handling = 2-door drilling right only, right first, sequence = ['Right Rabbet - In G57', 'Left Rabbet - In G59']
+2026-06-17 15:00:21 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Left Rabbet - In G59']
+2026-06-17 15:00:21 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 15:00:21 - FusionManufacturingPipeline - INFO - Posting setup "Left Rabbet - In G59" (sequence 1/1) as 1679.nc
+2026-06-17 15:00:21 - FusionManufacturingPipeline - INFO -   -> 1679.nc (789 bytes)
+2026-06-17 15:00:23 - FusionManufacturingPipeline - INFO - Successfully generated 1-S3-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 15:00:23 - FusionManufacturingPipeline - INFO - S3: Post "Setups": Generated 1-S3-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 15:00:23 - FusionManufacturingPipeline - INFO - S3: G-code file copied to network: \\ddc-mefs\Anderson\1-S3-IBUS447889.txt
+2026-06-17 15:00:25 - FusionManufacturingPipeline - INFO - S3: Switched back to Design workspace
+2026-06-17 15:00:25 - FusionManufacturingPipeline - INFO - S3: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 15:00:25 - FusionManufacturingPipeline - INFO - S3: Adding drilling data to compiled collection
+2026-06-17 15:00:28 - FusionManufacturingPipeline - INFO - Processing stile 4/4: S4
+2026-06-17 15:00:28 - FusionManufacturingPipeline - INFO -   Parameters to apply: 16
+2026-06-17 15:00:28 - FusionManufacturingPipeline - INFO - Cached cloud stile (3082) model already active: 3X82_Stile
+2026-06-17 15:00:28 - FusionManufacturingPipeline - INFO - S4: Switched to cloud stile (3082) model: 3X82_Stile
+2026-06-17 15:00:29 - FusionManufacturingPipeline - INFO - Applying parameters to S4
+2026-06-17 15:00:29 - FusionManufacturingPipeline - INFO - S4: Model has 226 user params, JSON has 16 params
+2026-06-17 15:00:29 - FusionManufacturingPipeline - INFO - S4: All model user params: ['LD_bottom_hinge_hole_1_y_value', 'LD_bottom_hinge_hole_2_y_value', 'LD_bottom_margin', 'LD_bottom_notching_actual_y_dist', 'LD_floor_clearance', 'LD_full_rabbeting_bottom', 'LD_full_rabbeting_top', 'LD_height', 'LD_hinge', 'LD_hinging_right', 'LD_inter_hinge_gap', 'LD_mid_bottom_hinge_hole_1_y_value', 'LD_mid_bottom_hinge_hole_2_y_value', 'LD_mid_bottom_hinge_offset', 'LD_mid_top_hinge_hole_1_y_value', 'LD_mid_top_hinge_hole_2_y_value', 'LD_mid_top_hinge_offset', 'LD_rabbeting_top_tag', 'LD_stile_bottom_hinge_hole_1_y_value', 'LD_stile_bottom_hinge_hole_2_y_value', 'LD_stile_hole_modifier', 'LD_stile_mid_bottom_hinge_hole_1_y_value', 'LD_stile_mid_bottom_hinge_hole_2_y_value', 'LD_stile_mid_top_hinge_hole_1_y_value', 'LD_stile_mid_top_hinge_hole_2_y_value', 'LD_stile_top_hinge_hole_1_y_value', 'LD_stile_top_hinge_hole_2_y_value', 'LD_swing', 'LD_swinging_out', 'LD_top_hinge_hole_1_y_value', 'LD_top_hinge_hole_2_y_value', 'RD_bottom_hinge_hole_1_y_value', 'RD_bottom_hinge_hole_2_y_value', 'RD_bottom_margin', 'RD_bottom_notching_actual_y_dist', 'RD_floor_clearance', 'RD_full_rabbeting_bottom', 'RD_full_rabbeting_top', 'RD_height', 'RD_hinge', 'RD_hinging_right', 'RD_inter_hinge_gap', 'RD_mid_bottom_hinge_hole_1_y_value', 'RD_mid_bottom_hinge_hole_2_y_value', 'RD_mid_bottom_hinge_offset', 'RD_mid_top_hinge_hole_1_y_value', 'RD_mid_top_hinge_hole_2_y_value', 'RD_mid_top_hinge_offset', 'RD_rabbet_top_tag', 'RD_stile_bottom_hinge_hole_1_y_value', 'RD_stile_bottom_hinge_hole_2_y_value', 'RD_stile_hole_modifier', 'RD_stile_mid_bottom_hinge_hole_1_y_value', 'RD_stile_mid_bottom_hinge_hole_2_y_value', 'RD_stile_mid_top_hinge_hole_1_y_value', 'RD_stile_mid_top_hinge_hole_2_y_value', 'RD_stile_top_hinge_hole_1_y_value', 'RD_stile_top_hinge_hole_2_y_value', 'RD_swing', 'RD_swinging_out', 'RD_top_hinge_hole_1_y_value', 'RD_top_hinge_hole_2_y_value', 'a_order_number', 'a_series', 'component_ceiling_clearance', 'component_height', 'component_id', 'component_net_height', 'component_thickness', 'component_width', 'd10', 'd11', 'd114', 'd115', 'd116', 'd117', 'd118', 'd119', 'd12', 'd120', 'd122', 'd123', 'd125', 'd137', 'd144', 'd145', 'd146', 'd147', 'd148', 'd149', 'd150', 'd151', 'd152', 'd161', 'd163', 'd164', 'd185', 'd186', 'd187', 'd188', 'd189', 'd190', 'd191', 'd192', 'd194', 'd217', 'd218', 'd219', 'd220', 'd221', 'd24', 'd260', 'd261', 'd262', 'd263', 'd264', 'd265', 'd266', 'd267', 'd268', 'd27', 'd270', 'd271', 'd272', 'd273', 'd274', 'd275', 'd276', 'd277', 'd278', 'd281', 'd282', 'd283', 'd284', 'd286', 'd287', 'd288', 'd289', 'd290', 'd291', 'd292', 'd293', 'd294', 'd295', 'd296', 'd297', 'd30', 'd306', 'd307', 'd317', 'd318', 'd32', 'd320', 'd321', 'd322', 'd323', 'd324', 'd325', 'd326', 'd343', 'd344', 'd345', 'd346', 'd347', 'd348', 'd349', 'd350', 'd351', 'd352', 'd353', 'd354', 'd355', 'd356', 'd357', 'd358', 'd359', 'd39', 'd40', 'd47', 'd48', 'd49', 'd51', 'd52', 'd53', 'd78', 'd79', 'd82', 'd83', 'd84', 'door_bottom_notching_standard_y_dist', 'door_top_margin', 'hinge_hole_depth', 'hinge_hole_space', 'hinge_hole_x_dist', 'hole_radius', 'left_exterior_drilling', 'left_exterior_rabbeting', 'left_interior_drilling', 'left_interior_rabbeting', 'left_rabbet_tag', 'left_rabbeting_activation_offset', 'left_rabbeting_bottom', 'left_rabbeting_length', 'left_rabbeting_top', 'left_side_door', 'leveling_bar_additional_height', 'levelling_gap', 'rabbeting_depth', 'rabbeting_insertion_radius', 'rabbeting_start_above_door', 'rabbeting_stop_below_door', 'rabbeting_width', 'right_exterior_drilling', 'right_exterior_rabbeting', 'right_interior_drilling', 'right_interior_rabbeting', 'right_rabbet_tag', 'right_rabbeting_activation_offset', 'right_rabbeting_bottom', 'right_rabbeting_length', 'right_rabbeting_top', 'right_side_door', 'stile_bottom_hinge_offset', 'stile_mid_bottom_hinge_offset', 'stile_mid_top_hinge_offset', 'through_rabbeting_threshold']
+2026-06-17 15:00:29 - FusionManufacturingPipeline - INFO - S4: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-06-17 15:00:29 - FusionManufacturingPipeline - INFO - S4: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'program_name', 'series_id']
+2026-06-17 15:00:32 - FusionManufacturingPipeline - INFO - S4: Successfully updated 12 parameter(s)
+2026-06-17 15:00:32 - FusionManufacturingPipeline - INFO - Saving 3X82_Stile (v1016, isModified=True)
+2026-06-17 15:00:34 - FusionManufacturingPipeline - INFO - Save completed for 3X82_Stile in 1.1s
+2026-06-17 15:00:34 - FusionManufacturingPipeline - INFO - S4: Post-parameter save: 3X82_Stile: saved (clearing dirty flag, 1.1s)
+2026-06-17 15:00:52 - FusionManufacturingPipeline - INFO - S4: Model exported: Exported S4.step (963341 bytes)
+2026-06-17 15:00:52 - FusionManufacturingPipeline - INFO - S4: Parameters exported (CSV): Exported 227 parameters to S4_all_parameters.csv (28395 bytes)
+2026-06-17 15:00:53 - FusionManufacturingPipeline - WARNING - S4: Parameter export failed (JSON): JSON parameter export failed: name 'logging' is not defined
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Found hinge_hole_x_dist = 1.268 in
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Left side - door present, LH hinging (hinges away from stile) -> no drilling
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Right side - no door -> no drilling
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Drilling sides - capture_left=False, capture_right=False
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: No drilling coordinates (No drilling required for S4 (no door hinges onto stile)) — adding air drilling at workstop 1
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\IBUS447889\1-S4-IBUS447889.csv
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Width=10.0, Length=91.75
+2026-06-17 15:00:53 - FusionManufacturingPipeline - INFO - S4: Cutlist - Series=3082G.67P, FC=2, Gapping=[0,1,0,0], GappingTop=[0,0,0,0], Thickness=0.75
+2026-06-17 15:00:54 - FusionManufacturingPipeline - INFO - S4: Cutlist CSV exported successfully (1092 bytes)
+2026-06-17 15:00:54 - FusionManufacturingPipeline - INFO - S4: Cutlist CSV exported: Exported cutlist to 1-S4-IBUS447889.csv (1092 bytes)
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO - S4: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-S4-IBUS447889.csv
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO - S4: Starting stile drawing export
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO - S4: Model not modified, skipping save
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO - S4: Using cached drawing document (key=stile_3082_drawing)
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO - === open_drawing: 3X82_Stile Drawing ===
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO -   data_file.id: urn:adsk.wipprod:dm.lineage:DMASeuypQ6W9umraqWs9fw
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO -   data_file.versionNumber: 26
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO -   data_file.fileExtension: f2d
+2026-06-17 15:00:55 - FusionManufacturingPipeline - INFO -   pre_opened_doc: True
+2026-06-17 15:00:56 - FusionManufacturingPipeline - INFO -   documents.count: 15
+2026-06-17 15:00:56 - FusionManufacturingPipeline - INFO -   consecutive_open_failures: 0
+2026-06-17 15:00:56 - FusionManufacturingPipeline - INFO - Using pre-opened drawing document: 3X82_Stile Drawing (isValid=True)
+2026-06-17 15:01:00 - FusionManufacturingPipeline - INFO - Active document after activate: 3X82_Stile Drawing
+2026-06-17 15:01:00 - FusionManufacturingPipeline - INFO - Pre-opened drawing activated: 3X82_Stile Drawing
+2026-06-17 15:01:00 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-06-17 15:01:01 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-06-17 15:01:02 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-06-17 15:01:03 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-06-17 15:01:03 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-06-17 15:01:03 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-06-17 15:01:05 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X82_Stile, version=v1017, latestVersion=1016, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-06-17 15:01:05 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-06-17 15:01:05 - FusionManufacturingPipeline - INFO - Settling before PDF export (sleep only)...
+2026-06-17 15:01:10 - FusionManufacturingPipeline - INFO - Settle complete
+2026-06-17 15:01:10 - FusionManufacturingPipeline - INFO - Starting PDF export (stile)
+2026-06-17 15:01:10 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: re-activating drawing...
+2026-06-17 15:01:11 - FusionManufacturingPipeline - INFO - _reactivate_drawing: cached doc is valid, activating: 3X82_Stile Drawing
+2026-06-17 15:01:13 - FusionManufacturingPipeline - INFO - export_drawing_to_pdf: activeProduct=adsk::drawing::Drawing, activeDoc=3X82_Stile Drawing
+2026-06-17 15:01:13 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S4-IBUS447889-drawing.pdf
+2026-06-17 15:01:13 - FusionManufacturingPipeline - INFO - Network path detected — exporting to local temp: C:\Users\mefusion\AppData\Local\Temp\fusion_drawing_5vxbvdne\1-S4-IBUS447889-drawing.pdf
+2026-06-17 15:01:13 - FusionManufacturingPipeline - INFO - Executing PDF export...
+2026-06-17 15:01:14 - FusionManufacturingPipeline - INFO - PDF exported locally: 1-S4-IBUS447889-drawing.pdf (267185 bytes)
+2026-06-17 15:01:14 - FusionManufacturingPipeline - INFO - PDF copied to network: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\IBUS447889\1-S4-IBUS447889-drawing.pdf
+2026-06-17 15:01:15 - FusionManufacturingPipeline - INFO - Drawing exported: 1-S4-IBUS447889-drawing.pdf (267185 bytes)
+2026-06-17 15:01:15 - FusionManufacturingPipeline - INFO - S4: Stile drawing exported: Exported drawing to 1-S4-IBUS447889-drawing.pdf (267185 bytes)
+2026-06-17 15:01:15 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile
+2026-06-17 15:01:18 - FusionManufacturingPipeline - INFO - S4: Stile model re-activated after drawing export
+2026-06-17 15:01:18 - FusionManufacturingPipeline - INFO - Model 3X82_Stile is not modified, skip save
+2026-06-17 15:01:18 - FusionManufacturingPipeline - INFO - S4: Pre-CAM save: 3X82_Stile: not modified, no save needed
+2026-06-17 15:01:18 - FusionManufacturingPipeline - INFO - S4: Starting CAM regeneration
+2026-06-17 15:01:18 - FusionManufacturingPipeline - INFO - S4: Accessing CAM product
+2026-06-17 15:01:20 - FusionManufacturingPipeline - INFO - Activated Manufacturing workspace
+2026-06-17 15:01:20 - FusionManufacturingPipeline - INFO - S4: CAM product accessed
+2026-06-17 15:01:20 - FusionManufacturingPipeline - INFO - S4: Found 8 CAM setup(s): Left Rabbet - Out G57, Left Rabbet - Out G59, Left Rabbet - In G57, Left Rabbet - In G59, Right Rabbet - Out G57, Right Rabbet - Out G59, Right Rabbet - In G57, Right Rabbet - In G59
+2026-06-17 15:01:21 - FusionManufacturingPipeline - INFO - S4: Regenerating toolpaths for all setups
+2026-06-17 15:01:21 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (8 setup(s))
+2026-06-17 15:01:23 - FusionManufacturingPipeline - INFO - generateAllToolpaths completed in 2.1s
+2026-06-17 15:01:24 - FusionManufacturingPipeline - INFO - 6 operation(s) still need toolpaths after generateAllToolpaths, generating individually...
+2026-06-17 15:01:24 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G57" / "Left rabbet out"
+2026-06-17 15:01:24 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G57" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 15:01:24 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Left Rabbet - Out G59" / "Left rabbet out"
+2026-06-17 15:01:24 - FusionManufacturingPipeline - WARNING -   "Left Rabbet - Out G59" / "Left rabbet out": still no toolpath after individual generation
+2026-06-17 15:01:24 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G57" / "Right rabbet out"
+2026-06-17 15:01:24 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G57" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 15:01:24 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - Out G59" / "Right rabbet out"
+2026-06-17 15:01:24 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - Out G59" / "Right rabbet out": still no toolpath after individual generation
+2026-06-17 15:01:25 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G57" / "Right rabbet In"
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G57" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 15:01:25 - FusionManufacturingPipeline - INFO -   Generating toolpath for "Right Rabbet - In G59" / "Right rabbet In"
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING -   "Right Rabbet - In G59" / "Right rabbet In": still no toolpath after individual generation
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 15:01:25 - FusionManufacturingPipeline - INFO - Left Rabbet - In G57: Regenerated 1/1 toolpaths
+2026-06-17 15:01:25 - FusionManufacturingPipeline - INFO - Left Rabbet - In G59: Regenerated 1/1 toolpaths
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G57: No toolpaths generated (1 operations)
+2026-06-17 15:01:25 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out G59: No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G57: No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - WARNING - Right Rabbet - In G59: No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Left Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Left Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - INFO - S4: Setup "Left Rabbet - In G57": Regenerated 1/1 toolpaths
+2026-06-17 15:01:26 - FusionManufacturingPipeline - INFO - S4: Setup "Left Rabbet - In G59": Regenerated 1/1 toolpaths
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - Out G57": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - Out G59": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - In G57": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - In G59": No toolpaths generated (1 operations)
+2026-06-17 15:01:26 - FusionManufacturingPipeline - INFO - S4: Starting post processing
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - S4: Stile sequence logic: series=3082G.67P, doors=1, LD_swing=I/S, RD_swing=N/A, handling=single setup
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - S4: Anderson handling = single setup, sequence = ['Left Rabbet - In G59']
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - Setup posting sequence: ['Left Rabbet - In G59']
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-06-17 15:01:27 - FusionManufacturingPipeline - INFO - Posting setup "Left Rabbet - In G59" (sequence 1/1) as 1680.nc
+2026-06-17 15:01:28 - FusionManufacturingPipeline - INFO -   -> 1680.nc (789 bytes)
+2026-06-17 15:01:29 - FusionManufacturingPipeline - INFO - Successfully generated 1-S4-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 15:01:29 - FusionManufacturingPipeline - INFO - S4: Post "Setups": Generated 1-S4-IBUS447889.txt (794 bytes) from 1 section(s)
+2026-06-17 15:01:30 - FusionManufacturingPipeline - INFO - S4: G-code file copied to network: \\ddc-mefs\Anderson\1-S4-IBUS447889.txt
+2026-06-17 15:01:31 - FusionManufacturingPipeline - INFO - S4: Switched back to Design workspace
+2026-06-17 15:01:31 - FusionManufacturingPipeline - INFO - S4: All operations complete - 1 NC file(s) generated, drawing exported
+2026-06-17 15:01:31 - FusionManufacturingPipeline - INFO - S4: Adding drilling data to compiled collection
+2026-06-17 15:01:32 - FusionManufacturingPipeline - INFO - Created compiled paired drilling file: IBUS447889.json with 8 component(s)
+2026-06-17 15:01:32 - FusionManufacturingPipeline - INFO - Drilling JSON copied to network: \\ddc-mefs\Gannomat\F360_output\IBUS447889.json

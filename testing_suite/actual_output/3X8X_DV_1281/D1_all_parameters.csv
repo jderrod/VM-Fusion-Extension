@@ -1,0 +1,193 @@
+Type,Parameter Name,Value,Unit,Expression,Comment
+Metadata,series_id,3082G.67P,,3082G.67P,Input parameter (not in model)
+User,component_height,96.0,in,96.0 in,"001) Input - Model
+    Height of the component"
+User,component_width,36.375,in,36.375 in,"002) Input - Model
+    Width of the component"
+User,component_floor_clearance,1.0,in,1.0 in,"004) Input - Model
+    Floor clearance of the component"
+User,door_hinging_right,1.0,,1,"007) Input - Model
+    Whether the door's hinges are on the right side of the door"
+User,hinge_hole_radius,0.25,in,0.25 in,"021) Fixed - Model
+    The radius of the hinge holes"
+User,component_thickness,0.75,in,0.75 in,"003) Fixed - Model
+    The thickness of the component"
+User,door_top_margin,1.72,in,1.72 in + if(door_wall_post_hinging; 0 in; if(floor_to_ceiling; top_notching_y_dist; 0 in)),"034) Fixed - Helper
+    Distance between top-most hole and top of door"
+User,door_bottom_margin,1.72,in,1.72 in + if(( component_floor_clearance == 1 in ) and not(door_wall_post_hinging); bottom_notching_y_dist; 0 in),"033) Derived - Helper
+    Distance between bottom-most hole and bottom of door"
+User,door_swinging_out,1.0,,1,"008) Input - Model
+    Whether the door is an outswing door"
+User,door_wall_post_hinging,1.0,,1,"009) Input - Model
+    Whether the door hinges on a wall post"
+User,door_wall_keep_latching,0.0,,0,"012) Input - Model
+    Whether the door latches on a wall keep"
+User,notching_x_dist,0.4414,in,0.4414 in,"032) Fixed - Model
+    The horizontal width of the notching"
+User,bottom_notching_y_dist,3.3100000000000005,in,3.31 in,"030) Fixed - Model
+    Height of notching cutout from bottom of door"
+User,hinge_hole_space,1.5,in,1.5 in,"040) Fixed - Helper
+    Distance between the top and bottom hole on a single hinge"
+User,hinge_hole_x_dist,0.968,in,0.968 in,"020) Fixed - Model
+    Horizontal distance between hinge holes and edge of stile"
+User,hole_placement,35.407,in,if(left_exterior_drilling or right_interior_drilling; hinge_hole_x_dist; component_width - hinge_hole_x_dist),"105) Derived - Model
+    An offset that shifts the hinge holes to the appropriate side of the component"
+User,rabbeting_width,0.3,in,0.3 in,"050) Fixed - Model
+    The horizontal width of the rabbeting"
+User,rabbeting_depth,0.5,in,0.5 in,"051) Fixed - Model
+    The depth of the rabbeting"
+User,hinge_hole_depth,0.5625,in,0.5625 in,"022) Fixed - Model
+    The depth of the hinge holes"
+User,bottom_left_notching,1.0,,if(not(component_floor_clearance == 1 in); 0; if(( right_interior_drilling or left_exterior_drilling ) and door_wall_post_hinging; 0; if(( left_interior_drilling or right_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1))),"301) Derived - Model
+    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile"
+User,bottom_right_notching,0.0,,if(not(component_floor_clearance == 1 in); 0; if(( left_interior_drilling or right_exterior_drilling ) and door_wall_post_hinging; 0; if(( right_interior_drilling or left_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1))),"302) Derived - Model
+    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile"
+User,label_out_positioning_offset,1.0,in,( if(not(door_swinging_out); -1; 1) ) * 1 in,"107) Derived - Model
+    An offset that repositions the ""out"" label relative to the door, to change which face is treated as the exterior"""
+User,label_in_positioning_offset,-1.0,in,( if(not(door_swinging_out); 1; -1) ) * 1 in,"106) Derived - Model
+    An offset that repositions the ""in"" label relative to the door, to change which face is treated as the interior"
+User,top_hinge_hole_1_y_value,1.72,in,door_top_margin,"401) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,top_hinge_hole_2_y_value,3.22,in,top_hinge_hole_1_y_value + hinge_hole_space,"402) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,inter_hinge_gap,30.353333333333335,in,( component_height - ( door_top_margin ) - ( door_bottom_margin + hinge_hole_space ) ) / 3,"041) Derived - Helper
+    Distance between top holes of adjacent hinges"
+User,mid_top_hinge_offset,-0.0,in,( -1 * 0.823 * if(component_floor_clearance == 1 in and not(door_wall_post_hinging); 1; 0) ) * 1 in,"042) Derived - Helper
+    An offset applying to the mid-top hinge when the floor clearance is 1"""" the door hinges on a stile"
+User,mid_top_hinge_hole_1_y_value,32.07333333333334,in,top_hinge_hole_1_y_value + inter_hinge_gap + mid_top_hinge_offset,"403) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,mid_top_hinge_hole_2_y_value,33.57333333333334,in,mid_top_hinge_hole_1_y_value + hinge_hole_space,"404) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,mid_bottom_hinge_offset,0.0,in,( 2 * 0.823 * if(component_floor_clearance == 1 in and not(door_wall_post_hinging); 1; 0) ) * 1 in,"043) Derived - Helper
+    An offset applying to the mid-bottom hinge when the floor clearance is 1"""" the door hinges on a stile"
+User,mid_bottom_hinge_hole_1_y_value,62.42666666666667,in,mid_top_hinge_hole_1_y_value + inter_hinge_gap + mid_bottom_hinge_offset,"405) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,mid_bottom_hinge_hole_2_y_value,63.92666666666667,in,mid_bottom_hinge_hole_1_y_value + hinge_hole_space,"406) Derived - Model
+    Distance between top of the door and the center of the door hinge hole
+"
+User,bottom_hinge_hole_1_y_value,92.78,in,mid_bottom_hinge_hole_1_y_value + inter_hinge_gap + mid_top_hinge_offset,"407) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,bottom_hinge_hole_2_y_value,94.28,in,bottom_hinge_hole_1_y_value + hinge_hole_space,"408) Derived - Model
+    Distance between top of the door and the center of the door hinge hole"
+User,door_perp_stile_keeper,0.0,,0,"011) Input - Model
+    Whether the door latches on a perpendiculat stile"
+User,left_rabbeting_model,-0.5,in,if(right_exterior_rabbeting or left_interior_rabbeting; -rabbeting_depth; rabbeting_depth),"203) Derived - Model
+    Controls rabbeting in model's left side as seen from the FRONT"
+User,right_rabbeting_model,-0.5,in,if(left_exterior_rabbeting or right_interior_rabbeting; -rabbeting_depth; rabbeting_depth),"206) Derived - Model
+    Controls rabbeting in model's right side as seen from the FRONT "
+User,left_interior_drilling,0.0,,if(not(door_hinging_right) and not(door_swinging_out); 1; 0),"101) Derived - Model
+    Whether drilling is present the interior left edge of the door"
+User,left_exterior_drilling,0.0,,if(not(door_hinging_right) and door_swinging_out; 1; 0),"102) Derived - Model
+    Whether drilling is present the exterior left edge of the door"
+User,right_interior_drilling,0.0,,if(door_hinging_right and not(door_swinging_out); 1; 0),"103) Derived - Model
+    Whether drilling is present the interior right edge of the door"
+User,right_exterior_drilling,1.0,,if(door_hinging_right and door_swinging_out; 1; 0),"104) Derived - Model
+    Whether drilling is present the exterior right edge of the door"
+User,left_interior_rabbeting,1.0,,if(door_swinging_out and ( not(door_hinging_right) or ( door_hinging_right and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0),"201) Derived - Model
+    Whether routing is present the interior left edge of the door"
+User,left_exterior_rabbeting,0.0,,if(not(door_swinging_out) and ( not(door_hinging_right) or ( door_hinging_right and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0),"202) Derived - Model
+    Whether routing is present the exterior left edge of the door"
+User,right_interior_rabbeting,1.0,,if(door_swinging_out and ( door_hinging_right or ( not(door_hinging_right) and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0),"204) Derived - Model
+    Whether rabbeting is present the interior right edge of the stile"
+User,right_exterior_rabbeting,0.0,,if(not(door_swinging_out) and ( door_hinging_right or ( not(door_hinging_right) and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0),"205) Derived - Model
+    Whether rabbeting is present the exterior right edge of the stile"
+User,component_ceiling_clearance,1.0,in,1.0 in,"005) Input - Model
+    Ceiling clearance of the component"
+User,floor_to_ceiling,1.0,,1,"006) Input - Model
+    Whether the door is a 3X86 Floor-to-Ceiling door"
+User,shoe_height,4.0,in,4 in,"035) Fixed - Model
+    Height of the shoe"
+User,shoe_door_top_notch_gap,0.5,in,0.5 in,"036) Fixed - Model
+    Height of the shoe"
+User,top_notching_y_dist,3.5,in,if(component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ); ( shoe_height + shoe_door_top_notch_gap ) - component_ceiling_clearance; 0 in),031) Derived - Helper
+User,top_left_notching,1.0,,if(not(floor_to_ceiling and component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap )); 0; if(( right_interior_drilling or left_exterior_drilling ) and door_wall_post_hinging; 0; if(( left_interior_drilling or right_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1))),"303) Derived - Model
+    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile"
+User,top_right_notching,0.0,,if(not(floor_to_ceiling and component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap )); 0; if(( left_interior_drilling or right_exterior_drilling ) and door_wall_post_hinging; 0; if(( right_interior_drilling or left_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1))),"304) Derived - Model
+    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile"
+User,a_order_number,'N001',Text,'N001',500) Order number
+User,component_id,'3X8XDoor',Text,'3X8XDoor',501) ID
+User,a_series,'3X8X',Text,'3X8X',502) series
+User,Swing,if(door_swinging_out; 'Outswing'; 'Inswing'),Text,if(door_swinging_out; 'Outswing'; 'Inswing'),504) Swing
+User,Hinge,if(door_hinging_right; 'right-hand hinging'; 'left-hand hinging'),Text,if(door_hinging_right; 'right-hand hinging'; 'left-hand hinging'),505) Hinge
+User,door_wall_post_latching,0.0,,0,"010) Input - Model
+    Whether the door is keeping on a wall post"
+Model,d10,1.0,in,component_floor_clearance,
+Model,d11,96.0,in,component_height,
+Model,d12,36.375,in,component_width,
+Model,d24,0.25,in,hinge_hole_radius,
+Model,d26,1.72,in,top_hinge_hole_1_y_value,
+Model,d27,0.25,in,hinge_hole_radius,
+Model,d30,0.25,in,hinge_hole_radius,
+Model,d32,0.25,in,hinge_hole_radius,
+Model,d38,35.407,in,hole_placement,
+Model,d42,0.968,in,0.968 in,
+Model,d45,0.3,in,rabbeting_width,
+Model,d46,0.3,in,rabbeting_width,
+Model,d56,0.4414,in,notching_x_dist,
+Model,d101,3.22,in,top_hinge_hole_2_y_value,
+Model,d102,32.07333333333334,in,mid_top_hinge_hole_1_y_value,
+Model,d103,33.57333333333334,in,mid_top_hinge_hole_2_y_value,
+Model,d104,62.42666666666667,in,mid_bottom_hinge_hole_1_y_value,
+Model,d105,63.92666666666667,in,mid_bottom_hinge_hole_2_y_value,
+Model,d106,92.78,in,bottom_hinge_hole_1_y_value,
+Model,d107,94.28,in,bottom_hinge_hole_2_y_value,
+Model,d129,3.3100000000000005,in,bottom_notching_y_dist,
+Model,d130,0.5,in,0.5000 in,
+Model,d131,0.5,in,0.5000 in,
+Model,d139,0.25,in,0.25 in,
+Model,d140,0.4414,in,notching_x_dist,
+Model,d141,1.0,in,1 in,
+Model,d142,4.5,in,top_notching_y_dist + 1 in,
+Model,d74,2.0,in,2 in,
+Model,d75,'inside the stall',Text,'inside the stall',
+Model,d76,11.0,in,11 in,
+Model,d77,6.0,in,6 in,
+Model,d78,2.0,in,2 in,
+Model,d79,'outside surface',Text,'outside surface',
+Model,d87,-1.0,in,label_in_positioning_offset,
+Model,d88,0.25,in,0.25 in,
+Model,d89,0.0,deg,0.00 deg,
+Model,d143,0.0,in,0.0000 in,
+Model,d144,-0.75,in,if(top_right_notching; component_thickness; -component_thickness),
+Model,d145,0.0,deg,0.00 deg,
+Model,d146,0.0,in,0.0000 in,
+Model,d147,0.75,in,if(top_left_notching; component_thickness; -component_thickness),
+Model,d148,0.0,deg,0.00 deg,
+Model,d154,0.5,in,0.5 in,
+Model,d155,0.25,in,0.25 in,
+Model,d156,0.25,in,0.25 in,
+Model,d157,0.25,in,0.25 in,
+Model,d158,0.25,in,0.25 in,
+Model,d159,0.25,in,0.25 in,
+Model,d160,0.25,in,0.25 in,
+Model,d161,0.25,in,0.25 in,
+Model,d162,0.25,in,0.25 in,
+Model,d163,0.25,in,0.25 in,
+Model,d164,0.25,in,0.25 in,
+Model,d165,0.25,in,0.25 in,
+Model,d166,0.25,in,0.25 in,
+Model,d149,0.75,in,component_thickness,
+Model,d150,2.0,in,2 in,
+Model,d151,2.0,in,2 in,
+Model,d152,0.3,in,rabbeting_width,
+Model,d153,0.5,in,rabbeting_depth,
+Model,d39,0.75,in,component_thickness,
+Model,d40,0.0,deg,0.00 deg,
+Model,d47,0.0,in,0.0000 in,
+Model,d48,-0.5,in,left_rabbeting_model,
+Model,d49,0.0,deg,0.00 deg,
+Model,d51,0.5625,in,hinge_hole_depth,
+Model,d52,0.0,deg,0.00 deg,
+Model,d53,0.0,in,0.0000 in,
+Model,d57,0.0,deg,0 deg,
+Model,d58,0.0,in,0.0000 in,
+Model,d59,0.75,in,if(bottom_left_notching; component_thickness; -component_thickness),
+Model,d70,0.0,in,0.0000 in,
+Model,d71,-0.75,in,if(bottom_right_notching; component_thickness; -component_thickness),
+Model,d72,0.0,deg,0.00 deg,
+Model,d114,-0.5,in,right_rabbeting_model,
+Model,d115,0.0,deg,0.00 deg,
+Model,d116,0.0,in,0.0000 in,
+Model,d82,1.0,in,label_out_positioning_offset,
+Model,d83,0.25,in,0.25 in,
+Model,d84,0.0,deg,0.00 deg,

@@ -1,0 +1,456 @@
+2026-03-20 12:56:36 - MONITOR - ============================================================
+2026-03-20 12:56:36 - MONITOR - MONITOR LOG INITIALIZED
+2026-03-20 12:56:37 - MONITOR - Log file: \\ddc-mefs\Fusion\Fusion Folders\output\logs\folder_monitor.log
+2026-03-20 12:56:37 - MONITOR - Dropbox folder: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 12:56:37 - MONITOR - ============================================================
+2026-03-20 12:56:37 - MONITOR - INFO - ================================================================================
+2026-03-20 12:56:37 - MONITOR - INFO - FOLDER MONITOR STARTED  (mode=VM)
+2026-03-20 12:56:37 - MONITOR - INFO - Watching: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 12:56:37 - MONITOR - INFO - CAM generation: ENABLED
+2026-03-20 12:56:37 - MONITOR - INFO - Drawing generation: ENABLED
+2026-03-20 12:56:37 - MONITOR - INFO - ================================================================================
+2026-03-20 12:56:37 - MONITOR - INFO - Inputs folder structure ready: \\ddc-mefs\Fusion\Fusion Folders\input
+2026-03-20 12:56:37 - MONITOR - INFO - Found door model: door_3X8X.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Found panel model: panel_3X8X.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Found stile model for series 3081: stile_3X81.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Found stile model for series 3082: stile_3X82.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Found stile model for series 3086: stile_3X86.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Default stile model: stile_3X81.f3d
+2026-03-20 12:56:37 - MONITOR - INFO - Discovered 3 stile model(s): ['3081', '3082', '3086']
+2026-03-20 12:56:37 - MONITOR - INFO - Setting up cloud models from Fusion Hub...
+2026-03-20 12:56:37 - MONITOR - INFO - ========== CLOUD MODEL SETUP ==========
+2026-03-20 12:56:37 - MONITOR - INFO - Project: "Bobrick - Component modeling"
+2026-03-20 12:56:37 - MONITOR - INFO - Folder: "3X8X Components"
+2026-03-20 12:56:37 - MONITOR - INFO - Door: "3X8X_Door", Drawing: "3X8X_Door Drawing"
+2026-03-20 12:56:37 - MONITOR - INFO - Panel: "3X8X_Panel"
+2026-03-20 12:56:37 - MONITOR - INFO - Stiles: {'3081': '3X81_Stile', '3082': '3X82_Stile', '3086': '3X86_Stile'}
+2026-03-20 12:56:37 - MONITOR - INFO - Clearing stale cloud cache in: C:\Users\mefusion\AppData\Local\Autodesk\Autodesk Fusion 360\UnknownUser\W.login\F
+2026-03-20 12:56:37 - MONITOR - INFO - Cloud cache cleanup: no stale files found
+2026-03-20 12:56:37 - MONITOR - INFO - Searching for door model: "3X8X_Door"...
+2026-03-20 12:56:38 - MONITOR - INFO - Found cloud door model: 3X8X_Door_branch_B
+2026-03-20 12:56:40 - MONITOR - INFO - Found cloud door drawing: 3X8X_Door Drawing temp
+2026-03-20 12:56:42 - MONITOR - INFO - Found cloud panel model: 3X8X_Panel
+2026-03-20 12:56:43 - MONITOR - INFO - Found cloud stile model for series 3081: 3X81_Stile
+2026-03-20 12:56:45 - MONITOR - INFO - Found cloud stile model for series 3082: 3X82_Stile Drawing
+2026-03-20 12:56:47 - MONITOR - INFO - Found cloud stile model for series 3086: 3X86_Stile Drawing
+2026-03-20 12:56:49 - MONITOR - INFO - Found cloud stile drawing for series 3082: 3X82_Stile Drawing
+2026-03-20 12:56:51 - MONITOR - INFO - Found cloud stile drawing for series 3086: 3X86_Stile Drawing
+2026-03-20 12:56:51 - MONITOR - INFO - Cloud models configured: 5 found
+2026-03-20 12:56:51 - MONITOR - INFO - Cloud models: Cloud models configured: 5 found
+2026-03-20 12:56:51 - MONITOR - INFO - Opening all models...
+2026-03-20 12:56:51 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Door_branch_B...
+2026-03-20 12:56:53 - MONITOR - INFO - Using fresh DataFile for 3X8X_Door_branch_B
+2026-03-20 12:56:53 - MONITOR - INFO - Opening cloud door model: 3X8X_Door_branch_B (documents count before: 1)
+2026-03-20 12:56:57 - MONITOR - WARNING - Could not open cloud door: Error opening cloud door model: 3 : Forward compatibility is not supported:2701.1.27 - The file you are trying to open was last saved in a newer version of the software. It cannot be opened!
+
+Meta Type: WorkGeometryMetaType
+Persisted Meta Type version: 5
+Current Meta Type version: 4
+Persisted Software version: 2701.1.27
+Current Software version: 2605.1.52
+2026-03-20 12:56:57 - MONITOR - INFO - ========== STARTUP MODEL SUMMARY ==========
+2026-03-20 12:56:57 - MONITOR - INFO - Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3081, 3082, 3086)
+Skipped: door (cloud open failed: Error opening cloud door model: 3 : Forward compatibility is not supported:2701.1.27 - The file you are trying to open was last saved in a newer version of the software. It cannot be opened!
+
+Meta Type: WorkGeometryMetaType
+Persisted Meta Type version: 5
+Current Meta Type version: 4
+Persisted Software version: 2701.1.27
+Current Software version: 2605.1.52)
+2026-03-20 13:08:12 - MONITOR - ============================================================
+2026-03-20 13:08:12 - MONITOR - MONITOR LOG INITIALIZED
+2026-03-20 13:08:12 - MONITOR - Log file: \\ddc-mefs\Fusion\Fusion Folders\output\logs\folder_monitor.log
+2026-03-20 13:08:12 - MONITOR - Dropbox folder: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 13:08:12 - MONITOR - ============================================================
+2026-03-20 13:08:12 - MONITOR - INFO - ================================================================================
+2026-03-20 13:08:12 - MONITOR - INFO - FOLDER MONITOR STARTED  (mode=VM)
+2026-03-20 13:08:12 - MONITOR - INFO - Watching: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 13:08:12 - MONITOR - INFO - CAM generation: ENABLED
+2026-03-20 13:08:12 - MONITOR - INFO - Drawing generation: ENABLED
+2026-03-20 13:08:12 - MONITOR - INFO - ================================================================================
+2026-03-20 13:08:12 - MONITOR - INFO - Inputs folder structure ready: \\ddc-mefs\Fusion\Fusion Folders\input
+2026-03-20 13:08:12 - MONITOR - INFO - Found door model: door_3X8X.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Found panel model: panel_3X8X.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Found stile model for series 3081: stile_3X81.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Found stile model for series 3082: stile_3X82.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Found stile model for series 3086: stile_3X86.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Default stile model: stile_3X81.f3d
+2026-03-20 13:08:12 - MONITOR - INFO - Discovered 3 stile model(s): ['3081', '3082', '3086']
+2026-03-20 13:08:12 - MONITOR - INFO - Setting up cloud models from Fusion Hub...
+2026-03-20 13:08:12 - MONITOR - INFO - ========== CLOUD MODEL SETUP ==========
+2026-03-20 13:08:12 - MONITOR - INFO - Project: "Bobrick - Component modeling"
+2026-03-20 13:08:12 - MONITOR - INFO - Folder: "3X8X Components"
+2026-03-20 13:08:12 - MONITOR - INFO - Door: "3X8X_Door", Drawing: "3X8X_Door Drawing"
+2026-03-20 13:08:12 - MONITOR - INFO - Panel: "3X8X_Panel"
+2026-03-20 13:08:12 - MONITOR - INFO - Stiles: {'3081': '3X81_Stile', '3082': '3X82_Stile', '3086': '3X86_Stile'}
+2026-03-20 13:08:12 - MONITOR - INFO - Clearing stale cloud cache in: C:\Users\mefusion\AppData\Local\Autodesk\Autodesk Fusion 360\UnknownUser\W.login\F
+2026-03-20 13:08:12 - MONITOR - INFO - Cloud cache cleanup: no stale files found
+2026-03-20 13:08:12 - MONITOR - INFO - Searching for door model: "3X8X_Door"...
+2026-03-20 13:08:14 - MONITOR - INFO - Found cloud door model: 3X8X_Door_branch_B
+2026-03-20 13:08:16 - MONITOR - INFO - Found cloud door drawing: 3X8X_Door Drawing temp
+2026-03-20 13:08:17 - MONITOR - INFO - Found cloud panel model: 3X8X_Panel
+2026-03-20 13:08:19 - MONITOR - INFO - Found cloud stile model for series 3081: 3X81_Stile
+2026-03-20 13:08:20 - MONITOR - INFO - Found cloud stile model for series 3082: 3X82_Stile Drawing
+2026-03-20 13:08:22 - MONITOR - INFO - Found cloud stile model for series 3086: 3X86_Stile Drawing
+2026-03-20 13:08:24 - MONITOR - INFO - Found cloud stile drawing for series 3082: 3X82_Stile Drawing
+2026-03-20 13:08:26 - MONITOR - INFO - Found cloud stile drawing for series 3086: 3X86_Stile Drawing
+2026-03-20 13:08:26 - MONITOR - INFO - Cloud models configured: 5 found
+2026-03-20 13:08:26 - MONITOR - INFO - Cloud models: Cloud models configured: 5 found
+2026-03-20 13:08:26 - MONITOR - INFO - Opening all models...
+2026-03-20 13:08:26 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Door_branch_B...
+2026-03-20 13:08:27 - MONITOR - INFO - Using fresh DataFile for 3X8X_Door_branch_B
+2026-03-20 13:08:27 - MONITOR - INFO - Opening cloud door model: 3X8X_Door_branch_B (documents count before: 1)
+2026-03-20 13:08:32 - MONITOR - INFO - Opened cloud door model: 3X8X_Door_branch_B (documents count after: 2)
+2026-03-20 13:08:32 - MONITOR - INFO - Opened cloud door model at startup: Opened cloud door model: 3X8X_Door_branch_B
+2026-03-20 13:08:34 - MONITOR - INFO - ========== STARTUP MODEL SUMMARY ==========
+2026-03-20 13:08:34 - MONITOR - INFO - Opened: door (cloud)
+Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3081, 3082, 3086)
+2026-03-20 13:08:34 - MONITOR - INFO - Models opened: Opened: door (cloud)
+Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3081, 3082, 3086)
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9015683.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9015683.json
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9015698.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9015698.json
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9568766.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9568766.json
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9568767.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9568767.json
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9568768.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9568768.json
+2026-03-20 13:08:39 - MONITOR - NEW FILE detected: JSON_9568778.json
+2026-03-20 13:08:39 - MONITOR - INFO - New file detected: JSON_9568778.json
+2026-03-20 13:08:39 - MONITOR - INFO - Processing order: JSON_9015683.json
+2026-03-20 13:08:39 - MONITOR - INFO - Moved to processing folder
+2026-03-20 13:08:39 - MONITOR - INFO - Loading order (v2) from: \\ddc-mefs\Fusion\Fusion Folders\order_processing\JSON_9015683.json
+2026-03-20 13:08:39 - MONITOR - WARNING - Order has empty order_id, using filename as fallback: JSON_9015683
+2026-03-20 13:08:39 - MONITOR - INFO - Processing order (v2): JSON_9015683
+2026-03-20 13:08:39 - MONITOR - INFO - Order log created: \\ddc-mefs\Fusion\Fusion Folders\output\logs\JSON_9015683_log.txt
+2026-03-20 13:08:39 - MONITOR - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3081, 3082, 3086)'}
+2026-03-20 13:08:39 - MONITOR - INFO - Processing 6 panels
+2026-03-20 13:08:39 - MONITOR - INFO - Processing panel 1/6: P1
+2026-03-20 13:08:39 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:08:39 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Panel...
+2026-03-20 13:08:41 - MONITOR - INFO - Using fresh DataFile for 3X8X_Panel
+2026-03-20 13:08:41 - MONITOR - INFO - Opening cloud panel model: 3X8X_Panel (documents count before: 2)
+2026-03-20 13:08:45 - MONITOR - INFO - Opened cloud panel model: 3X8X_Panel (documents count after: 3)
+2026-03-20 13:08:45 - MONITOR - INFO - P1: Opened cloud panel model: 3X8X_Panel
+2026-03-20 13:08:45 - MONITOR - INFO - Applying parameters to P1
+2026-03-20 13:08:45 - MONITOR - INFO - P1: Model has 23 user params, JSON has 12 params
+2026-03-20 13:08:45 - MONITOR - INFO - P1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:08:45 - MONITOR - INFO - P1: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:08:55 - MONITOR - INFO - P1: Successfully updated 9 parameter(s)
+2026-03-20 13:08:55 - MONITOR - INFO - Saving 3X8X_Panel (v8, isModified=True)
+2026-03-20 13:08:59 - MONITOR - INFO - Save completed for 3X8X_Panel
+2026-03-20 13:08:59 - MONITOR - INFO - P1: Post-parameter save: 3X8X_Panel: saved (clearing dirty flag)
+2026-03-20 13:08:59 - MONITOR - INFO - P1: Activated cutout configuration: 'No Cutout'
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Model exported: Exported P1.step (525050 bytes)
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Parameters exported (CSV): Exported 149 parameters to P1_all_parameters.csv (7819 bytes)
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Parameters exported (JSON): Exported 148 parameters to P1_all_parameters.json (21136 bytes)
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\JSON_9015683\1-P1-JSON_9015683.csv
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Width=51.75, Length=71.75
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Cutlist - Series=2082, FC=4.5, Gapping=[0,0,0,0], GappingTop=[0,0,0,0], Thickness=0.5
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Cutlist CSV exported successfully (1074 bytes)
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Cutlist CSV exported: Exported cutlist to 1-P1-JSON_9015683.csv (1074 bytes)
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-P1-JSON_9015683.csv
+2026-03-20 13:09:14 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Pre-CAM save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Starting CAM regeneration
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Accessing CAM product
+2026-03-20 13:09:14 - MONITOR - INFO - P1: CAM product accessed
+2026-03-20 13:09:14 - MONITOR - INFO - P1: Found 3 CAM setup(s): Front_Notch, Back_Notch, Cutouts
+2026-03-20 13:09:15 - MONITOR - INFO - P1: Regenerating toolpaths for all setups
+2026-03-20 13:09:15 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (3 setup(s))
+2026-03-20 13:09:31 - MONITOR - INFO - Front_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - Back_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - Cutouts: Regenerated 4/4 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - P1: Setup "Front_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - P1: Setup "Back_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - P1: Setup "Cutouts": Regenerated 4/4 toolpaths
+2026-03-20 13:09:31 - MONITOR - INFO - P1: Starting post processing
+2026-03-20 13:09:31 - MONITOR - INFO - Copied custom post processor to: C:\Users\mefusion\AppData\Local\Autodesk\Webservices\CAM360\Posts\Anderson Stratos 2.cps
+2026-03-20 13:09:31 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps
+2026-03-20 13:09:31 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-03-20 13:09:31 - MONITOR - INFO - Post processing entire Setups folder (3 setup(s)) to: 1-P1-JSON_9015683.nc
+2026-03-20 13:09:33 - MONITOR - INFO - Successfully generated 1-P1-JSON_9015683.nc (2245 bytes)
+2026-03-20 13:09:33 - MONITOR - INFO - P1: Post "Setups": Generated 1-P1-JSON_9015683.nc (2245 bytes) from 3 setup(s)
+2026-03-20 13:09:33 - MONITOR - INFO - P1: NC file copied to network: \\ddc-mefs\Anderson\1-P1-JSON_9015683.nc
+2026-03-20 13:09:33 - MONITOR - INFO - P1: All operations complete - 1 NC file(s) generated
+2026-03-20 13:09:35 - MONITOR - INFO - Processing panel 2/6: P2
+2026-03-20 13:09:35 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:09:35 - MONITOR - INFO - Cached cloud panel model already active: 3X8X_Panel
+2026-03-20 13:09:35 - MONITOR - INFO - P2: Switched to cloud panel model: 3X8X_Panel
+2026-03-20 13:09:35 - MONITOR - INFO - Applying parameters to P2
+2026-03-20 13:09:35 - MONITOR - INFO - P2: Model has 23 user params, JSON has 12 params
+2026-03-20 13:09:35 - MONITOR - INFO - P2: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:09:35 - MONITOR - INFO - P2: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:09:35 - MONITOR - INFO - P2: Successfully updated 9 parameter(s)
+2026-03-20 13:09:35 - MONITOR - INFO - Saving 3X8X_Panel (v9, isModified=True)
+2026-03-20 13:09:37 - MONITOR - INFO - Save completed for 3X8X_Panel
+2026-03-20 13:09:37 - MONITOR - INFO - P2: Post-parameter save: 3X8X_Panel: saved (clearing dirty flag)
+2026-03-20 13:09:37 - MONITOR - ERROR - P2: Configuration 'B-3471' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+2026-03-20 13:09:39 - MONITOR - INFO - Processing panel 3/6: P3
+2026-03-20 13:09:39 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:09:39 - MONITOR - INFO - Cached cloud panel model already active: 3X8X_Panel
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Switched to cloud panel model: 3X8X_Panel
+2026-03-20 13:09:39 - MONITOR - INFO - Applying parameters to P3
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Model has 23 user params, JSON has 12 params
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Successfully updated 9 parameter(s)
+2026-03-20 13:09:39 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Post-parameter save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:09:39 - MONITOR - INFO - P3: Activated cutout configuration: 'No Cutout'
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Model exported: Exported P3.step (525050 bytes)
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Parameters exported (CSV): Exported 149 parameters to P3_all_parameters.csv (7819 bytes)
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Parameters exported (JSON): Exported 148 parameters to P3_all_parameters.json (21136 bytes)
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\JSON_9015683\1-P3-JSON_9015683.csv
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Width=51.75, Length=71.75
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Cutlist - Series=2082, FC=4.5, Gapping=[0,0,0,0], GappingTop=[0,0,0,0], Thickness=0.5
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Cutlist CSV exported successfully (1074 bytes)
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Cutlist CSV exported: Exported cutlist to 1-P3-JSON_9015683.csv (1074 bytes)
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-P3-JSON_9015683.csv
+2026-03-20 13:09:49 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Pre-CAM save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Starting CAM regeneration
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Accessing CAM product
+2026-03-20 13:09:49 - MONITOR - INFO - P3: CAM product accessed
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Found 3 CAM setup(s): Front_Notch, Back_Notch, Cutouts
+2026-03-20 13:09:49 - MONITOR - INFO - P3: Regenerating toolpaths for all setups
+2026-03-20 13:09:49 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (3 setup(s))
+2026-03-20 13:10:00 - MONITOR - INFO - Front_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - Back_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - Cutouts: Regenerated 4/4 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - P3: Setup "Front_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - P3: Setup "Back_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - P3: Setup "Cutouts": Regenerated 4/4 toolpaths
+2026-03-20 13:10:00 - MONITOR - INFO - P3: Starting post processing
+2026-03-20 13:10:00 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps
+2026-03-20 13:10:00 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-03-20 13:10:00 - MONITOR - INFO - Post processing entire Setups folder (3 setup(s)) to: 1-P3-JSON_9015683.nc
+2026-03-20 13:10:01 - MONITOR - INFO - Successfully generated 1-P3-JSON_9015683.nc (2245 bytes)
+2026-03-20 13:10:01 - MONITOR - INFO - P3: Post "Setups": Generated 1-P3-JSON_9015683.nc (2245 bytes) from 3 setup(s)
+2026-03-20 13:10:01 - MONITOR - INFO - P3: NC file copied to network: \\ddc-mefs\Anderson\1-P3-JSON_9015683.nc
+2026-03-20 13:10:01 - MONITOR - INFO - P3: All operations complete - 1 NC file(s) generated
+2026-03-20 13:10:03 - MONITOR - INFO - Processing panel 4/6: P4
+2026-03-20 13:10:03 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:10:03 - MONITOR - INFO - Cached cloud panel model already active: 3X8X_Panel
+2026-03-20 13:10:03 - MONITOR - INFO - P4: Switched to cloud panel model: 3X8X_Panel
+2026-03-20 13:10:03 - MONITOR - INFO - Applying parameters to P4
+2026-03-20 13:10:03 - MONITOR - INFO - P4: Model has 23 user params, JSON has 12 params
+2026-03-20 13:10:03 - MONITOR - INFO - P4: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:10:03 - MONITOR - INFO - P4: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:10:03 - MONITOR - INFO - P4: Successfully updated 9 parameter(s)
+2026-03-20 13:10:03 - MONITOR - INFO - Saving 3X8X_Panel (v10, isModified=True)
+2026-03-20 13:10:06 - MONITOR - INFO - Save completed for 3X8X_Panel
+2026-03-20 13:10:06 - MONITOR - INFO - P4: Post-parameter save: 3X8X_Panel: saved (clearing dirty flag)
+2026-03-20 13:10:06 - MONITOR - ERROR - P4: Configuration 'B-34715' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+2026-03-20 13:10:08 - MONITOR - INFO - Processing panel 5/6: P5
+2026-03-20 13:10:08 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:10:08 - MONITOR - INFO - Cached cloud panel model already active: 3X8X_Panel
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Switched to cloud panel model: 3X8X_Panel
+2026-03-20 13:10:08 - MONITOR - INFO - Applying parameters to P5
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Model has 23 user params, JSON has 12 params
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Successfully updated 9 parameter(s)
+2026-03-20 13:10:08 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Post-parameter save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:10:08 - MONITOR - INFO - P5: Activated cutout configuration: 'No Cutout'
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Model exported: Exported P5.step (525050 bytes)
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Parameters exported (CSV): Exported 149 parameters to P5_all_parameters.csv (7819 bytes)
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Parameters exported (JSON): Exported 148 parameters to P5_all_parameters.json (21136 bytes)
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\JSON_9015683\1-P5-JSON_9015683.csv
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Width=51.75, Length=71.75
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Cutlist - Series=2082, FC=4.5, Gapping=[0,0,0,0], GappingTop=[0,0,0,0], Thickness=0.5
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Cutlist CSV exported successfully (1074 bytes)
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Cutlist CSV exported: Exported cutlist to 1-P5-JSON_9015683.csv (1074 bytes)
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-P5-JSON_9015683.csv
+2026-03-20 13:10:19 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Pre-CAM save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Starting CAM regeneration
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Accessing CAM product
+2026-03-20 13:10:19 - MONITOR - INFO - P5: CAM product accessed
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Found 3 CAM setup(s): Front_Notch, Back_Notch, Cutouts
+2026-03-20 13:10:19 - MONITOR - INFO - P5: Regenerating toolpaths for all setups
+2026-03-20 13:10:19 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (3 setup(s))
+2026-03-20 13:10:34 - MONITOR - INFO - Front_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - Back_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - Cutouts: Regenerated 4/4 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - P5: Setup "Front_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - P5: Setup "Back_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - P5: Setup "Cutouts": Regenerated 4/4 toolpaths
+2026-03-20 13:10:34 - MONITOR - INFO - P5: Starting post processing
+2026-03-20 13:10:34 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps
+2026-03-20 13:10:34 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-03-20 13:10:34 - MONITOR - INFO - Post processing entire Setups folder (3 setup(s)) to: 1-P5-JSON_9015683.nc
+2026-03-20 13:10:34 - MONITOR - INFO - Successfully generated 1-P5-JSON_9015683.nc (2245 bytes)
+2026-03-20 13:10:34 - MONITOR - INFO - P5: Post "Setups": Generated 1-P5-JSON_9015683.nc (2245 bytes) from 3 setup(s)
+2026-03-20 13:10:34 - MONITOR - INFO - P5: NC file copied to network: \\ddc-mefs\Anderson\1-P5-JSON_9015683.nc
+2026-03-20 13:10:34 - MONITOR - INFO - P5: All operations complete - 1 NC file(s) generated
+2026-03-20 13:10:36 - MONITOR - INFO - Processing panel 6/6: P6
+2026-03-20 13:10:36 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 13:10:36 - MONITOR - INFO - Cached cloud panel model already active: 3X8X_Panel
+2026-03-20 13:10:36 - MONITOR - INFO - P6: Switched to cloud panel model: 3X8X_Panel
+2026-03-20 13:10:36 - MONITOR - INFO - Applying parameters to P6
+2026-03-20 13:10:36 - MONITOR - INFO - P6: Model has 23 user params, JSON has 12 params
+2026-03-20 13:10:36 - MONITOR - INFO - P6: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-03-20 13:10:36 - MONITOR - INFO - P6: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-03-20 13:10:39 - MONITOR - INFO - P6: Successfully updated 9 parameter(s)
+2026-03-20 13:10:39 - MONITOR - INFO - Saving 3X8X_Panel (v11, isModified=True)
+2026-03-20 13:10:41 - MONITOR - INFO - Save completed for 3X8X_Panel
+2026-03-20 13:10:41 - MONITOR - INFO - P6: Post-parameter save: 3X8X_Panel: saved (clearing dirty flag)
+2026-03-20 13:10:41 - MONITOR - INFO - P6: Activated cutout configuration: 'No Cutout'
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Model exported: Exported P6.step (525013 bytes)
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Parameters exported (CSV): Exported 149 parameters to P6_all_parameters.csv (7817 bytes)
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Parameters exported (JSON): Exported 148 parameters to P6_all_parameters.json (21134 bytes)
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\JSON_9015683\1-P6-JSON_9015683.csv
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Width=58.75, Length=71.75
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Cutlist - Series=2082, FC=4.5, Gapping=[0,0,0,0], GappingTop=[0,0,0,0], Thickness=0.5
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Cutlist CSV exported successfully (1074 bytes)
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Cutlist CSV exported: Exported cutlist to 1-P6-JSON_9015683.csv (1074 bytes)
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-P6-JSON_9015683.csv
+2026-03-20 13:10:55 - MONITOR - INFO - Model 3X8X_Panel is not modified, skip save
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Pre-CAM save: 3X8X_Panel: not modified, no save needed
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Starting CAM regeneration
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Accessing CAM product
+2026-03-20 13:10:55 - MONITOR - INFO - P6: CAM product accessed
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Found 3 CAM setup(s): Front_Notch, Back_Notch, Cutouts
+2026-03-20 13:10:55 - MONITOR - INFO - P6: Regenerating toolpaths for all setups
+2026-03-20 13:10:55 - MONITOR - INFO - Regenerating ALL toolpaths for entire Setups folder (3 setup(s))
+2026-03-20 13:11:08 - MONITOR - INFO - Front_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - Back_Notch: Regenerated 1/1 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - Cutouts: Regenerated 4/4 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - P6: Setup "Front_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - P6: Setup "Back_Notch": Regenerated 1/1 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - P6: Setup "Cutouts": Regenerated 4/4 toolpaths
+2026-03-20 13:11:08 - MONITOR - INFO - P6: Starting post processing
+2026-03-20 13:11:08 - MONITOR - INFO - Using post processor: Anderson Stratos 2.cps
+2026-03-20 13:11:08 - MONITOR - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-03-20 13:11:08 - MONITOR - INFO - Post processing entire Setups folder (3 setup(s)) to: 1-P6-JSON_9015683.nc
+2026-03-20 13:11:08 - MONITOR - INFO - Successfully generated 1-P6-JSON_9015683.nc (2245 bytes)
+2026-03-20 13:11:08 - MONITOR - INFO - P6: Post "Setups": Generated 1-P6-JSON_9015683.nc (2245 bytes) from 3 setup(s)
+2026-03-20 13:11:08 - MONITOR - INFO - P6: NC file copied to network: \\ddc-mefs\Anderson\1-P6-JSON_9015683.nc
+2026-03-20 13:11:08 - MONITOR - INFO - P6: All operations complete - 1 NC file(s) generated
+2026-03-20 13:11:08 - MONITOR - INFO - Processing 5 doors
+2026-03-20 13:11:08 - MONITOR - INFO - Processing door 1/5: D1
+2026-03-20 13:11:08 - MONITOR - INFO -   Parameters to apply: 11
+2026-03-20 13:11:08 - MONITOR - INFO - Activating cached cloud door model: 3X8X_Door_branch_B
+2026-03-20 13:11:09 - MONITOR - INFO - D1: Switched to cloud door model: 3X8X_Door_branch_B
+2026-03-20 13:11:09 - MONITOR - INFO - Applying parameters to D1
+2026-03-20 13:11:09 - MONITOR - INFO - D1: Model has 57 user params, JSON has 11 params
+2026-03-20 13:11:09 - MONITOR - INFO - D1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-03-20 13:11:09 - MONITOR - INFO - D1: Skipped (not in model): ['series_id']
+2026-03-20 13:11:21 - MONITOR - INFO - D1: Successfully updated 10 parameter(s)
+2026-03-20 13:11:21 - MONITOR - INFO - D1: Updated 'a_order_number' from ''3X8X_DV_0003'' to ''JSON_9015683'' (actual: ''JSON_9015683'')
+2026-03-20 13:11:21 - MONITOR - INFO - Saving 3X8X_Door_branch_B (v5, isModified=True)
+2026-03-20 13:11:24 - MONITOR - INFO - Save completed for 3X8X_Door_branch_B
+2026-03-20 13:11:24 - MONITOR - INFO - D1: Post-parameter save: 3X8X_Door_branch_B: saved (clearing dirty flag)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Model exported: Exported D1.step (858063 bytes)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Parameters exported (CSV): Exported 138 parameters to D1_all_parameters.csv (13583 bytes)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Parameters exported (JSON): Exported 137 parameters to D1_all_parameters.json (25929 bytes)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Found hinge_hole_x_dist = 0.968 in
+2026-03-20 13:11:35 - MONITOR - INFO - D1: workstop=1, DrillName=2082 LH I/S DOOR (hinging_right=False, swinging_out=False)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: FlipRotate=1 (rotate, door)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Only workstop 1 used, added dummy entry on workstop 4
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Computed 9 paired coordinates for D1
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Exporting cutlist CSV to \\ddc-mefs\Fusion\Fusion Folders\output\gcode\JSON_9015683\1-D1-JSON_9015683.csv
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Width=23.8125, Length=71.75
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Cutlist - Series=2082, FC=4.5, Gapping=[1,1,0,0], GappingTop=[1,1,0,0], Thickness=0.75
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Cutlist CSV exported successfully (1085 bytes)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Cutlist CSV exported: Exported cutlist to 1-D1-JSON_9015683.csv (1085 bytes)
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Cutlist CSV copied to network: \\ddc-mefs\Voorwood\1-D1-JSON_9015683.csv
+2026-03-20 13:11:35 - MONITOR - INFO - D1: Starting drawing export
+2026-03-20 13:11:35 - MONITOR - INFO - Door model isModified: False
+2026-03-20 13:11:35 - MONITOR - INFO - Door model name: 3X8X_Door_branch_B
+2026-03-20 13:11:35 - MONITOR - INFO - Active document: 3X8X_Door_branch_B
+2026-03-20 13:11:35 - MONITOR - INFO - Door model version before save: v6
+2026-03-20 13:11:35 - MONITOR - INFO - Saving door model to cloud (waiting for sync)...
+2026-03-20 13:12:36 - MONITOR - WARNING - Cloud sync timed out after 60s, proceeding anyway
+2026-03-20 13:12:36 - MONITOR - INFO - Door model version after save: v6
+2026-03-20 13:12:36 - MONITOR - WARNING - Version did not increment (v6 -> v6)
+2026-03-20 13:12:36 - MONITOR - INFO - D1: Door model saved and synced (60.0s)
+2026-03-20 13:12:36 - MONITOR - INFO - DrawingExporter initialized. Output: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings
+2026-03-20 13:12:36 - MONITOR - INFO - Opening drawing: 3X8X_Door Drawing temp
+2026-03-20 13:12:36 - MONITOR - INFO - Opening drawing document from cloud...
+2026-03-20 13:12:44 - MONITOR - INFO - Drawing document opened, waiting for load...
+2026-03-20 13:12:48 - MONITOR - INFO - Activating drawing document...
+2026-03-20 13:12:49 - MONITOR - WARNING - Opened document is not a DrawingDocument: 3X8X_Door Drawing temp
+2026-03-20 13:12:49 - MONITOR - INFO - First drawing update: performing full close/reopen cycle...
+2026-03-20 13:12:49 - MONITOR - INFO - Closing drawing to force fresh reload with current model state...
+2026-03-20 13:12:53 - MONITOR - INFO - Reopening drawing from cloud (will pick up in-memory model)...
+2026-03-20 13:13:01 - MONITOR - WARNING - Reopened document is not a DrawingDocument
+2026-03-20 13:13:01 - MONITOR - WARNING - Reference update warning: Reopened document is not a DrawingDocument
+2026-03-20 13:13:01 - MONITOR - INFO - Exporting drawing to PDF: \\ddc-mefs\Fusion\Fusion Folders\output\gcode\drawings\JSON_9015683\1-D1-JSON_9015683-drawing.pdf
+2026-03-20 14:54:54 - MONITOR - ============================================================
+2026-03-20 14:54:54 - MONITOR - MONITOR LOG INITIALIZED
+2026-03-20 14:54:54 - MONITOR - Log file: \\ddc-mefs\Fusion\Fusion Folders\output\logs\folder_monitor.log
+2026-03-20 14:54:54 - MONITOR - Dropbox folder: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 14:54:54 - MONITOR - ============================================================
+2026-03-20 14:54:54 - MONITOR - INFO - ================================================================================
+2026-03-20 14:54:54 - MONITOR - INFO - FOLDER MONITOR STARTED  (mode=VM)
+2026-03-20 14:54:54 - MONITOR - INFO - Watching: \\ddc-mefs\iBob-Export\S2S_Export
+2026-03-20 14:54:54 - MONITOR - INFO - CAM generation: ENABLED
+2026-03-20 14:54:54 - MONITOR - INFO - Drawing generation: ENABLED
+2026-03-20 14:54:54 - MONITOR - INFO - ================================================================================
+2026-03-20 14:54:54 - MONITOR - INFO - Inputs folder structure ready: \\ddc-mefs\Fusion\Fusion Folders\input
+2026-03-20 14:54:54 - MONITOR - INFO - Found door model: door_3X8X.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Found panel model: panel_3X8X.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Found stile model for series 3081: stile_3X81.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Found stile model for series 3082: stile_3X82.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Found stile model for series 3086: stile_3X86.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Default stile model: stile_3X81.f3d
+2026-03-20 14:54:54 - MONITOR - INFO - Discovered 3 stile model(s): ['3081', '3082', '3086']
+2026-03-20 14:54:54 - MONITOR - INFO - Setting up cloud models from Fusion Hub...
+2026-03-20 14:54:54 - MONITOR - INFO - ========== CLOUD MODEL SETUP ==========
+2026-03-20 14:54:54 - MONITOR - INFO - Project: "Bobrick - Component modeling"
+2026-03-20 14:54:54 - MONITOR - INFO - Folder: "3X8X Components"
+2026-03-20 14:54:54 - MONITOR - INFO - Door: "3X8X_Door_branch_B", Drawing: "3X8X_Door_branch_B Drawing"
+2026-03-20 14:54:54 - MONITOR - INFO - Panel: "3X8X_Panel_branch_B", Drawing: "3X8X_Panel_branch_B Drawing"
+2026-03-20 14:54:54 - MONITOR - INFO - Stiles: {'3081': '3X81_Stile', '3082': '3X82_Stile', '3086': '3X86_Stile'}
+2026-03-20 14:54:54 - MONITOR - INFO - Clearing stale cloud cache in: C:\Users\mefusion\AppData\Local\Autodesk\Autodesk Fusion 360\UnknownUser\W.login\F
+2026-03-20 14:54:54 - MONITOR - INFO - Cloud cache cleanup: no stale files found
+2026-03-20 14:54:54 - MONITOR - INFO - Searching for door model: "3X8X_Door_branch_B"...
+2026-03-20 14:54:56 - MONITOR - INFO - Found cloud door model: 3X8X_Door_branch_B
+2026-03-20 14:54:57 - MONITOR - INFO - Found cloud door drawing: 3X8X_Door_branch_B Drawing
+2026-03-20 14:54:59 - MONITOR - INFO - Found cloud panel model: 3X8X_Panel_branch_B Drawing
+2026-03-20 14:55:01 - MONITOR - INFO - Found cloud panel drawing: 3X8X_Panel_branch_B Drawing
+2026-03-20 14:55:02 - MONITOR - INFO - Found cloud stile model for series 3081: 3X81_Stile
+2026-03-20 14:55:04 - MONITOR - INFO - Found cloud stile model for series 3082: 3X82_Stile Drawing
+2026-03-20 14:55:06 - MONITOR - INFO - Found cloud stile model for series 3086: 3X86_Stile Drawing
+2026-03-20 14:55:07 - MONITOR - INFO - Found cloud stile drawing for series 3082: 3X82_Stile Drawing
+2026-03-20 14:55:09 - MONITOR - INFO - Found cloud stile drawing for series 3086: 3X86_Stile Drawing
+2026-03-20 14:55:09 - MONITOR - INFO - Cloud models configured: 5 found
+2026-03-20 14:55:09 - MONITOR - INFO - Cloud models: Cloud models configured: 5 found
+2026-03-20 14:55:09 - MONITOR - INFO - Opening all models...
+2026-03-20 14:55:09 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Door_branch_B...
+2026-03-20 14:55:11 - MONITOR - INFO - Using fresh DataFile for 3X8X_Door_branch_B
+2026-03-20 14:55:11 - MONITOR - INFO - Opening cloud door model: 3X8X_Door_branch_B (documents count before: 1)
+2026-03-20 14:55:14 - MONITOR - INFO - Opened cloud door model: 3X8X_Door_branch_B (documents count after: 2)
+2026-03-20 14:55:14 - MONITOR - INFO - Opened cloud door model at startup: Opened cloud door model: 3X8X_Door_branch_B
+2026-03-20 14:55:16 - MONITOR - INFO - ========== STARTUP MODEL SUMMARY ==========
+2026-03-20 14:55:16 - MONITOR - INFO - Opened: door (cloud)
+Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3081, 3082, 3086)
+2026-03-20 14:55:16 - MONITOR - INFO - Models opened: Opened: door (cloud)
+Deferred: panel (cloud, on-demand), stile (cloud, on-demand: 3081, 3082, 3086)
+2026-03-20 14:55:18 - MONITOR - NEW FILE detected: JSON_9015698.json
+2026-03-20 14:55:18 - MONITOR - INFO - New file detected: JSON_9015698.json
+2026-03-20 14:55:18 - MONITOR - NEW FILE detected: JSON_9568766.json
+2026-03-20 14:55:18 - MONITOR - INFO - New file detected: JSON_9568766.json
+2026-03-20 14:55:18 - MONITOR - NEW FILE detected: JSON_9568767.json
+2026-03-20 14:55:18 - MONITOR - INFO - New file detected: JSON_9568767.json
+2026-03-20 14:55:18 - MONITOR - NEW FILE detected: JSON_9568768.json
+2026-03-20 14:55:18 - MONITOR - INFO - New file detected: JSON_9568768.json
+2026-03-20 14:55:18 - MONITOR - NEW FILE detected: JSON_9568778.json
+2026-03-20 14:55:18 - MONITOR - INFO - New file detected: JSON_9568778.json
+2026-03-20 14:55:18 - MONITOR - INFO - Processing order: JSON_9015698.json
+2026-03-20 14:55:18 - MONITOR - INFO - Moved to processing folder
+2026-03-20 14:55:18 - MONITOR - INFO - Loading order (v2) from: \\ddc-mefs\Fusion\Fusion Folders\order_processing\JSON_9015698.json
+2026-03-20 14:55:18 - MONITOR - INFO - Processing order (v2): IBUS259463
+2026-03-20 14:55:18 - MONITOR - INFO - Order log created: \\ddc-mefs\Fusion\Fusion Folders\output\logs\IBUS259463_log.txt
+2026-03-20 14:55:18 - MONITOR - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3081, 3082, 3086)'}
+2026-03-20 14:55:18 - MONITOR - INFO - Processing 26 panels
+2026-03-20 14:55:18 - MONITOR - INFO - Processing panel 1/26: P1
+2026-03-20 14:55:18 - MONITOR - INFO -   Parameters to apply: 12
+2026-03-20 14:55:18 - MONITOR - INFO - Re-fetching DataFile for 3X8X_Panel_branch_B Drawing...
+2026-03-20 14:55:20 - MONITOR - INFO - Using fresh DataFile for 3X8X_Panel_branch_B Drawing
+2026-03-20 14:55:20 - MONITOR - INFO - Opening cloud panel model: 3X8X_Panel_branch_B Drawing (documents count before: 2)

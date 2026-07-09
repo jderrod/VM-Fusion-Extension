@@ -1,0 +1,83 @@
+{
+    "order_id": [
+        "3X82_SV_0277",
+        "string",
+        "identifier for the order"
+    ],
+    "stiles": [
+        {
+            "id": [
+                "S1",
+                "string",
+                "stile ID"
+            ],
+            "parameters": {
+                "series_id": [
+                    "3082G.67P",
+                    "string",
+                    "series ID of the component"
+                ],
+                "component_height": [
+                    72.9375,
+                    "float",
+                    "height of the component in inches"
+                ],
+                "component_width": [
+                    8.0,
+                    "float",
+                    "width of the component in inches"
+                ],
+                "stile_left_side_door": [
+                    true,
+                    "bool",
+                    "indicates whether there is a door on the stile's left side when viewed from the room"
+                ],
+                "stile_left_side_hinging": [
+                    false,
+                    "bool",
+                    "indicates whether the left side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"
+                ],
+                "stile_left_side_door_height": [
+                    70.3125,
+                    "float",
+                    "height of the door on the left side of the stile"
+                ],
+                "stile_left_side_door_floor_clearance": [
+                    1.875,
+                    "float",
+                    "floor clearance of the door on the left side of the stile"
+                ],
+                "stile_left_side_door_swinging_out": [
+                    false,
+                    "bool",
+                    "indicates whether the door on the left side of the stile swings outward into the bathroom"
+                ],
+                "stile_right_side_door": [
+                    false,
+                    "bool",
+                    "indicates whether there is a door on the stile's right side when viewed from the room"
+                ],
+                "stile_right_side_hinging": [
+                    null,
+                    "bool",
+                    "indicates whether the right side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"
+                ],
+                "stile_right_side_door_height": [
+                    null,
+                    "float",
+                    "height of the door on the right side of the stile"
+                ],
+                "stile_right_side_door_floor_clearance": [
+                    null,
+                    "float",
+                    "floor clearance of the door on the right side of the stile"
+                ],
+                "stile_right_side_door_swinging_out": [
+                    null,
+                    "bool",
+                    "indicates whether the door on the right side of the stile swings outward into the bathroom"
+                ]
+            }
+        }
+    ]
+}

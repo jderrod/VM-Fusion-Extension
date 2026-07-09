@@ -1,0 +1,6 @@
+Order 3X8X_DV_0010 failed.
+
+0/1 components successful
+
+Failed components:
+  doors: D1: Error opening cloud door model: 2 : InternalValidationError : doc

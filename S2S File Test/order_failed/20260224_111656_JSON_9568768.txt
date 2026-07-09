@@ -1,0 +1,12 @@
+Order IBUS367294 partially completed.
+
+3/10 components successful
+
+Failed components:
+  panels: P1: Cutout configuration failed: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+  panels: P2: Cutout configuration failed: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+  panels: P3: Cutout configuration failed: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+  stiles: S1: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S2: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S3: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+  stiles: S4: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)

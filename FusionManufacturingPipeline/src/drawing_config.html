@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drawing Configuration</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #1e1e1e; color: #d4d4d4; padding: 16px;
+        font-size: 13px; line-height: 1.5;
+    }
+    h1 { font-size: 16px; color: #fff; margin-bottom: 4px; }
+    .subtitle { color: #888; font-size: 11px; margin-bottom: 16px; }
+    .status-bar {
+        background: #2d2d2d; border: 1px solid #404040; border-radius: 4px;
+        padding: 8px 12px; margin-bottom: 16px; font-size: 12px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .status-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #666; flex-shrink: 0;
+    }
+    .status-dot.connected { background: #4ec9b0; }
+    .status-dot.error { background: #f44747; }
+    .status-dot.loading { background: #dcdcaa; animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: 0.4; } }
+
+    .section {
+        background: #252526; border: 1px solid #3c3c3c; border-radius: 6px;
+        padding: 14px; margin-bottom: 12px;
+    }
+    .section-title {
+        font-size: 12px; font-weight: 600; color: #569cd6;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .section-title .icon { font-size: 14px; }
+
+    .field { margin-bottom: 10px; }
+    .field:last-child { margin-bottom: 0; }
+    label {
+        display: block; font-size: 11px; color: #9cdcfe;
+        margin-bottom: 3px; font-weight: 500;
+    }
+    select, input[type="text"] {
+        width: 100%; padding: 6px 8px;
+        background: #3c3c3c; border: 1px solid #555; border-radius: 3px;
+        color: #d4d4d4; font-size: 12px; font-family: inherit;
+    }
+    select:focus, input:focus {
+        outline: none; border-color: #569cd6;
+    }
+    select:disabled, input:disabled {
+        opacity: 0.5; cursor: not-allowed;
+    }
+    option { background: #3c3c3c; color: #d4d4d4; }
+
+    .row { display: flex; gap: 10px; }
+    .row .field { flex: 1; }
+
+    .stile-entry {
+        background: #2d2d2d; border: 1px solid #404040; border-radius: 4px;
+        padding: 10px; margin-bottom: 8px;
+    }
+    .stile-entry:last-child { margin-bottom: 0; }
+    .stile-header {
+        font-size: 11px; font-weight: 600; color: #ce9178;
+        margin-bottom: 6px;
+    }
+
+    .btn-row {
+        display: flex; gap: 8px; margin-top: 16px;
+        justify-content: flex-end;
+    }
+    .btn {
+        padding: 7px 16px; border: none; border-radius: 4px;
+        font-size: 12px; font-weight: 500; cursor: pointer;
+        font-family: inherit; transition: background 0.15s;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: #0e639c; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #1177bb; }
+    .btn-secondary { background: #3c3c3c; color: #d4d4d4; border: 1px solid #555; }
+    .btn-secondary:hover:not(:disabled) { background: #4c4c4c; }
+    .btn-refresh { background: #2d7d46; color: #fff; }
+    .btn-refresh:hover:not(:disabled) { background: #369955; }
+    .btn-danger { background: #5a1d1d; color: #f44747; border: 1px solid #6e2b2b; }
+    .btn-danger:hover:not(:disabled) { background: #6e2b2b; }
+
+    .add-stile-row {
+        display: flex; gap: 8px; align-items: flex-end; margin-top: 8px;
+    }
+    .add-stile-row .field { margin-bottom: 0; }
+    .add-stile-row .btn { padding: 6px 12px; }
+
+    .remove-btn {
+        float: right; background: none; border: none; color: #666;
+        cursor: pointer; font-size: 14px; line-height: 1; padding: 2px 4px;
+    }
+    .remove-btn:hover { color: #f44747; }
+
+    .toast {
+        position: fixed; bottom: 16px; left: 16px; right: 16px;
+        background: #0e639c; color: #fff; padding: 10px 14px;
+        border-radius: 4px; font-size: 12px; text-align: center;
+        transform: translateY(60px); opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: #5a1d1d; }
+    .toast.success { background: #2d7d46; }
+</style>
+</head>
+<body>
+
+<h1>Drawing Configuration</h1>
+<p class="subtitle">Map cloud models to their drawings for PDF export</p>
+
+<div class="status-bar">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Initializing...</span>
+</div>
+
+<!-- Project / Folder -->
+<div class="section">
+    <div class="section-title"><span class="icon">&#128193;</span> Hub Location</div>
+    <div class="row">
+        <div class="field">
+            <label>Project</label>
+            <select id="projectSelect" disabled>
+                <option value="">Loading...</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Folder</label>
+            <select id="folderSelect" disabled>
+                <option value="">Select project first</option>
+            </select>
+        </div>
+    </div>
+    <div style="margin-top:8px">
+        <button class="btn btn-refresh" id="refreshBtn" onclick="refreshHub()">
+            &#x21bb; Refresh from Hub
+        </button>
+    </div>
+</div>
+
+<!-- Door -->
+<div class="section">
+    <div class="section-title"><span class="icon">&#128682;</span> Door</div>
+    <div class="row">
+        <div class="field">
+            <label>Model</label>
+            <select id="doorModel" disabled><option value="">Load hub first</option></select>
+        </div>
+        <div class="field">
+            <label>Drawing</label>
+            <select id="doorDrawing" disabled><option value="">Load hub first</option></select>
+        </div>
+    </div>
+</div>
+
+<!-- Panel -->
+<div class="section">
+    <div class="section-title"><span class="icon">&#9638;</span> Panel</div>
+    <div class="row">
+        <div class="field">
+            <label>Model</label>
+            <select id="panelModel" disabled><option value="">Load hub first</option></select>
+        </div>
+        <div class="field">
+            <label>Drawing</label>
+            <select id="panelDrawing" disabled><option value="">Load hub first</option></select>
+        </div>
+    </div>
+</div>
+
+<!-- Stiles -->
+<div class="section">
+    <div class="section-title"><span class="icon">&#9553;</span> Stiles (per series)</div>
+    <div id="stileContainer"></div>
+    <div class="add-stile-row">
+        <div class="field" style="flex:0 0 80px">
+            <label>Series Code</label>
+            <input type="text" id="newStileCode" placeholder="3081" maxlength="4">
+        </div>
+        <button class="btn btn-secondary" onclick="addStile()">+ Add Series</button>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="btn-row">
+    <button class="btn btn-danger" onclick="resetDefaults()">Reset Defaults</button>
+    <button class="btn btn-secondary" onclick="sendAction('cancel')">Cancel</button>
+    <button class="btn btn-primary" id="saveBtn" onclick="saveConfig()">Save Configuration</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    // State
+    let hubDocs = [];         // [{name, type}]
+    let hubProjects = [];     // [string]
+    let hubFolders = [];      // [string]
+    let currentConfig = {};
+    let stileEntries = {};    // {seriesCode: {model, drawing}}
+
+    // ─── Communication with Fusion Python ───────────────────────
+    // Send data TO the Fusion add-in (Python side)
+    function sendAction(action, data) {
+        const payload = JSON.stringify({ action: action, data: data || {} });
+        // adsk.fusionSendData returns a Promise (new QT browser)
+        adsk.fusionSendData('configAction', payload).then(function(result) {
+            // returnData from Python is ignored — we use sendInfoToHTML instead
+        }).catch(function(err) {
+            console.error('fusionSendData error:', err);
+        });
+    }
+
+    // Receive data FROM the Fusion add-in (Python calls palette.sendInfoToHTML)
+    window.fusionJavaScriptHandler = { handle: function(action, data) {
+        try {
+            if (action === 'configData') {
+                const msg = JSON.parse(data);
+                handleMessage(msg);
+            }
+        } catch(e) {
+            console.error('Parse error:', e, data);
+        }
+        return 'OK';
+    }};
+
+    function handleMessage(msg) {
+        switch(msg.action) {
+            case 'init':
+                currentConfig = msg.config || {};
+                setStatus('connected', 'Connected to Fusion');
+                applyConfig(currentConfig);
+                // Auto-refresh hub
+                sendAction('get_projects');
+                break;
+
+            case 'projects':
+                hubProjects = msg.data || [];
+                populateSelect('projectSelect', hubProjects, currentConfig.project_name);
+                document.getElementById('projectSelect').disabled = false;
+                if (currentConfig.project_name) {
+                    sendAction('get_folders', { project: currentConfig.project_name });
+                }
+                break;
+
+            case 'folders':
+                hubFolders = msg.data || [];
+                populateSelect('folderSelect', hubFolders, currentConfig.folder_name);
+                document.getElementById('folderSelect').disabled = false;
+                if (currentConfig.folder_name) {
+                    sendAction('get_documents', {
+                        project: document.getElementById('projectSelect').value,
+                        folder: document.getElementById('folderSelect').value
+                    });
+                }
+                break;
+
+            case 'documents':
+                hubDocs = msg.data || [];
+                setStatus('connected', `Loaded ${hubDocs.length} documents from Hub`);
+                populateModelDrawingSelects();
+                break;
+
+            case 'saved':
+                showToast(msg.message || 'Configuration saved!', 'success');
+                break;
+
+            case 'error':
+                setStatus('error', msg.message || 'Error');
+                showToast(msg.message || 'An error occurred', 'error');
+                break;
+        }
+    }
+
+    // ─── UI Helpers ─────────────────────────────────────────────
+    function setStatus(state, text) {
+        const dot = document.getElementById('statusDot');
+        dot.className = 'status-dot ' + state;
+        document.getElementById('statusText').textContent = text;
+    }
+
+    function showToast(text, type) {
+        const t = document.getElementById('toast');
+        t.textContent = text;
+        t.className = 'toast ' + (type || '') + ' show';
+        setTimeout(() => t.className = 'toast', 3000);
+    }
+
+    function populateSelect(id, items, selectedValue) {
+        const sel = document.getElementById(id);
+        const prev = sel.value || selectedValue;
+        sel.innerHTML = '<option value="">(none)</option>';
+        items.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item;
+            opt.textContent = item;
+            if (item === prev) opt.selected = true;
+            sel.appendChild(opt);
+        });
+    }
+
+    function populateModelDrawingSelects() {
+        const models = hubDocs.filter(d => d.type === 'model').map(d => d.name);
+        const drawings = hubDocs.filter(d => d.type === 'drawing').map(d => d.name);
+        // Also include items from all docs as options (type detection is heuristic)
+        const allNames = hubDocs.map(d => d.name);
+
+        fillDocSelect('doorModel', allNames, currentConfig.door_model);
+        fillDocSelect('doorDrawing', allNames, currentConfig.door_drawing);
+        fillDocSelect('panelModel', allNames, currentConfig.panel_model);
+        fillDocSelect('panelDrawing', allNames, currentConfig.panel_drawing);
+
+        // Stile selects
+        document.querySelectorAll('.stile-model-select').forEach(sel => {
+            const code = sel.dataset.series;
+            const val = (currentConfig.stile_models || {})[code] || '';
+            fillDocSelect(sel.id, allNames, val);
+        });
+        document.querySelectorAll('.stile-drawing-select').forEach(sel => {
+            const code = sel.dataset.series;
+            const val = (currentConfig.stile_drawings || {})[code] || '';
+            fillDocSelect(sel.id, allNames, val);
+        });
+    }
+
+    function fillDocSelect(id, names, selectedValue) {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const prev = sel.value || selectedValue || '';
+        sel.innerHTML = '<option value="">(none)</option>';
+        
+        // If the current value isn't in the list, add it as a custom option
+        const nameSet = new Set(names);
+        if (prev && !nameSet.has(prev)) {
+            const opt = document.createElement('option');
+            opt.value = prev;
+            opt.textContent = prev + ' (not found in Hub)';
+            opt.style.color = '#f44747';
+            opt.selected = true;
+            sel.appendChild(opt);
+        }
+        
+        names.forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            if (name === prev) opt.selected = true;
+            sel.appendChild(opt);
+        });
+        sel.disabled = false;
+    }
+
+    // ─── Config / Stile management ──────────────────────────────
+    function applyConfig(cfg) {
+        // Populate stile entries from config
+        stileEntries = {};
+        const stileModels = cfg.stile_models || {};
+        const stileDrawings = cfg.stile_drawings || {};
+        
+        // Merge keys from both models and drawings
+        const allCodes = new Set([...Object.keys(stileModels), ...Object.keys(stileDrawings)]);
+        allCodes.forEach(code => {
+            stileEntries[code] = {
+                model: stileModels[code] || '',
+                drawing: stileDrawings[code] || ''
+            };
+        });
+        
+        renderStiles();
+    }
+
+    function renderStiles() {
+        const container = document.getElementById('stileContainer');
+        container.innerHTML = '';
+        
+        Object.keys(stileEntries).sort().forEach(code => {
+            const entry = stileEntries[code];
+            const div = document.createElement('div');
+            div.className = 'stile-entry';
+            div.innerHTML = `
+                <div class="stile-header">
+                    Series ${code}
+                    <button class="remove-btn" onclick="removeStile('${code}')" title="Remove">&times;</button>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Model</label>
+                        <select id="stileModel_${code}" class="stile-model-select" data-series="${code}" disabled>
+                            <option value="${entry.model}">${entry.model || '(none)'}</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Drawing</label>
+                        <select id="stileDrawing_${code}" class="stile-drawing-select" data-series="${code}" disabled>
+                            <option value="${entry.drawing}">${entry.drawing || '(none)'}</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+        
+        // If hub docs are loaded, re-populate
+        if (hubDocs.length > 0) {
+            populateModelDrawingSelects();
+        }
+    }
+
+    function addStile() {
+        const input = document.getElementById('newStileCode');
+        const code = input.value.trim();
+        if (!code || code.length !== 4 || !/^\d{4}$/.test(code)) {
+            showToast('Enter a 4-digit series code (e.g., 3081)', 'error');
+            return;
+        }
+        if (stileEntries[code]) {
+            showToast(`Series ${code} already exists`, 'error');
+            return;
+        }
+        stileEntries[code] = { model: '', drawing: '' };
+        input.value = '';
+        renderStiles();
+    }
+
+    function removeStile(code) {
+        delete stileEntries[code];
+        renderStiles();
+    }
+
+    // ─── Actions ────────────────────────────────────────────────
+    function refreshHub() {
+        setStatus('loading', 'Querying Fusion Hub...');
+        sendAction('get_projects');
+    }
+
+    function saveConfig() {
+        const config = {
+            project_name: document.getElementById('projectSelect').value,
+            folder_name: document.getElementById('folderSelect').value,
+            door_model: document.getElementById('doorModel').value,
+            door_drawing: document.getElementById('doorDrawing').value,
+            panel_model: document.getElementById('panelModel').value,
+            panel_drawing: document.getElementById('panelDrawing').value,
+            stile_models: {},
+            stile_drawings: {}
+        };
+        
+        Object.keys(stileEntries).forEach(code => {
+            const modelSel = document.getElementById('stileModel_' + code);
+            const drawSel = document.getElementById('stileDrawing_' + code);
+            if (modelSel && modelSel.value) config.stile_models[code] = modelSel.value;
+            if (drawSel && drawSel.value) config.stile_drawings[code] = drawSel.value;
+        });
+        
+        currentConfig = config;
+        sendAction('save', config);
+    }
+
+    function resetDefaults() {
+        sendAction('reset_defaults');
+    }
+
+    // ─── Event listeners ────────────────────────────────────────
+    document.getElementById('projectSelect').addEventListener('change', function() {
+        if (this.value) {
+            setStatus('loading', 'Loading folders...');
+            sendAction('get_folders', { project: this.value });
+        }
+    });
+
+    document.getElementById('folderSelect').addEventListener('change', function() {
+        const project = document.getElementById('projectSelect').value;
+        if (project && this.value) {
+            setStatus('loading', 'Loading documents...');
+            sendAction('get_documents', { project: project, folder: this.value });
+        }
+    });
+
+    // Init — tell Python we're ready
+    document.addEventListener('DOMContentLoaded', function() {
+        setStatus('loading', 'Connecting to Fusion...');
+        sendAction('init');
+    });
+</script>
+</body>
+</html>

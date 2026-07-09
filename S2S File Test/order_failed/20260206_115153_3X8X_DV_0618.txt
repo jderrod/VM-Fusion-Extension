@@ -1,0 +1,6 @@
+Order 3X8X_DV_0618 failed.
+
+0/1 components successful
+
+Failed components:
+  doors: D1: Toolpath regeneration failed: No toolpaths generated for any of 2 setup(s)

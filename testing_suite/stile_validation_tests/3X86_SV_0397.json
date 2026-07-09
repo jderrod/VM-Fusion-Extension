@@ -1,0 +1,93 @@
+{
+    "order_id": [
+        "3X86_SV_0397",
+        "string",
+        "identifier for the order"
+    ],
+    "stiles": [
+        {
+            "id": [
+                "S1",
+                "string",
+                "stile ID"
+            ],
+            "parameters": {
+                "series_id": [
+                    "3086G.67P",
+                    "string",
+                    "series ID of the component"
+                ],
+                "component_height": [
+                    112.875,
+                    "float",
+                    "height of the component in inches"
+                ],
+                "component_width": [
+                    8.0,
+                    "float",
+                    "width of the component in inches"
+                ],
+                "left_side_door": [
+                    true,
+                    "bool",
+                    "indicates whether there is a door on the stile's left side when viewed from the room"
+                ],
+                "LD_hinging_right": [
+                    true,
+                    "bool",
+                    "indicates whether the left side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"
+                ],
+                "LD_height": [
+                    95.375,
+                    "float",
+                    "height of the door on the left side of the stile"
+                ],
+                "LD_floor_clearance": [
+                    7.8125,
+                    "float",
+                    "floor clearance of the door on the left side of the stile"
+                ],
+                "LD_ceiling_clearance": [
+                    11.6875,
+                    "float",
+                    "ceiling clearance of the door on the left side of the stile"
+                ],
+                "LD_swinging_out": [
+                    true,
+                    "bool",
+                    "indicates whether the door on the left side of the stile swings outward into the bathroom"
+                ],
+                "right_side_door": [
+                    true,
+                    "bool",
+                    "indicates whether there is a door on the stile's right side when viewed from the room"
+                ],
+                "RD_hinging_right": [
+                    false,
+                    "bool",
+                    "indicates whether the right side of the stile serves as the hinge stile for the adjacent door, rather than the keep stile"
+                ],
+                "RD_height": [
+                    85.0625,
+                    "float",
+                    "height of the door on the right side of the stile"
+                ],
+                "RD_floor_clearance": [
+                    4.5,
+                    "float",
+                    "floor clearance of the door on the right side of the stile"
+                ],
+                "RD_ceiling_clearance": [
+                    25.3125,
+                    "float",
+                    "ceiling clearance of the door on the right side of the stile"
+                ],
+                "RD_swinging_out": [
+                    false,
+                    "bool",
+                    "indicates whether the door on the right side of the stile swings outward into the bathroom"
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,1354 @@
+{
+  "component_id": "S5",
+  "metadata": {
+    "series_id": "3082G.67P"
+  },
+  "user_parameters": {
+    "component_height": {
+      "value": 111.81250000000001,
+      "unit": "in",
+      "expression": "111.8125 in",
+      "comment": "001) Input - Model\n    Height of the stile"
+    },
+    "component_width": {
+      "value": 10.0,
+      "unit": "in",
+      "expression": "10.0 in",
+      "comment": "000) Input - Model\n    Width of the component in inches"
+    },
+    "levelling_gap": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": "009) Fixed - Helper\n    We leave a 1\" gap between the bottom of the stile and the floor to account for anchoring hardware"
+    },
+    "hole_radius": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": "016) Fixed - Model\n    Radius of drilled holes"
+    },
+    "component_thickness": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "0.75 in",
+      "comment": "017) Fixed - Helper\n    Thickness of the component"
+    },
+    "door_top_margin": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "1.72 in",
+      "comment": "007) Fixed - Helper\n    Distance between top-most hole and top of door"
+    },
+    "LD_bottom_margin": {
+      "value": 5.030000000000001,
+      "unit": "in",
+      "expression": "1.72 in + if(LD_bottom_notching_actual_y_dist > 0 in; LD_bottom_notching_actual_y_dist; 0 in)",
+      "comment": "108) Derived - Helper\n    Distance between bottom-most hole and bottom of door on the door adjacent to the LEFT side of the stile"
+    },
+    "LD_swinging_out": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "103) Input - Helper\n    For the door adjacent to the LEFT side of the stile:\nwhether it is an outswing door"
+    },
+    "hinge_hole_space": {
+      "value": 1.5,
+      "unit": "in",
+      "expression": "1.5 in",
+      "comment": "008) Fixed - Helper\n    Distance between a hinge's tope and bottom hole"
+    },
+    "hinge_hole_x_dist": {
+      "value": 1.268,
+      "unit": "in",
+      "expression": "1.268 in",
+      "comment": "005) Fixed - Model\n    Horizontal distance between hinge holes and edge of stile"
+    },
+    "rabbeting_width": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "0.3 in",
+      "comment": "015) Fixed - Model\n    Width of the rabbeting"
+    },
+    "rabbeting_depth": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": "018) Fixed - Helper\n    Depth of rabbeting"
+    },
+    "hinge_hole_depth": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "0.5625 in",
+      "comment": "019) Fixed - Helper\n    Depth of hinge hole"
+    },
+    "LD_top_hinge_hole_1_y_value": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "door_top_margin",
+      "comment": "121) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_top_hinge_hole_2_y_value": {
+      "value": 3.22,
+      "unit": "in",
+      "expression": "LD_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "122) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_inter_hinge_gap": {
+      "value": 24.791666666666668,
+      "unit": "in",
+      "expression": "( LD_height - ( door_top_margin ) - ( LD_bottom_margin + hinge_hole_space ) ) / 3",
+      "comment": "107) Derived - Helper\n    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the LEFT side of the stile"
+    },
+    "LD_mid_top_hinge_offset": {
+      "value": -0.823,
+      "unit": "in",
+      "expression": "( -1 * 0.823 * if(LD_floor_clearance == 1 in; 1; 0) ) * 1 in",
+      "comment": "109) Derived - Helper\n    For the door adjacent to the LEFT side of the stile:\nAn offset applying to the mid-top hinge when the floor clearance is 1\" the door hinges on a stile"
+    },
+    "LD_mid_top_hinge_hole_1_y_value": {
+      "value": 25.68866666666667,
+      "unit": "in",
+      "expression": "LD_top_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_top_hinge_offset",
+      "comment": "123) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_mid_top_hinge_hole_2_y_value": {
+      "value": 27.18866666666667,
+      "unit": "in",
+      "expression": "LD_mid_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "124) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_mid_bottom_hinge_offset": {
+      "value": 1.646,
+      "unit": "in",
+      "expression": "( 2 * 0.823 * if(LD_floor_clearance == 1 in; 1; 0) ) * 1 in",
+      "comment": "110) Derived - Helper\n    For the door adjacent to the LEFT side of the stile:\nAn offset applying to the mid-bottom hinge when the floor clearance is 1\" the door hinges on a stile"
+    },
+    "LD_mid_bottom_hinge_hole_1_y_value": {
+      "value": 52.126333333333335,
+      "unit": "in",
+      "expression": "LD_mid_top_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_bottom_hinge_offset",
+      "comment": "125) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_mid_bottom_hinge_hole_2_y_value": {
+      "value": 53.626333333333335,
+      "unit": "in",
+      "expression": "LD_mid_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "126) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_bottom_hinge_hole_1_y_value": {
+      "value": 76.095,
+      "unit": "in",
+      "expression": "LD_mid_bottom_hinge_hole_1_y_value + LD_inter_hinge_gap + LD_mid_top_hinge_offset",
+      "comment": "127) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "LD_bottom_hinge_hole_2_y_value": {
+      "value": 77.59500000000001,
+      "unit": "in",
+      "expression": "LD_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "128) Derived - Helper\n    Distance between top of the left door and the center of the door hinge hole"
+    },
+    "left_rabbeting_activation_offset": {
+      "value": -0.125,
+      "unit": "in",
+      "expression": "if(left_interior_rabbeting; ( 1 / 8 ) * 1 in; if(left_exterior_rabbeting; ( -1 / 8 ) * 1 in; component_thickness))",
+      "comment": "113) Fixed - Helper\n    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create left rabbeting on the model"
+    },
+    "right_rabbeting_activation_offset": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "if(right_interior_rabbeting; ( 1 / 8 ) * 1 in; if(right_exterior_rabbeting; ( -1 / 8 ) * 1 in; component_thickness))",
+      "comment": "213) Fixed - Helper\n    An offset that repositions a void relative to the component, allowing the void to cut into the panel at the specified location and create right rabbeting on the model"
+    },
+    "LD_floor_clearance": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1.0 in",
+      "comment": "105) Input - Helper\n    Floor clearance of the door adjacent to the LEFT side of the stile\n(when viewed from outside the stall)"
+    },
+    "LD_height": {
+      "value": 82.625,
+      "unit": "in",
+      "expression": "82.625 in",
+      "comment": "104) Input - Helper\n    Height of the door adjacent to the LEFT side of the stile\n(when viewed from outside the stall)"
+    },
+    "LD_stile_hole_modifier": {
+      "value": 29.187500000000007,
+      "unit": "in",
+      "expression": "component_height - ( LD_height + LD_floor_clearance - levelling_gap )",
+      "comment": "111) Derived - Helper\n    For the door adjacent to the LEFT side of the stile:\nAdjustment factor convert door y coordinates to stile y coordinates"
+    },
+    "rabbeting_start_above_door": {
+      "value": 1.386,
+      "unit": "in",
+      "expression": "( ( 0.75 + 2.022 ) / 2 ) * 1 in",
+      "comment": "013) Fixed - Helper\n    Distance by which rabbeting extends above door"
+    },
+    "rabbeting_stop_below_door": {
+      "value": 1.386,
+      "unit": "in",
+      "expression": "( ( 0.75 + 2.022 ) / 2 ) * 1 in",
+      "comment": "014) Fixed - Helper\n    Distance by which rabbeting extends below door"
+    },
+    "rabbeting_insertion_radius": {
+      "value": 2.3,
+      "unit": "in",
+      "expression": "2.3 in",
+      "comment": "020) Fixed - Helper\n    Radius of the rabbetting insertion curve"
+    },
+    "RD_swinging_out": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "203) Input - Helper\n    For the door adjacent to the LEFT side of the stile:\nwhether it is an outswing door"
+    },
+    "RD_floor_clearance": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "12.0 in",
+      "comment": "205) Input - Helper\n    Floor clearance of the door adjacent to the RIGHT side of the stile\n(when viewed from outside the stall)"
+    },
+    "RD_height": {
+      "value": 97.875,
+      "unit": "in",
+      "expression": "97.875 in",
+      "comment": "204) Input - Helper\n    Height of the door adjacent to the RIGHT side of the stile\n(when viewed from outside the stall)"
+    },
+    "RD_stile_hole_modifier": {
+      "value": 2.937500000000025,
+      "unit": "in",
+      "expression": "component_height - ( RD_height + RD_floor_clearance - levelling_gap )",
+      "comment": "211) Derived - Helper\n    For the door adjacent to the RIGHT side of the stile:\nAdjustment factor convert door y coordinates to stile y coordinates"
+    },
+    "RD_top_hinge_hole_1_y_value": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "door_top_margin",
+      "comment": "221) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_top_hinge_hole_2_y_value": {
+      "value": 3.22,
+      "unit": "in",
+      "expression": "RD_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "222) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_inter_hinge_gap": {
+      "value": 30.97833333333333,
+      "unit": "in",
+      "expression": "( RD_height - ( door_top_margin ) - ( RD_bottom_margin + hinge_hole_space ) ) / 3",
+      "comment": "207) Derived - Helper\n    Distance between top_hinge_holes of adjacent hinges on the door adjacent to the RIGHT side of the stile\n"
+    },
+    "RD_mid_top_hinge_offset": {
+      "value": -0.0,
+      "unit": "in",
+      "expression": "( -1 * 0.823 * if(RD_floor_clearance == 1 in; 1; 0) ) * 1 in",
+      "comment": "209) Derived - Helper\n    For the door adjacent to the RIGHT side of the stile:\nAn offset applying to the mid-top hinge when the floor clearance is 1\" the door hinges on a stile"
+    },
+    "RD_mid_top_hinge_hole_1_y_value": {
+      "value": 32.69833333333333,
+      "unit": "in",
+      "expression": "RD_top_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_top_hinge_offset",
+      "comment": "223) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_mid_top_hinge_hole_2_y_value": {
+      "value": 34.19833333333333,
+      "unit": "in",
+      "expression": "RD_mid_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "224) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_mid_bottom_hinge_offset": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "( 2 * 0.823 * if(RD_floor_clearance == 1 in; 1; 0) ) * 1 in",
+      "comment": "210) Derived - Helper\n    For the door adjacent to the RIGHT side of the stile:\nAn offset applying to the mid-bottom hinge when the floor clearance is 1\" the door hinges on a stile"
+    },
+    "RD_mid_bottom_hinge_hole_1_y_value": {
+      "value": 63.67666666666666,
+      "unit": "in",
+      "expression": "RD_mid_top_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_bottom_hinge_offset",
+      "comment": "225) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_mid_bottom_hinge_hole_2_y_value": {
+      "value": 65.17666666666666,
+      "unit": "in",
+      "expression": "RD_mid_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "226) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_bottom_hinge_hole_1_y_value": {
+      "value": 94.655,
+      "unit": "in",
+      "expression": "RD_mid_bottom_hinge_hole_1_y_value + RD_inter_hinge_gap + RD_mid_top_hinge_offset",
+      "comment": "227) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "RD_bottom_hinge_hole_2_y_value": {
+      "value": 96.155,
+      "unit": "in",
+      "expression": "RD_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "228) Derived - Helper\n    Distance between top of the right door and the center of the door hinge hole"
+    },
+    "left_side_door": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "101) Input - Helper\n    Whether there is a door adjacent to the left side of the stile"
+    },
+    "right_side_door": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "201) Input - Helper\n    Whether there is a door adjacent to the left side of the stile"
+    },
+    "LD_full_rabbeting_top": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(LD_stile_hole_modifier - rabbeting_start_above_door < 2 in and left_side_door; 1; 0)",
+      "comment": "114) Derived - Helper\n    Whether rabbeting on the stile's left side extends all the way to the top"
+    },
+    "RD_full_rabbeting_top": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(RD_stile_hole_modifier - rabbeting_start_above_door <= 2 in and right_side_door; 1; 0)",
+      "comment": "214) Derived - Helper\n    Whether rabbeting on the stile's right side extends all the way to the top"
+    },
+    "LD_full_rabbeting_bottom": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(LD_floor_clearance < through_rabbeting_threshold and left_side_door; 1; 0)",
+      "comment": "115) Derived - Helper\n    Whether rabbeting on the stile's left side extends all the way to the bottom"
+    },
+    "RD_full_rabbeting_bottom": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(RD_floor_clearance < through_rabbeting_threshold and right_side_door; 1; 0)",
+      "comment": "215) Derived - Helper\n    Whether rabbeting on the stile's right side extends all the way to the bottom"
+    },
+    "door_bottom_notching_standard_y_dist": {
+      "value": 3.3100000000000005,
+      "unit": "in",
+      "expression": "3.31 in",
+      "comment": "006) Fixed - Helper\n    Height of door bottom notching cutout from bottom of door"
+    },
+    "stile_mid_top_hinge_offset": {
+      "value": 0.03125,
+      "unit": "in",
+      "expression": "1 / 32 * in",
+      "comment": "010) Fixed - Helper\n    an offset between the position of this hinge on the stile vs the door"
+    },
+    "stile_mid_bottom_hinge_offset": {
+      "value": 0.03125,
+      "unit": "in",
+      "expression": "( 1 / 32 ) * 1 in",
+      "comment": "011) Fixed - Helper\n    an offset between the position of this hinge on the stile vs the door"
+    },
+    "stile_bottom_hinge_offset": {
+      "value": -0.3125,
+      "unit": "in",
+      "expression": "( -5 / 16 ) * 1 in",
+      "comment": "012) Fixed - Helper\n    an offset between the position of this hinge on the stile vs the door"
+    },
+    "LD_hinging_right": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "102) Input - Helper\n    For the door adjacent to the LEFT side of the stile:\nwhether it's hinges are on the right side of the door"
+    },
+    "left_interior_rabbeting": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(left_side_door and not(LD_swinging_out); 1; 0)",
+      "comment": "111) Derived - Model\n    Whether rabbeting is present the interior left edge of the stile"
+    },
+    "left_exterior_rabbeting": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(left_side_door and LD_swinging_out; 1; 0)",
+      "comment": "112) Derived - Model\n    Whether rabbeting is present the exterior left edge of the stile"
+    },
+    "left_interior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(left_side_door and LD_hinging_right and not(LD_swinging_out); 1; 0)",
+      "comment": "119) Derived - Model\n    Whether drilling is present the interior left edge of the stile"
+    },
+    "left_exterior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(left_side_door and LD_hinging_right and LD_swinging_out; 1; 0)",
+      "comment": "120) Derived - Model\n    Whether drilling is present the exterior left edge of the stile"
+    },
+    "LD_stile_top_hinge_hole_1_y_value": {
+      "value": 30.907500000000002,
+      "unit": "in",
+      "expression": "LD_top_hinge_hole_1_y_value + LD_stile_hole_modifier",
+      "comment": "131) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_top_hinge_hole_2_y_value": {
+      "value": 32.407500000000006,
+      "unit": "in",
+      "expression": "LD_stile_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "132) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_mid_top_hinge_hole_1_y_value": {
+      "value": 54.90741666666667,
+      "unit": "in",
+      "expression": "LD_mid_top_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_mid_top_hinge_offset",
+      "comment": "133) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_mid_top_hinge_hole_2_y_value": {
+      "value": 56.40741666666667,
+      "unit": "in",
+      "expression": "LD_stile_mid_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "134) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_mid_bottom_hinge_hole_1_y_value": {
+      "value": 81.34508333333335,
+      "unit": "in",
+      "expression": "LD_mid_bottom_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_mid_bottom_hinge_offset",
+      "comment": "135) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_mid_bottom_hinge_hole_2_y_value": {
+      "value": 82.84508333333335,
+      "unit": "in",
+      "expression": "LD_stile_mid_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "136) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_bottom_hinge_hole_1_y_value": {
+      "value": 104.97,
+      "unit": "in",
+      "expression": "LD_bottom_hinge_hole_1_y_value + LD_stile_hole_modifier + stile_bottom_hinge_offset",
+      "comment": "137) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "LD_stile_bottom_hinge_hole_2_y_value": {
+      "value": 106.47000000000001,
+      "unit": "in",
+      "expression": "LD_stile_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "138) Derived - Model\n    Distance between top of stile and center of stile's left side hinge hole"
+    },
+    "left_rabbeting_top": {
+      "value": 82.57350000000001,
+      "unit": "in",
+      "expression": "if(LD_stile_hole_modifier - rabbeting_start_above_door <= 2 in; component_net_height + 2 in; component_net_height - ( LD_stile_hole_modifier - rabbeting_start_above_door ))",
+      "comment": "116) Derived - Model\n    Distance from the top edge of the stile to the beginning of rabbeting on the left side of the stile. if the distance between the door and the top of the still is <2\"\" then the rabbeting starts at the beginning of the stile with no radius cut in."
+    },
+    "left_rabbeting_bottom": {
+      "value": -2.0,
+      "unit": "in",
+      "expression": "if(LD_floor_clearance < through_rabbeting_threshold; -2 in; component_net_height - ( LD_stile_hole_modifier + LD_height + rabbeting_stop_below_door ))",
+      "comment": "117) Derived - Model\n    Distance from the top edge of the stile to the end of rabbeting on the left side of the stile. if the door_floor_clearance equals 1\" or 4.5\", then the rabbeting goes all the way to the end of the stile with no radius cut in."
+    },
+    "RD_hinging_right": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "202) Input - Helper\n    For the door adjacent to the LEFT side of the stile:\nwhether it's hinges are on the right side of the door"
+    },
+    "RD_bottom_margin": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "1.72 in + if(RD_bottom_notching_actual_y_dist > 0 in; RD_bottom_notching_actual_y_dist; 0 in)",
+      "comment": "208) Derived - Helper\n    Distance between bottom-most hole and bottom of door on the door adjacent to the RIGHT side of the stile\n"
+    },
+    "right_interior_rabbeting": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(right_side_door and not(RD_swinging_out); 1; 0)",
+      "comment": "211) Derived - Model\n    Whether rabbeting is present the interior right edge of the stile"
+    },
+    "right_exterior_rabbeting": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(right_side_door and RD_swinging_out; 1; 0)",
+      "comment": "212) Derived - Model\n    Whether rabbeting is present the exterior right edge of the stile"
+    },
+    "right_interior_drilling": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(right_side_door and not(RD_hinging_right) and not(RD_swinging_out); 1; 0)",
+      "comment": "219) Derived - Model\n    Whether drilling is present the interior right edge of the stile"
+    },
+    "right_exterior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(right_side_door and not(RD_hinging_right) and RD_swinging_out; 1; 0)",
+      "comment": "220) Derived - Model\n    Whether drilling is present the exterior right edge of the stile"
+    },
+    "RD_stile_top_hinge_hole_1_y_value": {
+      "value": 4.6575000000000255,
+      "unit": "in",
+      "expression": "RD_top_hinge_hole_1_y_value + RD_stile_hole_modifier",
+      "comment": "231) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_top_hinge_hole_2_y_value": {
+      "value": 6.1575000000000255,
+      "unit": "in",
+      "expression": "RD_stile_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "232) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_mid_top_hinge_hole_1_y_value": {
+      "value": 35.66708333333335,
+      "unit": "in",
+      "expression": "RD_mid_top_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_mid_top_hinge_offset",
+      "comment": "233) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_mid_top_hinge_hole_2_y_value": {
+      "value": 37.16708333333336,
+      "unit": "in",
+      "expression": "RD_stile_mid_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "234) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_mid_bottom_hinge_hole_1_y_value": {
+      "value": 66.64541666666669,
+      "unit": "in",
+      "expression": "RD_mid_bottom_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_mid_bottom_hinge_offset",
+      "comment": "235) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_mid_bottom_hinge_hole_2_y_value": {
+      "value": 68.14541666666669,
+      "unit": "in",
+      "expression": "RD_stile_mid_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "236) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_bottom_hinge_hole_1_y_value": {
+      "value": 97.28000000000003,
+      "unit": "in",
+      "expression": "RD_bottom_hinge_hole_1_y_value + RD_stile_hole_modifier + stile_bottom_hinge_offset",
+      "comment": "237) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "RD_stile_bottom_hinge_hole_2_y_value": {
+      "value": 98.78000000000003,
+      "unit": "in",
+      "expression": "RD_stile_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "238) Derived - Model\n    Distance between top of stile and center of stile's right side hinge hole"
+    },
+    "right_rabbeting_top": {
+      "value": 112.375,
+      "unit": "in",
+      "expression": "if(RD_stile_hole_modifier - rabbeting_start_above_door <= 2 in; component_net_height + 2 in; component_net_height - ( RD_stile_hole_modifier - rabbeting_start_above_door ))",
+      "comment": "216) Derived - Model\n    Distance from the bottom edge of the stile to the beginning of rabbeting on the right side of the stile. if the distance between the door and the top of the still is <2\"\" then the rabbeting starts at the beginning of the stile with no radius cut in."
+    },
+    "right_rabbeting_bottom": {
+      "value": 8.176499999999994,
+      "unit": "in",
+      "expression": "if(RD_floor_clearance < through_rabbeting_threshold; -2 in; component_net_height - ( RD_stile_hole_modifier + RD_height + rabbeting_stop_below_door ))",
+      "comment": "217) Derived - Model\n    Distance from the top edge of the stile to the end of rabbeting on the right side of the stile. if the door_floor_clearance equals 1\" or 4.5\", then the rabbeting goes all the way to the end of the stile with no radius cut in."
+    },
+    "LD_bottom_notching_actual_y_dist": {
+      "value": 3.310000000000001,
+      "unit": "in",
+      "expression": "( door_bottom_notching_standard_y_dist + 1 in ) - LD_floor_clearance",
+      "comment": "106) Derived - Model\n    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch"
+    },
+    "RD_bottom_notching_actual_y_dist": {
+      "value": -7.6899999999999995,
+      "unit": "in",
+      "expression": "( door_bottom_notching_standard_y_dist + 1 in ) - RD_floor_clearance",
+      "comment": "206) Derived - Model\n    Actual height of notching cutout from bottom of door for any floor clearance less than: one inch plus the height of the standard bottom notch"
+    },
+    "a_order_number": {
+      "value": "'N 001'",
+      "unit": "",
+      "expression": "'N 001'",
+      "comment": "501) Tag"
+    },
+    "component_id": {
+      "value": "'3X82 Stile'",
+      "unit": "",
+      "expression": "'3X82 Stile'",
+      "comment": "502) Tag"
+    },
+    "a_series": {
+      "value": "'3X82'",
+      "unit": "",
+      "expression": "'3X82'",
+      "comment": "503) Tag"
+    },
+    "component_ceiling_clearance": {
+      "value": 5.0,
+      "unit": "in",
+      "expression": "5 in",
+      "comment": "002) Input - Model\n    Allowance distance above the component"
+    },
+    "LD_swing": {
+      "value": "if(LD_swinging_out == 1; 'Outswing'; 'Inswing')",
+      "unit": "",
+      "expression": "if(LD_swinging_out == 1; 'Outswing'; 'Inswing')",
+      "comment": "103a"
+    },
+    "RD_swing": {
+      "value": "if(RD_swinging_out == 1; 'Outswing'; 'Inswing')",
+      "unit": "",
+      "expression": "if(RD_swinging_out == 1; 'Outswing'; 'Inswing')",
+      "comment": "203a"
+    },
+    "LD_hinge": {
+      "value": "if(LD_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "unit": "",
+      "expression": "if(LD_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "comment": "102a"
+    },
+    "RD_hinge": {
+      "value": "if(RD_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "unit": "",
+      "expression": "if(RD_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "comment": "202a"
+    },
+    "leveling_bar_additional_height": {
+      "value": 1.4375,
+      "unit": "in",
+      "expression": "1.4375 in",
+      "comment": "003) Fixed - Model\n    Height by which levelling bar extends beyond the compact laminate"
+    },
+    "component_net_height": {
+      "value": 110.375,
+      "unit": "in",
+      "expression": "component_height - leveling_bar_additional_height",
+      "comment": "004) Derived - Model\n    Height of the compact laminate component exclusive of the leveling bar"
+    },
+    "through_rabbeting_threshold": {
+      "value": 7.625,
+      "unit": "in",
+      "expression": "7.625 in",
+      "comment": "021) Fixed - Helper\n    Threshold for engaging through-rabbeting\n"
+    },
+    "left_rabbeting_length": {
+      "value": 84.57350000000001,
+      "unit": "in",
+      "expression": "left_rabbeting_top - left_rabbeting_bottom",
+      "comment": "118) Derived - Model\n    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting"
+    },
+    "right_rabbeting_length": {
+      "value": 104.19850000000001,
+      "unit": "in",
+      "expression": "right_rabbeting_top - right_rabbeting_bottom",
+      "comment": "218) Derived - Model\n    Length of rabbeting from start to finish; may be longer than the stile in the case of through-rabbeting"
+    },
+    "left_rabbet_tag": {
+      "value": "if(left_interior_rabbeting; 'interior - G59'; if(left_exterior_rabbeting; 'exterior - G57'; 'no rabbet'))",
+      "unit": "",
+      "expression": "if(left_interior_rabbeting; 'interior - G59'; if(left_exterior_rabbeting; 'exterior - G57'; 'no rabbet'))",
+      "comment": "504) Tag"
+    },
+    "right_rabbet_tag": {
+      "value": "if(right_interior_rabbeting; 'interior - G57'; if(right_exterior_rabbeting; 'exterior - G59'; 'no rabbet'))",
+      "unit": "",
+      "expression": "if(right_interior_rabbeting; 'interior - G57'; if(right_exterior_rabbeting; 'exterior - G59'; 'no rabbet'))",
+      "comment": "505 ) Tag"
+    }
+  },
+  "model_parameters": {
+    "d10": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "levelling_gap",
+      "comment": ""
+    },
+    "d11": {
+      "value": 111.81250000000001,
+      "unit": "in",
+      "expression": "component_height",
+      "comment": ""
+    },
+    "d12": {
+      "value": 10.0,
+      "unit": "in",
+      "expression": "component_width",
+      "comment": ""
+    },
+    "d24": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d27": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d30": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d32": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d117": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d118": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d119": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d120": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hole_radius",
+      "comment": ""
+    },
+    "d122": {
+      "value": 1.268,
+      "unit": "in",
+      "expression": "hinge_hole_x_dist",
+      "comment": ""
+    },
+    "d123": {
+      "value": 1.268,
+      "unit": "in",
+      "expression": "hinge_hole_x_dist",
+      "comment": ""
+    },
+    "d125": {
+      "value": 2.3,
+      "unit": "in",
+      "expression": "2.3 in",
+      "comment": ""
+    },
+    "d137": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "rabbeting_width",
+      "comment": ""
+    },
+    "d144": {
+      "value": 4.5,
+      "unit": "in",
+      "expression": "if(LD_floor_clearance <= 4.5 in; 4.5 in; LD_floor_clearance)",
+      "comment": ""
+    },
+    "d145": {
+      "value": 30.907500000000002,
+      "unit": "in",
+      "expression": "LD_stile_top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d146": {
+      "value": 32.407500000000006,
+      "unit": "in",
+      "expression": "LD_stile_top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d147": {
+      "value": 54.90741666666667,
+      "unit": "in",
+      "expression": "LD_stile_mid_top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d148": {
+      "value": 56.40741666666667,
+      "unit": "in",
+      "expression": "LD_stile_mid_top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d149": {
+      "value": 81.34508333333335,
+      "unit": "in",
+      "expression": "LD_stile_mid_bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d150": {
+      "value": 82.84508333333335,
+      "unit": "in",
+      "expression": "LD_stile_mid_bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d151": {
+      "value": 104.97,
+      "unit": "in",
+      "expression": "LD_stile_bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d152": {
+      "value": 106.47000000000001,
+      "unit": "in",
+      "expression": "LD_stile_bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d161": {
+      "value": 1.8424999999999998,
+      "unit": "in",
+      "expression": "1.8425 in",
+      "comment": ""
+    },
+    "d163": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "rabbeting_width",
+      "comment": ""
+    },
+    "d164": {
+      "value": 2.3,
+      "unit": "in",
+      "expression": "rabbeting_insertion_radius",
+      "comment": ""
+    },
+    "d185": {
+      "value": 4.6575000000000255,
+      "unit": "in",
+      "expression": "RD_stile_top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d186": {
+      "value": 6.1575000000000255,
+      "unit": "in",
+      "expression": "RD_stile_top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d187": {
+      "value": 35.66708333333335,
+      "unit": "in",
+      "expression": "RD_stile_mid_top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d188": {
+      "value": 37.16708333333336,
+      "unit": "in",
+      "expression": "RD_stile_mid_top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d189": {
+      "value": 66.64541666666669,
+      "unit": "in",
+      "expression": "RD_stile_mid_bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d190": {
+      "value": 68.14541666666669,
+      "unit": "in",
+      "expression": "RD_stile_mid_bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d191": {
+      "value": 97.28000000000003,
+      "unit": "in",
+      "expression": "RD_stile_bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d192": {
+      "value": 98.78000000000003,
+      "unit": "in",
+      "expression": "RD_stile_bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d194": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "if(RD_floor_clearance <= 4.5 in; 4.5 in; RD_floor_clearance)",
+      "comment": ""
+    },
+    "d260": {
+      "value": 1.4375,
+      "unit": "in",
+      "expression": "leveling_bar_additional_height",
+      "comment": ""
+    },
+    "d261": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d262": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d317": {
+      "value": -2.0,
+      "unit": "in",
+      "expression": "left_rabbeting_bottom",
+      "comment": ""
+    },
+    "d318": {
+      "value": 82.57350000000001,
+      "unit": "in",
+      "expression": "left_rabbeting_top",
+      "comment": ""
+    },
+    "d320": {
+      "value": 8.176499999999994,
+      "unit": "in",
+      "expression": "right_rabbeting_bottom",
+      "comment": ""
+    },
+    "d321": {
+      "value": 112.375,
+      "unit": "in",
+      "expression": "right_rabbeting_top",
+      "comment": ""
+    },
+    "d78": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d79": {
+      "value": "'outside surface'",
+      "unit": "",
+      "expression": "'outside surface'",
+      "comment": ""
+    },
+    "d220": {
+      "value": 11.0,
+      "unit": "in",
+      "expression": "11.0000 in",
+      "comment": ""
+    },
+    "d221": {
+      "value": 6.0,
+      "unit": "in",
+      "expression": "6.0000 in",
+      "comment": ""
+    },
+    "d263": {
+      "value": 0.179,
+      "unit": "in",
+      "expression": "0.179 in",
+      "comment": ""
+    },
+    "d264": {
+      "value": 0.179,
+      "unit": "in",
+      "expression": "0.179 in",
+      "comment": ""
+    },
+    "d265": {
+      "value": 0.94,
+      "unit": "in",
+      "expression": "0.94 in",
+      "comment": ""
+    },
+    "d266": {
+      "value": 2.5,
+      "unit": "in",
+      "expression": "2.5 in",
+      "comment": ""
+    },
+    "d270": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d271": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d272": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d273": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d274": {
+      "value": 2.3,
+      "unit": "in",
+      "expression": "rabbeting_insertion_radius",
+      "comment": ""
+    },
+    "d275": {
+      "value": 4.25,
+      "unit": "in",
+      "expression": "( if(RD_full_rabbeting_top; 4.25; 1) ) * 1 in",
+      "comment": ""
+    },
+    "d276": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "( if(RD_full_rabbeting_bottom; 2.75; 1) ) * 1 in",
+      "comment": ""
+    },
+    "d277": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "( if(LD_full_rabbeting_top; 4.25; 1) ) * 1 in",
+      "comment": ""
+    },
+    "d278": {
+      "value": 2.75,
+      "unit": "in",
+      "expression": "( if(LD_full_rabbeting_bottom; 2.75; 1) ) * 1 in",
+      "comment": ""
+    },
+    "d281": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d282": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d283": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d284": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d286": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d287": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d288": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d289": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d290": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d291": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d292": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d343": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d344": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_top_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d345": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_top_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d346": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_mid_top_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d347": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_mid_top_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d348": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_mid_bottom_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d349": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_mid_bottom_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d350": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_bottom_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d351": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "if(left_side_door and LD_hinging_right; LD_stile_bottom_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d352": {
+      "value": 5.657500000000025,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_top_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d353": {
+      "value": 7.1575000000000255,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_top_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d354": {
+      "value": 36.66708333333336,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_mid_top_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d355": {
+      "value": 38.16708333333336,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_mid_top_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d356": {
+      "value": 67.64541666666669,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_mid_bottom_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d357": {
+      "value": 69.14541666666669,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_mid_bottom_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d358": {
+      "value": 98.28000000000003,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_bottom_hinge_hole_1_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d359": {
+      "value": 99.78000000000003,
+      "unit": "in",
+      "expression": "if(right_side_door and not(RD_hinging_right); RD_stile_bottom_hinge_hole_2_y_value + 1 in; 1 in)",
+      "comment": ""
+    },
+    "d293": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d294": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d295": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d296": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "0.3 in",
+      "comment": ""
+    },
+    "d297": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d306": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "hole_radius * 2",
+      "comment": ""
+    },
+    "d307": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "hinge_hole_depth",
+      "comment": ""
+    },
+    "d322": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d323": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d324": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d325": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d326": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d39": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d40": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d47": {
+      "value": -0.125,
+      "unit": "in",
+      "expression": "left_rabbeting_activation_offset",
+      "comment": ""
+    },
+    "d48": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "rabbeting_depth",
+      "comment": ""
+    },
+    "d49": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d51": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "hinge_hole_depth",
+      "comment": ""
+    },
+    "d52": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d53": {
+      "value": 0.09375000000000001,
+      "unit": "in",
+      "expression": "if(right_exterior_drilling; -component_thickness / 2 + hinge_hole_depth / 2; if(right_interior_drilling; component_thickness / 2 - hinge_hole_depth / 2; component_thickness))",
+      "comment": ""
+    },
+    "d114": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "rabbeting_depth",
+      "comment": ""
+    },
+    "d115": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d116": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "right_rabbeting_activation_offset",
+      "comment": ""
+    },
+    "d217": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "if(left_exterior_drilling; -component_thickness / 2 + hinge_hole_depth / 2; if(left_interior_drilling; component_thickness / 2 - hinge_hole_depth / 2; component_thickness))",
+      "comment": ""
+    },
+    "d218": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "hinge_hole_depth",
+      "comment": ""
+    },
+    "d219": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d82": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d83": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d84": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d267": {
+      "value": 9.0,
+      "unit": "in",
+      "expression": "component_width - 1 in",
+      "comment": ""
+    },
+    "d268": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    }
+  }
+}

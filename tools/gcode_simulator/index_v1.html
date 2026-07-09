@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anderson Stratos Pro — CNC Machine Simulator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f1e; color: #e0e0e0; overflow: hidden; height: 100vh; }
+        #canvas-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+        canvas { display: block; }
+
+        .panel {
+            background: rgba(14, 14, 30, 0.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            z-index: 10;
+            position: absolute;
+        }
+        .panel h3 {
+            font-size: 10px; color: #64b5f6; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 6px; padding-bottom: 4px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* Top bar */
+        #top-bar {
+            position: absolute; top: 0; left: 0; right: 0; height: 44px;
+            background: rgba(10, 10, 24, 0.95); backdrop-filter: blur(12px);
+            display: flex; align-items: center; padding: 0 14px; gap: 10px;
+            z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        #top-bar .title { font-weight: 700; font-size: 13px; color: #64b5f6; }
+        #top-bar .subtitle { font-size: 11px; color: #666; }
+        .spacer { flex: 1; }
+        .top-btn {
+            padding: 5px 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+            background: rgba(255,255,255,0.04); color: #aaa; font-size: 11px; cursor: pointer;
+        }
+        .top-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+        /* Drop zone */
+        #drop-zone {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 400px; padding: 40px 28px; background: rgba(20, 20, 44, 0.96);
+            border: 2px dashed rgba(100,181,246,0.35); border-radius: 14px;
+            text-align: center; z-index: 20;
+        }
+        #drop-zone.hidden { display: none; }
+        #drop-zone.drag-over { border-color: #64b5f6; }
+        #drop-zone h2 { font-size: 16px; color: #64b5f6; margin-bottom: 6px; }
+        #drop-zone p { font-size: 12px; color: #888; margin-bottom: 14px; }
+        #drop-zone button { padding: 8px 20px; background: #1e88e5; border: none; border-radius: 7px; color: #fff; font-size: 13px; cursor: pointer; }
+        #drop-zone button:hover { background: #1565c0; }
+        #file-input { display: none; }
+
+        /* Left panel — Machine Control */
+        #machine-panel {
+            top: 56px; left: 12px; width: 220px; padding: 12px;
+        }
+        #machine-panel.hidden { display: none; }
+        .mc-section { margin-bottom: 10px; }
+        .mc-row { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+        .mc-btn {
+            flex: 1; min-width: 60px; padding: 6px 4px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px; background: rgba(255,255,255,0.04); color: #ccc;
+            font-size: 10px; cursor: pointer; text-align: center; transition: all 0.12s;
+        }
+        .mc-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .mc-btn.active { background: #1e88e5; border-color: #1e88e5; color: #fff; }
+        .mc-btn.run { background: rgba(76,175,80,0.15); border-color: rgba(76,175,80,0.4); color: #81c784; }
+        .mc-btn.run:hover { background: rgba(76,175,80,0.3); }
+        .mc-btn.danger { background: rgba(244,67,54,0.1); border-color: rgba(244,67,54,0.3); color: #e57373; }
+        .mc-btn.danger:hover { background: rgba(244,67,54,0.25); }
+        .mc-label { font-size: 10px; color: #777; margin-top: 6px; }
+
+        /* Toolpath list */
+        #toolpath-list { max-height: 160px; overflow-y: auto; margin-top: 4px; }
+        #toolpath-list::-webkit-scrollbar { width: 4px; }
+        #toolpath-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .tp-item {
+            display: flex; align-items: center; gap: 6px; padding: 5px 6px;
+            border-radius: 5px; cursor: pointer; font-size: 10px; color: #aaa;
+            border: 1px solid transparent; margin-bottom: 2px;
+        }
+        .tp-item:hover { background: rgba(255,255,255,0.05); }
+        .tp-item.selected { background: rgba(30,136,229,0.15); border-color: rgba(30,136,229,0.4); color: #fff; }
+        .tp-item.completed { color: #666; }
+        .tp-item .tp-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+        .tp-item .tp-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tp-item .tp-wcs { font-size: 9px; color: #888; font-family: monospace; }
+        .tp-item .tp-check { color: #4caf50; font-size: 11px; }
+
+        /* Right panel — Info */
+        #info-panel {
+            top: 56px; right: 12px; width: 210px; padding: 12px;
+        }
+        #info-panel.hidden { display: none; }
+        .info-row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .info-row .lbl { color: #666; font-size: 10px; }
+        .info-row .val { color: #ddd; font-size: 10px; font-family: 'Consolas', monospace; }
+        .info-section { margin-bottom: 8px; }
+
+        /* Component state display */
+        #comp-state {
+            font-size: 10px; color: #aaa; padding: 6px 8px; margin-top: 6px;
+            background: rgba(255,255,255,0.03); border-radius: 5px;
+        }
+        #comp-state .cs-row { display: flex; justify-content: space-between; padding: 1px 0; }
+        #comp-state .cs-val { color: #64b5f6; font-family: monospace; }
+
+        /* Bottom playback */
+        #playback {
+            bottom: 12px; left: 50%; transform: translateX(-50%);
+            padding: 10px 16px; display: flex; align-items: center; gap: 10px;
+            min-width: 540px;
+        }
+        #playback.hidden { display: none; }
+        .pb-btn {
+            width: 32px; height: 32px; border: none; border-radius: 7px;
+            background: rgba(255,255,255,0.07); color: #ddd; font-size: 14px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .pb-btn:hover { background: rgba(255,255,255,0.15); }
+        #progress-bar {
+            flex: 1; height: 5px; -webkit-appearance: none; appearance: none;
+            background: rgba(255,255,255,0.08); border-radius: 3px; outline: none; cursor: pointer;
+        }
+        #progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #64b5f6; cursor: pointer; }
+        .pb-label { font-size: 10px; color: #888; min-width: 70px; text-align: center; font-family: monospace; }
+        #speed-select {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px; color: #ccc; padding: 3px 6px; font-size: 10px; cursor: pointer;
+        }
+
+        /* View bar */
+        #view-bar {
+            top: 56px; left: 50%; transform: translateX(-50%);
+            padding: 4px; display: flex; gap: 3px;
+        }
+        #view-bar.hidden { display: none; }
+        .vb-btn {
+            padding: 4px 10px; border: 1px solid rgba(255,255,255,0.08); border-radius: 5px;
+            background: rgba(255,255,255,0.03); color: #999; font-size: 10px; cursor: pointer;
+        }
+        .vb-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+        /* Toast */
+        #toast {
+            position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%);
+            background: rgba(30,136,229,0.9); color: #fff; padding: 8px 18px;
+            border-radius: 8px; font-size: 12px; z-index: 30;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        #toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="toast"></div>
+
+    <div id="top-bar">
+        <span class="title">Anderson Stratos Pro — CNC Simulator</span>
+        <span class="subtitle" id="file-name">No file loaded</span>
+        <div class="spacer"></div>
+        <button class="top-btn" id="btn-load">Load G-Code</button>
+    </div>
+
+    <div id="drop-zone">
+        <h2>Load G-Code File</h2>
+        <p>Drag &amp; drop .txt / .nc file, or click below</p>
+        <button id="btn-browse">Browse Files</button>
+        <input type="file" id="file-input" accept=".txt,.nc,.gcode,.tap">
+    </div>
+
+    <!-- Left: Machine Control -->
+    <div id="machine-panel" class="panel hidden">
+        <div class="mc-section">
+            <h3>Component Placement</h3>
+            <div class="mc-row">
+                <button class="mc-btn active" id="btn-g57">G57 (Left)</button>
+                <button class="mc-btn" id="btn-g59">G59 (Right)</button>
+            </div>
+        </div>
+        <div class="mc-section">
+            <h3>Orientation</h3>
+            <div class="mc-row">
+                <button class="mc-btn" id="btn-rot90">Rotate 90°</button>
+                <button class="mc-btn" id="btn-flip">Flip Part</button>
+            </div>
+            <div class="mc-row" style="margin-top:2px">
+                <button class="mc-btn danger" id="btn-reset-orient">Reset</button>
+            </div>
+            <div class="mc-label" id="orient-label">0° · Face Up</div>
+        </div>
+        <div class="mc-section">
+            <h3>Toolpaths</h3>
+            <div id="toolpath-list"></div>
+            <div class="mc-row" style="margin-top:6px">
+                <button class="mc-btn run" id="btn-run-tp">Run Selected</button>
+                <button class="mc-btn run" id="btn-run-all">Run All</button>
+            </div>
+        </div>
+        <div class="mc-section">
+            <h3>View</h3>
+            <div class="mc-row">
+                <button class="mc-btn" id="btn-show-result">Show Final Part</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Info -->
+    <div id="info-panel" class="panel hidden">
+        <div class="info-section">
+            <h3>Tool Position</h3>
+            <div class="info-row"><span class="lbl">X</span><span class="val" id="pos-x">—</span></div>
+            <div class="info-row"><span class="lbl">Y</span><span class="val" id="pos-y">—</span></div>
+            <div class="info-row"><span class="lbl">Z</span><span class="val" id="pos-z">—</span></div>
+        </div>
+        <div class="info-section">
+            <h3>Machine State</h3>
+            <div class="info-row"><span class="lbl">Tool</span><span class="val" id="tool-num">—</span></div>
+            <div class="info-row"><span class="lbl">Spindle</span><span class="val" id="spindle-rpm">OFF</span></div>
+            <div class="info-row"><span class="lbl">Feed</span><span class="val" id="feed-rate">—</span></div>
+            <div class="info-row"><span class="lbl">WCS</span><span class="val" id="info-wcs">—</span></div>
+        </div>
+        <div class="info-section">
+            <h3>Workpiece</h3>
+            <div class="info-row"><span class="lbl">Size</span><span class="val" id="wp-size">—</span></div>
+            <div class="info-row"><span class="lbl">Line</span><span class="val" id="current-line">—</span></div>
+        </div>
+        <div id="comp-state">
+            <h3 style="margin-bottom:4px">Component State</h3>
+            <div class="cs-row"><span>Workstop</span><span class="cs-val" id="cs-wcs">G57</span></div>
+            <div class="cs-row"><span>Rotation</span><span class="cs-val" id="cs-rot">0°</span></div>
+            <div class="cs-row"><span>Side</span><span class="cs-val" id="cs-flip">Face Up</span></div>
+            <div class="cs-row"><span>Cuts Done</span><span class="cs-val" id="cs-cuts">0</span></div>
+        </div>
+    </div>
+
+    <!-- View bar -->
+    <div id="view-bar" class="panel hidden">
+        <button class="vb-btn" data-view="perspective">3D</button>
+        <button class="vb-btn" data-view="top">Top</button>
+        <button class="vb-btn" data-view="front">Front</button>
+        <button class="vb-btn" data-view="right">Side</button>
+    </div>
+
+    <!-- Bottom playback -->
+    <div id="playback" class="panel hidden">
+        <button class="pb-btn" id="btn-restart">⏮</button>
+        <button class="pb-btn" id="btn-play">▶</button>
+        <button class="pb-btn" id="btn-step">⏭</button>
+        <input type="range" id="progress-bar" min="0" max="100" value="0">
+        <span class="pb-label" id="progress-label">0 / 0</span>
+        <select id="speed-select">
+            <option value="0.5">0.5x</option>
+            <option value="1" selected>1x</option>
+            <option value="3">3x</option>
+            <option value="10">10x</option>
+            <option value="50">50x</option>
+        </select>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // ===== MACHINE DIMENSIONS (Anderson Stratos Pro Line Full) =====
+        // Approximate bed: 5' x 12' (60" x 144")
+        // G57 workstop on LEFT, G59 workstop on RIGHT
+        // Workstops are clamp fixtures that hold the workpiece
+        const BED_WIDTH = 148;    // X (inches) — full table width
+        const BED_DEPTH = 64;     // Y (inches) — full table depth
+        const BED_THICKNESS = 2;
+
+        // Workstop positions (center of workstop blocks)
+        // G57 is on the left side, G59 on the right
+        // The workstop origins are where the WCS 0,0 sits
+        // On Anderson: G57 origin is at left workstop, G59 origin is at right workstop
+        // Component sits between/under the stops, up against one corner
+        const G57_X = 10;         // G57 workstop X position from bed left edge
+        const G59_X = BED_WIDTH - 10; // G59 workstop X position from bed left edge
+        const WORKSTOP_Y = BED_DEPTH / 2; // Center of table in Y
+        const WORKSTOP_WIDTH = 4;
+        const WORKSTOP_HEIGHT = 4;
+        const WORKSTOP_DEPTH = 3;
+
+        // ===== SCENE SETUP =====
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+        scene.fog = new THREE.Fog(0x1a1a2e, 300, 600);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(80, 80, 120);
+        camera.lookAt(BED_WIDTH / 2, 0, BED_DEPTH / 2);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.target.set(BED_WIDTH / 2, 0, BED_DEPTH / 2);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.update();
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404060, 0.6);
+        scene.add(ambientLight);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        dirLight.position.set(100, 150, 80);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.set(2048, 2048);
+        dirLight.shadow.camera.left = -100;
+        dirLight.shadow.camera.right = 200;
+        dirLight.shadow.camera.top = 100;
+        dirLight.shadow.camera.bottom = -100;
+        scene.add(dirLight);
+        const fillLight = new THREE.DirectionalLight(0x8888ff, 0.3);
+        fillLight.position.set(-50, 60, -30);
+        scene.add(fillLight);
+
+        // ===== BUILD MACHINE BED =====
+        // Main bed (aluminum T-slot style)
+        const bedGeo = new THREE.BoxGeometry(BED_WIDTH, BED_THICKNESS, BED_DEPTH);
+        const bedMat = new THREE.MeshStandardMaterial({
+            color: 0x3a3a4a,
+            metalness: 0.7,
+            roughness: 0.4,
+        });
+        const bed = new THREE.Mesh(bedGeo, bedMat);
+        bed.position.set(BED_WIDTH / 2, -BED_THICKNESS / 2, BED_DEPTH / 2);
+        bed.receiveShadow = true;
+        scene.add(bed);
+
+        // Grid on bed surface
+        const gridHelper = new THREE.GridHelper(Math.max(BED_WIDTH, BED_DEPTH) * 1.2, 40, 0x444466, 0x2a2a3e);
+        gridHelper.position.set(BED_WIDTH / 2, 0.01, BED_DEPTH / 2);
+        scene.add(gridHelper);
+
+        // Bed border
+        const borderGeo = new THREE.EdgesGeometry(bedGeo);
+        const borderMat = new THREE.LineBasicMaterial({ color: 0x5a5a7a });
+        const border = new THREE.LineSegments(borderGeo, borderMat);
+        border.position.copy(bed.position);
+        scene.add(border);
+
+        // ===== WORKSTOPS =====
+        function createWorkstop(x, z, label, color) {
+            const group = new THREE.Group();
+
+            // Main block
+            const geo = new THREE.BoxGeometry(WORKSTOP_WIDTH, WORKSTOP_HEIGHT, WORKSTOP_DEPTH);
+            const mat = new THREE.MeshStandardMaterial({ color: color, metalness: 0.5, roughness: 0.3 });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(x, WORKSTOP_HEIGHT / 2, z);
+            mesh.castShadow = true;
+            group.add(mesh);
+
+            // Label
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, 128, 64);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 36px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(label, 64, 32);
+            const tex = new THREE.CanvasTexture(canvas);
+            const labelGeo = new THREE.PlaneGeometry(4, 2);
+            const labelMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true });
+            const labelMesh = new THREE.Mesh(labelGeo, labelMat);
+            labelMesh.position.set(x, WORKSTOP_HEIGHT + 1.5, z);
+            labelMesh.lookAt(x, WORKSTOP_HEIGHT + 1.5, z + 10);
+            group.add(labelMesh);
+
+            // Origin axes marker
+            const axLen = 6;
+            // X axis (red)
+            const xArrow = new THREE.ArrowHelper(
+                new THREE.Vector3(1, 0, 0), new THREE.Vector3(x, 0.1, z), axLen, 0xff4444, 1.5, 0.8);
+            group.add(xArrow);
+            // Y axis (green) — mapped to Z in 3D
+            const yArrow = new THREE.ArrowHelper(
+                new THREE.Vector3(0, 0, -1), new THREE.Vector3(x, 0.1, z), axLen, 0x44ff44, 1.5, 0.8);
+            group.add(yArrow);
+            // Z axis (blue) — mapped to Y in 3D
+            const zArrow = new THREE.ArrowHelper(
+                new THREE.Vector3(0, 1, 0), new THREE.Vector3(x, 0.1, z), axLen, 0x4444ff, 1.5, 0.8);
+            group.add(zArrow);
+
+            return group;
+        }
+
+        // G57 on left, G59 on right
+        // Workstops sit at the back edge of the table (CNC Y=0 line)
+        const g57Group = createWorkstop(G57_X, BED_DEPTH / 2, 'G57', 0x2196F3);
+        scene.add(g57Group);
+        const g59Group = createWorkstop(G59_X, BED_DEPTH / 2, 'G59', 0xFF9800);
+        scene.add(g59Group);
+
+        // Axis direction labels on the bed
+        function createTextSprite(text, position, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128; canvas.height = 48;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = color;
+            ctx.font = 'bold 28px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 64, 24);
+            const tex = new THREE.CanvasTexture(canvas);
+            const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.6 });
+            const sprite = new THREE.Sprite(mat);
+            sprite.position.copy(position);
+            sprite.scale.set(8, 3, 1);
+            return sprite;
+        }
+        scene.add(createTextSprite('+X →', new THREE.Vector3(BED_WIDTH + 6, 0.5, BED_DEPTH / 2), '#ff6666'));
+        scene.add(createTextSprite('+Y ↑', new THREE.Vector3(BED_WIDTH / 2, 0.5, -6), '#66ff66'));
+        scene.add(createTextSprite('← −X', new THREE.Vector3(-8, 0.5, BED_DEPTH / 2), '#ff6666'));
+
+        // ===== TOOL / SPINDLE VISUALIZATION =====
+        const toolGroup = new THREE.Group();
+        toolGroup.visible = false;
+
+        // Spindle body
+        const spindleGeo = new THREE.CylinderGeometry(1.5, 1.5, 8, 16);
+        const spindleMat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.2 });
+        const spindleMesh = new THREE.Mesh(spindleGeo, spindleMat);
+        spindleMesh.position.y = 6;
+        toolGroup.add(spindleMesh);
+
+        // Tool bit
+        const bitGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 8);
+        const bitMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.9, roughness: 0.1 });
+        const bitMesh = new THREE.Mesh(bitGeo, bitMat);
+        bitMesh.position.y = 1.5;
+        toolGroup.add(bitMesh);
+
+        // Tool tip glow
+        const glowGeo = new THREE.SphereGeometry(0.4, 8, 8);
+        const glowMat = new THREE.MeshBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.7 });
+        const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+        glowMesh.position.y = 0;
+        toolGroup.add(glowMesh);
+
+        scene.add(toolGroup);
+
+        // ===== WORKPIECE VISUALIZATION =====
+        let workpieceMeshes = [];
+        function clearWorkpieces() {
+            for (const m of workpieceMeshes) scene.remove(m);
+            workpieceMeshes = [];
+        }
+        function createWorkpiece(xSize, ySize, wcs, wcsOriginX, wcsOriginZ) {
+            const thickness = 1.5;
+            const geo = new THREE.BoxGeometry(xSize, thickness, ySize);
+            const mat = new THREE.MeshStandardMaterial({
+                color: 0xd4a574,
+                roughness: 0.8,
+                metalness: 0.05,
+                transparent: true,
+                opacity: 0.55,
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            // G57: part extends in +X from origin; G59: part extends in -X from origin
+            // CNC Y=0 is at the workstop face, part extends in -Y (scene +Z)
+            if (wcs === 'G59') {
+                mesh.position.set(
+                    wcsOriginX - xSize / 2,
+                    -thickness / 2 + 0.01,
+                    wcsOriginZ + ySize / 2
+                );
+            } else {
+                mesh.position.set(
+                    wcsOriginX + xSize / 2,
+                    -thickness / 2 + 0.01,
+                    wcsOriginZ + ySize / 2
+                );
+            }
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            scene.add(mesh);
+            workpieceMeshes.push(mesh);
+            return mesh;
+        }
+
+        // ===== G-CODE PARSER =====
+        // CNC coordinate mapping to 3D scene:
+        // CNC X → scene X (positive = right)
+        // CNC Y → scene -Z (positive Y = "up" on table = towards front / -Z in 3D)
+        // CNC Z → scene Y (positive Z = up from table surface)
+        // WCS offsets: G57 origin at (G57_X, BED_DEPTH/2), G59 origin at (G59_X, BED_DEPTH/2)
+
+        class GCodeParser {
+            constructor(raw) {
+                this.raw = raw;
+                this.lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                this.moves = [];
+                this.setups = [];
+                this.parse();
+            }
+
+            parse() {
+                let x = 0, y = 0, z = 0;
+                let feedRate = 0;
+                let motionMode = 0; // 0=rapid, 1=linear, 2=CW arc, 3=CCW arc
+                let absolute = true; // G90
+                let wcs = 'G57'; // current work coordinate system
+                let wcsOffsetX = G57_X;
+                let wcsOffsetZ = BED_DEPTH / 2;
+                let tool = 0;
+                let spindleOn = false;
+                let spindleRPM = 0;
+                let sheetX = 0, sheetY = 0;
+                let currentSetup = 'Setup 1';
+                let setupIndex = 0;
+
+                this.setups.push({ name: currentSetup, wcs: wcs, startIndex: 0 });
+
+                for (let lineIdx = 0; lineIdx < this.lines.length; lineIdx++) {
+                    const line = this.lines[lineIdx];
+
+                    // Skip comments-only lines and % delimiters
+                    if (line.startsWith('%') || line.startsWith('(') && !line.includes('N')) {
+                        // Check for setup name in comments
+                        const commentMatch = line.match(/^\((.+)\)$/);
+                        if (commentMatch) {
+                            const ctext = commentMatch[1].trim();
+                            if (ctext === 'NEW SETUP, FLIP PART') {
+                                setupIndex++;
+                                currentSetup = `Setup ${setupIndex + 1} (FLIP)`;
+                                this.setups.push({ name: currentSetup, wcs: wcs, startIndex: this.moves.length });
+                            } else if (ctext.includes('RABBET') || ctext.includes('PROFILE') || ctext.includes('POCKET') || ctext.includes('DRILL') || ctext.includes('CONTOUR')) {
+                                currentSetup = ctext;
+                                if (this.setups.length > 0 && this.setups[this.setups.length - 1].startIndex === this.moves.length) {
+                                    this.setups[this.setups.length - 1].name = currentSetup;
+                                } else {
+                                    this.setups.push({ name: currentSetup, wcs: wcs, startIndex: this.moves.length });
+                                }
+                            }
+                        }
+                        continue;
+                    }
+
+                    // Strip inline comments
+                    const codePart = line.replace(/\(.*?\)/g, '').trim();
+                    if (!codePart) continue;
+
+                    // Parse all G/M/T/X/Y/Z/I/J/F/S/H tokens
+                    const tokens = {};
+                    const regex = /([A-Z#])([+-]?\d*\.?\d+)/g;
+                    let m;
+                    while ((m = regex.exec(codePart)) !== null) {
+                        const letter = m[1];
+                        const value = parseFloat(m[2]);
+                        if (letter === '#') {
+                            // Variable assignment: #527=88.625 etc.
+                            const varMatch = codePart.match(/#(\d+)\s*=\s*([+-]?\d*\.?\d+)/);
+                            if (varMatch) {
+                                const varNum = parseInt(varMatch[1]);
+                                const varVal = parseFloat(varMatch[2]);
+                                if (varNum === 527) sheetX = varVal;
+                                if (varNum === 528) sheetY = varVal;
+                            }
+                            continue;
+                        }
+                        tokens[letter] = value;
+                    }
+
+                    // Also check for multi-G codes on same line (e.g. G28 G91 Z0.)
+                    const gCodes = [];
+                    const gRegex = /G(\d+)/g;
+                    while ((m = gRegex.exec(codePart)) !== null) {
+                        gCodes.push(parseInt(m[1]));
+                    }
+
+                    // Process G codes
+                    for (const gc of gCodes) {
+                        if (gc === 0) motionMode = 0;
+                        else if (gc === 1) motionMode = 1;
+                        else if (gc === 2) motionMode = 2;
+                        else if (gc === 3) motionMode = 3;
+                        else if (gc === 90) absolute = true;
+                        else if (gc === 91) absolute = false;
+                        else if (gc === 57) {
+                            wcs = 'G57';
+                            wcsOffsetX = G57_X;
+                            wcsOffsetZ = BED_DEPTH / 2;
+                            if (this.setups.length > 0) {
+                                this.setups[this.setups.length - 1].wcs = wcs;
+                            }
+                        }
+                        else if (gc === 59) {
+                            wcs = 'G59';
+                            wcsOffsetX = G59_X;
+                            wcsOffsetZ = BED_DEPTH / 2;
+                            if (this.setups.length > 0) {
+                                this.setups[this.setups.length - 1].wcs = wcs;
+                            }
+                        }
+                        else if (gc === 28) {
+                            // G28 — return to machine home, skip these moves
+                            continue;
+                        }
+                    }
+
+                    // Process M codes
+                    const mRegex = /M(\d+)/g;
+                    while ((m = mRegex.exec(codePart)) !== null) {
+                        const mc = parseInt(m[1]);
+                        if (mc === 13 || mc === 3) spindleOn = true;
+                        else if (mc === 5 || mc === 95) spindleOn = false;
+                        else if (mc === 30 || mc === 0) { /* program end / stop */ }
+                    }
+
+                    // Tool change
+                    if ('T' in tokens) tool = tokens['T'];
+                    // Spindle speed
+                    if ('S' in tokens) spindleRPM = tokens['S'];
+                    // Feed rate
+                    if ('F' in tokens) feedRate = tokens['F'];
+
+                    // Skip G28 lines (home position moves)
+                    if (gCodes.includes(28)) continue;
+
+                    // Movement
+                    const hasMove = ('X' in tokens) || ('Y' in tokens) || ('Z' in tokens);
+                    if (!hasMove) continue;
+
+                    const prevX = x, prevY = y, prevZ = z;
+
+                    if (absolute) {
+                        if ('X' in tokens) x = tokens['X'];
+                        if ('Y' in tokens) y = tokens['Y'];
+                        if ('Z' in tokens) z = tokens['Z'];
+                    } else {
+                        if ('X' in tokens) x += tokens['X'];
+                        if ('Y' in tokens) y += tokens['Y'];
+                        if ('Z' in tokens) z += tokens['Z'];
+                    }
+
+                    const move = {
+                        type: motionMode,
+                        from: { x: prevX, y: prevY, z: prevZ },
+                        to: { x, y, z },
+                        feed: feedRate,
+                        tool,
+                        spindleOn,
+                        spindleRPM,
+                        wcs,
+                        wcsOffsetX,
+                        wcsOffsetZ,
+                        lineIndex: lineIdx,
+                        lineText: line,
+                        setup: currentSetup,
+                        sheetX,
+                        sheetY,
+                    };
+
+                    // Arc parameters
+                    if (motionMode === 2 || motionMode === 3) {
+                        move.i = tokens['I'] || 0;
+                        move.j = tokens['J'] || 0;
+                    }
+
+                    this.moves.push(move);
+                }
+            }
+        }
+
+        // ===== Convert CNC coords to scene coords =====
+        function cncToScene(cncX, cncY, cncZ, wcsOffsetX, wcsOffsetZ) {
+            return new THREE.Vector3(
+                wcsOffsetX + cncX,
+                cncZ,
+                wcsOffsetZ - cncY
+            );
+        }
+
+        // ===== TOOLPATH LINE RENDERER =====
+        let toolpathLines = [];
+        let trailLineGroup = new THREE.Group();
+        scene.add(trailLineGroup);
+
+        function buildToolpathGeometry(moves) {
+            // Clear old
+            while (trailLineGroup.children.length) {
+                trailLineGroup.remove(trailLineGroup.children[0]);
+            }
+            toolpathLines = [];
+
+            for (let i = 0; i < moves.length; i++) {
+                const mv = moves[i];
+                const points = [];
+
+                if (mv.type === 0 || mv.type === 1) {
+                    // Straight line
+                    points.push(cncToScene(mv.from.x, mv.from.y, mv.from.z, mv.wcsOffsetX, mv.wcsOffsetZ));
+                    points.push(cncToScene(mv.to.x, mv.to.y, mv.to.z, mv.wcsOffsetX, mv.wcsOffsetZ));
+                } else if (mv.type === 2 || mv.type === 3) {
+                    // Arc
+                    const arcPts = computeArcPoints(mv);
+                    for (const p of arcPts) {
+                        points.push(cncToScene(p.x, p.y, p.z, mv.wcsOffsetX, mv.wcsOffsetZ));
+                    }
+                }
+
+                const isRapid = mv.type === 0;
+                const isCutting = mv.to.z < 0.5 && !isRapid;
+                const color = isRapid ? 0x44ff44 : (isCutting ? 0xff4444 : 0xffaa00);
+                const lineWidth = isRapid ? 1 : 2;
+
+                const geo = new THREE.BufferGeometry().setFromPoints(points);
+                const mat = new THREE.LineBasicMaterial({
+                    color,
+                    transparent: true,
+                    opacity: 0,
+                    linewidth: lineWidth,
+                });
+                const line = new THREE.Line(geo, mat);
+                trailLineGroup.add(line);
+                toolpathLines.push({ line, points, move: mv });
+            }
+        }
+
+        function computeArcPoints(mv) {
+            const cx = mv.from.x + mv.i;
+            const cy = mv.from.y + mv.j;
+            const r = Math.sqrt(mv.i * mv.i + mv.j * mv.j);
+
+            let startAngle = Math.atan2(mv.from.y - cy, mv.from.x - cx);
+            let endAngle = Math.atan2(mv.to.y - cy, mv.to.x - cx);
+
+            if (mv.type === 3) { // CCW
+                if (endAngle <= startAngle) endAngle += 2 * Math.PI;
+            } else { // CW
+                if (endAngle >= startAngle) endAngle -= 2 * Math.PI;
+            }
+
+            const segments = Math.max(16, Math.abs(endAngle - startAngle) / (Math.PI / 32) | 0);
+            const points = [];
+            for (let s = 0; s <= segments; s++) {
+                const t = s / segments;
+                const angle = startAngle + (endAngle - startAngle) * t;
+                const px = cx + r * Math.cos(angle);
+                const py = cy + r * Math.sin(angle);
+                const pz = mv.from.z + (mv.to.z - mv.from.z) * t;
+                points.push({ x: px, y: py, z: pz });
+            }
+            return points;
+        }
+
+        // ===== ANIMATION STATE =====
+        let gcodeData = null;
+        let isPlaying = false;
+        let currentMoveIndex = 0;
+        let moveProgress = 0; // 0-1 within current move
+        let speedMultiplier = 1;
+        let animTime = 0;
+
+        const BASE_SPEED = 40; // inches per second at 1x speed for cutting moves
+        const RAPID_SPEED = 200; // inches per second for rapids
+
+        function getTotalMoves() {
+            return gcodeData ? gcodeData.moves.length : 0;
+        }
+
+        function updateToolPosition(moveIdx, progress) {
+            if (!gcodeData || moveIdx >= gcodeData.moves.length) return;
+
+            const mv = gcodeData.moves[moveIdx];
+            let pos;
+
+            if (mv.type === 0 || mv.type === 1) {
+                const from = cncToScene(mv.from.x, mv.from.y, mv.from.z, mv.wcsOffsetX, mv.wcsOffsetZ);
+                const to = cncToScene(mv.to.x, mv.to.y, mv.to.z, mv.wcsOffsetX, mv.wcsOffsetZ);
+                pos = new THREE.Vector3().lerpVectors(from, to, progress);
+            } else {
+                const arcPts = computeArcPoints(mv);
+                const idx = Math.min(Math.floor(progress * (arcPts.length - 1)), arcPts.length - 2);
+                const localT = (progress * (arcPts.length - 1)) - idx;
+                const p1 = arcPts[idx];
+                const p2 = arcPts[Math.min(idx + 1, arcPts.length - 1)];
+                const cx = p1.x + (p2.x - p1.x) * localT;
+                const cy = p1.y + (p2.y - p1.y) * localT;
+                const cz = p1.z + (p2.z - p1.z) * localT;
+                pos = cncToScene(cx, cy, cz, mv.wcsOffsetX, mv.wcsOffsetZ);
+            }
+
+            toolGroup.position.copy(pos);
+            toolGroup.visible = true;
+
+            // Update glow color
+            const isCutting = mv.to.z < 0.5 && mv.type !== 0;
+            glowMat.color.setHex(isCutting ? 0xff4444 : 0x44ff44);
+            glowMat.opacity = mv.spindleOn ? 0.8 : 0.3;
+
+            // Update trail visibility
+            for (let i = 0; i < toolpathLines.length; i++) {
+                const tl = toolpathLines[i];
+                if (i < moveIdx) {
+                    tl.line.material.opacity = 0.6;
+                } else if (i === moveIdx) {
+                    tl.line.material.opacity = 0.9;
+                } else {
+                    tl.line.material.opacity = 0.08;
+                }
+            }
+
+            // Update info panel
+            const cncPos = {
+                x: mv.from.x + (mv.to.x - mv.from.x) * progress,
+                y: mv.from.y + (mv.to.y - mv.from.y) * progress,
+                z: mv.from.z + (mv.to.z - mv.from.z) * progress,
+            };
+            document.getElementById('pos-x').textContent = cncPos.x.toFixed(3);
+            document.getElementById('pos-y').textContent = cncPos.y.toFixed(3);
+            document.getElementById('pos-z').textContent = cncPos.z.toFixed(3);
+            document.getElementById('tool-num').textContent = `T${mv.tool}`;
+            document.getElementById('spindle-rpm').textContent = mv.spindleOn ? `${mv.spindleRPM} RPM` : 'OFF';
+            document.getElementById('feed-rate').textContent = mv.feed > 0 ? `${mv.feed} IPM` : '—';
+            document.getElementById('setup-name').textContent = mv.setup;
+            document.getElementById('wcs-name').textContent = mv.wcs;
+            document.getElementById('current-line').textContent = `Line ${mv.lineIndex + 1}`;
+            document.getElementById('wp-x').textContent = mv.sheetX > 0 ? `${mv.sheetX}"` : '—';
+            document.getElementById('wp-y').textContent = mv.sheetY > 0 ? `${mv.sheetY}"` : '—';
+
+            // Progress bar
+            document.getElementById('progress-bar').value = moveIdx;
+            document.getElementById('progress-label').textContent = `${moveIdx + 1} / ${getTotalMoves()}`;
+        }
+
+        function getMoveLength(mv) {
+            if (mv.type === 0 || mv.type === 1) {
+                const dx = mv.to.x - mv.from.x;
+                const dy = mv.to.y - mv.from.y;
+                const dz = mv.to.z - mv.from.z;
+                return Math.sqrt(dx * dx + dy * dy + dz * dz);
+            } else {
+                const pts = computeArcPoints(mv);
+                let len = 0;
+                for (let i = 1; i < pts.length; i++) {
+                    const dx = pts[i].x - pts[i - 1].x;
+                    const dy = pts[i].y - pts[i - 1].y;
+                    const dz = pts[i].z - pts[i - 1].z;
+                    len += Math.sqrt(dx * dx + dy * dy + dz * dz);
+                }
+                return len;
+            }
+        }
+
+        // ===== ANIMATION LOOP =====
+        let lastTime = performance.now();
+
+        function animate(now) {
+            requestAnimationFrame(animate);
+
+            const dt = (now - lastTime) / 1000;
+            lastTime = now;
+
+            controls.update();
+
+            if (isPlaying && gcodeData && currentMoveIndex < gcodeData.moves.length) {
+                const mv = gcodeData.moves[currentMoveIndex];
+                const moveLen = Math.max(getMoveLength(mv), 0.01);
+                const speed = (mv.type === 0 ? RAPID_SPEED : BASE_SPEED) * speedMultiplier;
+                const moveDuration = moveLen / speed;
+
+                moveProgress += dt / moveDuration;
+
+                if (moveProgress >= 1) {
+                    moveProgress = 0;
+                    currentMoveIndex++;
+                    if (currentMoveIndex >= gcodeData.moves.length) {
+                        isPlaying = false;
+                        document.getElementById('btn-play').textContent = '▶';
+                        currentMoveIndex = gcodeData.moves.length - 1;
+                        moveProgress = 1;
+                    }
+                }
+
+                updateToolPosition(currentMoveIndex, Math.min(moveProgress, 1));
+            }
+
+            // Spindle glow pulse
+            if (toolGroup.visible) {
+                glowMesh.scale.setScalar(1 + 0.15 * Math.sin(now * 0.008));
+            }
+
+            renderer.render(scene, camera);
+        }
+        requestAnimationFrame(animate);
+
+        // ===== FILE LOADING =====
+        function loadGCode(text, filename) {
+            gcodeData = new GCodeParser(text);
+            console.log(`Parsed ${gcodeData.moves.length} moves, ${gcodeData.setups.length} setups`);
+
+            // Build toolpath geometry
+            buildToolpathGeometry(gcodeData.moves);
+
+            // Create workpiece for each WCS that has sheet sizes
+            clearWorkpieces();
+            const seenWCS = new Set();
+            for (const mv of gcodeData.moves) {
+                if (mv.sheetX > 0 && mv.sheetY > 0 && !seenWCS.has(mv.wcs)) {
+                    seenWCS.add(mv.wcs);
+                    createWorkpiece(mv.sheetX, mv.sheetY, mv.wcs, mv.wcsOffsetX, mv.wcsOffsetZ);
+                }
+            }
+
+            // Reset animation
+            currentMoveIndex = 0;
+            moveProgress = 0;
+            isPlaying = false;
+
+            // Update UI
+            document.getElementById('drop-zone').classList.add('hidden');
+            document.getElementById('controls').classList.remove('hidden');
+            document.getElementById('info-panel').classList.remove('hidden');
+            document.getElementById('setup-indicator').classList.remove('hidden');
+            document.getElementById('view-buttons').classList.remove('hidden');
+            document.getElementById('legend').classList.remove('hidden');
+            document.getElementById('file-name').textContent = filename;
+            document.getElementById('progress-bar').max = gcodeData.moves.length - 1;
+            document.getElementById('btn-play').textContent = '▶';
+
+            updateToolPosition(0, 0);
+
+            // Fit camera to all toolpath points in scene coords
+            const sceneBounds = computeSceneBounds(gcodeData.moves);
+            const sceneCenter = new THREE.Vector3(
+                (sceneBounds.min.x + sceneBounds.max.x) / 2,
+                (sceneBounds.min.y + sceneBounds.max.y) / 2,
+                (sceneBounds.min.z + sceneBounds.max.z) / 2,
+            );
+            const span = Math.max(
+                sceneBounds.max.x - sceneBounds.min.x,
+                sceneBounds.max.z - sceneBounds.min.z,
+                40
+            );
+            controls.target.copy(sceneCenter);
+            camera.position.set(sceneCenter.x, span * 0.6, sceneCenter.z + span * 0.8);
+            controls.update();
+        }
+
+        function computeSceneBounds(moves) {
+            const min = new THREE.Vector3(Infinity, Infinity, Infinity);
+            const max = new THREE.Vector3(-Infinity, -Infinity, -Infinity);
+            for (const mv of moves) {
+                for (const p of [mv.from, mv.to]) {
+                    const sp = cncToScene(p.x, p.y, p.z, mv.wcsOffsetX, mv.wcsOffsetZ);
+                    min.min(sp);
+                    max.max(sp);
+                }
+            }
+            return { min, max };
+        }
+
+        // ===== EVENT HANDLERS =====
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file) readFile(file);
+        });
+
+        document.getElementById('btn-browse').addEventListener('click', () => fileInput.click());
+        document.getElementById('btn-load').addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', e => {
+            if (e.target.files[0]) readFile(e.target.files[0]);
+        });
+
+        function readFile(file) {
+            const reader = new FileReader();
+            reader.onload = e => loadGCode(e.target.result, file.name);
+            reader.readAsText(file);
+        }
+
+        // Playback controls
+        document.getElementById('btn-play').addEventListener('click', () => {
+            if (!gcodeData) return;
+            isPlaying = !isPlaying;
+            document.getElementById('btn-play').textContent = isPlaying ? '⏸' : '▶';
+            if (isPlaying && currentMoveIndex >= gcodeData.moves.length - 1) {
+                currentMoveIndex = 0;
+                moveProgress = 0;
+            }
+        });
+
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            if (!gcodeData) return;
+            currentMoveIndex = 0;
+            moveProgress = 0;
+            isPlaying = false;
+            document.getElementById('btn-play').textContent = '▶';
+            updateToolPosition(0, 0);
+        });
+
+        document.getElementById('btn-step').addEventListener('click', () => {
+            if (!gcodeData) return;
+            isPlaying = false;
+            document.getElementById('btn-play').textContent = '▶';
+            if (currentMoveIndex < gcodeData.moves.length - 1) {
+                currentMoveIndex++;
+                moveProgress = 0;
+                updateToolPosition(currentMoveIndex, 0);
+            }
+        });
+
+        document.getElementById('progress-bar').addEventListener('input', e => {
+            if (!gcodeData) return;
+            currentMoveIndex = parseInt(e.target.value);
+            moveProgress = 0;
+            updateToolPosition(currentMoveIndex, 0);
+        });
+
+        document.getElementById('speed-select').addEventListener('change', e => {
+            speedMultiplier = parseFloat(e.target.value);
+        });
+
+        // Show all toolpath at once
+        document.getElementById('btn-show-all').addEventListener('click', () => {
+            if (!gcodeData) return;
+            for (let i = 0; i < toolpathLines.length; i++) {
+                toolpathLines[i].line.material.opacity = 0.7;
+            }
+            currentMoveIndex = gcodeData.moves.length - 1;
+            moveProgress = 1;
+            isPlaying = false;
+            document.getElementById('btn-play').textContent = '▶';
+            updateToolPosition(currentMoveIndex, 1);
+            // Override opacity to show all
+            for (let i = 0; i < toolpathLines.length; i++) {
+                toolpathLines[i].line.material.opacity = 0.7;
+            }
+        });
+
+        // View buttons
+        document.querySelectorAll('.view-btn[data-view]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const view = btn.dataset.view;
+                const target = controls.target.clone();
+                const dist = 120;
+                switch (view) {
+                    case 'perspective':
+                        camera.position.set(target.x + 40, 50, target.z + 60);
+                        break;
+                    case 'top':
+                        camera.position.set(target.x, dist, target.z);
+                        break;
+                    case 'front':
+                        camera.position.set(target.x, target.y + 10, target.z + dist);
+                        break;
+                    case 'right':
+                        camera.position.set(target.x + dist, target.y + 10, target.z);
+                        break;
+                }
+                controls.update();
+            });
+        });
+
+        // Keyboard shortcuts
+        window.addEventListener('keydown', e => {
+            if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    document.getElementById('btn-play').click();
+                    break;
+                case 'KeyR':
+                    document.getElementById('btn-restart').click();
+                    break;
+                case 'ArrowRight':
+                    document.getElementById('btn-step').click();
+                    break;
+                case 'KeyA':
+                    document.getElementById('btn-show-all').click();
+                    break;
+            }
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ===== AUTO-LOAD SAMPLE IF IN URL =====
+        const sampleGCode = `%
+O1013
+(MACHINE)
+(  VENDOR ANDERSON)
+(  MODEL STRATOS)
+(  DESCRIPTION BLA CNC ROUTER)
+(T001 D=0.5 CR=0. - ZMIN=0.25 - FLAT END MILL)
+N10 #527= 88.625   (X SHEET SIZE)
+N15 #528= 7.   (Y SHEET SIZE)
+N20 G90 G94 G17 G49
+N25 G20
+N30 M12
+N35 G28 G91 Z0.
+N40 G90
+N45 M95 (ALL SPINDLES OFF)
+N50 M92 (ALL SPINDLES UP)
+(LEFT RABBET OUT)
+N60 T101
+N65 M11
+N70 M13 S8000
+N75 G17 G90 G94
+N80 G57
+N85 G0 X-4.0613 Y0.4643
+N90 G43 Z1.35 H11
+N95 G0 Z0.95
+N100 G1 Z0.7894 F13.3
+N105 Z0.25
+N110 X-3.6265 Y0.2174 F200.
+N115 G3 X-2.6142 Y-0.05 I1.0123 J1.7826
+N120 G1 X83.5626
+N125 G3 X84.575 Y0.2174 J2.05
+N130 G1 X85.0101 Y0.4643
+N135 G0 Z1.35
+N140 M92
+N145 M95
+N150 G28 G91 Z0.
+N155 G90
+N160 G49
+N165 G8 P0
+N170 G28 G91 X0. Y0.
+N175 G90
+N180 M30
+M0
+
+(******************)
+(NEW SETUP, FLIP PART)
+(******************)
+
+N185 #527= 88.625   (X SHEET SIZE)
+N190 #528= 7.   (Y SHEET SIZE)
+N195 G90 G94 G17 G49
+N200 G20
+N205 M12
+N210 G28 G91 Z0.
+N215 G90
+N220 M95 (ALL SPINDLES OFF)
+N225 M92 (ALL SPINDLES UP)
+N230 G8 P1
+
+(RIGHT RABBET OUT)
+N235 T101
+N240 M11
+N245 M13 S8000
+N250 G17 G90 G94
+N255 G59
+N260 G0 X-94.1864 Y0.4643
+N265 G43 Z1.35 H11
+N270 G0 Z0.95
+N275 G1 Z0.7894 F13.3
+N280 Z0.25
+N285 X-93.7514 Y0.2174 F200.
+N290 X-93.7513
+N295 G3 X-92.7394 Y-0.05 I1.0123 J1.7825
+N300 G1 X-6.3123
+N305 G3 X-5.3 Y0.2174 J2.05
+N310 G1 X-4.8652 Y0.4643
+N315 G0 Z1.35
+N320 M92
+N325 M95
+N330 G28 G91 Z0.
+N335 G90
+N340 G49
+N345 G8 P0
+N350 G28 G91 X0. Y0.
+N355 G90
+N360 M30
+M30
+%`;
+
+        // Auto-load the sample
+        loadGCode(sampleGCode, '1-S7-IBUS789123.txt (sample)');
+    </script>
+</body>
+</html>

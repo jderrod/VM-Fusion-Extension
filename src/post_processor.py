@@ -7,6 +7,7 @@ import adsk.core
 import adsk.fusion
 import adsk.cam
 import os
+import re
 from typing import List, Tuple, Optional
 from pathlib import Path
 
@@ -105,133 +106,274 @@ class PostProcessor:
             import time
             return int(time.time() % 10000) + 1000
     
-    def post_process_setup(self, cam: adsk.cam.CAM, setup: adsk.cam.Setup, program_number: int, component_id: str, order_id: str) -> Tuple[bool, str, Optional[str]]:
+    def post_process_all_setups(self, cam: adsk.cam.CAM, setups: List[adsk.cam.Setup], component_id: str, order_id: str,
+                                  setup_sequence: Optional[List[str]] = None) -> Tuple[bool, str, List[Tuple[str, bool, str, Optional[str]]]]:
         """
-        Post process a single setup to generate G-code.
+        Post process setups individually and stitch them into a single .txt file.
+        
+        Each setup is posted separately via cam.postProcess(), then the individual
+        .nc files are stitched together with M00 stops and "FLIP PART" comments
+        between sections.  N-codes are renumbered continuously across the combined
+        output so the machine sees one unbroken sequence (N10, N15, N20, ...).
         
         Args:
             cam: CAM object
-            setup: Setup to post process
-            program_number: Program number for the file (e.g., 1001)
+            setups: List of setups available in the model
             component_id: Component ID (e.g., D1, P1)
             order_id: Order ID (e.g., IBUS366574)
+            setup_sequence: Optional ordered list of setup names to post, allowing
+                            repeats.  e.g. ["G57 Left", "G59 Right", "G59 Right"]
+                            will post G59 Right twice with an M00 flip between.
+                            If None, posts each setup with toolpaths once in model order.
             
         Returns:
-            Tuple of (success: bool, message: str, output_file_path: str or None)
+            Tuple of (overall_success, message, results list)
         """
         try:
-            setup_name = setup.name
+            cam_obj = adsk.cam.CAM.cast(cam)
+            if not cam_obj:
+                return False, 'Could not access CAM data', [('Setups', False, 'No CAM data', None)]
             
-            # Check if setup has any valid toolpaths
-            has_toolpaths = False
-            for operation in setup.allOperations:
-                if operation.hasToolpath and not operation.isSuppressed:
-                    has_toolpaths = True
-                    break
+            # Build a lookup of setup objects by name
+            setup_map = {s.name: s for s in setups}
             
-            if not has_toolpaths:
-                return False, f"Setup '{setup_name}' has no valid toolpaths to post", None
+            # Determine which setups have valid (unsuppressed) toolpaths
+            setups_with_toolpaths = set()
+            for setup in setups:
+                for operation in setup.allOperations:
+                    if operation.hasToolpath and not operation.isSuppressed:
+                        setups_with_toolpaths.add(setup.name)
+                        break
             
-            # Build output filename: 1-component_id-order_id.nc (e.g., 1-D1-IBUS366574.nc)
-            # Note: If component has multiple setups, they will overwrite each other
-            output_filename = f"1-{component_id}-{order_id}.nc"
-            output_path = self.output_dir / output_filename
+            # Build the posting sequence
+            if setup_sequence:
+                # Use the caller-provided sequence (may contain repeats)
+                sequence = [name for name in setup_sequence if name in setups_with_toolpaths]
+            else:
+                # Default: post each setup with toolpaths once, in model order
+                sequence = [s.name for s in setups if s.name in setups_with_toolpaths]
+            
+            if not sequence:
+                return False, 'No setups have valid toolpaths to post', [('Setups', False, 'No valid toolpaths', None)]
+            
+            self.logger.info(f'Setup posting sequence: {sequence}')
             
             # Get post processor path
             if self.post_processor_path and os.path.exists(self.post_processor_path):
-                # Use custom Anderson Stratos post processor
                 post_config = self.post_processor_path
-                self.logger.info(f'{setup_name}: Using custom post processor: Anderson Stratos 2.cps')
+                self.logger.info(f'Using custom post processor: Anderson Stratos 2.cps')
             else:
-                # Fallback to generic richauto if custom not available
-                post_config = cam.genericPostFolder + '/richauto.cps'
-                self.logger.warning(f'{setup_name}: Custom post not found, using richauto.cps')
+                post_config = cam_obj.genericPostFolder + '/richauto.cps'
+                self.logger.warning(f'Custom post not found, using richauto.cps')
             
-            # Check if post processor exists
             if not os.path.exists(post_config):
-                return False, f"Post processor not found: {post_config}", None
+                return False, f'Post processor not found: {post_config}', [('Setups', False, 'Post processor not found', None)]
             
-            # Create post input
-            post_input = adsk.cam.PostProcessInput.create(
-                str(program_number),  # Program name/number
-                post_config,           # Post processor path
-                str(self.output_dir),  # Output folder
-                adsk.cam.PostOutputUnitOptions.DocumentUnitsOutput  # Use document units
-            )
-            
-            # Configure post input
-            post_input.isOpenInEditor = False  # Don't open in editor
-            
-            # Post process the setup
-            cam.postProcess(setup, post_input)
-            
-            # Fusion creates the file as: program_number.nc (e.g., 1093.nc)
-            # We need to rename it to: program_number-component_id-order_id.nc
-            fusion_output_path = self.output_dir / f"{program_number}.nc"
-            
-            # Verify file was created by Fusion
-            if fusion_output_path.exists():
-                # Rename to our desired format
-                fusion_output_path.rename(output_path)
+            # ── Phase 1: Post-process each entry in the sequence individually ──
+            temp_files = []  # list of (setup_name, Path) for each posted file
+            for idx, setup_name in enumerate(sequence):
+                setup_obj = setup_map.get(setup_name)
+                if not setup_obj:
+                    self.logger.warning(f'Setup "{setup_name}" not found in model, skipping')
+                    continue
                 
-                if output_path.exists():
-                    file_size = output_path.stat().st_size
-                    return True, f"Generated {output_filename} ({file_size} bytes)", str(output_path)
+                # Each individual post gets a unique program number so filenames don't collide
+                prog_num = self.get_next_program_number()
+                
+                post_input = adsk.cam.PostProcessInput.create(
+                    str(prog_num),
+                    post_config,
+                    str(self.output_dir),
+                    adsk.cam.PostOutputUnitOptions.DocumentUnitsOutput
+                )
+                post_input.isOpenInEditor = False
+                
+                self.logger.info(f'Posting setup "{setup_name}" (sequence {idx+1}/{len(sequence)}) as {prog_num}.nc')
+                cam_obj.postProcess(setup_obj, post_input)
+                
+                fusion_file = self.output_dir / f'{prog_num}.nc'
+                if fusion_file.exists():
+                    temp_files.append((setup_name, fusion_file))
+                    self.logger.info(f'  -> {fusion_file.name} ({fusion_file.stat().st_size} bytes)')
                 else:
-                    return False, f"Failed to rename {fusion_output_path.name} to {output_filename}", None
+                    self.logger.warning(f'  -> Expected {fusion_file.name} but file not found')
+            
+            if not temp_files:
+                return False, 'No setup files were generated', [('Setups', False, 'No output files', None)]
+            
+            # Ensure G57 sections ALWAYS precede G59 sections in the combined file.
+            # This applies whether or not a setup_sequence was provided.
+            if setup_sequence:
+                # Caller's order is intentional (e.g. stile flip sequences with
+                # repeated setups). Use a STABLE sort keyed ONLY on G57-vs-G59 so
+                # the relative order within each G-code group is preserved, while
+                # still guaranteeing G57 comes before G59 when both are present.
+                temp_files.sort(key=lambda x: 1 if 'G59' in x[0] else 0)
             else:
-                return False, f"Post process completed but file not found: {program_number}.nc", None
+                # Default ordering: G57 before G59, then alphabetical by name.
+                temp_files.sort(key=lambda x: ('G59' in x[0], x[0]))
+            
+            # ── Phase 2: Stitch individual files into one combined file ──
+            combined_lines = self._stitch_setup_files(temp_files)
+            
+            # ── Phase 3: Renumber N-codes continuously ──
+            combined_lines = self._renumber_ncodes(combined_lines)
+            
+            # ── Phase 4: Write final output as .txt ──
+            output_filename = f'1-{component_id}-{order_id}.txt'
+            output_path = self.output_dir / output_filename
+            
+            if output_path.exists():
+                output_path.unlink()
+            
+            with open(output_path, 'w') as f:
+                f.write('\n'.join(combined_lines) + '\n')
+            
+            # Clean up individual temp files
+            for _, temp_path in temp_files:
+                try:
+                    temp_path.unlink()
+                except Exception:
+                    pass
+            
+            file_size = output_path.stat().st_size
+            self.logger.info(f'Successfully generated {output_filename} ({file_size} bytes) from {len(sequence)} section(s)')
+            results = [('Setups', True, f'Generated {output_filename} ({file_size} bytes) from {len(sequence)} section(s)', str(output_path))]
+            return True, f'Post processed {len(sequence)} section(s) to {output_filename}', results
             
         except Exception as e:
-            return False, f"Post processing failed: {str(e)}", None
+            error_msg = f'Post processing failed: {str(e)}'
+            self.logger.error(error_msg)
+            return False, error_msg, [('Setups', False, error_msg, None)]
     
-    def post_process_all_setups(self, cam: adsk.cam.CAM, setups: List[adsk.cam.Setup], component_id: str, order_id: str) -> Tuple[bool, str, List[Tuple[str, bool, str, Optional[str]]]]:
+    def _extract_workstop(self, setup_name: str) -> Optional[str]:
         """
-        Post process all setups, generating one NC file per setup.
-        
-        Args:
-            cam: CAM object
-            setups: List of setups to post process
-            component_id: Component ID (e.g., D1, P1)
-            order_id: Order ID (e.g., IBUS366574)
-            
-        Returns:
-            Tuple of (overall_success: bool, message: str, results: List[(setup_name, success, message, file_path)])
+        Extract the work-offset / workstop code (G54..G59) from a setup name.
+        e.g. "Right Rabbet - In G57" -> "G57". Returns None if not present.
         """
-        results = []
-        successful_posts = 0
-        output_files = []
+        if not setup_name:
+            return None
+        match = re.search(r'G5[4-9]', setup_name.upper())
+        return match.group(0) if match else None
+
+    def _stitch_setup_files(self, temp_files: List[Tuple[str, Path]]) -> List[str]:
+        """
+        Stitch individual setup .nc files into one combined program.
         
-        for setup in setups:
-            setup_name = setup.name
-            
-            # Get next program number for this setup
-            program_number = self.get_next_program_number()
-            
-            # Log progress (progress dialog shows this to user)
-            self.logger.info(f'Post processing setup: {setup_name} (File: 1-{component_id}-{order_id}.nc)')
-            
-            # Post process this setup
-            success, message, file_path = self.post_process_setup(cam, setup, program_number, component_id, order_id)
-            
-            results.append((setup_name, success, message, file_path))
-            
-            if success:
-                successful_posts += 1
-                output_files.append(file_path)
+        Structure of each individual file from the CPS post processor:
+            %                       <- program start
+            O####                   <- program number
+            (header comments...)    <- machine info, tool table
+            N10 ...                 <- G-code body
+            ...
+            M30                     <- program end
+            %                       <- program end marker
         
-        # Build summary
-        if successful_posts == len(setups):
-            summary = f"All {len(setups)} setup(s) post processed successfully"
-            overall_success = True
-        elif successful_posts > 0:
-            summary = f"{successful_posts}/{len(setups)} setup(s) post processed successfully"
-            overall_success = True  # Partial success is okay
-        else:
-            summary = f"Post processing failed for all {len(setups)} setup(s)"
-            overall_success = False
+        Combined output keeps the header from the FIRST file, strips
+        headers/footers from subsequent files, and inserts M00 stops
+        with flip comments between sections.
+        """
+        combined = []
+        prev_workstop = None
         
-        return overall_success, summary, results
+        for file_idx, (setup_name, file_path) in enumerate(temp_files):
+            with open(file_path, 'r') as f:
+                lines = [line.rstrip() for line in f.readlines()]
+            
+            curr_workstop = self._extract_workstop(setup_name)
+            
+            if file_idx == 0:
+                # First file: keep everything EXCEPT the trailing M30 and %
+                # Find the last M30 line and strip from there
+                body = self._strip_footer(lines)
+                combined.extend(body)
+            else:
+                # Subsequent files: insert M00 stop + transition comment, then
+                # strip the header (everything up to first N-code line)
+                # and strip the footer (M30, %).
+                #
+                # Determine the physical operator action between the two cuts:
+                #   - SAME workstop (e.g. interior G57 then exterior G57):
+                #       the part is FLIPPED about the Y axis between cuts.
+                #   - DIFFERENT workstop (G57 then G59):
+                #       the part is ROTATED 180 deg CCW about the Z axis
+                #       (G59 ends up to the right of G57).
+                if prev_workstop and curr_workstop and prev_workstop != curr_workstop:
+                    transition = 'ROTATE PART 180'
+                else:
+                    transition = 'FLIP PART'
+                
+                combined.append('M0')
+                combined.append('')
+                combined.append('(******************)')
+                combined.append(f'(NEW SETUP, {transition})')
+                combined.append('(******************)')
+                combined.append('')
+                
+                body = self._strip_header(lines)
+                body = self._strip_footer(body)
+                combined.extend(body)
+            
+            prev_workstop = curr_workstop
+        
+        # Add program end
+        combined.append('M30')
+        combined.append('%')
+        
+        return combined
+    
+    def _strip_header(self, lines: List[str]) -> List[str]:
+        """
+        Strip the program header from an individual setup's .nc output.
+        Removes everything before the first N-code line: the leading %,
+        O#### program number, and all comment/header lines.
+        
+        Also strips repeated initialization blocks (G90 G94 G17 G49, G20/G21,
+        M12, G28, M95, M92, G8) since these were already emitted by the first
+        setup's header.
+        """
+        # Find first line starting with N (N-code)
+        first_n = None
+        for i, line in enumerate(lines):
+            if re.match(r'^N\d+\s', line):
+                first_n = i
+                break
+        
+        if first_n is None:
+            return lines  # No N-codes found, return as-is
+        
+        return lines[first_n:]
+    
+    def _strip_footer(self, lines: List[str]) -> List[str]:
+        """
+        Strip the program footer (M30 and trailing %) from the end of a file.
+        """
+        # Work backwards from the end
+        end = len(lines)
+        while end > 0 and lines[end - 1].strip() in ('', '%'):
+            end -= 1
+        # Check if last remaining line is M30
+        if end > 0 and lines[end - 1].strip().startswith('M30'):
+            end -= 1
+        # Also strip any trailing blank lines and G-code cleanup before M30
+        # (G28, G49, G8 P0 lines that are part of the program-end sequence)
+        return lines[:end]
+    
+    def _renumber_ncodes(self, lines: List[str], start: int = 10, increment: int = 5) -> List[str]:
+        """
+        Renumber all N-code line numbers continuously across the combined file.
+        Matches lines starting with N followed by digits (e.g., N10, N285)
+        and replaces with a continuous sequence starting at `start`.
+        """
+        n_pattern = re.compile(r'^(N)\d+(\s)')
+        current = start
+        result = []
+        for line in lines:
+            if n_pattern.match(line):
+                line = n_pattern.sub(f'N{current}\\2', line, count=1)
+                current += increment
+            result.append(line)
+        return result
     
     def get_output_directory(self) -> str:
         """Get the configured output directory path."""
@@ -249,5 +391,5 @@ class PostProcessor:
                 with open(self.counter_file, 'r') as f:
                     return int(f.read().strip())
             return 1000  # Not yet initialized
-        except:
+        except Exception:
             return 1000

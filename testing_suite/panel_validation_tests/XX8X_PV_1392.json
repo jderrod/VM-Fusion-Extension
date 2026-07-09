@@ -1,0 +1,78 @@
+{
+    "order_id": [
+        "XX8X_PV_1392",
+        "string",
+        "identifier for the order"
+    ],
+    "panels": [
+        {
+            "id": [
+                "P1",
+                "string",
+                "panel ID"
+            ],
+            "parameters": {
+                "series_id": [
+                    "3082G.67P",
+                    "string",
+                    "series ID of the component"
+                ],
+                "panel_section": [
+                    "BOTTOM",
+                    "string",
+                    "section of the panel (TOP or BOTTOM)"
+                ],
+                "panel_abuts_inline_stile_front": [
+                    true,
+                    "bool",
+                    "indicates whether the panel's front edge abuts a stile"
+                ],
+                "panel_abuts_inline_stile_back": [
+                    true,
+                    "bool",
+                    "indicates whether the panel's back edge abuts a stile"
+                ],
+                "component_height": [
+                    60.0,
+                    "float",
+                    "height of the component in inches"
+                ],
+                "component_width": [
+                    54.25,
+                    "float",
+                    "width of the component in inches"
+                ],
+                "component_floor_clearance": [
+                    4.5,
+                    "float",
+                    "floor clearance of the component in inches"
+                ],
+                "component_ceiling_clearance": [
+                    1.0,
+                    "float",
+                    "ceiling clearance of the component in inches"
+                ],
+                "panel_front_inline_stile_floor_to_ceiling": [
+                    true,
+                    "bool",
+                    "indicates whether the front stile is floor to ceiling"
+                ],
+                "panel_back_inline_stile_floor_to_ceiling": [
+                    false,
+                    "bool",
+                    "indicates whether the back stile is floor to ceiling"
+                ],
+                "stile_in_the_back_width": [
+                    12.0,
+                    "float",
+                    "width of the stile in the back in inches"
+                ],
+                "cutout": [
+                    "B-347",
+                    "string",
+                    "cutout specification (e.g. B-386 or B-354 + B-386)"
+                ]
+            }
+        }
+    ]
+}

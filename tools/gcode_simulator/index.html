@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anderson Stratos Pro — CNC Machine Simulator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f0f1e;color:#e0e0e0;overflow:hidden;height:100vh}
+#canvas-container{position:absolute;top:0;left:0;right:0;bottom:0}
+canvas{display:block}
+.panel{background:rgba(14,14,30,0.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.07);border-radius:10px;z-index:10;position:absolute}
+.panel h3{font-size:10px;color:#64b5f6;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)}
+#top-bar{position:absolute;top:0;left:0;right:0;height:44px;background:rgba(10,10,24,0.95);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 14px;gap:10px;z-index:10;border-bottom:1px solid rgba(255,255,255,0.06)}
+#top-bar .title{font-weight:700;font-size:13px;color:#64b5f6}
+#top-bar .subtitle{font-size:11px;color:#666}
+.spacer{flex:1}
+.top-btn{padding:5px 10px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(255,255,255,0.04);color:#aaa;font-size:11px;cursor:pointer}
+.top-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
+#drop-zone{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;padding:40px 28px;background:rgba(20,20,44,0.96);border:2px dashed rgba(100,181,246,0.35);border-radius:14px;text-align:center;z-index:20}
+#drop-zone.hidden{display:none}
+#drop-zone.drag-over{border-color:#64b5f6}
+#drop-zone h2{font-size:16px;color:#64b5f6;margin-bottom:6px}
+#drop-zone p{font-size:12px;color:#888;margin-bottom:14px}
+#drop-zone button{padding:8px 20px;background:#1e88e5;border:none;border-radius:7px;color:#fff;font-size:13px;cursor:pointer}
+#drop-zone button:hover{background:#1565c0}
+#file-input{display:none}
+#machine-panel{top:56px;left:12px;width:220px;padding:12px}
+#machine-panel.hidden{display:none}
+.mc-section{margin-bottom:10px}
+.mc-row{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.mc-btn{flex:1;min-width:60px;padding:6px 4px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(255,255,255,0.04);color:#ccc;font-size:10px;cursor:pointer;text-align:center;transition:all .12s}
+.mc-btn:hover{background:rgba(255,255,255,0.12);color:#fff}
+.mc-btn.active{background:#1e88e5;border-color:#1e88e5;color:#fff}
+.mc-btn.run{background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.4);color:#81c784}
+.mc-btn.run:hover{background:rgba(76,175,80,0.3)}
+.mc-btn.danger{background:rgba(244,67,54,0.1);border-color:rgba(244,67,54,0.3);color:#e57373}
+.mc-btn.danger:hover{background:rgba(244,67,54,0.25)}
+.mc-label{font-size:10px;color:#777;margin-top:6px}
+#toolpath-list{max-height:160px;overflow-y:auto;margin-top:4px}
+#toolpath-list::-webkit-scrollbar{width:4px}
+#toolpath-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:2px}
+.tp-item{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:5px;cursor:pointer;font-size:10px;color:#aaa;border:1px solid transparent;margin-bottom:2px}
+.tp-item:hover{background:rgba(255,255,255,0.05)}
+.tp-item.selected{background:rgba(30,136,229,0.15);border-color:rgba(30,136,229,0.4);color:#fff}
+.tp-item.completed{color:#666}
+.tp-item .tp-swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.tp-item .tp-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp-item .tp-wcs{font-size:9px;color:#888;font-family:monospace}
+.tp-item .tp-check{color:#4caf50;font-size:11px}
+#info-panel{top:56px;right:12px;width:210px;padding:12px}
+#info-panel.hidden{display:none}
+.info-row{display:flex;justify-content:space-between;padding:2px 0}
+.info-row .lbl{color:#666;font-size:10px}
+.info-row .val{color:#ddd;font-size:10px;font-family:'Consolas',monospace}
+.info-section{margin-bottom:8px}
+#comp-state{font-size:10px;color:#aaa;padding:6px 8px;margin-top:6px;background:rgba(255,255,255,0.03);border-radius:5px}
+#comp-state .cs-row{display:flex;justify-content:space-between;padding:1px 0}
+#comp-state .cs-val{color:#64b5f6;font-family:monospace}
+#playback{bottom:12px;left:50%;transform:translateX(-50%);padding:10px 16px;display:flex;align-items:center;gap:10px;min-width:540px}
+#playback.hidden{display:none}
+.pb-btn{width:32px;height:32px;border:none;border-radius:7px;background:rgba(255,255,255,0.07);color:#ddd;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pb-btn:hover{background:rgba(255,255,255,0.15)}
+#progress-bar{flex:1;height:5px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,0.08);border-radius:3px;outline:none;cursor:pointer}
+#progress-bar::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#64b5f6;cursor:pointer}
+.pb-label{font-size:10px;color:#888;min-width:70px;text-align:center;font-family:monospace}
+#speed-select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:5px;color:#ccc;padding:3px 6px;font-size:10px;cursor:pointer}
+#view-bar{top:56px;left:50%;transform:translateX(-50%);padding:4px;display:flex;gap:3px}
+#view-bar.hidden{display:none}
+.vb-btn{padding:4px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:5px;background:rgba(255,255,255,0.03);color:#999;font-size:10px;cursor:pointer}
+.vb-btn:hover{color:#fff;background:rgba(255,255,255,0.1)}
+#toast{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);background:rgba(30,136,229,0.9);color:#fff;padding:8px 18px;border-radius:8px;font-size:12px;z-index:30;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
+
+/* Modal overlay */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:50;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:rgba(20,20,44,0.98);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px 24px;min-width:340px;max-width:520px;max-height:80vh;overflow-y:auto;color:#e0e0e0}
+.modal h2{font-size:14px;color:#64b5f6;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.modal-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.modal-row label{font-size:11px;color:#999;min-width:70px}
+.modal-row input[type=text],.modal-row input[type=number]{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#fff;padding:6px 10px;font-size:12px;font-family:inherit;outline:none}
+.modal-row input:focus{border-color:#64b5f6}
+.modal-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.modal-btn{padding:7px 16px;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
+.modal-btn.primary{background:#1e88e5;color:#fff}
+.modal-btn.primary:hover{background:#1565c0}
+.modal-btn.secondary{background:rgba(255,255,255,0.08);color:#aaa;border:1px solid rgba(255,255,255,0.1)}
+.modal-btn.secondary:hover{background:rgba(255,255,255,0.15);color:#fff}
+.modal-btn.danger{background:rgba(244,67,54,0.2);color:#e57373;border:1px solid rgba(244,67,54,0.3)}
+.modal-btn.danger:hover{background:rgba(244,67,54,0.35)}
+
+/* Gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px}
+.gallery-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px;cursor:pointer;transition:all .15s}
+.gallery-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(100,181,246,0.4)}
+.gallery-card .gc-name{font-size:12px;font-weight:600;color:#e0e0e0;margin-bottom:4px}
+.gallery-card .gc-dims{font-size:10px;color:#888;font-family:'Consolas',monospace}
+.gallery-card .gc-cuts{font-size:10px;color:#64b5f6;margin-top:4px}
+.gallery-card .gc-date{font-size:9px;color:#555;margin-top:2px}
+.gallery-card .gc-actions{display:flex;gap:4px;margin-top:6px}
+.gallery-card .gc-actions button{padding:3px 8px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;background:rgba(255,255,255,0.04);color:#aaa;font-size:9px;cursor:pointer}
+.gallery-card .gc-actions button:hover{background:rgba(255,255,255,0.12);color:#fff}
+.gallery-card .gc-actions .del-btn{color:#e57373;border-color:rgba(244,67,54,0.3)}
+.gallery-card .gc-actions .del-btn:hover{background:rgba(244,67,54,0.2)}
+
+/* Cut dimensions */
+.cut-dims{margin-top:6px;padding:6px 8px;background:rgba(255,255,255,0.03);border-radius:5px}
+.cut-dims h4{font-size:9px;color:#64b5f6;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.cut-dim-row{display:flex;justify-content:space-between;padding:1px 0;font-size:10px}
+.cut-dim-row .cdl{color:#777}
+.cut-dim-row .cdv{color:#ddd;font-family:'Consolas',monospace}
+</style>
+</head>
+<body>
+<div id="canvas-container"></div>
+<div id="toast"></div>
+<div id="top-bar">
+    <span class="title">Anderson Stratos Pro — CNC Simulator</span>
+    <span class="subtitle" id="file-name">No file loaded</span>
+    <div class="spacer"></div>
+    <button class="top-btn" id="btn-load">Load G-Code</button>
+    <button class="top-btn" id="btn-gallery">Gallery</button>
+</div>
+<div id="drop-zone">
+    <h2>Load G-Code File</h2>
+    <p>Drag &amp; drop .txt / .nc file, or click below</p>
+    <button id="btn-browse">Browse Files</button>
+</div>
+<input type="file" id="file-input" accept=".txt,.nc,.gcode,.tap">
+<div id="machine-panel" class="panel hidden">
+    <div class="mc-section">
+        <h3>Component Placement</h3>
+        <div class="mc-row">
+            <button class="mc-btn active" id="btn-g57">G57 (Left)</button>
+            <button class="mc-btn" id="btn-g59">G59 (Right)</button>
+        </div>
+    </div>
+    <div class="mc-section">
+        <h3>Orientation</h3>
+        <div class="mc-row">
+            <button class="mc-btn" id="btn-rot90">Rotate 90&deg;</button>
+            <button class="mc-btn" id="btn-flip">Flip Part</button>
+        </div>
+        <div class="mc-row" style="margin-top:2px">
+            <button class="mc-btn danger" id="btn-reset-orient">Reset</button>
+        </div>
+        <div class="mc-label" id="orient-label">0&deg; &middot; Face Up</div>
+    </div>
+    <div class="mc-section">
+        <h3>Piece</h3>
+        <div class="mc-row">
+            <button class="mc-btn run" id="btn-new-piece">&#9733; New Piece</button>
+            <button class="mc-btn" id="btn-save-piece">Save</button>
+            <button class="mc-btn danger" id="btn-clear-piece">Clear</button>
+        </div>
+        <div class="mc-label" id="piece-label">No active piece</div>
+        <div class="mc-label" id="piece-dims-label"></div>
+    </div>
+    <div class="mc-section">
+        <h3>Toolpaths</h3>
+        <div id="toolpath-list"></div>
+        <div class="mc-row" style="margin-top:6px">
+            <button class="mc-btn run" id="btn-run-tp">&#9654; Run Selected</button>
+            <button class="mc-btn run" id="btn-run-all">&#9654;&#9654; Run All</button>
+        </div>
+        <div id="cut-dims-panel" class="cut-dims" style="display:none">
+            <h4>Cut Measurement</h4>
+            <div class="cut-dim-row"><span class="cdl">Cut Length</span><span class="cdv" id="cd-len">&mdash;</span></div>
+        </div>
+    </div>
+    <div class="mc-section">
+        <h3>View</h3>
+        <div class="mc-row">
+            <button class="mc-btn" id="btn-show-result">Show Final Part</button>
+        </div>
+    </div>
+</div>
+<div id="info-panel" class="panel hidden">
+    <div class="info-section">
+        <h3>Tool Position</h3>
+        <div class="info-row"><span class="lbl">X</span><span class="val" id="pos-x">&mdash;</span></div>
+        <div class="info-row"><span class="lbl">Y</span><span class="val" id="pos-y">&mdash;</span></div>
+        <div class="info-row"><span class="lbl">Z</span><span class="val" id="pos-z">&mdash;</span></div>
+    </div>
+    <div class="info-section">
+        <h3>Machine State</h3>
+        <div class="info-row"><span class="lbl">Tool</span><span class="val" id="tool-num">&mdash;</span></div>
+        <div class="info-row"><span class="lbl">Spindle</span><span class="val" id="spindle-rpm">OFF</span></div>
+        <div class="info-row"><span class="lbl">Feed</span><span class="val" id="feed-rate">&mdash;</span></div>
+        <div class="info-row"><span class="lbl">WCS</span><span class="val" id="info-wcs">&mdash;</span></div>
+    </div>
+    <div class="info-section">
+        <h3>Workpiece</h3>
+        <div class="info-row"><span class="lbl">Size</span><span class="val" id="wp-size">&mdash;</span></div>
+        <div class="info-row"><span class="lbl">Line</span><span class="val" id="current-line">&mdash;</span></div>
+    </div>
+    <div id="comp-state">
+        <h3 style="margin-bottom:4px">Component State</h3>
+        <div class="cs-row"><span>Workstop</span><span class="cs-val" id="cs-wcs">G57</span></div>
+        <div class="cs-row"><span>Rotation</span><span class="cs-val" id="cs-rot">0&deg;</span></div>
+        <div class="cs-row"><span>Side</span><span class="cs-val" id="cs-flip">Face Up</span></div>
+        <div class="cs-row"><span>Cuts Done</span><span class="cs-val" id="cs-cuts">0</span></div>
+    </div>
+</div>
+<div id="view-bar" class="panel hidden">
+    <button class="vb-btn" data-view="perspective">3D</button>
+    <button class="vb-btn" data-view="top">Top</button>
+    <button class="vb-btn" data-view="front">Front</button>
+    <button class="vb-btn" data-view="right">Side</button>
+</div>
+<div id="playback" class="panel hidden">
+    <button class="pb-btn" id="btn-restart">&#9198;</button>
+    <button class="pb-btn" id="btn-play">&#9654;</button>
+    <button class="pb-btn" id="btn-step">&#9197;</button>
+    <input type="range" id="progress-bar" min="0" max="100" value="0">
+    <span class="pb-label" id="progress-label">0 / 0</span>
+    <select id="speed-select">
+        <option value="0.5">0.5x</option>
+        <option value="1" selected>1x</option>
+        <option value="3">3x</option>
+        <option value="10">10x</option>
+        <option value="50">50x</option>
+    </select>
+</div>
+
+<!-- New Piece Dialog -->
+<div class="modal-overlay" id="modal-new-piece">
+    <div class="modal">
+        <h2>New Piece</h2>
+        <div class="modal-row"><label>Name</label><input type="text" id="inp-piece-name" placeholder="e.g. Left Stile - IBUS789123"></div>
+        <div class="modal-row"><label>Width (in)</label><input type="number" id="inp-piece-w" step="0.001" placeholder="88.625"></div>
+        <div class="modal-row"><label>Height (in)</label><input type="number" id="inp-piece-h" step="0.001" placeholder="7"></div>
+        <div class="modal-row"><label>Thickness (in)</label><input type="number" id="inp-piece-t" step="0.001" placeholder="1.5"></div>
+        <div class="modal-actions">
+            <button class="modal-btn secondary" id="btn-cancel-piece">Cancel</button>
+            <button class="modal-btn primary" id="btn-confirm-piece">Create Piece</button>
+        </div>
+    </div>
+</div>
+
+<!-- Save Piece Dialog -->
+<div class="modal-overlay" id="modal-save-piece">
+    <div class="modal">
+        <h2>Save Piece</h2>
+        <div class="modal-row"><label>Name</label><input type="text" id="inp-save-name" placeholder="Piece name"></div>
+        <div class="modal-actions">
+            <button class="modal-btn secondary" id="btn-cancel-save">Cancel</button>
+            <button class="modal-btn primary" id="btn-confirm-save">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Modal -->
+<div class="modal-overlay" id="modal-gallery">
+    <div class="modal" style="min-width:480px">
+        <h2>Saved Pieces Gallery</h2>
+        <div id="gallery-content"></div>
+        <div class="modal-actions">
+            <button class="modal-btn secondary" id="btn-close-gallery">Close</button>
+        </div>
+    </div>
+</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"}}
+</script>
+<script type="module">
+console.log('[CNC-SIM] Module script starting...');
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+console.log('[CNC-SIM] Three.js loaded OK');
+
+try {
+
+/* ================================================================
+   CONSTANTS
+   ================================================================ */
+const BED_W = 148, BED_D = 64, BED_T = 2;
+const G57_X = 10, G59_X = BED_W - 10, WS_Y = BED_D / 2;
+const WS_W = 4, WS_H = 4, WS_D = 3;
+const CUT_PPI = 12;
+const TOOL_DIA = 0.5; // inches
+const HOME_X = G57_X - 8; // gantry home position, left of G57
+const HOME_Z = 10; // scene Y for home (above bed)
+const COLORS = [0xe53935,0x1e88e5,0x43a047,0xfb8c00,0x8e24aa,0x00acc1,0xd81b60,0x6d4c41];
+
+/* ================================================================
+   SCENE
+   ================================================================ */
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f0f1e);
+scene.fog = new THREE.Fog(0x0f0f1e, 350, 700);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
+camera.position.set(74, 60, 100);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+container.appendChild(renderer.domElement);
+
+const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.target.set(BED_W/2, 0, BED_D/2);
+orbit.enableDamping = true; orbit.dampingFactor = 0.08; orbit.update();
+
+scene.add(new THREE.AmbientLight(0x404060, 0.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1);
+sun.position.set(100,150,80); sun.castShadow = true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.left=-120; sun.shadow.camera.right=220;
+sun.shadow.camera.top=120; sun.shadow.camera.bottom=-120;
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0x8888ff, 0.3);
+fill.position.set(-50,60,-30); scene.add(fill);
+
+/* ================================================================
+   BED
+   ================================================================ */
+const bedGeo = new THREE.BoxGeometry(BED_W, BED_T, BED_D);
+const bed = new THREE.Mesh(bedGeo, new THREE.MeshStandardMaterial({color:0x2e2e3e,metalness:0.7,roughness:0.35}));
+bed.position.set(BED_W/2,-BED_T/2,BED_D/2); bed.receiveShadow=true; scene.add(bed);
+const bedEdge = new THREE.LineSegments(new THREE.EdgesGeometry(bedGeo), new THREE.LineBasicMaterial({color:0x4a4a6a}));
+bedEdge.position.copy(bed.position); scene.add(bedEdge);
+const grid = new THREE.GridHelper(Math.max(BED_W,BED_D)*1.2, 40, 0x333355, 0x222238);
+grid.position.set(BED_W/2, 0.01, BED_D/2); scene.add(grid);
+
+/* ================================================================
+   WORKSTOPS
+   ================================================================ */
+function mkWS(x,z,label,color){
+    const g=new THREE.Group();
+    const m=new THREE.Mesh(new THREE.BoxGeometry(WS_W,WS_H,WS_D),new THREE.MeshStandardMaterial({color,metalness:0.5,roughness:0.3}));
+    m.position.set(x,WS_H/2,z); m.castShadow=true; g.add(m);
+    const c=document.createElement('canvas');c.width=128;c.height=48;
+    const cx=c.getContext('2d');cx.fillStyle='#000';cx.fillRect(0,0,128,48);
+    cx.fillStyle='#fff';cx.font='bold 30px monospace';cx.textAlign='center';cx.textBaseline='middle';
+    cx.fillText(label,64,24);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true}));
+    sp.position.set(x,WS_H+1.8,z);sp.scale.set(6,2.5,1);g.add(sp);
+    g.add(new THREE.ArrowHelper(new THREE.Vector3(1,0,0),new THREE.Vector3(x,0.1,z),5,0xff4444,1.2,0.6));
+    g.add(new THREE.ArrowHelper(new THREE.Vector3(0,0,-1),new THREE.Vector3(x,0.1,z),5,0x44ff44,1.2,0.6));
+    g.add(new THREE.ArrowHelper(new THREE.Vector3(0,1,0),new THREE.Vector3(x,0.1,z),5,0x4444ff,1.2,0.6));
+    return g;
+}
+scene.add(mkWS(G57_X, WS_Y, 'G57', 0x2196F3));
+scene.add(mkWS(G59_X, WS_Y, 'G59', 0xFF9800));
+
+/* ================================================================
+   TOOL
+   ================================================================ */
+const toolGrp = new THREE.Group(); toolGrp.visible = false;
+const spindleMesh = new THREE.Mesh(new THREE.CylinderGeometry(1.3,1.3,7,16),new THREE.MeshStandardMaterial({color:0x777777,metalness:0.8,roughness:0.2}));
+spindleMesh.position.set(0,5.5,0); toolGrp.add(spindleMesh);
+const bitMesh = new THREE.Mesh(new THREE.CylinderGeometry(TOOL_DIA/2,TOOL_DIA/2,3,8),new THREE.MeshStandardMaterial({color:0xdddddd,metalness:0.9,roughness:0.1}));
+bitMesh.position.set(0,1.5,0); toolGrp.add(bitMesh);
+const glowMat = new THREE.MeshBasicMaterial({color:0xff4444,transparent:true,opacity:0.7});
+const glowMesh = new THREE.Mesh(new THREE.SphereGeometry(0.4,8,8),glowMat);
+toolGrp.add(glowMesh); scene.add(toolGrp);
+
+/* ================================================================
+   WORKPIECE — interactive component with TOP and BOTTOM face canvases
+   ================================================================ */
+let wpGroup = new THREE.Group(); scene.add(wpGroup);
+let wpMesh = null;
+const WP_T = 1.5;
+let sheetW = 0, sheetH = 0;
+// Two canvases: one for top face, one for bottom face
+let topCanvas = null, topCtx = null, topTex = null;
+let botCanvas = null, botCtx = null, botTex = null;
+let completedSetups = new Set();
+
+function buildWorkpiece(w, h) {
+    sheetW = w; sheetH = h;
+    while (wpGroup.children.length) { wpGroup.children[0].geometry?.dispose(); wpGroup.remove(wpGroup.children[0]); }
+    const cw = Math.ceil(w * CUT_PPI), ch = Math.ceil(h * CUT_PPI);
+
+    // Top face canvas
+    topCanvas = document.createElement('canvas'); topCanvas.width = cw; topCanvas.height = ch;
+    topCtx = topCanvas.getContext('2d');
+    resetCanvas(topCtx, cw, ch);
+    topTex = new THREE.CanvasTexture(topCanvas);
+    topTex.minFilter = THREE.LinearFilter;
+
+    // Bottom face canvas
+    botCanvas = document.createElement('canvas'); botCanvas.width = cw; botCanvas.height = ch;
+    botCtx = botCanvas.getContext('2d');
+    resetCanvas(botCtx, cw, ch);
+    botTex = new THREE.CanvasTexture(botCanvas);
+    botTex.minFilter = THREE.LinearFilter;
+
+    const woodMat = new THREE.MeshStandardMaterial({color:0xd4a574,roughness:0.8,metalness:0.05});
+    const topMat  = new THREE.MeshStandardMaterial({map:topTex,roughness:0.7,metalness:0.05});
+    const botMat  = new THREE.MeshStandardMaterial({map:botTex,roughness:0.7,metalness:0.05});
+    // BoxGeometry material order: +X, -X, +Y(top), -Y(bottom), +Z, -Z
+    const geo = new THREE.BoxGeometry(w, WP_T, h);
+    wpMesh = new THREE.Mesh(geo, [woodMat, woodMat, topMat, botMat, woodMat, woodMat]);
+    wpMesh.castShadow = true; wpMesh.receiveShadow = true;
+    wpGroup.add(wpMesh);
+    wpGroup.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:0x8b6b4a,transparent:true,opacity:0.5})));
+    completedSetups = new Set();
+    placeComponent();
+}
+
+function resetCanvas(ctx, cw, ch) {
+    ctx.fillStyle = '#d4a574'; ctx.fillRect(0, 0, cw, ch);
+    ctx.strokeStyle = 'rgba(180,140,90,0.25)'; ctx.lineWidth = 1;
+    for (let i = 0; i < ch; i += 3) {
+        ctx.beginPath(); ctx.moveTo(0, i + Math.random() * 2);
+        for (let j = 0; j < cw; j += 10) ctx.lineTo(j, i + Math.random() * 2);
+        ctx.stroke();
+    }
+}
+
+function resetAllCanvases() {
+    if (topCtx) resetCanvas(topCtx, topCanvas.width, topCanvas.height);
+    if (botCtx) resetCanvas(botCtx, botCanvas.width, botCanvas.height);
+    if (topTex) topTex.needsUpdate = true;
+    if (botTex) botTex.needsUpdate = true;
+}
+
+/* ================================================================
+   COMPONENT STATE
+   ================================================================ */
+let compWCS='G57', compRot=0, compFlipped=false;
+let pieceActive = false;
+let pieceCutLog = []; // accumulated {segments[], color, face, cutDims} entries
+let pieceName = '';
+let pieceWidth = 0, pieceHeight = 0, pieceThickness = 0;
+
+/* ================================================================
+   CUT LENGTH COMPUTATION
+   ================================================================ */
+// Simply measures the X extent of the cut on the canvas (leftmost to
+// rightmost drawn pixel), clamped to canvas bounds, converted to inches.
+// This gives the true length of the cut as it appears on the piece.
+function computeCutLengthFromSegments(segments) {
+    if (!segments.length || !topCanvas) return 0;
+    const cw = topCanvas.width, ch = topCanvas.height;
+    // Tool radius in pixel space for each axis
+    const toolRadPxX = (TOOL_DIA / 2) * (cw / sheetW);
+    const toolRadPxY = (TOOL_DIA / 2) * (ch / sheetH);
+    // Y filter: tool is cutting the stock face when center is within
+    // toolRad of the face boundary. Allow py in [-toolRadPy, ch+toolRadPy].
+    const yLo = -toolRadPxY;
+    const yHi = ch + toolRadPxY;
+
+    let minPx = Infinity, maxPx = -Infinity;
+    for (const seg of segments) {
+        for (const pt of seg) {
+            if (pt.py < yLo || pt.py > yHi) continue;
+            if (pt.px < minPx) minPx = pt.px;
+            if (pt.px > maxPx) maxPx = pt.px;
+        }
+    }
+    if (minPx >= maxPx) return 0;
+    // Clamp the extent to stock + tool radius on each side
+    // (tool edge touches stock when center is toolRad outside)
+    minPx = Math.max(-toolRadPxX, minPx);
+    maxPx = Math.min(cw + toolRadPxX, maxPx);
+    // The actual cut on the stock face starts/ends where the tool edge
+    // intersects the stock boundary. Tool edge = center ± toolRad.
+    // So the cut on the stock starts at (minPx + toolRadPx) and ends at
+    // (maxPx - toolRadPx) — but only if those are outside [0, cw].
+    // If minPx is negative, the cut starts at stock edge X=0, and the
+    // tool center at minPx means tool edge is at minPx + toolRadPx.
+    // Effectively the cut extent on stock = maxPx - minPx (the tool center
+    // range while engaged), which directly maps to cut length.
+    // Actually no — the CUT LENGTH on the stock face = distance the tool
+    // traveled while engaged. The X extent of the tool center path while
+    // engaged = maxPx - minPx. Convert to inches:
+    const inches = (maxPx - minPx) * (sheetW / cw);
+    console.log('[CUT-LEN] X extent: minPx='+minPx.toFixed(1)+' maxPx='+maxPx.toFixed(1)+
+        ' toolRadPxY='+toolRadPxY.toFixed(1)+' = '+inches.toFixed(3)+'"');
+    return inches;
+}
+
+function updateCutDimsPanel(segments) {
+    const panel = document.getElementById('cut-dims-panel');
+    if (!segments || !segments.length) { panel.style.display = 'none'; return; }
+    const len = computeCutLengthFromSegments(segments);
+    panel.style.display = 'block';
+    document.getElementById('cd-len').textContent = len.toFixed(3) + '"';
+}
+
+/* ================================================================
+   GALLERY — localStorage persistence
+   ================================================================ */
+const GALLERY_KEY = 'cnc-sim-gallery';
+
+function loadGallery() {
+    try { return JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]'); }
+    catch { return []; }
+}
+
+function saveToGallery(name) {
+    const gallery = loadGallery();
+    const entry = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+        name: name || pieceName || 'Untitled',
+        width: pieceWidth || sheetW,
+        height: pieceHeight || sheetH,
+        thickness: pieceThickness || WP_T,
+        cuts: pieceCutLog.map(c => ({
+            setupName: c.setupName,
+            color: c.color,
+            face: c.face,
+            cutLength: c.cutLength
+        })),
+        savedAt: new Date().toISOString(),
+        gcodeFile: document.getElementById('file-name').textContent
+    };
+    gallery.push(entry);
+    localStorage.setItem(GALLERY_KEY, JSON.stringify(gallery));
+    return entry;
+}
+
+function deleteFromGallery(id) {
+    const gallery = loadGallery().filter(e => e.id !== id);
+    localStorage.setItem(GALLERY_KEY, JSON.stringify(gallery));
+}
+
+function renderGallery() {
+    const el = document.getElementById('gallery-content');
+    const gallery = loadGallery();
+    if (!gallery.length) {
+        el.innerHTML = '<p style="color:#666;font-size:12px;text-align:center;padding:20px">No saved pieces yet</p>';
+        return;
+    }
+    el.innerHTML = '<div class="gallery-grid">' + gallery.map(p => {
+        const cutList = p.cuts.map(c =>
+            '<div style="font-size:9px;color:#aaa;padding:1px 0">' +
+            '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#'+
+            new THREE.Color(c.color).getHexString()+';vertical-align:middle;margin-right:4px"></span>'+
+            c.setupName + ' (' + c.face + ')' +
+            (c.cutLength != null ? ' — ' + c.cutLength.toFixed(3) + '"' : '') +
+            '</div>'
+        ).join('');
+        return '<div class="gallery-card" data-id="' + p.id + '">' +
+            '<div class="gc-name">' + p.name + '</div>' +
+            '<div class="gc-dims">' + p.width + '" × ' + p.height + '" × ' + p.thickness + '"</div>' +
+            '<div class="gc-cuts">' + p.cuts.length + ' cut(s)</div>' +
+            cutList +
+            '<div class="gc-date">' + new Date(p.savedAt).toLocaleString() + '</div>' +
+            '<div class="gc-actions">' +
+            '<button class="del-btn" data-del="' + p.id + '">Delete</button>' +
+            '</div></div>';
+    }).join('') + '</div>';
+    // Bind delete buttons
+    el.querySelectorAll('[data-del]').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            deleteFromGallery(btn.dataset.del);
+            renderGallery();
+            toast('Piece deleted');
+        });
+    });
+}
+
+function placeComponent() {
+    if (!wpMesh) return;
+    const ox = compWCS==='G57' ? G57_X : G59_X;
+    const oz = WS_Y;
+    wpGroup.position.set(0,0,0); wpGroup.rotation.set(0,0,0);
+
+    // Effective dimensions after rotation
+    const rot90 = (compRot === 90 || compRot === 270);
+    const effW = rot90 ? sheetH : sheetW; // width along workstop X direction
+    const effH = rot90 ? sheetW : sheetH; // depth into bed (scene +Z)
+
+    // Position: part corner at workstop origin, part extends into the bed (+Z)
+    // G57: part extends in +X from origin
+    // G59: part extends in -X from origin
+    let px, pz;
+    if (compWCS==='G57') { px = ox + effW/2; }
+    else                  { px = ox - effW/2; }
+    pz = oz + effH/2; // always extends into the bed from workstop
+
+    wpGroup.position.set(px, WP_T/2+0.01, pz);
+    wpGroup.rotation.y = -compRot * Math.PI / 180;
+
+    if (compFlipped) { wpGroup.rotation.x = Math.PI; wpGroup.position.y = WP_T/2+0.01; }
+    updateCompUI();
+}
+
+function updateCompUI() {
+    document.getElementById('cs-wcs').textContent = compWCS;
+    document.getElementById('cs-rot').textContent = compRot+'\u00b0';
+    document.getElementById('cs-flip').textContent = compFlipped?'Face Down':'Face Up';
+    document.getElementById('cs-cuts').textContent = completedSetups.size;
+    document.getElementById('orient-label').textContent = compRot+'\u00b0 \u00b7 '+(compFlipped?'Face Down':'Face Up');
+    document.getElementById('btn-g57').classList.toggle('active', compWCS==='G57');
+    document.getElementById('btn-g59').classList.toggle('active', compWCS==='G59');
+}
+
+/* ================================================================
+   G-CODE PARSER
+   ================================================================ */
+class GCodeParser {
+    constructor(raw) {
+        this.raw=raw; this.lines=raw.split('\n').map(l=>l.trim()).filter(l=>l.length);
+        this.moves=[]; this.setups=[]; this.sheetX=0; this.sheetY=0;
+        this._parse();
+    }
+    _parse() {
+        let x=0,y=0,z=0,feed=0,mode=0,abs=true,wcs='G57',tool=0,spOn=false,spRPM=0,sX=0,sY=0;
+        let sName='Setup 1', sIdx=0;
+        const push = () => {
+            if(this.setups.length) this.setups[this.setups.length-1].endIndex=this.moves.length;
+            this.setups.push({name:sName,wcs,startIndex:this.moves.length,endIndex:this.moves.length,
+                color:COLORS[this.setups.length%COLORS.length]});
+        };
+        push();
+        for(let li=0;li<this.lines.length;li++){
+            const line=this.lines[li];
+            if(line.startsWith('%')) continue;
+            if(line.startsWith('(')&&!line.match(/N\d/)){
+                const cm=line.match(/^\((.+)\)$/);
+                if(cm){const t=cm[1].trim();
+                    if(t==='NEW SETUP, FLIP PART'){sIdx++;sName='Setup '+(sIdx+1)+' (FLIP)';push();}
+                    else if(/RABBET|PROFILE|POCKET|DRILL|CONTOUR|BORE/.test(t)){sName=t;
+                        if(this.setups[this.setups.length-1].startIndex===this.moves.length)
+                            this.setups[this.setups.length-1].name=sName; else push();}}
+                continue;
+            }
+            const code=line.replace(/\(.*?\)/g,'').trim(); if(!code) continue;
+            const vm=code.match(/#(\d+)\s*=\s*([+-]?\d*\.?\d+)/);
+            if(vm){const vn=+vm[1],vv=+vm[2];if(vn===527)sX=vv;if(vn===528)sY=vv;}
+            if(sX>this.sheetX) this.sheetX=sX; if(sY>this.sheetY) this.sheetY=sY;
+            const toks={};let m;const re=/([A-Z])([+-]?\d*\.?\d+)/g;
+            while((m=re.exec(code))!==null) toks[m[1]]=+m[2];
+            const gcs=[];const gre=/G(\d+)/g;while((m=gre.exec(code))!==null) gcs.push(+m[1]);
+            for(const g of gcs){
+                if(g===0)mode=0;else if(g===1)mode=1;else if(g===2)mode=2;else if(g===3)mode=3;
+                else if(g===90)abs=true;else if(g===91)abs=false;
+                else if(g===57){wcs='G57';if(this.setups.length)this.setups[this.setups.length-1].wcs=wcs;}
+                else if(g===59){wcs='G59';if(this.setups.length)this.setups[this.setups.length-1].wcs=wcs;}
+            }
+            const mre=/M(\d+)/g;while((m=mre.exec(code))!==null){const mc=+m[1];if(mc===13||mc===3)spOn=true;else if(mc===5||mc===95)spOn=false;}
+            if('T' in toks)tool=toks.T;if('S' in toks)spRPM=toks.S;if('F' in toks)feed=toks.F;
+            if(gcs.includes(28)) continue;
+            if(!('X' in toks||'Y' in toks||'Z' in toks)) continue;
+            const px=x,py=y,pz=z;
+            if(abs){if('X' in toks)x=toks.X;if('Y' in toks)y=toks.Y;if('Z' in toks)z=toks.Z;}
+            else{if('X' in toks)x+=toks.X;if('Y' in toks)y+=toks.Y;if('Z' in toks)z+=toks.Z;}
+            const mv={type:mode,from:{x:px,y:py,z:pz},to:{x,y,z},feed,tool,spindleOn:spOn,spindleRPM:spRPM,
+                wcs,lineIndex:li,lineText:line,setup:sName,sheetX:sX,sheetY:sY,setupIndex:this.setups.length-1};
+            if(mode===2||mode===3){mv.i=toks.I||0;mv.j=toks.J||0;}
+            this.moves.push(mv);
+        }
+        if(this.setups.length) this.setups[this.setups.length-1].endIndex=this.moves.length;
+    }
+}
+
+/* ================================================================
+   COORD HELPERS
+   ================================================================ */
+function cncToScene(cx,cy,cz,wcs){
+    return new THREE.Vector3((wcs==='G57'?G57_X:G59_X)+cx, cz, WS_Y-cy);
+}
+function arcPts(mv){
+    const ccx=mv.from.x+mv.i, ccy=mv.from.y+mv.j, r=Math.hypot(mv.i,mv.j);
+    let sa=Math.atan2(mv.from.y-ccy,mv.from.x-ccx), ea=Math.atan2(mv.to.y-ccy,mv.to.x-ccx);
+    if(mv.type===3){if(ea<=sa)ea+=2*Math.PI;}else{if(ea>=sa)ea-=2*Math.PI;}
+    const n=Math.max(16,Math.abs(ea-sa)/(Math.PI/32)|0), pts=[];
+    for(let s=0;s<=n;s++){const t=s/n,a=sa+(ea-sa)*t;
+        pts.push({x:ccx+r*Math.cos(a),y:ccy+r*Math.sin(a),z:mv.from.z+(mv.to.z-mv.from.z)*t});}
+    return pts;
+}
+function moveLen(mv){
+    if(mv.type<=1)return Math.hypot(mv.to.x-mv.from.x,mv.to.y-mv.from.y,mv.to.z-mv.from.z);
+    const p=arcPts(mv);let l=0;for(let i=1;i<p.length;i++)l+=Math.hypot(p[i].x-p[i-1].x,p[i].y-p[i-1].y,p[i].z-p[i-1].z);return l;
+}
+
+/* ================================================================
+   TOOLPATH LINES
+   ================================================================ */
+const trailGrp = new THREE.Group(); scene.add(trailGrp);
+let tpLines = [];
+
+function buildLines(moves, sIdx, color) {
+    for (const mv of moves) {
+        const pts = [];
+        if (mv.type<=1){ pts.push(cncToScene(mv.from.x,mv.from.y,mv.from.z,mv.wcs)); pts.push(cncToScene(mv.to.x,mv.to.y,mv.to.z,mv.wcs)); }
+        else { for(const p of arcPts(mv)) pts.push(cncToScene(p.x,p.y,p.z,mv.wcs)); }
+        const isR=mv.type===0, isC=mv.to.z<0.5&&!isR;
+        const c = isR ? 0x44ff44 : (isC ? color : 0xffaa00);
+        const mat = new THREE.LineBasicMaterial({color:c,transparent:true,opacity:0});
+        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
+        trailGrp.add(line);
+        tpLines.push({line,mv,sIdx});
+    }
+}
+function clearLines(){ while(trailGrp.children.length) trailGrp.remove(trailGrp.children[0]); tpLines=[]; }
+
+/* ================================================================
+   CUT PAINTING — DUAL CANVAS (TOP + BOTTOM FACE)
+   ================================================================ */
+// Each face of the workpiece has its own canvas texture.
+// When the part is face-up, cuts go to topCanvas.
+// When the part is flipped (face-down), cuts go to botCanvas.
+//
+// Coordinate mapping (CNC → canvas pixels):
+//   G57: origin = left edge,  X positive → rightward. partX = cncX
+//   G59: origin = right edge, X negative → leftward.  partX = sheetW + cncX
+//   Y:   CNC Y=0 at workstop, negative into part.     partY = -cncY
+//
+// No mirroring needed — the WCS defines position on the part.
+// Flip only changes which canvas is drawn to, not the coordinates.
+
+function movesToPartSegments(moves, cutWCS, cutRot, cutFlipped) {
+    if (!moves.length || !topCanvas) return [];
+    const cw = topCanvas.width, ch = topCanvas.height;
+    const wcs = moves[0].wcs;
+
+    // REFERENCE SYSTEM:
+    // We define the part by its bottom-left corner (Corner A) as seen from ABOVE
+    // in the "home" orientation (face up, no rotation, at G57).
+    //
+    // Canvas X: 0 = left edge (Corner A side), cw = right edge
+    // Canvas Y: 0 = front edge (workstop side), ch = back edge
+    //
+    // G57 origin = left workstop = left edge of part (Corner A).
+    //   G57 CNC X positive = rightward on part
+    //   G57 CNC Y negative = away from workstop (into part depth)
+    //
+    // G59 origin = right workstop = right edge of part.
+    //   G59 CNC X negative = leftward on part (toward Corner A)
+    //   G59 CNC Y negative = away from workstop (into part depth)
+    //
+    // When FLIPPED: The part is face-down. The CNC still references the same
+    //   WCS origin, so X/Y positions are the same. The difference is just which
+    //   physical face is being cut (top vs bottom). We use separate canvases
+    //   for each face, so no coordinate transform is needed for flip.
+
+    function toCanvas(p) {
+        // Step 1: CNC coords to "machine-local" position (inches from WCS origin)
+        let machX, machY;
+        if (wcs === 'G59') {
+            machX = -p.x; // G59 X negative → distance from right workstop into part
+            machY = -p.y;
+        } else {
+            machX = p.x;  // G57 X positive → distance from left workstop into part
+            machY = -p.y;
+        }
+
+        // Step 2: Apply rotation to map machine-local to part-local coords
+        // The canvas is ALWAYS: X=0..sheetW (left→right), Y=0..sheetH (front→back)
+        // Rotation changes which part edge faces which workstop.
+        let partX, partY;
+        switch (cutRot) {
+            case 0:
+                // Home: G57 at left edge, G59 at right edge
+                if (wcs === 'G59') partX = sheetW - machX;
+                else partX = machX;
+                partY = machY;
+                break;
+            case 180:
+                // Rotated 180°: G57 at right edge, G59 at left edge
+                if (wcs === 'G59') partX = machX;
+                else partX = sheetW - machX;
+                partY = sheetH - machY;
+                break;
+            case 90:
+                // Rotated 90° CW: G57 at back edge, G59 at front edge
+                if (wcs === 'G59') { partX = sheetW - machY; partY = sheetH - machX; }
+                else { partX = machY; partY = machX; }
+                break;
+            case 270:
+                // Rotated 270° CW: G57 at front edge, G59 at back edge
+                if (wcs === 'G59') { partX = machY; partY = machX; }
+                else { partX = sheetW - machY; partY = sheetH - machX; }
+                break;
+            default:
+                partX = machX; partY = machY;
+        }
+
+        return { px: (partX / sheetW) * cw, py: (partY / sheetH) * ch };
+    }
+
+    const segments = [];
+    for (const mv of moves) {
+        if (mv.type === 0 || mv.to.z >= 0.5) continue;
+        const allPts = mv.type <= 1 ? [mv.from, mv.to] : arcPts(mv);
+        if (allPts.length < 2) continue;
+        const seg = allPts.map(p => toCanvas(p));
+        segments.push(seg);
+    }
+    console.log('[CNC-SIM] movesToPartSegments: wcs='+wcs+' rot='+cutRot+' flip='+cutFlipped+' segs='+segments.length);
+    return segments;
+}
+
+// Draw segments onto the appropriate face canvas.
+// Also draws a ghost (dashed, faint) on the OTHER canvas so both cuts
+// are always visible from any viewing angle.
+function drawSegments(segments, color, face) {
+    if (!segments.length) return;
+    const hex = '#' + new THREE.Color(color).getHexString();
+    const lw = Math.max(3, TOOL_DIA * CUT_PPI);
+
+    // Primary draw: solid on the correct face
+    const primaryCtx = (face === 'bottom') ? botCtx : topCtx;
+    const primaryTex = (face === 'bottom') ? botTex : topTex;
+    if (primaryCtx) {
+        primaryCtx.strokeStyle = hex;
+        primaryCtx.lineWidth = lw;
+        primaryCtx.lineCap = 'round';
+        primaryCtx.lineJoin = 'round';
+        primaryCtx.globalAlpha = 0.85;
+        primaryCtx.setLineDash([]);
+        for (const seg of segments) {
+            primaryCtx.beginPath();
+            primaryCtx.moveTo(seg[0].px, seg[0].py);
+            for (let i = 1; i < seg.length; i++) primaryCtx.lineTo(seg[i].px, seg[i].py);
+            primaryCtx.stroke();
+        }
+        primaryCtx.globalAlpha = 1;
+        if (primaryTex) primaryTex.needsUpdate = true;
+    }
+
+    // Ghost draw: dashed/faint on the opposite face so user can see it from top view
+    const ghostCtx = (face === 'bottom') ? topCtx : botCtx;
+    const ghostTex = (face === 'bottom') ? topTex : botTex;
+    if (ghostCtx) {
+        ghostCtx.strokeStyle = hex;
+        ghostCtx.lineWidth = lw * 0.6;
+        ghostCtx.lineCap = 'round';
+        ghostCtx.lineJoin = 'round';
+        ghostCtx.globalAlpha = 0.3;
+        ghostCtx.setLineDash([4, 6]);
+        for (const seg of segments) {
+            ghostCtx.beginPath();
+            ghostCtx.moveTo(seg[0].px, seg[0].py);
+            for (let i = 1; i < seg.length; i++) ghostCtx.lineTo(seg[i].px, seg[i].py);
+            ghostCtx.stroke();
+        }
+        ghostCtx.setLineDash([]);
+        ghostCtx.globalAlpha = 1;
+        if (ghostTex) ghostTex.needsUpdate = true;
+    }
+
+    console.log('[CNC-SIM] drawSegments: ' + segments.length + ' segs, color=' + hex + ', face=' + face);
+}
+
+/* ================================================================
+   ANIMATION
+   ================================================================ */
+let gcode = null, isPlaying = false, curIdx = 0, prog = 0, spd = 1;
+let actMoves = [], actSetup = -1, selSetup = 0;
+const BASE_SPD = 40, RAPID_SPD = 200;
+
+function setActive(si) {
+    actSetup = si; const s = gcode.setups[si];
+    actMoves = gcode.moves.slice(s.startIndex, s.endIndex);
+    curIdx = 0; prog = 0;
+    for (const t of tpLines) t.line.material.opacity = t.sIdx===si ? 0.1 : (completedSetups.has(t.sIdx)?0.3:0);
+    document.getElementById('progress-bar').max = Math.max(actMoves.length-1,0);
+    document.getElementById('progress-bar').value = 0;
+    document.getElementById('progress-label').textContent = '0 / '+actMoves.length;
+    // Move tool to home position (left of G57, above bed)
+    toolGrp.position.set(HOME_X, HOME_Z, WS_Y);
+    toolGrp.visible = true;
+}
+
+function updateTool(idx, pr) {
+    if (!actMoves.length||idx>=actMoves.length) return;
+    const mv = actMoves[idx]; let pos;
+    if (mv.type<=1){ const f=cncToScene(mv.from.x,mv.from.y,mv.from.z,mv.wcs),t=cncToScene(mv.to.x,mv.to.y,mv.to.z,mv.wcs);pos=new THREE.Vector3().lerpVectors(f,t,pr);}
+    else { const pts=arcPts(mv);const i2=Math.min(Math.floor(pr*(pts.length-1)),pts.length-2);const lt=pr*(pts.length-1)-i2;
+        const a=pts[i2],b=pts[Math.min(i2+1,pts.length-1)];pos=cncToScene(a.x+(b.x-a.x)*lt,a.y+(b.y-a.y)*lt,a.z+(b.z-a.z)*lt,mv.wcs);}
+    toolGrp.position.copy(pos); toolGrp.visible=true;
+    glowMat.color.setHex(mv.to.z<0.5&&mv.type!==0?0xff4444:0x44ff44);
+    glowMat.opacity=mv.spindleOn?0.8:0.3;
+
+    // trail opacity
+    const gStart = gcode.setups[actSetup].startIndex;
+    for (let i=0;i<tpLines.length;i++){
+        const t=tpLines[i]; if(t.sIdx!==actSetup) continue;
+        const mi = gcode.moves.indexOf(t.mv) - gStart;
+        t.line.material.opacity = mi<idx?0.6:(mi===idx?0.9:0.1);
+    }
+    // info
+    const cp={x:mv.from.x+(mv.to.x-mv.from.x)*pr,y:mv.from.y+(mv.to.y-mv.from.y)*pr,z:mv.from.z+(mv.to.z-mv.from.z)*pr};
+    document.getElementById('pos-x').textContent=cp.x.toFixed(3);
+    document.getElementById('pos-y').textContent=cp.y.toFixed(3);
+    document.getElementById('pos-z').textContent=cp.z.toFixed(3);
+    document.getElementById('tool-num').textContent='T'+mv.tool;
+    document.getElementById('spindle-rpm').textContent=mv.spindleOn?mv.spindleRPM+' RPM':'OFF';
+    document.getElementById('feed-rate').textContent=mv.feed>0?mv.feed+' IPM':'\u2014';
+    document.getElementById('info-wcs').textContent=mv.wcs;
+    document.getElementById('current-line').textContent='N'+(mv.lineIndex+1);
+    document.getElementById('progress-bar').value=idx;
+    document.getElementById('progress-label').textContent=(idx+1)+' / '+actMoves.length;
+}
+
+/* ================================================================
+   TOOLPATH LIST UI
+   ================================================================ */
+function buildTPList() {
+    const el = document.getElementById('toolpath-list'); el.innerHTML='';
+    if(!gcode) return;
+    gcode.setups.forEach((s,i)=>{
+        const d=document.createElement('div');
+        d.className='tp-item'+(i===selSetup?' selected':'')+(completedSetups.has(i)?' completed':'');
+        d.innerHTML='<span class="tp-swatch" style="background:#'+new THREE.Color(s.color).getHexString()+'"></span>'+
+            '<span class="tp-name">'+s.name+'</span><span class="tp-wcs">'+s.wcs+'</span>'+
+            (completedSetups.has(i)?'<span class="tp-check">\u2713</span>':'');
+        d.addEventListener('click',()=>selectSetup(i));
+        el.appendChild(d);
+    });
+}
+function selectSetup(i){
+    selSetup=i; buildTPList(); setActive(i);
+    isPlaying=false; document.getElementById('btn-play').textContent='\u25b6';
+    if(actMoves.length) {
+        updateTool(0,0);
+        const previewSegs = movesToPartSegments(actMoves, compWCS, compRot, compFlipped);
+        updateCutDimsPanel(previewSegs);
+    }
+    toast(gcode.setups[i].name);
+}
+
+/* ================================================================
+   FINISH / RUN ALL
+   ================================================================ */
+function finishSetup(){
+    if(actSetup<0||!gcode) return;
+    const s=gcode.setups[actSetup];
+    completedSetups.add(actSetup);
+    // Convert moves to part-relative pixel segments using current orientation
+    const segs = movesToPartSegments(actMoves, compWCS, compRot, compFlipped);
+    const face = compFlipped ? 'bottom' : 'top';
+    const cutLen = computeCutLengthFromSegments(segs);
+    drawSegments(segs, s.color, face);
+    // Always record pre-computed segments on the piece log
+    pieceCutLog.push({ segments: segs, color: s.color, setupName: s.name, face: face, cutLength: cutLen });
+    console.log('[CNC-SIM] finishSetup: logged cut #'+pieceCutLog.length+' ('+s.name+'), '+segs.length+' segs, face='+face+
+        ', cutLength='+cutLen.toFixed(3)+'"');
+    updateCutDimsPanel(segs);
+    document.getElementById('piece-label').textContent = (pieceActive?'Piece: ':'Cuts: ')+pieceCutLog.length+' cut(s)';
+    buildTPList(); updateCompUI();
+    for(const t of tpLines) if(t.sIdx===actSetup) t.line.material.opacity=0.3;
+    toolGrp.visible=false; isPlaying=false;
+    document.getElementById('btn-play').textContent='\u25b6';
+    toast('\u2713 '+s.name+' complete');
+}
+
+let runQ = [];
+function runAll(){
+    if(!gcode) return;
+    runQ=gcode.setups.map((_,i)=>i).filter(i=>!completedSetups.has(i));
+    if(!runQ.length){toast('All done');return;} runNext();
+}
+function runNext(){
+    if(!runQ.length){toast('\u2713 All toolpaths complete!');return;}
+    selectSetup(runQ.shift()); isPlaying=true; document.getElementById('btn-play').textContent='\u23f8';
+}
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+let _tt=0;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2000);}
+
+/* ================================================================
+   RENDER LOOP
+   ================================================================ */
+let lastT = performance.now();
+function animate(now){
+    requestAnimationFrame(animate);
+    const dt=(now-lastT)/1000; lastT=now; orbit.update();
+    if(isPlaying&&actMoves.length&&curIdx<actMoves.length){
+        const mv=actMoves[curIdx];const len=Math.max(moveLen(mv),0.01);
+        prog+=dt/(len/((mv.type===0?RAPID_SPD:BASE_SPD)*spd));
+        if(prog>=1){prog=0;curIdx++;
+            if(curIdx>=actMoves.length){curIdx=actMoves.length-1;prog=1;finishSetup();
+                if(runQ.length)setTimeout(runNext,400);}}
+        updateTool(curIdx,Math.min(prog,1));
+    }
+    if(toolGrp.visible)glowMesh.scale.setScalar(1+0.15*Math.sin(now*0.008));
+    renderer.render(scene,camera);
+}
+requestAnimationFrame(animate);
+
+/* ================================================================
+   LOAD G-CODE
+   ================================================================ */
+function loadGCode(text, fname){
+    gcode = new GCodeParser(text);
+    console.log('Parsed '+gcode.moves.length+' moves, '+gcode.setups.length+' setups');
+    buildWorkpiece(gcode.sheetX, gcode.sheetY);
+    clearLines();
+    for(let i=0;i<gcode.setups.length;i++){const s=gcode.setups[i];buildLines(gcode.moves.slice(s.startIndex,s.endIndex),i,s.color);}
+    compWCS='G57'; compRot=0; compFlipped=false; completedSetups=new Set(); pieceCutLog=[];
+    pieceActive=false; pieceName=''; pieceWidth=0; pieceHeight=0; pieceThickness=0;
+    document.getElementById('piece-label').textContent='No active piece';
+    document.getElementById('piece-dims-label').textContent='';
+    document.getElementById('cut-dims-panel').style.display='none';
+    selSetup=0; placeComponent();
+    document.getElementById('drop-zone').classList.add('hidden');
+    ['machine-panel','info-panel','playback','view-bar'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
+    document.getElementById('file-name').textContent=fname;
+    document.getElementById('wp-size').textContent=gcode.sheetX+'" \u00d7 '+gcode.sheetY+'"';
+    buildTPList(); selectSetup(0);
+    orbit.target.set(BED_W/2,0,BED_D/2); camera.position.set(BED_W/2+30,50,BED_D/2+70); orbit.update();
+}
+
+/* ================================================================
+   EVENT HANDLERS
+   ================================================================ */
+const dz=document.getElementById('drop-zone'), fi=document.getElementById('file-input');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])rdF(e.dataTransfer.files[0]);});
+document.getElementById('btn-browse').addEventListener('click',()=>fi.click());
+document.getElementById('btn-load').addEventListener('click',()=>fi.click());
+fi.addEventListener('change',e=>{if(e.target.files[0])rdF(e.target.files[0]);});
+function rdF(f){const r=new FileReader();r.onload=e=>loadGCode(e.target.result,f.name);r.readAsText(f);}
+
+// Piece — New Piece opens modal
+document.getElementById('btn-new-piece').addEventListener('click',()=>{
+    // Pre-fill with G-code sheet sizes if available
+    document.getElementById('inp-piece-name').value = '';
+    document.getElementById('inp-piece-w').value = sheetW || '';
+    document.getElementById('inp-piece-h').value = sheetH || '';
+    document.getElementById('inp-piece-t').value = WP_T;
+    document.getElementById('modal-new-piece').classList.add('open');
+});
+document.getElementById('btn-cancel-piece').addEventListener('click',()=>{
+    document.getElementById('modal-new-piece').classList.remove('open');
+});
+document.getElementById('btn-confirm-piece').addEventListener('click',()=>{
+    pieceName = document.getElementById('inp-piece-name').value.trim() || 'Untitled';
+    pieceWidth = parseFloat(document.getElementById('inp-piece-w').value) || sheetW;
+    pieceHeight = parseFloat(document.getElementById('inp-piece-h').value) || sheetH;
+    pieceThickness = parseFloat(document.getElementById('inp-piece-t').value) || WP_T;
+    pieceActive = true; pieceCutLog = [];
+    resetAllCanvases();
+    completedSetups = new Set(); buildTPList(); updateCompUI();
+    document.getElementById('piece-label').textContent = pieceName;
+    document.getElementById('piece-dims-label').textContent =
+        pieceWidth + '" × ' + pieceHeight + '" × ' + pieceThickness + '"';
+    document.getElementById('modal-new-piece').classList.remove('open');
+    toast('\u2733 Piece "' + pieceName + '" started');
+});
+
+// Piece — Save
+document.getElementById('btn-save-piece').addEventListener('click',()=>{
+    if (!pieceCutLog.length) { toast('No cuts to save'); return; }
+    document.getElementById('inp-save-name').value = pieceName || '';
+    document.getElementById('modal-save-piece').classList.add('open');
+});
+document.getElementById('btn-cancel-save').addEventListener('click',()=>{
+    document.getElementById('modal-save-piece').classList.remove('open');
+});
+document.getElementById('btn-confirm-save').addEventListener('click',()=>{
+    const name = document.getElementById('inp-save-name').value.trim() || 'Untitled';
+    pieceName = name;
+    const entry = saveToGallery(name);
+    document.getElementById('modal-save-piece').classList.remove('open');
+    toast('\u2714 Saved "' + name + '" to gallery');
+});
+
+// Piece — Clear
+document.getElementById('btn-clear-piece').addEventListener('click',()=>{
+    pieceActive = false; pieceCutLog = [];
+    pieceName = ''; pieceWidth = 0; pieceHeight = 0; pieceThickness = 0;
+    resetAllCanvases();
+    completedSetups = new Set(); buildTPList(); updateCompUI();
+    document.getElementById('piece-label').textContent = 'No active piece';
+    document.getElementById('piece-dims-label').textContent = '';
+    document.getElementById('cut-dims-panel').style.display = 'none';
+    toast('Piece cleared');
+});
+
+// Gallery
+document.getElementById('btn-gallery').addEventListener('click',()=>{
+    renderGallery();
+    document.getElementById('modal-gallery').classList.add('open');
+});
+document.getElementById('btn-close-gallery').addEventListener('click',()=>{
+    document.getElementById('modal-gallery').classList.remove('open');
+});
+
+// Component placement
+document.getElementById('btn-g57').addEventListener('click',()=>{compWCS='G57';placeComponent();toast('Moved to G57');});
+document.getElementById('btn-g59').addEventListener('click',()=>{compWCS='G59';placeComponent();toast('Moved to G59');});
+document.getElementById('btn-rot90').addEventListener('click',()=>{compRot=(compRot+90)%360;placeComponent();toast('Rotated to '+compRot+'\u00b0');});
+document.getElementById('btn-flip').addEventListener('click',()=>{compFlipped=!compFlipped;placeComponent();toast(compFlipped?'Flipped face down':'Flipped face up');});
+document.getElementById('btn-reset-orient').addEventListener('click',()=>{compRot=0;compFlipped=false;placeComponent();toast('Orientation reset');});
+
+// Toolpath
+document.getElementById('btn-run-tp').addEventListener('click',()=>{
+    if(!gcode)return;if(completedSetups.has(selSetup)){toast('Already done');return;}
+    selectSetup(selSetup);isPlaying=true;document.getElementById('btn-play').textContent='\u23f8';});
+document.getElementById('btn-run-all').addEventListener('click',runAll);
+document.getElementById('btn-show-result').addEventListener('click',()=>{
+    if(!wpMesh)return;isPlaying=false;toolGrp.visible=false;
+    document.getElementById('btn-play').textContent='\u25b6';
+    for(const t of tpLines) t.line.material.opacity=0;
+    // Repaint ALL accumulated cuts from the piece log
+    resetAllCanvases();
+    console.log('[CNC-SIM] Show Final Part: repainting '+pieceCutLog.length+' logged cuts');
+    for (const entry of pieceCutLog) {
+        drawSegments(entry.segments, entry.color, entry.face);
+    }
+    if(topTex) topTex.needsUpdate=true;
+    if(botTex) botTex.needsUpdate=true;
+    const wp=new THREE.Vector3();wpGroup.getWorldPosition(wp);
+    orbit.target.copy(wp);camera.position.set(wp.x,25,wp.z+25);orbit.update();
+    toast('Final part \u2014 '+pieceCutLog.length+' cut(s)');});
+
+// Playback
+document.getElementById('btn-play').addEventListener('click',()=>{
+    if(!actMoves.length)return;isPlaying=!isPlaying;
+    document.getElementById('btn-play').textContent=isPlaying?'\u23f8':'\u25b6';
+    if(isPlaying&&curIdx>=actMoves.length-1){curIdx=0;prog=0;}});
+document.getElementById('btn-restart').addEventListener('click',()=>{
+    curIdx=0;prog=0;isPlaying=false;document.getElementById('btn-play').textContent='\u25b6';
+    if(actMoves.length)updateTool(0,0);});
+document.getElementById('btn-step').addEventListener('click',()=>{
+    isPlaying=false;document.getElementById('btn-play').textContent='\u25b6';
+    if(curIdx<actMoves.length-1){curIdx++;prog=0;updateTool(curIdx,0);}});
+document.getElementById('progress-bar').addEventListener('input',e=>{
+    if(!gcode)return;curIdx=+e.target.value;prog=0;updateTool(curIdx,0);});
+document.getElementById('speed-select').addEventListener('change',e=>{spd=+e.target.value;});
+
+// Views
+document.querySelectorAll('.vb-btn[data-view]').forEach(b=>{b.addEventListener('click',()=>{
+    const v=b.dataset.view,t=orbit.target.clone(),d=120;
+    if(v==='perspective')camera.position.set(t.x+40,50,t.z+60);
+    else if(v==='top')camera.position.set(t.x,d,t.z+0.01);
+    else if(v==='front')camera.position.set(t.x,t.y+10,t.z+d);
+    else if(v==='right')camera.position.set(t.x+d,t.y+10,t.z);
+    orbit.update();});});
+
+// Keyboard
+window.addEventListener('keydown',e=>{
+    if(e.target.tagName==='SELECT'||e.target.tagName==='INPUT')return;
+    if(e.code==='Space'){e.preventDefault();document.getElementById('btn-play').click();}
+    else if(e.code==='KeyR')document.getElementById('btn-restart').click();
+    else if(e.code==='ArrowRight')document.getElementById('btn-step').click();
+});
+
+// Resize
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+
+/* ================================================================
+   SAMPLE G-CODE (auto-load)
+   ================================================================ */
+loadGCode(`%
+O1013
+(MACHINE)
+(  VENDOR ANDERSON)
+(  MODEL STRATOS)
+(  DESCRIPTION BLA CNC ROUTER)
+(T001 D=0.5 CR=0. - ZMIN=0.25 - FLAT END MILL)
+N10 #527= 88.625   (X SHEET SIZE)
+N15 #528= 7.   (Y SHEET SIZE)
+N20 G90 G94 G17 G49
+N25 G20
+N30 M12
+N35 G28 G91 Z0.
+N40 G90
+N45 M95 (ALL SPINDLES OFF)
+N50 M92 (ALL SPINDLES UP)
+(LEFT RABBET OUT)
+N60 T101
+N65 M11
+N70 M13 S8000
+N75 G17 G90 G94
+N80 G57
+N85 G0 X-4.0613 Y0.4643
+N90 G43 Z1.35 H11
+N95 G0 Z0.95
+N100 G1 Z0.7894 F13.3
+N105 Z0.25
+N110 X-3.6265 Y0.2174 F200.
+N115 G3 X-2.6142 Y-0.05 I1.0123 J1.7826
+N120 G1 X83.5626
+N125 G3 X84.575 Y0.2174 J2.05
+N130 G1 X85.0101 Y0.4643
+N135 G0 Z1.35
+N140 M92
+N145 M95
+N150 G28 G91 Z0.
+N155 G90
+N160 G49
+N165 G8 P0
+N170 G28 G91 X0. Y0.
+N175 G90
+N180 M30
+M0
+
+(******************)
+(NEW SETUP, FLIP PART)
+(******************)
+
+N185 #527= 88.625   (X SHEET SIZE)
+N190 #528= 7.   (Y SHEET SIZE)
+N195 G90 G94 G17 G49
+N200 G20
+N205 M12
+N210 G28 G91 Z0.
+N215 G90
+N220 M95 (ALL SPINDLES OFF)
+N225 M92 (ALL SPINDLES UP)
+N230 G8 P1
+
+(RIGHT RABBET OUT)
+N235 T101
+N240 M11
+N245 M13 S8000
+N250 G17 G90 G94
+N255 G59
+N260 G0 X-94.1864 Y0.4643
+N265 G43 Z1.35 H11
+N270 G0 Z0.95
+N275 G1 Z0.7894 F13.3
+N280 Z0.25
+N285 X-93.7514 Y0.2174 F200.
+N290 X-93.7513
+N295 G3 X-92.7394 Y-0.05 I1.0123 J1.7825
+N300 G1 X-6.3123
+N305 G3 X-5.3 Y0.2174 J2.05
+N310 G1 X-4.8652 Y0.4643
+N315 G0 Z1.35
+N320 M92
+N325 M95
+N330 G28 G91 Z0.
+N335 G90
+N340 G49
+N345 G8 P0
+N350 G28 G91 X0. Y0.
+N355 G90
+N360 M30
+M30
+%`, '1-S7-IBUS789123.txt (sample)');
+
+} catch(err) { console.error('[CNC-SIM] FATAL:', err); document.body.innerHTML='<pre style="color:red;padding:20px">'+err.stack+'</pre>'; }
+</script>
+</body>
+</html>

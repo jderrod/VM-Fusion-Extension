@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel G-Code Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .drop-zone.drag-over { border-color: #6366f1; background: rgba(99,102,241,0.06); }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    canvas { image-rendering: auto; }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-gray-800 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-violet-600 flex items-center justify-center">
+        <i data-lucide="box" class="w-5 h-5 text-white"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-semibold">Panel G-Code Analyzer</h1>
+        <p class="text-xs text-gray-500">Extract notch &amp; cutout dimensions from panel CNC G-code</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
+
+    <!-- Config + Drop Zone Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Tool Config -->
+      <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 space-y-4">
+        <div class="flex items-center gap-2 text-sm font-medium text-gray-300">
+          <i data-lucide="settings" class="w-4 h-4 text-gray-500"></i>
+          Tool Configuration
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Tool Diameter (inches)</label>
+          <input id="toolDiameter" type="number" step="0.001" value="0.5"
+            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mono focus:outline-none focus:ring-2 focus:ring-violet-500" />
+        </div>
+        <div class="text-xs text-gray-600 flex items-start gap-1.5 pt-1">
+          <i data-lucide="info" class="w-3.5 h-3.5 mt-0.5 shrink-0"></i>
+          <span>Tool radius is added to toolpath extents to compute actual feature dimensions on the part.</span>
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="lg:col-span-2">
+        <div id="dropZone"
+          class="drop-zone border-2 border-dashed border-gray-700 rounded-xl p-10 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all hover:border-gray-600">
+          <i data-lucide="upload" class="w-10 h-10 text-gray-600"></i>
+          <p class="text-sm text-gray-400">Drop a panel G-code file here or <span class="text-violet-400 underline">browse</span></p>
+          <p class="text-xs text-gray-600">Supports .txt and .nc files</p>
+          <input id="fileInput" type="file" accept=".txt,.nc" class="hidden" />
+        </div>
+        <div id="fileInfo" class="hidden mt-3 bg-gray-900 rounded-lg border border-gray-800 px-4 py-3 flex items-center gap-3">
+          <i data-lucide="file-text" class="w-5 h-5 text-violet-400 shrink-0"></i>
+          <div class="min-w-0 flex-1">
+            <p id="fileName" class="text-sm font-medium truncate"></p>
+            <p id="fileSize" class="text-xs text-gray-500"></p>
+          </div>
+          <button id="clearFile" class="text-gray-500 hover:text-gray-300 transition">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="hidden space-y-6 fade-in">
+
+      <!-- Summary Cards -->
+      <div id="summaryCards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"></div>
+
+      <!-- Notches Table -->
+      <div id="notchSection" class="hidden bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
+          <i data-lucide="scissors" class="w-4 h-4 text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-300">Notch Dimensions</span>
+        </div>
+        <div class="px-5 py-3 text-xs text-gray-500 border-b border-gray-800/50">
+          <strong>Height</strong> = vertical extent of notch (along panel height / X-axis) &nbsp;|&nbsp; <strong>Width</strong> = horizontal extent of notch (along panel width / Y-axis)
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase tracking-wider">
+              <tr>
+                <th class="text-left px-5 py-3">Notch Name</th>
+                <th class="text-left px-5 py-3">Corner</th>
+                <th class="text-right px-5 py-3">Height</th>
+                <th class="text-right px-5 py-3">Width</th>
+                <th class="text-right px-5 py-3">Toolpath X span</th>
+                <th class="text-right px-5 py-3">Toolpath Y span</th>
+              </tr>
+            </thead>
+            <tbody id="notchTableBody" class="divide-y divide-gray-800"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cutouts Table -->
+      <div id="cutoutSection" class="hidden bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
+          <i data-lucide="square" class="w-4 h-4 text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-300">Cutout Dimensions</span>
+        </div>
+        <div class="px-5 py-3 text-xs text-gray-500 border-b border-gray-800/50">
+          Position is measured from the <strong>bottom-back corner</strong> of the component to the <strong>nearest corner</strong> of the cutout.
+          <strong>Width</strong> = along X (component length), <strong>Height</strong> = along Y (component width).
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase tracking-wider">
+              <tr>
+                <th class="text-left px-5 py-3">Cutout Name</th>
+                <th class="text-right px-5 py-3">Width</th>
+                <th class="text-right px-5 py-3">Height</th>
+                <th class="text-right px-5 py-3">X from corner</th>
+                <th class="text-right px-5 py-3">Y from corner</th>
+                <th class="text-right px-5 py-3">Toolpath extents</th>
+              </tr>
+            </thead>
+            <tbody id="cutoutTableBody" class="divide-y divide-gray-800"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- All Operations Table -->
+      <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
+          <i data-lucide="list" class="w-4 h-4 text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-300">All Operations</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase tracking-wider">
+              <tr>
+                <th class="text-left px-5 py-3">Operation</th>
+                <th class="text-left px-5 py-3">Type</th>
+                <th class="text-left px-5 py-3">Work Offset</th>
+                <th class="text-right px-5 py-3">Segments</th>
+              </tr>
+            </thead>
+            <tbody id="opsTableBody" class="divide-y divide-gray-800"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Visualization -->
+      <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="eye" class="w-4 h-4 text-gray-500"></i>
+            <span class="text-sm font-medium text-gray-300">Panel Visualization</span>
+          </div>
+          <div class="flex items-center gap-4 text-xs text-gray-500">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-1 rounded bg-yellow-500 inline-block"></span> Rapid</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-1 rounded bg-orange-400 inline-block"></span> Notch</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-1 rounded bg-violet-400 inline-block"></span> Cutout</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-1 rounded bg-emerald-400 inline-block"></span> Other cut</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded border border-cyan-400 inline-block"></span> Panel bounds</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <canvas id="vizCanvas" class="w-full rounded-lg bg-gray-950" height="500"></canvas>
+        </div>
+      </div>
+
+      <!-- Annotated G-code -->
+      <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
+          <i data-lucide="code" class="w-4 h-4 text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-300">Annotated G-Code</span>
+        </div>
+        <div id="annotatedCode" class="p-5 overflow-x-auto max-h-96 overflow-y-auto mono text-xs leading-6 whitespace-pre"></div>
+      </div>
+    </div>
+  </main>
+
+<script>
+// ─── Panel G-Code Parser ──────────────────────────────────────────────────────
+
+function parsePanelGCode(text, toolDiameter) {
+  const toolRadius = toolDiameter / 2;
+  const lines = text.split(/\r?\n/);
+  const operations = [];
+  let currentOp = null;
+  let currentWorkOffset = '';
+  let x = 0, y = 0, z = 0;
+  let activeGCode = null;
+  const lineAnnotations = [];
+
+  // Extract sheet size
+  let sheetX = null, sheetY = null;
+  for (const line of lines) {
+    const mx = line.match(/#527\s*=\s*([\d.]+)/);
+    if (mx) sheetX = parseFloat(mx[1]);
+    const my = line.match(/#528\s*=\s*([\d.]+)/);
+    if (my) sheetY = parseFloat(my[1]);
+    if (sheetX !== null && sheetY !== null) break;
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].trim();
+    lineAnnotations.push({ line: lines[i], annotation: '', cls: '' });
+
+    // Detect operation comment
+    const opMatch = raw.match(/^\(([A-Z][A-Z0-9 _/'-]+)\)$/);
+    if (opMatch && !raw.includes('MACHINE') && !raw.includes('VENDOR') && !raw.includes('MODEL')
+        && !raw.includes('DESCRIPTION') && !raw.includes('T001') && !raw.includes('SHEET')
+        && !raw.includes('NEW SETUP') && !raw.includes('****')) {
+      if (currentOp) operations.push(currentOp);
+      const name = opMatch[1].trim();
+
+      // Classify operation
+      let opType = 'other';
+      const nameLower = name.toLowerCase();
+      if (nameLower.includes('notch')) opType = 'notch';
+      else if (nameLower.includes('cutout')) opType = 'cutout';
+      else if (nameLower.includes('rabbet')) opType = 'rabbet';
+
+      currentOp = {
+        name,
+        opType,
+        workOffset: currentWorkOffset,
+        segments: [],
+        startLine: i,
+      };
+      lineAnnotations[i].cls = 'text-violet-400 font-semibold';
+      continue;
+    }
+
+    // Reset modal state on M30/M0
+    if (raw.match(/^M30\b/) || raw.match(/^M0\b/) || raw.match(/^N\d+\s+M30\b/)) {
+      activeGCode = null;
+    }
+
+    if (!raw.match(/^N\d+/) && !raw.match(/^G\d+/) && !raw.match(/^M\d+/)) continue;
+
+    const tokens = raw.replace(/^N\d+\s*/, '').split(/\s+/);
+    let lineHasMotionG = false;
+    let params = {};
+    for (const tok of tokens) {
+      const m = tok.match(/^([A-Z])(-?[\d.]+)/);
+      if (m) {
+        const letter = m[1];
+        const val = parseFloat(m[2]);
+        if (letter === 'G' && (val === 0 || val === 1 || val === 2 || val === 3)) {
+          activeGCode = val;
+          lineHasMotionG = true;
+        } else if (letter === 'G' && (val === 57 || val === 58 || val === 59)) {
+          currentWorkOffset = `G${val}`;
+          if (currentOp) currentOp.workOffset = currentWorkOffset;
+        }
+        params[letter] = val;
+      }
+    }
+
+    if (raw.includes('G28')) continue;
+
+    const hasCoords = 'X' in params || 'Y' in params || 'Z' in params;
+    const effectiveGCode = lineHasMotionG ? activeGCode : (hasCoords ? activeGCode : null);
+
+    if (effectiveGCode !== null && currentOp) {
+      const gCode = effectiveGCode;
+      const prevX = x, prevY = y, prevZ = z;
+
+      if ('X' in params) x = params['X'];
+      if ('Y' in params) y = params['Y'];
+      if ('Z' in params) z = params['Z'];
+
+      const seg = {
+        type: gCode === 0 ? 'rapid' : 'cut',
+        gCode,
+        x1: prevX, y1: prevY, z1: prevZ,
+        x2: x, y2: y, z2: z,
+      };
+
+      // For arcs, store arc data
+      if (gCode === 2 || gCode === 3) {
+        const I = params['I'] || 0;
+        const J = params['J'] || 0;
+        seg.cx = prevX + I;
+        seg.cy = prevY + J;
+        seg.r = Math.sqrt(I*I + J*J);
+        seg.startAngle = Math.atan2(prevY - seg.cy, prevX - seg.cx);
+        seg.endAngle = Math.atan2(y - seg.cy, x - seg.cx);
+        let sweep;
+        if (gCode === 3) {
+          sweep = seg.endAngle - seg.startAngle;
+          if (sweep <= 0) sweep += 2 * Math.PI;
+        } else {
+          sweep = seg.startAngle - seg.endAngle;
+          if (sweep <= 0) sweep += 2 * Math.PI;
+        }
+        seg.sweep = sweep;
+        seg.type = 'arc';
+      }
+
+      currentOp.segments.push(seg);
+
+      if (gCode === 0) {
+        lineAnnotations[i].annotation = `rapid → (${x.toFixed(3)}, ${y.toFixed(3)}, ${z.toFixed(3)})`;
+        lineAnnotations[i].cls = 'text-yellow-600';
+      } else {
+        lineAnnotations[i].annotation = `${gCode === 2 || gCode === 3 ? 'arc' : 'cut'} → (${x.toFixed(3)}, ${y.toFixed(3)}, ${z.toFixed(3)})`;
+        lineAnnotations[i].cls = currentOp.opType === 'notch' ? 'text-orange-400' :
+                                  currentOp.opType === 'cutout' ? 'text-violet-400' : 'text-emerald-400';
+      }
+    }
+  }
+  if (currentOp) operations.push(currentOp);
+
+  // ── Analyze operations ──
+
+  const notches = [];
+  const cutouts = [];
+
+  for (const op of operations) {
+    if (op.opType === 'notch') {
+      notches.push(analyzeNotch(op, toolRadius, sheetX, sheetY));
+    } else if (op.opType === 'cutout') {
+      cutouts.push(analyzeCutout(op, toolRadius, sheetX, sheetY));
+    }
+  }
+
+  return { operations, notches, cutouts, lineAnnotations, sheetX, sheetY };
+}
+
+// ─── Notch Analysis ─────────────────────────────────────────────────────────
+// A notch is an L-shaped cut at a corner of the panel.
+// We find the bounding box of all cutting moves (G1 at cutting depth)
+// and compute the X (along edge) and Y (depth) dimensions.
+// The toolpath traces the tool CENTER, so the actual feature extends
+// by toolRadius beyond the toolpath extents in each direction.
+
+function analyzeNotch(op, toolRadius, sheetX, sheetY) {
+  // G58 panel coordinate system:
+  //   Origin (0,0) = bottom-back corner
+  //   X goes negative toward top, Y goes negative toward front
+  //   Panel bounds: X ∈ [-sheetX, 0], Y ∈ [-sheetY, 0]
+  //
+  // Notches are L-shaped cuts at panel corners. The toolpath may extend
+  // beyond panel edges for clearance (e.g., X=0.5 or Y=0.5).
+  // We clamp toolpath positions to the panel boundary to get the actual
+  // notch geometry on the part.
+  //
+  // For ALL notches (regardless of corner), the dimensions are:
+  //   Height = X-axis span (along panel height) = clamped X span + toolRadius
+  //   Width  = Y-axis span (along panel width)  = clamped Y span + toolRadius
+  //
+  // This matches the panel model parameters:
+  //   bottom_notching_actual_y_dist → Height (confusingly named "y_dist" but
+  //     corresponds to the vertical/X dimension in G58 coordinates)
+  //   notching_x_dist → Width (the horizontal/Y dimension in G58 coordinates)
+
+  // Collect all cutting positions at full depth (Z ≈ 0)
+  const cutPositions = [];
+  for (const seg of op.segments) {
+    if (seg.type === 'rapid') continue;
+    if (seg.z2 <= 0.3) cutPositions.push({ x: seg.x2, y: seg.y2 });
+    if (seg.z1 <= 0.3) cutPositions.push({ x: seg.x1, y: seg.y1 });
+  }
+
+  if (cutPositions.length === 0) {
+    return { name: op.name, height: 0, width: 0, xToolpath: 0, yToolpath: 0, corner: '' };
+  }
+
+  // Raw toolpath bounding box
+  let minX = Infinity, maxX = -Infinity;
+  let minY = Infinity, maxY = -Infinity;
+  for (const p of cutPositions) {
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y);
+    maxY = Math.max(maxY, p.y);
+  }
+
+  const xToolpath = Math.abs(maxX - minX);
+  const yToolpath = Math.abs(maxY - minY);
+
+  // Clamp the toolpath extents to the panel boundary.
+  // Positions beyond the panel edge are clearance moves, not material.
+  const clampedMinX = Math.max(minX, -sheetX);
+  const clampedMaxX = Math.min(maxX, 0);
+  const clampedMinY = Math.max(minY, -sheetY);
+  const clampedMaxY = Math.min(maxY, 0);
+
+  // Clamped toolpath dimensions (within panel only)
+  const clampedXSpan = Math.abs(clampedMaxX - clampedMinX);
+  const clampedYSpan = Math.abs(clampedMaxY - clampedMinY);
+
+  // Feature dimensions = clamped span + toolRadius
+  // The tool center traces the toolpath, but the actual cut edge is
+  // toolRadius further into the material on the interior side.
+  const height = clampedXSpan + toolRadius;  // X-axis = panel height direction
+  const width  = clampedYSpan + toolRadius;  // Y-axis = panel width direction
+
+  // Determine corner from operation name
+  const nameLower = op.name.toLowerCase();
+  const edgeX = nameLower.includes('bottom') ? 'bottom' : nameLower.includes('top') ? 'top' : '?';
+  const edgeY = nameLower.includes('back') ? 'back' : nameLower.includes('front') ? 'front' : '?';
+  const corner = `${edgeX}-${edgeY}`;
+
+  return {
+    name: op.name,
+    workOffset: op.workOffset,
+    height, width,
+    xToolpath, yToolpath,
+    clampedXSpan, clampedYSpan,
+    corner, edgeX, edgeY,
+    minX, maxX, minY, maxY,
+    cutPositions,
+  };
+}
+
+// ─── Cutout Analysis ────────────────────────────────────────────────────────
+// A cutout is a rectangular pocket milled into the panel.
+// The toolpath traces the tool center around the pocket perimeter.
+// The actual pocket extends toolRadius beyond the toolpath in all directions.
+
+function analyzeCutout(op, toolRadius, sheetX, sheetY) {
+  // Collect positions at full cutting depth (the final pass, Z=0)
+  // The cutout has a ramp-in (Z decreasing) then a full-depth rectangular pass.
+  // We want only the full-depth (Z ≈ 0) rectangular pass for dimensions.
+  const cutPositions = [];
+  for (const seg of op.segments) {
+    if (seg.type === 'rapid') continue;
+    // Full depth pass: Z at or very near 0 for both endpoints
+    if (Math.abs(seg.z1) < 0.01 && Math.abs(seg.z2) < 0.01) {
+      cutPositions.push({ x: seg.x1, y: seg.y1 });
+      cutPositions.push({ x: seg.x2, y: seg.y2 });
+    }
+  }
+
+  // If no full-depth positions found, use all cutting positions
+  if (cutPositions.length === 0) {
+    for (const seg of op.segments) {
+      if (seg.type === 'rapid') continue;
+      if (seg.z2 <= 0.1) {
+        cutPositions.push({ x: seg.x2, y: seg.y2 });
+      }
+    }
+  }
+
+  if (cutPositions.length === 0) {
+    return { name: op.name, width: 0, height: 0, posX: 0, posY: 0 };
+  }
+
+  let minX = Infinity, maxX = -Infinity;
+  let minY = Infinity, maxY = -Infinity;
+  for (const p of cutPositions) {
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y);
+    maxY = Math.max(maxY, p.y);
+  }
+
+  // Toolpath bounding box
+  const tpWidth = Math.abs(maxX - minX);
+  const tpHeight = Math.abs(maxY - minY);
+
+  // Actual feature: tool center traces the perimeter, so feature is toolRadius
+  // larger in all directions
+  const featureWidth = tpWidth + 2 * toolRadius;   // +radius on both sides
+  const featureHeight = tpHeight + 2 * toolRadius;
+
+  // Feature corners (actual pocket)
+  const featureMinX = minX - toolRadius;
+  const featureMaxX = maxX + toolRadius;
+  const featureMinY = minY - toolRadius;
+  const featureMaxY = maxY + toolRadius;
+
+  // Position relative to bottom-back corner of panel.
+  // G58: panel X ∈ [-sheetX, 0], Y ∈ [-sheetY, 0]
+  // "Bottom" = X=0 edge, "Back" = Y=0 edge
+  // Bottom-back corner = (0, 0)
+  // Distance from bottom-back corner to nearest corner of cutout:
+  // The nearest corner has the smallest absolute distance from (0,0).
+  const corners = [
+    { x: featureMinX, y: featureMinY },
+    { x: featureMinX, y: featureMaxY },
+    { x: featureMaxX, y: featureMinY },
+    { x: featureMaxX, y: featureMaxY },
+  ];
+
+  // For the bottom-back corner (0,0), the nearest cutout corner
+  // in G58 coordinates (all negative) would be the one closest to 0,0
+  let nearestCorner = corners[0];
+  let nearestDist = Math.sqrt(corners[0].x**2 + corners[0].y**2);
+  for (const c of corners) {
+    const d = Math.sqrt(c.x**2 + c.y**2);
+    if (d < nearestDist) {
+      nearestDist = d;
+      nearestCorner = c;
+    }
+  }
+
+  // Position is the absolute distance from (0,0) to nearest corner
+  const posX = Math.abs(nearestCorner.x);
+  const posY = Math.abs(nearestCorner.y);
+
+  return {
+    name: op.name,
+    workOffset: op.workOffset,
+    tpWidth, tpHeight,
+    width: featureWidth,
+    height: featureHeight,
+    posX, posY,
+    minX, maxX, minY, maxY,
+    featureMinX, featureMaxX, featureMinY, featureMaxY,
+    nearestCorner,
+    cutPositions,
+  };
+}
+
+// ─── Visualization ──────────────────────────────────────────────────────────
+
+function drawVisualization(operations, sheetX, sheetY) {
+  const canvas = document.getElementById('vizCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const margin = 60;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = canvas.clientWidth * dpr;
+  canvas.height = 500 * dpr;
+  ctx.scale(dpr, dpr);
+  const W = canvas.clientWidth;
+  const H = 500;
+
+  // Bounds: include panel and all toolpath positions
+  let minX = 0, maxX = 0, minY = 0, maxY = 0;
+  if (sheetX) { minX = -sheetX - 5; maxX = 5; }
+  if (sheetY) { minY = -sheetY - 5; maxY = 5; }
+
+  for (const op of operations) {
+    for (const seg of op.segments) {
+      minX = Math.min(minX, seg.x1, seg.x2);
+      maxX = Math.max(maxX, seg.x1, seg.x2);
+      minY = Math.min(minY, seg.y1, seg.y2);
+      maxY = Math.max(maxY, seg.y1, seg.y2);
+    }
+  }
+
+  const rangeX = (maxX - minX) || 1;
+  const rangeY = (maxY - minY) || 1;
+  const scale = Math.min((W - margin*2) / rangeX, (H - margin*2) / rangeY);
+
+  function tx(v) { return margin + (v - minX) * scale; }
+  function ty(v) { return H - margin - (v - minY) * scale; }
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Draw panel boundary
+  if (sheetX && sheetY) {
+    const px1 = tx(-sheetX);
+    const py1 = ty(0);
+    const px2 = tx(0);
+    const py2 = ty(-sheetY);
+    const pw = px2 - px1;
+    const ph = py2 - py1;
+
+    // Fill panel area
+    ctx.fillStyle = 'rgba(34,211,238,0.04)';
+    ctx.fillRect(px1, py1, pw, ph);
+
+    // Panel outline
+    ctx.setLineDash([6, 4]);
+    ctx.strokeStyle = 'rgba(34,211,238,0.5)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px1, py1, pw, ph);
+    ctx.setLineDash([]);
+
+    // Labels
+    ctx.fillStyle = 'rgba(34,211,238,0.6)';
+    ctx.font = '10px Inter';
+    ctx.fillText(`Panel: ${sheetX}" × ${sheetY}"`, px1 + 4, py1 + 14);
+    ctx.fillText('Bottom-Back (0,0)', tx(0) + 4, ty(0) - 4);
+  }
+
+  // Draw toolpaths
+  for (const op of operations) {
+    for (const seg of op.segments) {
+      if (seg.type === 'rapid') {
+        ctx.strokeStyle = 'rgba(234,179,8,0.25)';
+        ctx.lineWidth = 0.5;
+        ctx.setLineDash([3, 3]);
+      } else if (op.opType === 'notch') {
+        ctx.strokeStyle = '#fb923c';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+      } else if (op.opType === 'cutout') {
+        ctx.strokeStyle = '#a78bfa';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+      } else {
+        ctx.strokeStyle = '#34d399';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([]);
+      }
+
+      ctx.beginPath();
+      if (seg.type === 'arc') {
+        const STEPS = 100;
+        for (let s = 0; s <= STEPS; s++) {
+          const t = s / STEPS;
+          let a;
+          if (seg.gCode === 3) a = seg.startAngle + seg.sweep * t;
+          else a = seg.startAngle - seg.sweep * t;
+          const px = seg.cx + seg.r * Math.cos(a);
+          const py = seg.cy + seg.r * Math.sin(a);
+          if (s === 0) ctx.moveTo(tx(px), ty(py));
+          else ctx.lineTo(tx(px), ty(py));
+        }
+      } else {
+        ctx.moveTo(tx(seg.x1), ty(seg.y1));
+        ctx.lineTo(tx(seg.x2), ty(seg.y2));
+      }
+      ctx.stroke();
+    }
+  }
+
+  // Draw grid
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#6b7280';
+  ctx.font = '10px Inter';
+  const xStep = Math.pow(10, Math.floor(Math.log10(rangeX))) || 10;
+  for (let v = Math.ceil(minX / xStep) * xStep; v <= maxX; v += xStep) {
+    const sx = tx(v);
+    ctx.fillText(v.toFixed(0), sx - 8, H - margin + 16);
+    ctx.strokeStyle = 'rgba(75,85,99,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(sx, margin); ctx.lineTo(sx, H - margin); ctx.stroke();
+  }
+  const yStep = Math.pow(10, Math.floor(Math.log10(rangeY))) || 1;
+  for (let v = Math.ceil(minY / yStep) * yStep; v <= maxY; v += yStep) {
+    const sy = ty(v);
+    ctx.fillStyle = '#6b7280';
+    ctx.fillText(v.toFixed(0), 4, sy + 4);
+    ctx.strokeStyle = 'rgba(75,85,99,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(margin, sy); ctx.lineTo(W - margin, sy); ctx.stroke();
+  }
+
+  ctx.fillStyle = '#9ca3af';
+  ctx.font = '11px Inter';
+  ctx.fillText('X (inches)', W / 2, H - 8);
+  ctx.save();
+  ctx.translate(14, H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Y (inches)', 0, 0);
+  ctx.restore();
+}
+
+// ─── UI Rendering ───────────────────────────────────────────────────────────
+
+function renderResults(result, toolDiameter) {
+  const { operations, notches, cutouts, lineAnnotations, sheetX, sheetY } = result;
+
+  // Summary cards
+  const cards = document.getElementById('summaryCards');
+  cards.innerHTML = [
+    { label: 'Operations', value: operations.length, icon: 'layers', color: 'violet' },
+    { label: 'Notches', value: notches.length, icon: 'scissors', color: 'orange' },
+    { label: 'Cutouts', value: cutouts.length, icon: 'square', color: 'violet' },
+    ...(sheetX !== null ? [{ label: 'Panel Size', value: `${sheetX}" × ${sheetY}"`, icon: 'move-horizontal', color: 'cyan' }] : []),
+  ].map(c => `
+    <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
+      <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+        <i data-lucide="${c.icon}" class="w-3.5 h-3.5"></i>${c.label}
+      </div>
+      <div class="text-2xl font-semibold text-${c.color}-400 mono">${c.value}</div>
+    </div>
+  `).join('');
+
+  // Notches table
+  const notchSection = document.getElementById('notchSection');
+  const notchBody = document.getElementById('notchTableBody');
+  if (notches.length > 0) {
+    notchSection.classList.remove('hidden');
+    notchBody.innerHTML = notches.map(n => `
+      <tr class="hover:bg-gray-800/50">
+        <td class="px-5 py-3 font-medium text-orange-400">${n.name}</td>
+        <td class="px-5 py-3 text-gray-300">${n.corner}</td>
+        <td class="px-5 py-3 text-right mono text-emerald-400 font-semibold">${n.height.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-emerald-400 font-semibold">${n.width.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-gray-400">${n.xToolpath.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-gray-400">${n.yToolpath.toFixed(4)}"</td>
+      </tr>
+    `).join('');
+  } else {
+    notchSection.classList.add('hidden');
+  }
+
+  // Cutouts table
+  const cutoutSection = document.getElementById('cutoutSection');
+  const cutoutBody = document.getElementById('cutoutTableBody');
+  if (cutouts.length > 0) {
+    cutoutSection.classList.remove('hidden');
+    cutoutBody.innerHTML = cutouts.map(c => `
+      <tr class="hover:bg-gray-800/50">
+        <td class="px-5 py-3 font-medium text-violet-400">${c.name}</td>
+        <td class="px-5 py-3 text-right mono text-emerald-400 font-semibold">${c.width.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-emerald-400 font-semibold">${c.height.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-cyan-400">${c.posX.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-cyan-400">${c.posY.toFixed(4)}"</td>
+        <td class="px-5 py-3 text-right mono text-gray-500 text-xs">X:[${c.minX.toFixed(2)}, ${c.maxX.toFixed(2)}] Y:[${c.minY.toFixed(2)}, ${c.maxY.toFixed(2)}]</td>
+      </tr>
+    `).join('');
+  } else {
+    cutoutSection.classList.add('hidden');
+  }
+
+  // Operations table
+  const opsBody = document.getElementById('opsTableBody');
+  opsBody.innerHTML = operations.map(op => {
+    const typeColors = { notch: 'text-orange-400', cutout: 'text-violet-400', rabbet: 'text-emerald-400', other: 'text-gray-400' };
+    return `
+      <tr class="hover:bg-gray-800/50">
+        <td class="px-5 py-3 font-medium">${op.name}</td>
+        <td class="px-5 py-3 ${typeColors[op.opType] || 'text-gray-400'}">${op.opType}</td>
+        <td class="px-5 py-3 mono text-gray-400">${op.workOffset || '—'}</td>
+        <td class="px-5 py-3 text-right mono text-gray-400">${op.segments.filter(s => s.type !== 'rapid').length}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Annotated G-code
+  const codeDiv = document.getElementById('annotatedCode');
+  codeDiv.innerHTML = lineAnnotations.map((la, i) => {
+    const lineNum = `<span class="text-gray-600 select-none inline-block w-10 text-right mr-4">${i+1}</span>`;
+    const code = escapeHtml(la.line);
+    const ann = la.annotation ? `  <span class="text-gray-600">// ${escapeHtml(la.annotation)}</span>` : '';
+    return `<span class="${la.cls || 'text-gray-400'}">${lineNum}${code}${ann}</span>`;
+  }).join('\n');
+
+  // Visualization
+  drawVisualization(operations, sheetX, sheetY);
+
+  // Show results
+  document.getElementById('results').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── File Handling ──────────────────────────────────────────────────────────
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const fileInfo = document.getElementById('fileInfo');
+
+function handleFile(file) {
+  document.getElementById('fileName').textContent = file.name;
+  document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+  fileInfo.classList.remove('hidden');
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const toolDiameter = parseFloat(document.getElementById('toolDiameter').value) || 0.5;
+    const result = parsePanelGCode(e.target.result, toolDiameter);
+    renderResults(result, toolDiameter);
+  };
+  reader.readAsText(file);
+}
+
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+document.getElementById('clearFile').addEventListener('click', () => {
+  fileInput.value = '';
+  fileInfo.classList.add('hidden');
+  document.getElementById('results').classList.add('hidden');
+});
+
+document.getElementById('toolDiameter').addEventListener('change', () => {
+  if (fileInput.files[0]) handleFile(fileInput.files[0]);
+});
+
+window.addEventListener('resize', () => {
+  if (!document.getElementById('results').classList.contains('hidden')) {
+    if (fileInput.files[0]) handleFile(fileInput.files[0]);
+  }
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>

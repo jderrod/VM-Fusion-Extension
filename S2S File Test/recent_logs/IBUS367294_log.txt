@@ -1,0 +1,457 @@
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO - Order log created: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\logs\IBUS367294_log.txt
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO - Available models: {'door': 'cloud', 'panel': 'cloud', 'stile': 'cloud (3081, 3082, 3086)'}
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO - Processing 3 panels
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO - Processing panel 1/3: P1
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-02-24 11:11:04 - FusionManufacturingPipeline - INFO - Opening cloud panel model: 3X8X_Panel
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - Opened cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - P1: Opened cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - Applying parameters to P1
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - P1: Model has 23 user params, JSON has 12 params
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - P1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-02-24 11:11:05 - FusionManufacturingPipeline - INFO - P1: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - P1: Successfully updated 9 parameter(s)
+2026-02-24 11:11:13 - FusionManufacturingPipeline - ERROR - P1: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - Processing panel 2/3: P2
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - Activating cached cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - P2: Switched to cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - Applying parameters to P2
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - P2: Model has 23 user params, JSON has 12 params
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - P2: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-02-24 11:11:13 - FusionManufacturingPipeline - INFO - P2: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - P2: Successfully updated 9 parameter(s)
+2026-02-24 11:11:33 - FusionManufacturingPipeline - ERROR - P2: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - Processing panel 3/3: P3
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO -   Parameters to apply: 12
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - Activating cached cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - P3: Switched to cloud panel model: 3X8X_Panel v8
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - Applying parameters to P3
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - P3: Model has 23 user params, JSON has 12 params
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - P3: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'floor_to_ceiling', 'panel_inline_back', 'panel_inline_front', 'panel_section', 'stile_in_back_width']
+2026-02-24 11:11:33 - FusionManufacturingPipeline - INFO - P3: Skipped (not in model): ['cutout', 'series_id', 'stile_in_the_back']
+2026-02-24 11:11:42 - FusionManufacturingPipeline - INFO - P3: Successfully updated 9 parameter(s)
+2026-02-24 11:11:42 - FusionManufacturingPipeline - ERROR - P3: Configuration 'null' not found. Available: B-354, B-354 + B-386, B-386, B-386 + B-4354, B-4354, B-347_357 , B-3471_34715_3571_35715, No Cutout
+2026-02-24 11:11:42 - FusionManufacturingPipeline - INFO - Processing 3 doors
+2026-02-24 11:11:42 - FusionManufacturingPipeline - INFO - Processing door 1/3: D1
+2026-02-24 11:11:42 - FusionManufacturingPipeline - INFO -   Parameters to apply: 11
+2026-02-24 11:11:42 - FusionManufacturingPipeline - INFO - Opening cloud door model: 3X8X_Door
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - Opened cloud door model: 3X8X_Door v137
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - D1: Opened cloud door model: 3X8X_Door v137
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - Applying parameters to D1
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - D1: Model has 59 user params, JSON has 11 params
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - D1: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-02-24 11:11:47 - FusionManufacturingPipeline - INFO - D1: Skipped (not in model): ['series_id']
+2026-02-24 11:11:55 - FusionManufacturingPipeline - INFO - D1: Successfully updated 10 parameter(s)
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Model exported: Exported D1.step (1558160 bytes)
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Parameters exported (CSV): Exported 140 parameters to D1_all_parameters.csv (13751 bytes)
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Parameters exported (JSON): Exported 139 parameters to D1_all_parameters.json (26269 bytes)
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Searching for drilling parameters in design
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D1-IBUS367294-drilling.json
+2026-02-24 11:11:56 - FusionManufacturingPipeline - INFO - D1: Door component detected
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Total parameters in design: 139
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found hinge_hole_x_dist parameter
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added door_hinge_hole_y_dist = 0.968 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: top_hinge_hole_1_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added top_hinge_hole_1_x_value = 1.72 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: top_hinge_hole_2_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added top_hinge_hole_2_x_value = 3.22 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added mid_top_hinge_hole_1_x_value = 29.407 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added mid_top_hinge_hole_2_x_value = 30.907 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added mid_bottom_hinge_hole_1_x_value = 57.093 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added mid_bottom_hinge_hole_2_x_value = 58.593 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: bottom_hinge_hole_1_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added bottom_hinge_hole_1_x_value = 84.78 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found drilling parameter: bottom_hinge_hole_2_y_value
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Added bottom_hinge_hole_2_x_value = 86.28 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D1-IBUS367294-drilling.json (2665 bytes)
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Drilling data loaded for compiled file
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found hinge_hole_x_dist = 0.968 in
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: workstop=1, DrillName=S3082G.67P LH IS (hinging_right=False, swinging_out=False)
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Paired drilling coordinates exported: Exported 8 paired coordinates to 1-D1-IBUS367294-drilling-paired.json (2977 bytes)
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Paired drilling data loaded for compiled file
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D1-IBUS367294.csv
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Cutlist CSV exported: Exported cutlist to 1-D1-IBUS367294.csv (141 bytes)
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Starting CAM regeneration
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Accessing CAM product
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: CAM product accessed
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - D1: Regenerating toolpaths for all setups
+2026-02-24 11:11:57 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (2 setup(s))
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - D1: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - D1: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - D1: Starting post processing
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-02-24 11:11:58 - FusionManufacturingPipeline - INFO - Post processing entire Setups folder (2 setup(s)) to: 1-D1-IBUS367294.nc
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Successfully generated 1-D1-IBUS367294.nc (1131 bytes)
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - D1: Post "Setups": Generated 1-D1-IBUS367294.nc (1131 bytes) from 2 setup(s)
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - D1: Starting drawing export
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Door model isModified: True
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Door model name: 3X8X_Door v137
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Active document: 3X8X_Door v137
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Door model version before save: v137
+2026-02-24 11:12:00 - FusionManufacturingPipeline - INFO - Saving door model to cloud (waiting for sync)...
+2026-02-24 11:13:02 - FusionManufacturingPipeline - WARNING - Cloud sync timed out after 60s
+2026-02-24 11:13:02 - FusionManufacturingPipeline - WARNING - Cloud sync wait timed out, proceeding anyway
+2026-02-24 11:13:02 - FusionManufacturingPipeline - INFO - Door model version after save: v138
+2026-02-24 11:13:02 - FusionManufacturingPipeline - INFO - D1: Door model saved and synced (v137 -> v138, 60.2s)
+2026-02-24 11:13:02 - FusionManufacturingPipeline - INFO - DrawingExporter initialized. Output: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\drawings
+2026-02-24 11:13:02 - FusionManufacturingPipeline - INFO - Opening drawing: 3X8X_Door Drawing
+2026-02-24 11:13:02 - FusionManufacturingPipeline - INFO - Opening drawing document from cloud...
+2026-02-24 11:13:10 - FusionManufacturingPipeline - INFO - Drawing document opened, waiting for load...
+2026-02-24 11:13:12 - FusionManufacturingPipeline - INFO - Activating drawing document...
+2026-02-24 11:13:13 - FusionManufacturingPipeline - INFO - Drawing opened successfully: 3X8X_Door Drawing
+2026-02-24 11:13:13 - FusionManufacturingPipeline - INFO - First drawing update: performing full close/reopen cycle...
+2026-02-24 11:13:13 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-02-24 11:13:13 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=True, refDoc=3X8X_Door v118, version=v118, latestVersion=138, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-02-24 11:13:13 - FusionManufacturingPipeline - INFO - Closing drawing to force fresh reload with current model state...
+2026-02-24 11:13:17 - FusionManufacturingPipeline - INFO - Reopening drawing from cloud (will pick up in-memory model)...
+2026-02-24 11:13:26 - FusionManufacturingPipeline - INFO - Drawing reopened: 3X8X_Door Drawing v4
+2026-02-24 11:13:26 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-02-24 11:13:26 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=True, refDoc=3X8X_Door v118, version=v118, latestVersion=138, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-02-24 11:13:26 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-02-24 11:13:27 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door v138, version=v138, latestVersion=138, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-02-24 11:13:28 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\drawings\IBUS367294\1-D1-IBUS367294-drawing.pdf
+2026-02-24 11:13:29 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D1-IBUS367294-drawing.pdf (170052 bytes)
+2026-02-24 11:13:29 - FusionManufacturingPipeline - INFO - D1: Drawing exported: Exported drawing to 1-D1-IBUS367294-drawing.pdf (170052 bytes)
+2026-02-24 11:13:29 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door v138
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D1: All operations complete - 1 NC file(s) generated, drawing exported
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D1: Adding drilling data to compiled collection
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D1: Adding paired drilling data to compiled collection
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - Processing door 2/3: D2
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO -   Parameters to apply: 11
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door v138
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D2: Switched to cloud door model: 3X8X_Door v138
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - Applying parameters to D2
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D2: Model has 59 user params, JSON has 11 params
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D2: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-02-24 11:13:31 - FusionManufacturingPipeline - INFO - D2: Skipped (not in model): ['series_id']
+2026-02-24 11:13:37 - FusionManufacturingPipeline - INFO - D2: Successfully updated 10 parameter(s)
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Model exported: Exported D2.step (1568034 bytes)
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Parameters exported (CSV): Exported 140 parameters to D2_all_parameters.csv (13727 bytes)
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Parameters exported (JSON): Exported 139 parameters to D2_all_parameters.json (26246 bytes)
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Searching for drilling parameters in design
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D2-IBUS367294-drilling.json
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Door component detected
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Total parameters in design: 139
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found hinge_hole_x_dist parameter
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added door_hinge_hole_y_dist = 0.968 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: top_hinge_hole_1_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added top_hinge_hole_1_x_value = 1.72 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: top_hinge_hole_2_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added top_hinge_hole_2_x_value = 3.22 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: bottom_hinge_hole_1_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added bottom_hinge_hole_1_x_value = 89.47 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Found drilling parameter: bottom_hinge_hole_2_y_value
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Added bottom_hinge_hole_2_x_value = 90.97 in
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D2-IBUS367294-drilling.json (2665 bytes)
+2026-02-24 11:13:38 - FusionManufacturingPipeline - INFO - D2: Drilling data loaded for compiled file
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Found hinge_hole_x_dist = 0.968 in
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: workstop=1, DrillName=3082G.67P LH IS (hinging_right=False, swinging_out=False)
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Paired drilling coordinates exported: Exported 8 paired coordinates to 1-D2-IBUS367294-drilling-paired.json (2969 bytes)
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Paired drilling data loaded for compiled file
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D2-IBUS367294.csv
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Cutlist CSV exported: Exported cutlist to 1-D2-IBUS367294.csv (141 bytes)
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Starting CAM regeneration
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Accessing CAM product
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: CAM product accessed
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - D2: Regenerating toolpaths for all setups
+2026-02-24 11:13:39 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (2 setup(s))
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - D2: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - D2: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - D2: Starting post processing
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-02-24 11:13:40 - FusionManufacturingPipeline - INFO - Post processing entire Setups folder (2 setup(s)) to: 1-D2-IBUS367294.nc
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Successfully generated 1-D2-IBUS367294.nc (1131 bytes)
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - D2: Post "Setups": Generated 1-D2-IBUS367294.nc (1131 bytes) from 2 setup(s)
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - D2: Starting drawing export
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Door model isModified: True
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Door model name: 3X8X_Door v138
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Active document: 3X8X_Door v138
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Door model version before save: v138
+2026-02-24 11:13:41 - FusionManufacturingPipeline - INFO - Saving door model to cloud (waiting for sync)...
+2026-02-24 11:14:43 - FusionManufacturingPipeline - WARNING - Cloud sync timed out after 60s
+2026-02-24 11:14:43 - FusionManufacturingPipeline - WARNING - Cloud sync wait timed out, proceeding anyway
+2026-02-24 11:14:43 - FusionManufacturingPipeline - INFO - Door model version after save: v139
+2026-02-24 11:14:43 - FusionManufacturingPipeline - INFO - D2: Door model saved and synced (v138 -> v139, 60.4s)
+2026-02-24 11:14:43 - FusionManufacturingPipeline - INFO - Opening drawing: 3X8X_Door Drawing
+2026-02-24 11:14:43 - FusionManufacturingPipeline - INFO - Drawing already open: 3X8X_Door Drawing v4
+2026-02-24 11:14:44 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-02-24 11:14:44 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-02-24 11:14:46 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door v139, version=v139, latestVersion=139, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-02-24 11:14:47 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\drawings\IBUS367294\1-D2-IBUS367294-drawing.pdf
+2026-02-24 11:14:48 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D2-IBUS367294-drawing.pdf (170429 bytes)
+2026-02-24 11:14:48 - FusionManufacturingPipeline - INFO - D2: Drawing exported: Exported drawing to 1-D2-IBUS367294-drawing.pdf (170429 bytes)
+2026-02-24 11:14:48 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door v139
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D2: All operations complete - 1 NC file(s) generated, drawing exported
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D2: Adding drilling data to compiled collection
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D2: Adding paired drilling data to compiled collection
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - Processing door 3/3: D3
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO -   Parameters to apply: 11
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door v139
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D3: Switched to cloud door model: 3X8X_Door v139
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - Applying parameters to D3
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D3: Model has 59 user params, JSON has 11 params
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D3: Matched: ['component_ceiling_clearance', 'component_floor_clearance', 'component_height', 'component_width', 'door_hinging_right', 'door_perp_stile_keeper', 'door_swinging_out', 'door_wall_keep_latching', 'door_wall_post_hinging', 'floor_to_ceiling']
+2026-02-24 11:14:50 - FusionManufacturingPipeline - INFO - D3: Skipped (not in model): ['series_id']
+2026-02-24 11:14:56 - FusionManufacturingPipeline - INFO - D3: Successfully updated 10 parameter(s)
+2026-02-24 11:14:56 - FusionManufacturingPipeline - INFO - D3: Model exported: Exported D3.step (1568034 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Parameters exported (CSV): Exported 140 parameters to D3_all_parameters.csv (13727 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Parameters exported (JSON): Exported 139 parameters to D3_all_parameters.json (26246 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Searching for drilling parameters in design
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D3-IBUS367294-drilling.json
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Door component detected
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Total parameters in design: 139
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found hinge_hole_x_dist parameter
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added door_hinge_hole_y_dist = 0.968 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: top_hinge_hole_1_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added top_hinge_hole_1_x_value = 1.72 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: top_hinge_hole_2_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added top_hinge_hole_2_x_value = 3.22 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_top_hinge_hole_1_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added mid_top_hinge_hole_1_x_value = 30.147 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_top_hinge_hole_2_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added mid_top_hinge_hole_2_x_value = 31.647 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_bottom_hinge_hole_1_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added mid_bottom_hinge_hole_1_x_value = 61.043 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: mid_bottom_hinge_hole_2_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added mid_bottom_hinge_hole_2_x_value = 62.543 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: bottom_hinge_hole_1_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added bottom_hinge_hole_1_x_value = 89.47 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found drilling parameter: bottom_hinge_hole_2_y_value
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Added bottom_hinge_hole_2_x_value = 90.97 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Drilling coordinates exported: Exported 9 drilling coordinates to 1-D3-IBUS367294-drilling.json (2665 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Drilling data loaded for compiled file
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found hinge_hole_x_dist = 0.968 in
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: workstop=1, DrillName=3082G.67P LH IS (hinging_right=False, swinging_out=False)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Paired drilling coordinates exported: Exported 8 paired coordinates to 1-D3-IBUS367294-drilling-paired.json (2969 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Paired drilling data loaded for compiled file
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-D3-IBUS367294.csv
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Cutlist CSV exported: Exported cutlist to 1-D3-IBUS367294.csv (141 bytes)
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Starting CAM regeneration
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Accessing CAM product
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: CAM product accessed
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Found 2 CAM setup(s): Left_Rabbet_Notch, Right_Rabbet_Notch
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - D3: Regenerating toolpaths for all setups
+2026-02-24 11:14:57 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (2 setup(s))
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - Left_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - Right_Rabbet_Notch: Regenerated 1/2 toolpaths
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - D3: Setup "Left_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - D3: Setup "Right_Rabbet_Notch": Regenerated 1/2 toolpaths
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - D3: Starting post processing
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - Using post processor: Anderson Stratos 2.cps
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - Using custom post processor: Anderson Stratos 2.cps
+2026-02-24 11:14:58 - FusionManufacturingPipeline - INFO - Post processing entire Setups folder (2 setup(s)) to: 1-D3-IBUS367294.nc
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Successfully generated 1-D3-IBUS367294.nc (1131 bytes)
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - D3: Post "Setups": Generated 1-D3-IBUS367294.nc (1131 bytes) from 2 setup(s)
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - D3: Starting drawing export
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Door model isModified: True
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Door model name: 3X8X_Door v139
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Active document: 3X8X_Door v139
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Door model version before save: v139
+2026-02-24 11:15:00 - FusionManufacturingPipeline - INFO - Saving door model to cloud (waiting for sync)...
+2026-02-24 11:16:03 - FusionManufacturingPipeline - WARNING - Cloud sync timed out after 60s
+2026-02-24 11:16:03 - FusionManufacturingPipeline - WARNING - Cloud sync wait timed out, proceeding anyway
+2026-02-24 11:16:03 - FusionManufacturingPipeline - INFO - Door model version after save: v140
+2026-02-24 11:16:03 - FusionManufacturingPipeline - INFO - D3: Door model saved and synced (v139 -> v140, 60.2s)
+2026-02-24 11:16:03 - FusionManufacturingPipeline - INFO - Opening drawing: 3X8X_Door Drawing
+2026-02-24 11:16:03 - FusionManufacturingPipeline - INFO - Drawing already open: 3X8X_Door Drawing v4
+2026-02-24 11:16:04 - FusionManufacturingPipeline - INFO - Drawing already open from previous order, calling updateAllReferences()...
+2026-02-24 11:16:04 - FusionManufacturingPipeline - INFO - Calling updateAllReferences()...
+2026-02-24 11:16:05 - FusionManufacturingPipeline - INFO - Waiting for drawing views to regenerate...
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO - Drawing views regenerated after 1s
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO - updateAllReferences() completed
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO - Drawing references (1):
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO -   Ref[0]: unknown, isOutOfDate=False, refDoc=3X8X_Door v140, version=v140, latestVersion=140, attrs=['cast', 'classType', 'dataFile', 'getLatestVersion', 'isOutOfDate', 'isValid', 'objectType', 'parentDocument', 'referencedDocument', 'this', 'thisown', 'version']
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO - Drawing isUpToDate after update: True
+2026-02-24 11:16:06 - FusionManufacturingPipeline - INFO - Exporting drawing to PDF: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\drawings\IBUS367294\1-D3-IBUS367294-drawing.pdf
+2026-02-24 11:16:07 - FusionManufacturingPipeline - INFO - Drawing exported: 1-D3-IBUS367294-drawing.pdf (170429 bytes)
+2026-02-24 11:16:07 - FusionManufacturingPipeline - INFO - D3: Drawing exported: Exported drawing to 1-D3-IBUS367294-drawing.pdf (170429 bytes)
+2026-02-24 11:16:07 - FusionManufacturingPipeline - INFO - Activating cached cloud door model: 3X8X_Door v140
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - D3: All operations complete - 1 NC file(s) generated, drawing exported
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - D3: Adding drilling data to compiled collection
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - D3: Adding paired drilling data to compiled collection
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - Processing 4 stiles
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - Processing stile 1/4: S1
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-02-24 11:16:09 - FusionManufacturingPipeline - INFO - Opening cloud stile (3082) model: 3X82_Stile
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - Opened cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - S1: Opened cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - Applying parameters to S1
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - S1: Model has 98 user params, JSON has 15 params
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - S1: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-02-24 11:16:10 - FusionManufacturingPipeline - INFO - S1: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'series_id']
+2026-02-24 11:16:21 - FusionManufacturingPipeline - INFO - S1: Successfully updated 12 parameter(s)
+2026-02-24 11:16:21 - FusionManufacturingPipeline - INFO - S1: Model exported: Exported S1.step (120884 bytes)
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: Parameters exported (CSV): Exported 214 parameters to S1_all_parameters.csv (24970 bytes)
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: Parameters exported (JSON): Exported 213 parameters to S1_all_parameters.json (44164 bytes)
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: Searching for drilling parameters in design
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S1-IBUS367294-drilling.json
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: Stile component detected - checking drilling flags
+2026-02-24 11:16:22 - FusionManufacturingPipeline - INFO - S1: No drilling required (all flags are 0)
+2026-02-24 11:16:22 - FusionManufacturingPipeline - WARNING - S1: Drilling coordinate export failed: No drilling required for S1 (all flags are 0)
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Found hinge_hole_x_dist = 1.268 in
+2026-02-24 11:16:23 - FusionManufacturingPipeline - WARNING - S1: Paired drilling coordinate export failed: No drilling required for S1 (all flags are 0)
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S1-IBUS367294.csv
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Cutlist CSV exported: Exported cutlist to 1-S1-IBUS367294.csv (141 bytes)
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Starting CAM regeneration
+2026-02-24 11:16:23 - FusionManufacturingPipeline - INFO - S1: Accessing CAM product
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S1: CAM product accessed
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S1: Found 4 CAM setup(s): Left Rabbet - Out, Left Rabbet - In, Right Rabbet - Out, Right Rabbet - In
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S1: Regenerating toolpaths for all setups
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (4 setup(s))
+2026-02-24 11:16:24 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - WARNING - Left Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - WARNING - Right Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - ERROR - S1: Setup "Left Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - ERROR - S1: Setup "Left Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - ERROR - S1: Setup "Right Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - ERROR - S1: Setup "Right Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - ERROR - S1: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - Processing stile 2/4: S2
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S2: Switched to cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - Applying parameters to S2
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S2: Model has 98 user params, JSON has 15 params
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S2: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-02-24 11:16:24 - FusionManufacturingPipeline - INFO - S2: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'series_id']
+2026-02-24 11:16:32 - FusionManufacturingPipeline - INFO - S2: Successfully updated 12 parameter(s)
+2026-02-24 11:16:33 - FusionManufacturingPipeline - INFO - S2: Model exported: Exported S2.step (101418 bytes)
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: Parameters exported (CSV): Exported 214 parameters to S2_all_parameters.csv (24948 bytes)
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: Parameters exported (JSON): Exported 213 parameters to S2_all_parameters.json (44142 bytes)
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: Searching for drilling parameters in design
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S2-IBUS367294-drilling.json
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: Stile component detected - checking drilling flags
+2026-02-24 11:16:34 - FusionManufacturingPipeline - INFO - S2: No drilling required (all flags are 0)
+2026-02-24 11:16:34 - FusionManufacturingPipeline - WARNING - S2: Drilling coordinate export failed: No drilling required for S2 (all flags are 0)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Found hinge_hole_x_dist = 1.268 in
+2026-02-24 11:16:35 - FusionManufacturingPipeline - WARNING - S2: Paired drilling coordinate export failed: No drilling required for S2 (all flags are 0)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S2-IBUS367294.csv
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Cutlist CSV exported: Exported cutlist to 1-S2-IBUS367294.csv (141 bytes)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Starting CAM regeneration
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Accessing CAM product
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: CAM product accessed
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Found 4 CAM setup(s): Left Rabbet - Out, Left Rabbet - In, Right Rabbet - Out, Right Rabbet - In
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S2: Regenerating toolpaths for all setups
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (4 setup(s))
+2026-02-24 11:16:35 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - WARNING - Left Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - WARNING - Right Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - ERROR - S2: Setup "Left Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - ERROR - S2: Setup "Left Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - ERROR - S2: Setup "Right Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - ERROR - S2: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - Processing stile 3/4: S3
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S3: Switched to cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - Applying parameters to S3
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S3: Model has 98 user params, JSON has 15 params
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S3: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-02-24 11:16:35 - FusionManufacturingPipeline - INFO - S3: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'series_id']
+2026-02-24 11:16:42 - FusionManufacturingPipeline - INFO - S3: Successfully updated 12 parameter(s)
+2026-02-24 11:16:42 - FusionManufacturingPipeline - INFO - S3: Model exported: Exported S3.step (101302 bytes)
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: Parameters exported (CSV): Exported 214 parameters to S3_all_parameters.csv (24972 bytes)
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: Parameters exported (JSON): Exported 213 parameters to S3_all_parameters.json (44167 bytes)
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: Searching for drilling parameters in design
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S3-IBUS367294-drilling.json
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: Stile component detected - checking drilling flags
+2026-02-24 11:16:43 - FusionManufacturingPipeline - INFO - S3: No drilling required (all flags are 0)
+2026-02-24 11:16:43 - FusionManufacturingPipeline - WARNING - S3: Drilling coordinate export failed: No drilling required for S3 (all flags are 0)
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Found hinge_hole_x_dist = 1.268 in
+2026-02-24 11:16:44 - FusionManufacturingPipeline - WARNING - S3: Paired drilling coordinate export failed: No drilling required for S3 (all flags are 0)
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S3-IBUS367294.csv
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Cutlist CSV exported: Exported cutlist to 1-S3-IBUS367294.csv (141 bytes)
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Starting CAM regeneration
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Accessing CAM product
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: CAM product accessed
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Found 4 CAM setup(s): Left Rabbet - Out, Left Rabbet - In, Right Rabbet - Out, Right Rabbet - In
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - S3: Regenerating toolpaths for all setups
+2026-02-24 11:16:44 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (4 setup(s))
+2026-02-24 11:16:45 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - WARNING - Left Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - WARNING - Right Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - ERROR - S3: Setup "Left Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - ERROR - S3: Setup "Left Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - ERROR - S3: Setup "Right Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - ERROR - S3: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - Processing stile 4/4: S4
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO -   Parameters to apply: 15
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - Activating cached cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - S4: Switched to cloud stile (3082) model: 3X82_Stile v8
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - Applying parameters to S4
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - S4: Model has 98 user params, JSON has 15 params
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - S4: Matched: ['LD_floor_clearance', 'LD_height', 'LD_hinging_right', 'LD_swinging_out', 'RD_floor_clearance', 'RD_height', 'RD_hinging_right', 'RD_swinging_out', 'component_height', 'component_width', 'left_side_door', 'right_side_door']
+2026-02-24 11:16:45 - FusionManufacturingPipeline - INFO - S4: Skipped (not in model): ['LD_ceiling_clearance', 'RD_ceiling_clearance', 'series_id']
+2026-02-24 11:16:54 - FusionManufacturingPipeline - INFO - S4: Successfully updated 12 parameter(s)
+2026-02-24 11:16:54 - FusionManufacturingPipeline - INFO - S4: Model exported: Exported S4.step (102813 bytes)
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: Parameters exported (CSV): Exported 214 parameters to S4_all_parameters.csv (24976 bytes)
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: Parameters exported (JSON): Exported 213 parameters to S4_all_parameters.json (44171 bytes)
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: Searching for drilling parameters in design
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: Output path: C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S4-IBUS367294-drilling.json
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: Stile component detected - checking drilling flags
+2026-02-24 11:16:55 - FusionManufacturingPipeline - INFO - S4: No drilling required (all flags are 0)
+2026-02-24 11:16:55 - FusionManufacturingPipeline - WARNING - S4: Drilling coordinate export failed: No drilling required for S4 (all flags are 0)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Found hinge_hole_x_dist = 1.268 in
+2026-02-24 11:16:56 - FusionManufacturingPipeline - WARNING - S4: Paired drilling coordinate export failed: No drilling required for S4 (all flags are 0)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Exporting cutlist CSV to C:\Users\james.derrod\VM Fusion Extension\S2S File Test\output\gcode\IBUS367294\1-S4-IBUS367294.csv
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Cutlist CSV exported successfully (141 bytes)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Cutlist CSV exported: Exported cutlist to 1-S4-IBUS367294.csv (141 bytes)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Starting CAM regeneration
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Accessing CAM product
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: CAM product accessed
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Found 4 CAM setup(s): Left Rabbet - Out, Left Rabbet - In, Right Rabbet - Out, Right Rabbet - In
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - S4: Regenerating toolpaths for all setups
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - Regenerating ALL toolpaths for entire Setups folder (4 setup(s))
+2026-02-24 11:16:56 - FusionManufacturingPipeline - WARNING - Left Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - WARNING - Left Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - WARNING - Right Rabbet - Out: No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - WARNING - Right Rabbet - In: No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - ERROR - S4: Setup "Left Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - ERROR - S4: Setup "Left Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - Out": No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - ERROR - S4: Setup "Right Rabbet - In": No toolpaths generated (1 operations)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - ERROR - S4: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - Created compiled drilling file: IBUS367294-all-drilling.json with 3 component(s)
+2026-02-24 11:16:56 - FusionManufacturingPipeline - INFO - Created compiled paired drilling file: IBUS367294-all-drilling-paired.json with 3 component(s)

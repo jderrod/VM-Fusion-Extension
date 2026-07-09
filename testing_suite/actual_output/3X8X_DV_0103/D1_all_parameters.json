@@ -1,0 +1,838 @@
+{
+  "component_id": "D1",
+  "metadata": {
+    "series_id": "3082G.67P"
+  },
+  "user_parameters": {
+    "component_height": {
+      "value": 76.0625,
+      "unit": "in",
+      "expression": "76.0625 in",
+      "comment": "001) Input - Model\n    Height of the component"
+    },
+    "component_width": {
+      "value": 31.25,
+      "unit": "in",
+      "expression": "31.25 in",
+      "comment": "002) Input - Model\n    Width of the component"
+    },
+    "component_floor_clearance": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "12.0 in",
+      "comment": "004) Input - Model\n    Floor clearance of the component"
+    },
+    "door_hinging_right": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "007) Input - Model\n    Whether the door's hinges are on the right side of the door"
+    },
+    "hinge_hole_radius": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": "021) Fixed - Model\n    The radius of the hinge holes"
+    },
+    "component_thickness": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "0.75 in",
+      "comment": "003) Fixed - Model\n    The thickness of the component"
+    },
+    "door_top_margin": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "1.72 in + if(door_wall_post_hinging; 0 in; if(floor_to_ceiling; top_notching_y_dist; 0 in))",
+      "comment": "034) Fixed - Helper\n    Distance between top-most hole and top of door"
+    },
+    "door_bottom_margin": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "1.72 in + if(( component_floor_clearance == 1 in ) and not(door_wall_post_hinging); bottom_notching_y_dist; 0 in)",
+      "comment": "033) Derived - Helper\n    Distance between bottom-most hole and bottom of door"
+    },
+    "door_swinging_out": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "008) Input - Model\n    Whether the door is an outswing door"
+    },
+    "door_wall_post_hinging": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "009) Input - Model\n    Whether the door hinges on a wall post"
+    },
+    "door_wall_keep_latching": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "012) Input - Model\n    Whether the door latches on a wall keep"
+    },
+    "notching_x_dist": {
+      "value": 0.4414,
+      "unit": "in",
+      "expression": "0.4414 in",
+      "comment": "032) Fixed - Model\n    The horizontal width of the notching"
+    },
+    "bottom_notching_y_dist": {
+      "value": 3.3100000000000005,
+      "unit": "in",
+      "expression": "3.31 in",
+      "comment": "030) Fixed - Model\n    Height of notching cutout from bottom of door"
+    },
+    "hinge_hole_space": {
+      "value": 1.5,
+      "unit": "in",
+      "expression": "1.5 in",
+      "comment": "040) Fixed - Helper\n    Distance between the top and bottom hole on a single hinge"
+    },
+    "hinge_hole_x_dist": {
+      "value": 0.968,
+      "unit": "in",
+      "expression": "0.968 in",
+      "comment": "020) Fixed - Model\n    Horizontal distance between hinge holes and edge of stile"
+    },
+    "hole_placement": {
+      "value": 30.282,
+      "unit": "in",
+      "expression": "if(left_exterior_drilling or right_interior_drilling; hinge_hole_x_dist; component_width - hinge_hole_x_dist)",
+      "comment": "105) Derived - Model\n    An offset that shifts the hinge holes to the appropriate side of the component"
+    },
+    "rabbeting_width": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "0.3 in",
+      "comment": "050) Fixed - Model\n    The horizontal width of the rabbeting"
+    },
+    "rabbeting_depth": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": "051) Fixed - Model\n    The depth of the rabbeting"
+    },
+    "hinge_hole_depth": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "0.5625 in",
+      "comment": "022) Fixed - Model\n    The depth of the hinge holes"
+    },
+    "bottom_left_notching": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(component_floor_clearance == 1 in); 0; if(( right_interior_drilling or left_exterior_drilling ) and door_wall_post_hinging; 0; if(( left_interior_drilling or right_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1)))",
+      "comment": "301) Derived - Model\n    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile"
+    },
+    "bottom_right_notching": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(component_floor_clearance == 1 in); 0; if(( left_interior_drilling or right_exterior_drilling ) and door_wall_post_hinging; 0; if(( right_interior_drilling or left_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1)))",
+      "comment": "302) Derived - Model\n    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile"
+    },
+    "label_out_positioning_offset": {
+      "value": -1.0,
+      "unit": "in",
+      "expression": "( if(not(door_swinging_out); -1; 1) ) * 1 in",
+      "comment": "107) Derived - Model\n    An offset that repositions the \"out\" label relative to the door, to change which face is treated as the exterior\""
+    },
+    "label_in_positioning_offset": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "( if(not(door_swinging_out); 1; -1) ) * 1 in",
+      "comment": "106) Derived - Model\n    An offset that repositions the \"in\" label relative to the door, to change which face is treated as the interior"
+    },
+    "top_hinge_hole_1_y_value": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "door_top_margin",
+      "comment": "401) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "top_hinge_hole_2_y_value": {
+      "value": 3.22,
+      "unit": "in",
+      "expression": "top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "402) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "inter_hinge_gap": {
+      "value": 23.7075,
+      "unit": "in",
+      "expression": "( component_height - ( door_top_margin ) - ( door_bottom_margin + hinge_hole_space ) ) / 3",
+      "comment": "041) Derived - Helper\n    Distance between top holes of adjacent hinges"
+    },
+    "mid_top_hinge_offset": {
+      "value": -0.0,
+      "unit": "in",
+      "expression": "( -1 * 0.823 * if(component_floor_clearance == 1 in and not(door_wall_post_hinging); 1; 0) ) * 1 in",
+      "comment": "042) Derived - Helper\n    An offset applying to the mid-top hinge when the floor clearance is 1\"\" the door hinges on a stile"
+    },
+    "mid_top_hinge_hole_1_y_value": {
+      "value": 25.4275,
+      "unit": "in",
+      "expression": "top_hinge_hole_1_y_value + inter_hinge_gap + mid_top_hinge_offset",
+      "comment": "403) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "mid_top_hinge_hole_2_y_value": {
+      "value": 26.9275,
+      "unit": "in",
+      "expression": "mid_top_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "404) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "mid_bottom_hinge_offset": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "( 2 * 0.823 * if(component_floor_clearance == 1 in and not(door_wall_post_hinging); 1; 0) ) * 1 in",
+      "comment": "043) Derived - Helper\n    An offset applying to the mid-bottom hinge when the floor clearance is 1\"\" the door hinges on a stile"
+    },
+    "mid_bottom_hinge_hole_1_y_value": {
+      "value": 49.135,
+      "unit": "in",
+      "expression": "mid_top_hinge_hole_1_y_value + inter_hinge_gap + mid_bottom_hinge_offset",
+      "comment": "405) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "mid_bottom_hinge_hole_2_y_value": {
+      "value": 50.635,
+      "unit": "in",
+      "expression": "mid_bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "406) Derived - Model\n    Distance between top of the door and the center of the door hinge hole\n"
+    },
+    "bottom_hinge_hole_1_y_value": {
+      "value": 72.8425,
+      "unit": "in",
+      "expression": "mid_bottom_hinge_hole_1_y_value + inter_hinge_gap + mid_top_hinge_offset",
+      "comment": "407) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "bottom_hinge_hole_2_y_value": {
+      "value": 74.3425,
+      "unit": "in",
+      "expression": "bottom_hinge_hole_1_y_value + hinge_hole_space",
+      "comment": "408) Derived - Model\n    Distance between top of the door and the center of the door hinge hole"
+    },
+    "door_perp_stile_keeper": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "011) Input - Model\n    Whether the door latches on a perpendiculat stile"
+    },
+    "left_rabbeting_model": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(right_exterior_rabbeting or left_interior_rabbeting; -rabbeting_depth; rabbeting_depth)",
+      "comment": "203) Derived - Model\n    Controls rabbeting in model's left side as seen from the FRONT"
+    },
+    "right_rabbeting_model": {
+      "value": -0.5,
+      "unit": "in",
+      "expression": "if(left_exterior_rabbeting or right_interior_rabbeting; -rabbeting_depth; rabbeting_depth)",
+      "comment": "206) Derived - Model\n    Controls rabbeting in model's right side as seen from the FRONT "
+    },
+    "left_interior_drilling": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(not(door_hinging_right) and not(door_swinging_out); 1; 0)",
+      "comment": "101) Derived - Model\n    Whether drilling is present the interior left edge of the door"
+    },
+    "left_exterior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(door_hinging_right) and door_swinging_out; 1; 0)",
+      "comment": "102) Derived - Model\n    Whether drilling is present the exterior left edge of the door"
+    },
+    "right_interior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(door_hinging_right and not(door_swinging_out); 1; 0)",
+      "comment": "103) Derived - Model\n    Whether drilling is present the interior right edge of the door"
+    },
+    "right_exterior_drilling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(door_hinging_right and door_swinging_out; 1; 0)",
+      "comment": "104) Derived - Model\n    Whether drilling is present the exterior right edge of the door"
+    },
+    "left_interior_rabbeting": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(door_swinging_out and ( not(door_hinging_right) or ( door_hinging_right and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0)",
+      "comment": "201) Derived - Model\n    Whether routing is present the interior left edge of the door"
+    },
+    "left_exterior_rabbeting": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "if(not(door_swinging_out) and ( not(door_hinging_right) or ( door_hinging_right and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0)",
+      "comment": "202) Derived - Model\n    Whether routing is present the exterior left edge of the door"
+    },
+    "right_interior_rabbeting": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(door_swinging_out and ( door_hinging_right or ( not(door_hinging_right) and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0)",
+      "comment": "204) Derived - Model\n    Whether rabbeting is present the interior right edge of the stile"
+    },
+    "right_exterior_rabbeting": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(door_swinging_out) and ( door_hinging_right or ( not(door_hinging_right) and not(door_wall_keep_latching or door_perp_stile_keeper) ) ); 1; 0)",
+      "comment": "205) Derived - Model\n    Whether rabbeting is present the exterior right edge of the stile"
+    },
+    "component_ceiling_clearance": {
+      "value": 4.3125,
+      "unit": "in",
+      "expression": "4.3125 in",
+      "comment": "005) Input - Model\n    Ceiling clearance of the component"
+    },
+    "floor_to_ceiling": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "006) Input - Model\n    Whether the door is a 3X86 Floor-to-Ceiling door"
+    },
+    "shoe_height": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": "035) Fixed - Model\n    Height of the shoe"
+    },
+    "shoe_door_top_notch_gap": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": "036) Fixed - Model\n    Height of the shoe"
+    },
+    "top_notching_y_dist": {
+      "value": 0.1875000000000001,
+      "unit": "in",
+      "expression": "if(component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap ); ( shoe_height + shoe_door_top_notch_gap ) - component_ceiling_clearance; 0 in)",
+      "comment": "031) Derived - Helper"
+    },
+    "top_left_notching": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(floor_to_ceiling and component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap )); 0; if(( right_interior_drilling or left_exterior_drilling ) and door_wall_post_hinging; 0; if(( left_interior_drilling or right_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1)))",
+      "comment": "303) Derived - Model\n    Whether the bottom left corner of the door is notched to accommodate the shoe on a stile"
+    },
+    "top_right_notching": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(floor_to_ceiling and component_ceiling_clearance < ( shoe_height + shoe_door_top_notch_gap )); 0; if(( left_interior_drilling or right_exterior_drilling ) and door_wall_post_hinging; 0; if(( right_interior_drilling or left_exterior_drilling ) and ( door_wall_keep_latching or door_wall_post_latching ); 0; 1)))",
+      "comment": "304) Derived - Model\n    Whether the bottom right corner of the door is notched to accommodate the shoe on a stile"
+    },
+    "a_order_number": {
+      "value": "'N001'",
+      "unit": "",
+      "expression": "'N001'",
+      "comment": "500) Order number"
+    },
+    "component_id": {
+      "value": "'3X8XDoor'",
+      "unit": "",
+      "expression": "'3X8XDoor'",
+      "comment": "501) ID"
+    },
+    "a_series": {
+      "value": "'3X8X'",
+      "unit": "",
+      "expression": "'3X8X'",
+      "comment": "502) series"
+    },
+    "Swing": {
+      "value": "if(door_swinging_out; 'Outswing'; 'Inswing')",
+      "unit": "",
+      "expression": "if(door_swinging_out; 'Outswing'; 'Inswing')",
+      "comment": "504) Swing"
+    },
+    "Hinge": {
+      "value": "if(door_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "unit": "",
+      "expression": "if(door_hinging_right; 'right-hand hinging'; 'left-hand hinging')",
+      "comment": "505) Hinge"
+    },
+    "door_wall_post_latching": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "010) Input - Model\n    Whether the door is keeping on a wall post"
+    }
+  },
+  "model_parameters": {
+    "d10": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "component_floor_clearance",
+      "comment": ""
+    },
+    "d11": {
+      "value": 76.0625,
+      "unit": "in",
+      "expression": "component_height",
+      "comment": ""
+    },
+    "d12": {
+      "value": 31.25,
+      "unit": "in",
+      "expression": "component_width",
+      "comment": ""
+    },
+    "d24": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hinge_hole_radius",
+      "comment": ""
+    },
+    "d26": {
+      "value": 1.72,
+      "unit": "in",
+      "expression": "top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d27": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hinge_hole_radius",
+      "comment": ""
+    },
+    "d30": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hinge_hole_radius",
+      "comment": ""
+    },
+    "d32": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "hinge_hole_radius",
+      "comment": ""
+    },
+    "d38": {
+      "value": 30.282,
+      "unit": "in",
+      "expression": "hole_placement",
+      "comment": ""
+    },
+    "d42": {
+      "value": 0.968,
+      "unit": "in",
+      "expression": "0.968 in",
+      "comment": ""
+    },
+    "d45": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "rabbeting_width",
+      "comment": ""
+    },
+    "d46": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "rabbeting_width",
+      "comment": ""
+    },
+    "d56": {
+      "value": 0.4414,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d101": {
+      "value": 3.22,
+      "unit": "in",
+      "expression": "top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d102": {
+      "value": 25.4275,
+      "unit": "in",
+      "expression": "mid_top_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d103": {
+      "value": 26.9275,
+      "unit": "in",
+      "expression": "mid_top_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d104": {
+      "value": 49.135,
+      "unit": "in",
+      "expression": "mid_bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d105": {
+      "value": 50.635,
+      "unit": "in",
+      "expression": "mid_bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d106": {
+      "value": 72.8425,
+      "unit": "in",
+      "expression": "bottom_hinge_hole_1_y_value",
+      "comment": ""
+    },
+    "d107": {
+      "value": 74.3425,
+      "unit": "in",
+      "expression": "bottom_hinge_hole_2_y_value",
+      "comment": ""
+    },
+    "d129": {
+      "value": 3.3100000000000005,
+      "unit": "in",
+      "expression": "bottom_notching_y_dist",
+      "comment": ""
+    },
+    "d130": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5000 in",
+      "comment": ""
+    },
+    "d131": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5000 in",
+      "comment": ""
+    },
+    "d139": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d140": {
+      "value": 0.4414,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d141": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "1 in",
+      "comment": ""
+    },
+    "d142": {
+      "value": 1.1875,
+      "unit": "in",
+      "expression": "top_notching_y_dist + 1 in",
+      "comment": ""
+    },
+    "d74": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d75": {
+      "value": "'inside the stall'",
+      "unit": "",
+      "expression": "'inside the stall'",
+      "comment": ""
+    },
+    "d76": {
+      "value": 11.0,
+      "unit": "in",
+      "expression": "11 in",
+      "comment": ""
+    },
+    "d77": {
+      "value": 6.0,
+      "unit": "in",
+      "expression": "6 in",
+      "comment": ""
+    },
+    "d78": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d79": {
+      "value": "'outside surface'",
+      "unit": "",
+      "expression": "'outside surface'",
+      "comment": ""
+    },
+    "d87": {
+      "value": 1.0,
+      "unit": "in",
+      "expression": "label_in_positioning_offset",
+      "comment": ""
+    },
+    "d88": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d89": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d143": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d144": {
+      "value": -0.75,
+      "unit": "in",
+      "expression": "if(top_right_notching; component_thickness; -component_thickness)",
+      "comment": ""
+    },
+    "d145": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d146": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d147": {
+      "value": -0.75,
+      "unit": "in",
+      "expression": "if(top_left_notching; component_thickness; -component_thickness)",
+      "comment": ""
+    },
+    "d148": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d154": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": ""
+    },
+    "d155": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d156": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d157": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d158": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d159": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d160": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d161": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d162": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d163": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d164": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d165": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d166": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d149": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d150": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d151": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d152": {
+      "value": 0.3,
+      "unit": "in",
+      "expression": "rabbeting_width",
+      "comment": ""
+    },
+    "d153": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "rabbeting_depth",
+      "comment": ""
+    },
+    "d39": {
+      "value": 0.75,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d40": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d47": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d48": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "left_rabbeting_model",
+      "comment": ""
+    },
+    "d49": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d51": {
+      "value": 0.5625,
+      "unit": "in",
+      "expression": "hinge_hole_depth",
+      "comment": ""
+    },
+    "d52": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d53": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d57": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0 deg",
+      "comment": ""
+    },
+    "d58": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d59": {
+      "value": -0.75,
+      "unit": "in",
+      "expression": "if(bottom_left_notching; component_thickness; -component_thickness)",
+      "comment": ""
+    },
+    "d70": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d71": {
+      "value": -0.75,
+      "unit": "in",
+      "expression": "if(bottom_right_notching; component_thickness; -component_thickness)",
+      "comment": ""
+    },
+    "d72": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d114": {
+      "value": -0.5,
+      "unit": "in",
+      "expression": "right_rabbeting_model",
+      "comment": ""
+    },
+    "d115": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d116": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "0.0000 in",
+      "comment": ""
+    },
+    "d82": {
+      "value": -1.0,
+      "unit": "in",
+      "expression": "label_out_positioning_offset",
+      "comment": ""
+    },
+    "d83": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d84": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    }
+  }
+}

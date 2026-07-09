@@ -1,0 +1,6 @@
+Order 3X82_SV_0978 failed.
+
+0/1 components successful
+
+Failed components:
+  stiles: S1: Toolpath regeneration failed: No toolpaths generated for any of 4 setup(s)

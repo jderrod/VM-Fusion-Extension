@@ -1,0 +1,35 @@
+IBUS447847 CNC Info:
+
+Doors:
+
+D1: Left Side: 
+	Interior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+    Right Side: 
+	Interior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+D2: Left Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+    Right Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+D3: Left Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+    Right Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+D4: Left Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)
+
+    Right Side: 
+	Exterior Rabbeting (Through Rabbeting, at least 96 in. +2 on each side for lead in/out, may be 96in - notch distance (3.31in) + 4in)
+	Bottom Notch (2 in lead in, 3.31in long by .441in wide, .5in deep)

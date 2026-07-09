@@ -1,0 +1,196 @@
+{
+  "IBUS1234567": {
+    "unit": "in",
+    "description": "Compiled paired drilling coordinates for all components organized by type",
+    "doors": [
+      {
+        "component_id": "D1",
+        "coordinates": [
+          {
+            "ProgramName": "top_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 5.22,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "top_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 6.72,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 32.48,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 33.98,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 62.21,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 63.71,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_1",
+            "WorkStop": 4,
+            "PositionX": 89.47,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_2",
+            "WorkStop": 4,
+            "PositionX": 90.97,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P RH OS"
+          }
+        ]
+      },
+      {
+        "component_id": "D2",
+        "coordinates": [
+          {
+            "ProgramName": "top_hinge_hole_1",
+            "WorkStop": 1,
+            "PositionX": 5.22,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "top_hinge_hole_2",
+            "WorkStop": 1,
+            "PositionX": 6.72,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_1",
+            "WorkStop": 1,
+            "PositionX": 32.48,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "mid_top_hinge_hole_2",
+            "WorkStop": 1,
+            "PositionX": 33.98,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_1",
+            "WorkStop": 1,
+            "PositionX": 62.21,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "mid_bottom_hinge_hole_2",
+            "WorkStop": 1,
+            "PositionX": 63.71,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_1",
+            "WorkStop": 1,
+            "PositionX": 89.47,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          },
+          {
+            "ProgramName": "bottom_hinge_hole_2",
+            "WorkStop": 1,
+            "PositionX": 90.97,
+            "PositionY": 0.968,
+            "PositionZ": 0,
+            "Function": 4,
+            "ToolDM": 1,
+            "FlipRotate": "rotate",
+            "DrillName": "3082G.67P LH IS"
+          }
+        ]
+      }
+    ],
+    "panels": [],
+    "stiles": []
+  }
+}

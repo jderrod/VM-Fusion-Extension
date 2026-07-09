@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fusion360ManufacturingOrder",
+  "description": "Schema for automated manufacturing orders in Fusion 360",
+  "type": "object",
+  "required": ["version", "orderId", "components"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version for compatibility checking",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "orderId": {
+      "type": "string",
+      "description": "Unique identifier for this manufacturing order",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when order was created"
+    },
+    "components": {
+      "type": "array",
+      "description": "List of components to manufacture",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/Component"
+      }
+    },
+    "outputConfig": {
+      "type": "object",
+      "description": "Configuration for output files",
+      "properties": {
+        "baseDirectory": {
+          "type": "string",
+          "description": "Base directory for output files (optional)"
+        },
+        "includeTimestamp": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Component": {
+      "type": "object",
+      "required": ["componentId", "fusionModelPath", "parameters"],
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Unique identifier for this component",
+          "minLength": 1
+        },
+        "fusionModelPath": {
+          "type": "string",
+          "description": "Path to the Fusion 360 model file (.f3d or cloud URL)"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Parameter name-value pairs to apply to the model",
+          "additionalProperties": {
+            "$ref": "#/definitions/ParameterValue"
+          }
+        },
+        "setupNames": {
+          "type": "array",
+          "description": "Specific CAM setups to process (optional, defaults to all)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "postProcessorConfig": {
+          "type": "object",
+          "description": "Post processor configuration",
+          "properties": {
+            "postProcessorName": {
+              "type": "string",
+              "description": "Name of the post processor to use (optional)"
+            },
+            "outputFileName": {
+              "type": "string",
+              "description": "Custom output file name (optional)"
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional metadata for this component",
+          "additionalProperties": true
+        }
+      }
+    },
+    "ParameterValue": {
+      "oneOf": [
+        {
+          "type": "number",
+          "description": "Numeric parameter value (will be converted to appropriate unit)"
+        },
+        {
+          "type": "string",
+          "description": "String expression (e.g., '25 mm', '2.5 in', or formula)"
+        },
+        {
+          "type": "integer",
+          "description": "Integer value (for boolean-like 0/1 parameters)"
+        }
+      ]
+    }
+  }
+}
