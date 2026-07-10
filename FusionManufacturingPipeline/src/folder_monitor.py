@@ -17,7 +17,7 @@ from order_processor import OrderProcessor
 import app
 import logging
 
-VERSION = "2.4.24"  # Bump on each VM deploy
+VERSION = "2.4.25"  # Bump on each VM deploy
 
 
 class ProcessFileEventHandler(adsk.core.CustomEventHandler):

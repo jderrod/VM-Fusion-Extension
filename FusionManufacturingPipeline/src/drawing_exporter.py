@@ -632,6 +632,15 @@ class DrawingExporter:
             try:
                 export_mgr.execute(export_options)
             except Exception as export_err:
+                # A timeout means Fusion's drawing subprocess is dead — the
+                # retry would block another 600s and fail identically (observed
+                # on every timed-out export). Fail fast so the caller can close
+                # the cached drawing and reopen it fresh on the next component.
+                if 'timed out' in str(export_err).lower():
+                    self.logger.warning(f'PDF export timed out — drawing subprocess likely dead, skipping retry')
+                    if temp_dir:
+                        shutil.rmtree(temp_dir, ignore_errors=True)
+                    return False, f'Error exporting drawing to PDF: {export_err}', None
                 self.logger.warning(f'PDF export failed on first attempt: {export_err}, retrying after settling...')
                 # Wait longer to let drawing fully stabilize (NO doEvents)
                 time.sleep(5.0)

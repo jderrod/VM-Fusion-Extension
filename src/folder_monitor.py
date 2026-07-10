@@ -17,7 +17,7 @@ from order_processor import OrderProcessor
 import app
 import logging
 
-VERSION = "2.4.24"  # Bump on each VM deploy
+VERSION = "2.4.25"  # Bump on each VM deploy
 
 
 class ProcessFileEventHandler(adsk.core.CustomEventHandler):
@@ -40,6 +40,15 @@ class ProcessFileEventHandler(adsk.core.CustomEventHandler):
             
             # Update heartbeat so timer knows events are being delivered
             self.monitor._last_event_handled = time.time()
+            self.monitor._notify_received_count += 1
+            
+            # Log first few notify calls and then periodically for diagnostics
+            nc = self.monitor._notify_received_count
+            if nc <= 3 or nc % 20 == 0:
+                self.monitor._log_monitor(
+                    f"notify() called #{nc}, queue={self.monitor.file_queue.qsize()}, "
+                    f"processing={self.monitor.currently_processing}"
+                )
             
             # Check for new files in the dropbox
             self.monitor._scan_for_new_files()
@@ -47,6 +56,7 @@ class ProcessFileEventHandler(adsk.core.CustomEventHandler):
             # Process next file from queue if not already processing
             if not self.monitor.currently_processing and not self.monitor.file_queue.empty():
                 file_path = self.monitor.file_queue.get()
+                self.monitor._log_monitor(f"notify() processing: {file_path.name}")
                 self.monitor._process_file_sync(file_path)
                 self.monitor.file_queue.task_done()
         except Exception as e:
@@ -88,6 +98,7 @@ class FolderMonitor:
         # Heartbeat tracking for event delivery monitoring
         self._last_event_handled = time.time()
         self._fire_count = 0
+        self._notify_received_count = 0
         self._event_id = f'FolderMonitorProcessFile_{id(self)}'
         
         # Custom event for thread-safe processing
@@ -223,6 +234,24 @@ class FolderMonitor:
                 adsk.core.MessageBoxIconTypes.InformationIconType
             )
             
+            # Re-register the custom event fresh before starting file checks.
+            # The messageBox above pumps Fusion's event loop, which can deliver
+            # stale custom events from previous sessions.  Those stale notify()
+            # calls can drain the file queue before _check_for_files() runs.
+            # A fresh registration ensures a clean slate.
+            self._reregister_event()
+            self._notify_received_count = 0
+            
+            # Also clear any files that may have been queued by stale events
+            # during the messageBox — they need to be re-discovered cleanly.
+            while not self.file_queue.empty():
+                try:
+                    self.file_queue.get_nowait()
+                except Exception:
+                    break
+            self.queued_files.clear()
+            self._log_monitor("Event handler re-registered, queue cleared — starting file checks")
+            
             # Start checking for files
             self._check_for_files()
             
@@ -351,7 +380,29 @@ class FolderMonitor:
             
             # Log heartbeat every 20 fires (~60 seconds) so we know timer is alive
             if self._fire_count % 20 == 0:
-                self._log_monitor(f"Timer heartbeat #{self._fire_count} (event_id={self._event_id})")
+                elapsed_since_notify = time.time() - self._last_event_handled
+                self._log_monitor(
+                    f"Timer heartbeat #{self._fire_count} "
+                    f"(notify_count={self._notify_received_count}, "
+                    f"queue={self.file_queue.qsize()}, "
+                    f"secs_since_notify={elapsed_since_notify:.0f})"
+                )
+            
+            # Detect broken event delivery: if 10+ fires (~30s) have passed
+            # without notify() ever being called, custom events are dead.
+            # Signal the UI thread to re-register and process directly.
+            if self._fire_count >= 10 and self._notify_received_count == 0:
+                if not self.file_queue.empty():
+                    self._log_monitor(
+                        f"WARNING: {self._fire_count} fires but notify() never called! "
+                        f"Queue has {self.file_queue.qsize()} file(s). "
+                        f"Custom event delivery appears broken for this session."
+                    )
+                    # Fire a special additional info string so notify can detect it
+                    try:
+                        self.app.fireCustomEvent(self._event_id, 'FORCE_PROCESS')
+                    except Exception:
+                        pass
         except Exception as e:
             # Do NOT re-register the event here on the background thread.
             # Re-registering from a non-UI thread creates duplicate handlers
@@ -377,13 +428,25 @@ class FolderMonitor:
         # Do an initial scan on the UI thread directly
         self._scan_for_new_files()
         
-        # Start the timer loop that fires custom events every 3 seconds.
-        # The first timer fire (after 3s) will pick up any queued files
-        # via notify().  Do NOT process synchronously here — 
-        # _process_file_sync calls _start_timer() in its finally block,
-        # and calling _start_timer() again after it returns would create
-        # a timer race condition.
-        self._start_timer()
+        queue_size = self.file_queue.qsize()
+        self._log_monitor(f"_check_for_files: queue size after scan = {queue_size}, "
+                         f"queued_files count = {len(self.queued_files)}")
+        
+        # Process ALL queued files directly on the UI thread.
+        # On some VM sessions, custom event delivery from fireCustomEvent()
+        # is broken — the timer heartbeats but notify() is never called.
+        # Processing files here guarantees startup even if events are not
+        # delivered.  After each file, _process_file_sync's finally block
+        # chains to the next file, so we only need to kick off the first one.
+        if not self.file_queue.empty():
+            first_file = self.file_queue.get()
+            self._log_monitor(f"Processing first queued file directly on UI thread: {first_file.name}")
+            self._process_file_sync(first_file)
+            self.file_queue.task_done()
+        else:
+            self._log_monitor("No files in queue — starting timer to wait for new arrivals")
+            # No files yet — start timer to wait for new ones
+            self._start_timer()
     
     def _start_timer(self):
         """Start or restart the periodic timer."""

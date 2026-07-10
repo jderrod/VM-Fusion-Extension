@@ -42,6 +42,12 @@ class OrderProcessor:
         self.skip_cam = skip_cam
         self.skip_drawing = skip_drawing
         self._drawing_exporter = None
+        # Consecutive drawing-export failures within the current order.
+        # Once _max_drawing_failures is reached, drawing export is suspended
+        # for the rest of the order — a failed export costs up to 600s in
+        # Fusion's internal timeout, so retrying every component wastes hours.
+        self._consecutive_drawing_failures = 0
+        self._max_drawing_failures = 2
     
     def load_order_file(self, file_path: str) -> Optional[Dict]:
         """
@@ -129,6 +135,7 @@ class OrderProcessor:
             
             results = []
             self._cam_report = []  # Per-component CAM validation results for end-of-order report
+            self._consecutive_drawing_failures = 0  # Fresh drawing-failure budget per order
             drilling_paired_collection = []  # Collect paired drilling data for compiled file
             
             # Organized drilling collections by component type for structured output
@@ -320,6 +327,46 @@ class OrderProcessor:
                 pass
             return False, f'Order processing failed: {str(e)}'
     
+    def _drawing_export_suspended(self, comp_id: str) -> bool:
+        """Check whether drawing export is suspended for the rest of this order.
+
+        Each failed export blocks for Fusion's internal 600s timeout, so after
+        _max_drawing_failures consecutive failures we stop attempting drawings
+        for the remaining components instead of losing ~10 minutes per component.
+        """
+        if self._consecutive_drawing_failures >= self._max_drawing_failures:
+            self.logger.warning(
+                f'{comp_id}: Drawing export suspended for the rest of this order — '
+                f'{self._consecutive_drawing_failures} consecutive export failures. '
+                f'If this persists across orders, restart Fusion.'
+            )
+            return True
+        return False
+
+    def _register_drawing_failure(self, comp_id: str, component_type: str):
+        """Record a drawing export failure and discard the cached drawing.
+
+        An export timeout means the drawing's AutoCAD subprocess is dead;
+        reusing the cached document just times out again on every subsequent
+        component. Closing it forces a fresh documents.open() next time,
+        which respawns a working subprocess (~15-25s).
+        """
+        self._consecutive_drawing_failures += 1
+        self.logger.warning(
+            f'{comp_id}: Drawing export failure #{self._consecutive_drawing_failures} this order — '
+            f'closing cached drawing so the next export reopens it fresh'
+        )
+        # Close the exporter's current drawing doc even if it was never cached
+        # (caching only happens on success, so a first-open failure would
+        # otherwise leak the document).
+        try:
+            de = self._drawing_exporter
+            if de and de._drawing_doc and de._drawing_doc.isValid:
+                de._drawing_doc.close(False)
+        except Exception as e:
+            self.logger.warning(f'{comp_id}: Could not close exporter drawing doc: {e}')
+        self._close_type_drawing(component_type)
+
     def _close_type_drawing(self, component_type: str):
         """Close the drawing document for the given component type.
         
@@ -517,7 +564,7 @@ class OrderProcessor:
                     else:
                         cutout_value = cutout_data
                 
-                # Apply cutout parameters (cutout_1 / cutout_2 text params)
+                # Apply cutout parameters (cutout_A / cutout_B text params)
                 cutout_success, cutout_msg = self._apply_cutout_parameters(param_mgr, cutout_value, comp_id)
                 if cutout_success:
                     self.logger.info(f'{comp_id}: {cutout_msg}')
@@ -649,7 +696,7 @@ class OrderProcessor:
                 # Door drawing export — works with both cloud and local .f3d door models.
                 # The drawing is always a cloud document; the model can be either.
                 drawing_data_file = self.model_manager.get_door_drawing_data_file()
-                if drawing_data_file:
+                if drawing_data_file and not self._drawing_export_suspended(comp_id):
                     if tracker:
                         tracker.update_step("Saving door model...")
                     
@@ -693,12 +740,14 @@ class OrderProcessor:
                     if drawing_success:
                         self.logger.info(f'{comp_id}: Drawing exported: {drawing_msg}')
                         drawing_exported = True
+                        self._consecutive_drawing_failures = 0
                         # Cache the opened drawing doc for subsequent orders
                         if not pre_opened_drawing and drawing_exporter._drawing_doc:
                             self.model_manager._cached_drawing_docs['door_drawing'] = drawing_exporter._drawing_doc
                             self.logger.info(f'{comp_id}: Door drawing cached for future orders')
                     else:
                         self.logger.warning(f'{comp_id}: Drawing export failed: {drawing_msg}')
+                        self._register_drawing_failure(comp_id, component_type)
                     
                     # Re-activate the door model for next component.
                     # Use open_model() which handles both cloud and local .f3d models.
@@ -707,11 +756,11 @@ class OrderProcessor:
                     time.sleep(1.0)
                     self.logger.info(f'{comp_id}: Door model re-activated after drawing export')
                 else:
-                    self.logger.info(f'{comp_id}: No door drawing configured - skipping drawing export')
+                    self.logger.info(f'{comp_id}: Door drawing export skipped (not configured or suspended)')
             elif component_type == ModelManager.STILE and series_id:
                 # Stile drawing export
                 stile_drawing_data_file = self.model_manager.get_stile_drawing_data_file(series_id)
-                if stile_drawing_data_file:
+                if stile_drawing_data_file and not self._drawing_export_suspended(comp_id):
                     if tracker:
                         tracker.update_step("Saving stile model to cloud...")
                     
@@ -757,12 +806,14 @@ class OrderProcessor:
                     if drawing_success:
                         self.logger.info(f'{comp_id}: Stile drawing exported: {drawing_msg}')
                         drawing_exported = True
+                        self._consecutive_drawing_failures = 0
                         # Cache the opened drawing doc for subsequent orders
                         if not pre_opened_drawing and cache_key and drawing_exporter._drawing_doc:
                             self.model_manager._cached_drawing_docs[cache_key] = drawing_exporter._drawing_doc
                             self.logger.info(f'{comp_id}: Stile drawing cached for future orders (key={cache_key})')
                     else:
                         self.logger.warning(f'{comp_id}: Stile drawing export failed: {drawing_msg}')
+                        self._register_drawing_failure(comp_id, component_type)
                     
                     # Re-activate the stile model for CAM/next operations.
                     # Pump doEvents so Fusion fully transitions back to Design workspace.
@@ -771,11 +822,11 @@ class OrderProcessor:
                     time.sleep(1.0)
                     self.logger.info(f'{comp_id}: Stile model re-activated after drawing export')
                 else:
-                    self.logger.info(f'{comp_id}: No stile drawing configured for series {series_id} - skipping drawing export')
+                    self.logger.info(f'{comp_id}: Stile drawing export skipped for series {series_id} (not configured or suspended)')
             elif component_type == ModelManager.PANEL:
                 # Panel drawing export
                 panel_drawing_data_file = self.model_manager.get_panel_drawing_data_file()
-                if panel_drawing_data_file:
+                if panel_drawing_data_file and not self._drawing_export_suspended(comp_id):
                     if tracker:
                         tracker.update_step("Saving panel model to cloud...")
                     
@@ -818,12 +869,14 @@ class OrderProcessor:
                     if drawing_success:
                         self.logger.info(f'{comp_id}: Panel drawing exported: {drawing_msg}')
                         drawing_exported = True
+                        self._consecutive_drawing_failures = 0
                         # Cache the opened drawing doc for subsequent orders
                         if not pre_opened_drawing and drawing_exporter._drawing_doc:
                             self.model_manager._cached_drawing_docs['panel_drawing'] = drawing_exporter._drawing_doc
                             self.logger.info(f'{comp_id}: Panel drawing cached for future orders')
                     else:
                         self.logger.warning(f'{comp_id}: Panel drawing export failed: {drawing_msg}')
+                        self._register_drawing_failure(comp_id, component_type)
                     
                     # Re-activate the panel model for CAM/next operations.
                     self.model_manager.open_cloud_panel_model()
@@ -831,8 +884,20 @@ class OrderProcessor:
                     time.sleep(1.0)
                     self.logger.info(f'{comp_id}: Panel model re-activated after drawing export')
                 else:
-                    self.logger.info(f'{comp_id}: No panel drawing configured - skipping drawing export')
+                    self.logger.info(f'{comp_id}: Panel drawing export skipped (not configured or suspended)')
             
+            # Close orphaned model reference copies left behind by the drawing's
+            # updateAllReferences() — each update opens a fresh hidden instance
+            # of the referenced model and abandons the previous one. Cleanup
+            # used to run only between orders, so within a large single order
+            # open documents grew by one per component (observed 6 → 22 during
+            # IBUS447892) until the drawing subprocess and cloud sync broke down.
+            if not self.skip_drawing:
+                try:
+                    self.model_manager._close_duplicate_documents()
+                except Exception as dup_e:
+                    self.logger.warning(f'{comp_id}: Duplicate document cleanup failed: {dup_e}')
+
             # Skip CAM regeneration and G-code export if skip_cam is set
             if self.skip_cam:
                 result_msg = f'{comp_id}: Complete - CAM skipped'
@@ -1708,7 +1773,7 @@ class OrderProcessor:
                         ca_expr = ca_param.expression
                         ca_text = ca_expr[1:-1].strip() if ca_expr.startswith("'") and ca_expr.endswith("'") else ca_expr.strip()
                         if ca_text:
-                            self.logger.warning(f'{comp_id}: cutout_A text="{ca_text}" but derived dims=0 \u2014 forcing has_cutout_a=True')
+                            self.logger.warning(f'{comp_id}: cutout_A text="{ca_text}" but derived dims=0 — forcing has_cutout_a=True')
                             has_cutout_a = True
                 if design and not has_cutout_b:
                     cb_param = design.userParameters.itemByName('cutout_B')
@@ -1716,7 +1781,7 @@ class OrderProcessor:
                         cb_expr = cb_param.expression
                         cb_text = cb_expr[1:-1].strip() if cb_expr.startswith("'") and cb_expr.endswith("'") else cb_expr.strip()
                         if cb_text:
-                            self.logger.warning(f'{comp_id}: cutout_B text="{cb_text}" but derived dims=0 \u2014 forcing has_cutout_b=True')
+                            self.logger.warning(f'{comp_id}: cutout_B text="{cb_text}" but derived dims=0 — forcing has_cutout_b=True')
                             has_cutout_b = True
             except Exception as e:
                 self.logger.warning(f'{comp_id}: cutout text cross-reference failed: {e}')
