@@ -284,9 +284,16 @@ def run_comparison(suite_cfg: dict):
 
 
 def csv_preview(csv_path: Path, max_rows: int = 5) -> str:
-    """Return a short text preview of a CSV file."""
+    """Return a short text preview of a CSV file or Excel workbook."""
     if not csv_path.exists():
         return "(file not found)"
+    if csv_path.suffix.lower() in (".xlsm", ".xlsx"):
+        try:
+            import xlsm_reader
+            names = xlsm_reader.sheet_names(csv_path)
+            return "Excel workbook, sheets:\n  " + "\n  ".join(names)
+        except Exception as e:
+            return f"(error reading workbook: {e})"
     try:
         with open(csv_path, "r", encoding="utf-8") as f:
             reader = csv.reader(f)
@@ -739,6 +746,22 @@ class TestViewerApp:
         except Exception:
             return 0
 
+    def _count_workbook_rows(self, path: Path):
+        """Count scenario rows in an Excel workbook's scenario sheet, if readable."""
+        try:
+            import xlsm_reader
+            for name in xlsm_reader.sheet_names(path):
+                if "validationscenario" in name.lower().replace(" ", ""):
+                    rows = xlsm_reader.load_sheet(path, name)
+                    return sum(
+                        1 for r in rows
+                        if r and r[0] and "_" in str(r[0]) and str(r[0])[:1].isalnum()
+                        and any(str(r[0]).startswith(p) for p in ("XX", "3X"))
+                    )
+        except Exception:
+            pass
+        return "-"
+
     def _file_modified(self, path: Path) -> str:
         """Return human-readable modification time."""
         try:
@@ -754,14 +777,21 @@ class TestViewerApp:
         for item in self.gen_tree.get_children():
             self.gen_tree.delete(item)
 
-        # Find all CSVs in the testing_suite root that look like scenario generators
-        for f in sorted(SCENARIO_CSV_DIR.glob("*.csv")):
-            if f.name.startswith("."):
+        # Find all CSVs and Excel workbooks in the testing_suite root that
+        # look like scenario generators (generators can read .xlsm directly)
+        files = []
+        for pattern in ("*.csv", "*.xlsm", "*.xlsx"):
+            files.extend(SCENARIO_CSV_DIR.glob(pattern))
+        for f in sorted(files, key=lambda p: p.name.lower()):
+            if f.name.startswith((".", "~$")):
                 continue
             # Skip comparison_results.csv and files in subdirs
             if f.name == "comparison_results.csv":
                 continue
-            rows = self._count_csv_rows(f)
+            if f.suffix.lower() in (".xlsm", ".xlsx"):
+                rows = self._count_workbook_rows(f)
+            else:
+                rows = self._count_csv_rows(f)
             modified = self._file_modified(f)
             self.gen_tree.insert("", tk.END, iid=str(f),
                                   values=(f.name, rows, modified))
@@ -781,8 +811,11 @@ class TestViewerApp:
     def _upload_scenario_csv(self):
         """Upload a CSV to be used for scenario generation."""
         file_path = filedialog.askopenfilename(
-            title="Select Scenario Generation CSV",
-            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            title="Select Scenario Generation CSV or Workbook",
+            filetypes=[("Scenario files", "*.csv *.xlsm *.xlsx"),
+                       ("CSV files", "*.csv"),
+                       ("Excel workbooks", "*.xlsm *.xlsx"),
+                       ("All files", "*.*")],
             initialdir=str(Path.home() / "Downloads")
         )
         if not file_path:
@@ -817,14 +850,21 @@ class TestViewerApp:
         csv_path = Path(sel[0])
         csv_name = csv_path.name.lower()
 
-        # Auto-detect which generator to use based on filename
+        # Auto-detect which generator to use based on filename.
+        # Score each generator by how many of its name keywords appear in the
+        # filename (ignoring parenthesized tokens like "(XX8X_PV)"); pick the
+        # best scorer as long as it's unambiguous.
         generator = None
+        best_score, best = 0, []
         for key, cfg in GENERATOR_SCRIPTS.items():
-            # Match by keywords in the filename
-            keywords = key.lower().split()
-            if all(kw in csv_name for kw in keywords):
-                generator = (key, cfg)
-                break
+            keywords = [k for k in key.lower().split() if not k.startswith("(")]
+            score = sum(1 for kw in keywords if kw in csv_name)
+            if score > best_score:
+                best_score, best = score, [(key, cfg)]
+            elif score == best_score and score > 0:
+                best.append((key, cfg))
+        if len(best) == 1:
+            generator = best[0]
 
         if not generator:
             # Build unified choice list: all GENERATOR_SCRIPTS + custom suites without one

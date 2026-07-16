@@ -56,3 +56,6 @@ output/
 tmp/
 temp/
 *.tmp
+
+# Transient pipeline self-restart state (process_health.py)
+restart_state.json

@@ -1,0 +1,7 @@
+{
+  "_comment": "When enabled, every Fusion startup auto-starts the folder monitor with these settings and no dialogs. Keep enabled=false on dev machines; the deployed VM copy has enabled=true.",
+  "enabled": true,
+  "run_mode": "VM",
+  "skip_cam": false,
+  "skip_drawing": false
+}

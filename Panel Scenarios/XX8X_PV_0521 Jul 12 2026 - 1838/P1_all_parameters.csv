@@ -1,0 +1,198 @@
+Type,Parameter Name,Value,Unit,Expression,Comment
+Metadata,series_id,3082G.67P,,3082G.67P,Input parameter (not in model)
+User,component_height,77.9375,in,77.9375 in,"001) Input - Model
+    Height of the component"
+User,component_width,68.0625,in,68.0625 in,"002) Input - Model
+    Width of the component in inches"
+User,component_thickness,0.5,in,0.5 in,"020) Fixed - Model
+    Thickness of the component"
+User,component_floor_clearance,3.8749999999999996,in,3.875 in,"003) Input - Model
+    Floor clearance of the component"
+User,bottom_notching_standard_y_dist,3.5,in,3.5 in,"022) Fixed - Model
+    Vertical height of bottom notch"
+User,notching_front_edge_bottom,1.0,,if(not(panel_section == 'TOP') and ( bottom_notching_actual_y_dist > 0 in ); if(panel_abuts_inline_stile_front; 1; 0); 0),"101) Derived - Model
+    Whether notching is present on the front bottom corner of the panel"
+User,notching_back_edge_bottom,0.0,,if(not(panel_section == 'TOP') and ( bottom_notching_actual_y_dist > 0 in ); if(panel_abuts_inline_stile_back; 1; 0); 0),"102) Derived - Model
+    Whether notching is present on the back bottom corner of the panel"
+User,notching_x_dist,0.38,in,0.38 in,"021) Fixed - Model
+    Horizontal length of notch"
+User,panel_abuts_inline_stile_front,1.0,,1,"007) Input - Helper
+    Whether the panel’s front edge abuts a stile rather than a wall"
+User,panel_abuts_inline_stile_back,0.0,,0,"009) Input - Helper
+    Whether the panel’s back edge abuts a stile rather than a wall"
+User,stile_in_the_back_width,12.0,in,12.0 in,"011) Input - Model
+    If the panel has a stile-in-the-back, the width of that stile"
+User,top_notching_y_dist,0.0,in,if(component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ); ( shoe_height + shoe_top_notch_gap ) - component_ceiling_clearance; 0 in),"024) Derived - Model
+    Vertical height of top notch"
+User,panel_front_inline_stile_floor_to_ceiling,1.0,,1,"008) Input - Helper
+    If the panel’s back edge abuts an inline stile, indicates whether the inline stile is floor-to-ceiling (XX86) or not"
+User,component_ceiling_clearance,5.0,in,5.0 in,"004) Input - Model
+    Ceiling clearance of the component"
+User,shoe_height,4.0,in,4 in,"025) Input - Model
+    Shoe height of adjacent stiles"
+User,shoe_top_notch_gap,0.5,in,0.5 in,"026) Fixed - Model
+    Additional gap added to ensure proper fitting"
+User,notching_front_edge_top,0.0,,if(not(panel_section == 'BOTTOM') and component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ) and not(component_ceiling_clearance == 0 in); if(panel_abuts_inline_stile_front; if(panel_front_inline_stile_floor_to_ceiling; 1; 0); 0); 0),"103) Derived - Model
+    Whether top notching is present the front edge of the panel"
+User,notching_back_edge_top,0.0,,if(not(panel_section == 'BOTTOM') and component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ) and not(component_ceiling_clearance == 0 in); if(panel_abuts_inline_stile_back; if(panel_back_inline_stile_floor_to_ceiling; 1; 0); 0); 0),"104) Derived - Model
+    Whether top notching is present the back edge of the panel"
+User,panel_section,'WHOLE',Text,'WHOLE',"005) Input - Model
+    Whether the panel is not split, or, if split horizontally with an h-channel, defines whether this is the top or bottom piece"
+User,bottom_notching_actual_y_dist,0.6250000000000001,in,( bottom_notching_standard_y_dist + 1 in ) - component_floor_clearance,"023) Fixed - Model
+    Actual height of notching cutout from bottom of panel for any floor clearance less than: one inch plus the height of the standard bottom notch"
+User,a_order_number,'N001',Text,'N001',500) order Number
+User,component_id,'3X8XPanel',Text,'3X8XPanel',501) ID
+User,a_series,'3X8X',Text,'3X8X',502) series
+User,cutout_A_width,15.499999999999998,in,( if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_width; if(cutout_A == 'B-386'; B_386_width; if(cutout_A == 'B-4354'; B_4354_width; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_width; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_width; 0 in))))); 0 in) ),"201) Derived - Model
+    Width of cutout A"
+User,cutout_A,'B-34715',Text,'B-34715',"012) Input - Model
+    Whether the panel has a cutout and which cutout."
+User,cutout_A_height,28.875,in,( if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_height; if(cutout_A == 'B-386'; B_386_height; if(cutout_A == 'B-4354'; B_4354_height; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_height; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_height; 0 in))))); 0 in) ),"202) Derived - Model
+    Height of cutout A"
+User,cutout_A_y_coordinate,14.124999999999998,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-386'; B_386_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-4354'; B_4354_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance; 0 in))))); 0 in),"203) Derived - Model
+    Position of the bottom rear corner of cutout A realtive to the back edge of the panel"
+User,cutout_A_x_coordinate,9.000000000000002,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-386'; B_386_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-4354'; B_4354_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_x_dist_from_wall - stile_in_the_back_width; 0 in))))); 0 in),"204) Derived - Model
+    Position of the bottom rear corner of cutout A realtive to the bottom edge of the panel"
+User,cutout_B,'',Text,'',"013) Input - Model
+    Whether the panel has a second cutout and which cutout."
+User,cutout_B_width,0.0,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_width; if(cutout_B == 'B-386'; B_386_width; if(cutout_B == 'B-4354'; B_4354_width; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_width; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_width; 0 in))))); 0 in),"205) Derived - Model
+    Width of cutout B"
+User,cutout_B_height,0.0,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_height; if(cutout_B == 'B-386'; B_386_height; if(cutout_B == 'B-4354'; B_4354_height; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_height; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_height; 0 in))))); 0 in),"206) Derived - Model
+    Height of cutout B"
+User,cutout_B_y_coordinate,0.0,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-386'; B_386_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-4354'; B_4354_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance; 0 in))))); 0 in),"207) Derived - Model
+    Position of the bottom rear corner of cutout B realtive to the back edge of the panel"
+User,cutout_B_x_coordinate,0.0,in,if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-386'; B_386_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-4354'; B_4354_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_x_dist_from_wall - stile_in_the_back_width; 0 in))))); 0 in),"208) Derived - Model
+    Position of the bottom rear corner of cutout B realtive to the back edge of the panel"
+User,panel_back_inline_stile_floor_to_ceiling,0.0,,0,"010) Input - Helper
+    If the panel’s back edge abuts a stile, indicates whether the stile is floor-to-ceiling (XX86) or not"
+User,Operations,if(notching_front_edge_top or notching_front_edge_bottom; '- front notching - G57 '; '') + if(notching_back_edge_top or notching_back_edge_bottom; '- back notching - G59 '; '') + if(cutout_A_height > 0 in or cutout_B_height > 0 in; '- cutout - G59 '; ''),Text,if(notching_front_edge_top or notching_front_edge_bottom; '- front notching - G57 '; '') + if(notching_back_edge_top or notching_back_edge_bottom; '- back notching - G59 '; '') + if(cutout_A_height > 0 in or cutout_B_height > 0 in; '- cutout - G59 '; ''),503) Tag
+User,panel_inline_back_tag,if(panel_abuts_inline_stile_back; 'YES'; 'NO'),Text,if(panel_abuts_inline_stile_back; 'YES'; 'NO'),* Tag
+User,top_front_notch_tag,if(not(notching_front_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist),Text,if(not(notching_front_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist),tag for notch matrix
+User,top_back_notch_tag,if(not(notching_back_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist),Text,if(not(notching_back_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist),tag for notch matrix
+User,bottom_front_notch_tag,if(not(notching_front_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist),Text,if(not(notching_front_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist),tag for notch matrix
+User,bottom_back_notch_tag,if(not(notching_back_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist),Text,if(not(notching_back_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist),tag for notch matrix
+User,B_354_width,11.0,in,11 in,"301) Fixed - Model
+    Width of the cutout"
+User,B_386_width,11.5,in,11 in + ( ( 1 / 2 ) * 1 in ),"302) Fixed - Model
+    Width of the cutout"
+User,B_4354_width,11.0,in,11 in,"303) Fixed - Model
+    Width of the cutout"
+User,B_347_357_width,15.499999999999998,in,15.5 in,"304) Fixed - Model
+    Width of the cutout"
+User,B_3471_34715_3571_35715_width,15.499999999999998,in,15.5 in,"305) Fixed - Model
+    Width of the cutout"
+User,B_354_height,15.499999999999998,in,15.5 in,"321) Fixed - Model
+    Height of the cutout"
+User,B_386_height,10.875,in,10 in + ( ( 7 / 8 ) * 1 in ),"322) Fixed - Model
+    Height of the cutout"
+User,B_4354_height,9.375,in,9 in + ( ( 3 / 8 ) * 1 in ),"323) Fixed - Model
+    Height of the cutout"
+User,B_347_357_height,28.875,in,28 in + ( ( 7 / 8 ) * 1 in ),"324) Fixed - Model
+    Height of the cutout"
+User,B_3471_34715_3571_35715_height,28.875,in,28 in + ( ( 7 / 8 ) * 1 in ),"325) Fixed - Model
+    Height of the cutout"
+User,B_354_y_dist_from_floor,14.750000000000002,in,14.75 in,"341) Fixed - Model
+    Vertical distance from the floor to the bottom of the cutout"
+User,B_386_y_dist_from_floor,18.0,in,18 in,"342) Fixed - Model
+    Vertical distance from the floor to the bottom of the cutout"
+User,B_4354_y_dist_from_floor,18.75,in,18.75 in,"343) Fixed - Model
+    Vertical distance from the floor to the bottom of the cutout"
+User,B_347_357_y_dist_from_floor,30.125,in,30 in + ( ( 1 / 8 ) * 1 in ),"344) Fixed - Model
+    Vertical distance from the floor to the bottom of the cutout"
+User,B_3471_34715_3571_35715_y_dist_from_floor,18.0,in,18 in,"345) Fixed - Model
+    Vertical distance from the floor to the bottom of the cutout"
+User,B_354_x_dist_from_wall,14.5,in,14.5 in,"361) Fixed - Model
+    Horizontal distance from the back wall to the back edge of the cutout"
+User,B_386_x_dist_from_wall,28.940000000000005,in,28.94 in,"362) Fixed - Model
+    Horizontal distance from the back wall to the back edge of the cutout"
+User,B_4354_x_dist_from_wall,14.5,in,14.5 in,"363) Fixed - Model
+    Horizontal distance from the back wall to the back edge of the cutout"
+User,B_347_357_x_dist_from_wall,26.000000000000004,in,26 in,"364) Fixed - Model
+    Horizontal distance from the back wall to the back edge of the cutout"
+User,B_3471_34715_3571_35715_x_dist_from_wall,21.0,in,21 in,"365) Fixed - Model
+    Horizontal distance from the back wall to the back edge of the cutout"
+Model,d10,3.8749999999999996,in,component_floor_clearance,
+Model,d12,68.0625,in,component_width,
+Model,d259,77.9375,in,component_height,
+Model,d298,0.25,in,0.25 in,
+Model,d299,0.25,in,0.25 in,
+Model,d345,3.5,in,bottom_notching_standard_y_dist,
+Model,d346,0.38,in,notching_x_dist,
+Model,d348,3.5,in,bottom_notching_standard_y_dist,
+Model,d349,0.38,in,notching_x_dist,
+Model,d372,0.25,in,0.25 in,
+Model,d373,0.38,in,notching_x_dist,
+Model,d374,0.5,in,if(top_notching_y_dist == 0 in; 0.5 in; top_notching_y_dist),
+Model,d375,0.25,in,0.25 in,
+Model,d376,0.38,in,notching_x_dist,
+Model,d377,0.5,in,if(top_notching_y_dist == 0 in; 0.5 in; top_notching_y_dist),
+Model,d78,2.0,in,2 in,
+Model,d79,'left surface',Text,'left surface',
+Model,d220,11.0,in,11.0000 in,
+Model,d221,6.0,in,6.0000 in,
+Model,d275,2.0,in,2 in,
+Model,d276,'front',Text,'front',
+Model,d277,8.0,in,8 in,
+Model,d278,4.0,in,4 in,
+Model,d280,2.0,in,2 in,
+Model,d281,'back',Text,'back',
+Model,d282,8.0,in,8 in,
+Model,d283,4.0,in,4 in,
+Model,d439,38.96875,in,component_height / 2,
+Model,d440,4.5,in,4 in + 0.5 in,
+Model,d441,4.5,in,d440,
+Model,d285,2.0,in,2 in,
+Model,d286,'back',Text,'back',
+Model,d287,2.0,in,2 in,
+Model,d288,'front',Text,'front',
+Model,d289,8.0,in,8 in,
+Model,d290,4.0,in,4 in,
+Model,d291,0.125,in,( 1 / 8 ) * 1 in,
+Model,d292,8.0,in,8 in,
+Model,d293,4.0,in,4 in,
+Model,d294,0.125,in,0.1250 in,
+Model,d388,0.25,in,0.25 in,
+Model,d390,0.25,in,0.25 in,
+Model,d391,0.25,in,0.25 in,
+Model,d392,0.25,in,0.25 in,
+Model,d393,0.25,in,0.25 in,
+Model,d394,0.25,in,0.25 in,
+Model,d395,0.25,in,0.25 in,
+Model,d396,0.25,in,0.25 in,
+Model,d397,0.25,in,0.25 in,
+Model,d398,0.25,in,0.25 in,
+Model,d399,0.25,in,0.25 in,
+Model,d409,9.000000000000002,in,if(cutout_A_x_coordinate == 0 in; 5 in; cutout_A_x_coordinate),
+Model,d410,28.875,in,if(cutout_A_height == 0 in; 5 in; cutout_A_height),
+Model,d411,15.499999999999998,in,if(cutout_A_width == 0 in; 5 in; cutout_A_width),
+Model,d412,14.124999999999998,in,if(cutout_A_y_coordinate == 0 in; 5 in; cutout_A_y_coordinate),
+Model,d422,5.0,in,if(cutout_B_x_coordinate == 0 in; 5 in; cutout_B_x_coordinate),
+Model,d423,5.0,in,if(cutout_B_width == 0 in; 5 in; cutout_B_width),
+Model,d424,5.0,in,if(cutout_B_height == 0 in; 5 in; cutout_B_height),
+Model,d425,5.0,in,if(cutout_B_y_coordinate == 0 in; 5 in; cutout_B_y_coordinate),
+Model,d426,0.5,in,if(cutout_B == '' or panel_section == 'TOP'; component_thickness; 0 in),
+Model,d427,0.5,in,component_thickness,
+Model,d428,0.0,deg,0 deg,
+Model,d39,0.5,in,component_thickness,
+Model,d40,0.0,deg,0.00 deg,
+Model,d413,0.0,in,if(cutout_A == '' or panel_section == 'TOP'; component_thickness; 0 in),
+Model,d414,0.5,in,component_thickness,
+Model,d415,0.0,deg,0 deg,
+Model,d82,0.125,in,( 1 / 8 ) * 1 in,
+Model,d83,0.125,in,( 1 / 8 ) * 1 in,
+Model,d84,0.0,deg,0.00 deg,
+Model,d295,0.125,in,( 1 / 8 ) * 1 in,
+Model,d296,0.125,in,( 1 / 8 ) * 1 in,
+Model,d297,0.0,deg,0.00 deg,
+Model,d265,0.5,in,component_thickness,
+Model,d266,0.0,deg,0.00 deg,
+Model,d267,0.0,in,if(notching_front_edge_bottom; 0 in; component_thickness),
+Model,d268,0.5,in,if(notching_back_edge_bottom; 0 in; component_thickness),
+Model,d269,0.5,in,component_thickness,
+Model,d270,0.0,deg,0.00 deg,
+Model,d378,0.5,in,if(notching_front_edge_top; 0 in; component_thickness),
+Model,d379,0.5,in,component_thickness,
+Model,d380,0.0,deg,0.00 deg,
+Model,d381,0.5,in,if(notching_back_edge_top; 0 in; component_thickness),
+Model,d382,0.5,in,component_thickness,
+Model,d383,0.0,deg,0.00 deg,

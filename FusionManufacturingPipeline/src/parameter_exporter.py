@@ -7,6 +7,7 @@ import adsk.core
 import adsk.fusion
 import csv
 import json
+import logging
 from typing import Tuple, List, Dict
 from pathlib import Path
 

@@ -1,0 +1,8 @@
+PASS  py_compile xlsm_reader.py
+PASS  py_compile generate_panel_jsons.py
+PASS  py_compile test_viewer.py
+PASS  panel suite registered, expected_csv exists (Panel inputs & outputs v22 2026_07_09(ValidationOutputs).csv)
+PASS  load_expected: 1485 scenarios, spot values correct
+PASS  run_comparison executed: {'no_output': 1485}
+PASS  25 random JSONs match workbook inputs (section/height/width/cutout)
+ALL CHECKS PASSED

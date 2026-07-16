@@ -1,0 +1,289 @@
+DEFINED NAMES (58):
+  B_3471_34715_3571_35715_height = 'Panel Calculated Values'!$G$50
+  B_3471_34715_3571_35715_width = 'Panel Calculated Values'!$G$45
+  B_3471_34715_3571_35715_x_dist_from_wall = 'Panel Calculated Values'!$G$60
+  B_3471_34715_3571_35715_y_dist_from_floor = 'Panel Calculated Values'!$G$55
+  B_347_357_height = 'Panel Calculated Values'!$G$49
+  B_347_357_width = 'Panel Calculated Values'!$G$44
+  B_347_357_x_dist_from_wall = 'Panel Calculated Values'!$G$59
+  B_347_357_y_dist_from_floor = 'Panel Calculated Values'!$G$54
+  B_354_height = 'Panel Calculated Values'!$G$46
+  B_354_width = 'Panel Calculated Values'!$G$41
+  B_354_x_dist_from_wall = 'Panel Calculated Values'!$G$56
+  B_354_y_dist_from_floor = 'Panel Calculated Values'!$G$51
+  B_386_height = 'Panel Calculated Values'!$G$47
+  B_386_width = 'Panel Calculated Values'!$G$42
+  B_386_x_dist_from_wall = 'Panel Calculated Values'!$G$57
+  B_386_y_dist_from_floor = 'Panel Calculated Values'!$G$52
+  B_4354_height = 'Panel Calculated Values'!$G$48
+  B_4354_width = 'Panel Calculated Values'!$G$43
+  B_4354_x_dist_from_wall = 'Panel Calculated Values'!$G$58
+  B_4354_y_dist_from_floor = 'Panel Calculated Values'!$G$53
+  _xleta.FLOOR = #NAME?
+  _xlnm._FilterDatabase = 'ValidationScenarios vFin'!$A$3:$K$1488
+  _xlpm.k = #NAME?
+  _xlpm.minVal = #NAME?
+  _xlpm.r = #NAME?
+  _xlpm.step = #NAME?
+  bottom_notching_actual_y_dist = 'Panel Calculated Values'!$G$17
+  bottom_notching_standard_y_dist = 'Panel Calculated Values'!$G$16
+  component_ceiling_clearance = 'Panel Calculated Values'!$G$5
+  component_floor_clearance = 'Panel Calculated Values'!$G$4
+  component_height = 'Panel Calculated Values'!$G$2
+  component_thickness = 'Panel Calculated Values'!$G$14
+  component_width = 'Panel Calculated Values'!$G$3
+  cutout_A = 'Panel Calculated Values'!$G$12
+  cutout_A_height = 'Panel Calculated Values'!$G$32
+  cutout_A_width = 'Panel Calculated Values'!$G$31
+  cutout_A_x_coordinate = 'Panel Calculated Values'!$G$33
+  cutout_A_y_coordinate = 'Panel Calculated Values'!$G$34
+  cutout_B = 'Panel Calculated Values'!$G$13
+  cutout_B_height = 'Panel Calculated Values'!$G$36
+  cutout_B_width = 'Panel Calculated Values'!$G$35
+  cutout_B_x_coordinate = 'Panel Calculated Values'!$G$37
+  cutout_B_y_coordinate = 'Panel Calculated Values'!$G$38
+  floor_to_ceiling = 'Panel Calculated Values'!#REF!
+  notching_back_edge_bottom = 'Panel Calculated Values'!$G$24
+  notching_back_edge_top = 'Panel Calculated Values'!$G$26
+  notching_front_edge_bottom = 'Panel Calculated Values'!$G$23
+  notching_front_edge_top = 'Panel Calculated Values'!$G$25
+  notching_x_dist = 'Panel Calculated Values'!$G$15
+  panel_abuts_inline_stile_back = 'Panel Calculated Values'!$G$9
+  panel_abuts_inline_stile_front = 'Panel Calculated Values'!$G$7
+  panel_back_inline_stile_floor_to_ceiling = 'Panel Calculated Values'!$G$10
+  panel_front_inline_stile_floor_to_ceiling = 'Panel Calculated Values'!$G$8
+  panel_section = 'Panel Calculated Values'!$G$6
+  shoe_height = 'Panel Calculated Values'!$G$19
+  shoe_top_notch_gap = 'Panel Calculated Values'!$G$20
+  stile_in_the_back_width = 'Panel Calculated Values'!$G$11
+  top_notching_y_dist = 'Panel Calculated Values'!$G$18
+
+SHEET 'Panel Calculated Values': 60 rows
+HEADER: Variable | Order | Dependency | Relation | Explanation | Comments | Value | Expression | Previous parameter name
+
+--- row 1: component_height
+    order=1 dep=Input rel=Model
+    cached_value=96
+    cell_formula=None
+--- row 2: component_width
+    order=2 dep=Input rel=Model
+    cached_value=79.9375
+    cell_formula=None
+--- row 3: component_floor_clearance
+    order=3 dep=Input rel=Model
+    cached_value=2
+    cell_formula=None
+--- row 4: component_ceiling_clearance
+    order=4 dep=Input rel=Model
+    cached_value=None
+    cell_formula=None
+--- row 5: panel_section
+    order=5 dep=Input rel=Model
+    cached_value='WHOLE'
+    cell_formula=None
+--- row 6: panel_abuts_inline_stile_front
+    order=7 dep=Input rel=Helper
+    cached_value=1
+    cell_formula=None
+--- row 7: panel_front_inline_stile_floor_to_ceiling
+    order=8 dep=Input rel=Helper
+    cached_value=1
+    cell_formula=None
+--- row 8: panel_abuts_inline_stile_back
+    order=9 dep=Input rel=Helper
+    cached_value=1
+    cell_formula=None
+--- row 9: panel_back_inline_stile_floor_to_ceiling
+    order=10 dep=Input rel=Helper
+    cached_value=1
+    cell_formula=None
+--- row 10: stile_in_the_back_width
+    order=11 dep=Input rel=Model
+    cached_value=None
+    cell_formula=None
+--- row 11: cutout_A
+    order=12 dep=Input rel=Model
+    cached_value='B-357'
+    cell_formula=None
+--- row 12: cutout_B
+    order=13 dep=Input rel=Model
+    cached_value=None
+    cell_formula=None
+--- row 13: component_thickness
+    order=20 dep=Fixed rel=Model
+    cached_value=0.5
+    cell_formula='0.5'
+--- row 14: notching_x_dist
+    order=21 dep=Fixed rel=Model
+    cached_value=0.38
+    cell_formula='0.38'
+--- row 15: bottom_notching_standard_y_dist
+    order=22 dep=Fixed rel=Model
+    cached_value=3.5
+    cell_formula=' 3.5'
+    expression_text='= 3.5'
+--- row 16: bottom_notching_actual_y_dist
+    order=23 dep=Fixed rel=Model
+    cached_value=2.5
+    cell_formula='(bottom_notching_standard_y_dist + 1) - component_floor_clearance'
+--- row 17: top_notching_y_dist
+    order=24 dep=Derived rel=Model
+    cached_value=4.5
+    cell_formula=' IF( component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ),\n      ( shoe_height + shoe_top_notch_gap ) - component_ceiling_clearance,\n      0 )'
+    expression_text='= IF( component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ),\n      ( shoe_height + shoe_top_notch_gap ) - component_ceiling_clearance,\n      0 )'
+--- row 18: shoe_height
+    order=25 dep=Fixed rel=Model
+    cached_value=4
+    cell_formula=' 4'
+    expression_text='= 4'
+--- row 19: shoe_top_notch_gap
+    order=26 dep=Fixed rel=Model
+    cached_value=0.5
+    cell_formula=' 0.5'
+    expression_text='= 0.5'
+--- row 21: Notching
+    order=None dep=None rel=None
+    cached_value=None
+    cell_formula=None
+--- row 22: notching_front_edge_bottom
+    order=101 dep=Derived rel=Model
+    cached_value=1
+    cell_formula='IF( AND(panel_section<>"TOP",bottom_notching_actual_y_dist>0),\n     IF(panel_abuts_inline_stile_front = 1,\n        1,\n        0),\n     0)'
+--- row 23: notching_back_edge_bottom
+    order=102 dep=Derived rel=Model
+    cached_value=1
+    cell_formula='IF( AND(panel_section<>"TOP",bottom_notching_actual_y_dist>0),\n     IF(panel_abuts_inline_stile_back = 1,\n        1,\n        0),\n      0)'
+--- row 24: notching_front_edge_top
+    order=101 dep=Derived rel=Model
+    cached_value=0
+    cell_formula='IF( AND(panel_section<>"BOTTOM", component_ceiling_clearance < (shoe_height +shoe_top_notch_gap), component_ceiling_clearance <> ""),\n     IF(panel_abuts_inline_stile_front = 1,\n        IF(panel_front_inline_stile_floor_to_ceiling = 1,\n        1,\n        0),\n      0),\n     0)'
+--- row 25: notching_back_edge_top
+    order=102 dep=Derived rel=Model
+    cached_value=0
+    cell_formula='IF( AND(panel_section<>"BOTTOM", component_ceiling_clearance < (shoe_height +shoe_top_notch_gap), component_ceiling_clearance <> ""),\n     IF(panel_abuts_inline_stile_back = 1,\n        IF(panel_back_inline_stile_floor_to_ceiling = 1,\n        1,\n        0),\n      0),\n     0)'
+--- row 26: front_notching_activation_offset
+    order=103 dep=Derived rel=Helper
+    cached_value=0
+    cell_formula='IF(notching_front_edge_bottom,0,component_thickness)'
+    expression_text='if(notching_front_edge; 0 in; component_thickness)'
+--- row 27: back_notching_activation_offset
+    order=104 dep=Derived rel=Helper
+    cached_value=0
+    cell_formula='IF(notching_back_edge_bottom,0,component_thickness)'
+    expression_text='if(notching_back_edge; 0 in; component_thickness)'
+--- row 29: Cutouts
+    order=None dep=None rel=None
+    cached_value=None
+    cell_formula=None
+--- row 30: cutout_A_width
+    order=201 dep=Derived rel=Model
+    cached_value=15.5
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_width,\n       IF(OR(cutout_A = "B-386"), B_386_width,\n          IF(OR(cutout_A = "B-4354"), B_4354_width,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_width,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_width,\n                "") ) ) ) ),"")'
+--- row 31: cutout_A_height
+    order=202 dep=Derived rel=Model
+    cached_value=28.875
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_height,\n       IF(OR(cutout_A = "B-386"), B_386_height,\n          IF(OR(cutout_A = "B-4354"), B_4354_height,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_height,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_height,\n                "") ) ) ) ),"")'
+--- row 32: cutout_A_x_coordinate
+    order=204 dep=Derived rel=Model
+    cached_value=26
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_x_dist_from_wall - stile_in_the_back_width,\n       IF(OR(cutout_A = "B-386"), B_386_x_dist_from_wall - stile_in_the_back_width,\n          IF(OR(cutout_A = "B-4354"), B_4354_x_dist_from_wall - stile_in_the_back_width,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_x_dist_from_wall - stile_in_the_back_width,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_x_dist_from_wall - stile_in_the_back_width,\n                "") ) ) ) ),"")'
+--- row 33: cutout_A_y_coordinate
+    order=203 dep=Derived rel=Model
+    cached_value=28.125
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_y_dist_from_floor - component_floor_clearance,\n       IF(OR(cutout_A = "B-386"), B_386_y_dist_from_floor - component_floor_clearance,\n          IF(OR(cutout_A = "B-4354"), B_4354_y_dist_from_floor - component_floor_clearance,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_y_dist_from_floor - component_floor_clearance,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance,\n                   "") ) ) ) ),\n     "")'
+--- row 34: cutout_B_width
+    order=205 dep=Derived rel=Model
+    cached_value=15.5
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_width,\n       IF(OR(cutout_A = "B-386"), B_386_width,\n          IF(OR(cutout_A = "B-4354"), B_4354_width,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_width,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_width,\n                "") ) ) ) ),"")'
+--- row 35: cutout_B_height
+    order=206 dep=Derived rel=Model
+    cached_value=28.875
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_height,\n       IF(OR(cutout_A = "B-386"), B_386_height,\n          IF(OR(cutout_A = "B-4354"), B_4354_height,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_height,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_height,\n                "") ) ) ) ),"")'
+--- row 36: cutout_B_x_coordinate
+    order=207 dep=Derived rel=Model
+    cached_value=28.125
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_y_dist_from_floor - component_floor_clearance,\n       IF(OR(cutout_A = "B-386"), B_386_y_dist_from_floor - component_floor_clearance,\n          IF(OR(cutout_A = "B-4354"), B_4354_y_dist_from_floor - component_floor_clearance,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_y_dist_from_floor - component_floor_clearance,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance,\n                   "") ) ) ) ),\n     "")'
+--- row 37: cutout_B_y_coordinate
+    order=208 dep=Derived rel=Model
+    cached_value=15.5
+    cell_formula='IF(OR(panel_section = "Whole", panel_section = "Bottom"),\n    IF(OR(cutout_A = "B-354"), B_354_width,\n       IF(OR(cutout_A = "B-386"), B_386_width,\n          IF(OR(cutout_A = "B-4354"), B_4354_width,\n             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_width,\n                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_width,\n                "") ) ) ) ),"")'
+--- row 40: B_354_width
+    order=301 dep=Fixed rel=Model
+    cached_value=11
+    cell_formula='11'
+--- row 41: B_386_width
+    order=302 dep=Fixed rel=Model
+    cached_value=11.5
+    cell_formula='11+(1/2)'
+--- row 42: B_4354_width
+    order=303 dep=Fixed rel=Model
+    cached_value=11
+    cell_formula='11'
+--- row 43: B_347/357_width
+    order=304 dep=Fixed rel=Model
+    cached_value=15.5
+    cell_formula='15.5'
+--- row 44: B_3471/34715/3571/35715_width
+    order=305 dep=Fixed rel=Model
+    cached_value=15.5
+    cell_formula='15.5'
+--- row 45: B_354_height
+    order=321 dep=Fixed rel=Model
+    cached_value=15.5
+    cell_formula='15.5'
+--- row 46: B_386_height
+    order=322 dep=Fixed rel=Model
+    cached_value=10.875
+    cell_formula='10+(7/8)'
+--- row 47: B_4354_height
+    order=323 dep=Fixed rel=Model
+    cached_value=9.375
+    cell_formula='9+(3/8)'
+--- row 48: B_347/357_height
+    order=324 dep=Fixed rel=Model
+    cached_value=28.875
+    cell_formula='28+(7/8)'
+--- row 49: B_3471/34715/3571/35715_height
+    order=325 dep=Fixed rel=Model
+    cached_value=28.875
+    cell_formula='28+(7/8)'
+--- row 50: B_354_y_dist_from_floor
+    order=341 dep=Fixed rel=Model
+    cached_value=14.75
+    cell_formula='14.75'
+--- row 51: B_386_y_dist_from_floor
+    order=342 dep=Fixed rel=Model
+    cached_value=18
+    cell_formula='18'
+--- row 52: B_4354_y_dist_from_floor
+    order=343 dep=Fixed rel=Model
+    cached_value=18.75
+    cell_formula='18.75'
+--- row 53: B_347/357_y_dist_from_floor
+    order=344 dep=Fixed rel=Model
+    cached_value=30.125
+    cell_formula='30 + (1/8)'
+--- row 54: B_3471/34715/3571/35715_y_dist_from_floor
+    order=345 dep=Fixed rel=Model
+    cached_value=18
+    cell_formula='18'
+--- row 55: B_354_x_dist_from_wall
+    order=361 dep=Fixed rel=Model
+    cached_value=14.5
+    cell_formula='14.5'
+--- row 56: B_386_x_dist_from_wall
+    order=362 dep=Fixed rel=Model
+    cached_value=28.94
+    cell_formula='28.94'
+--- row 57: B_4354_x_dist_from_wall
+    order=363 dep=Fixed rel=Model
+    cached_value=14.5
+    cell_formula='14.5'
+--- row 58: B_347/357_x_dist_from_wall
+    order=364 dep=Fixed rel=Model
+    cached_value=26
+    cell_formula='26'
+--- row 59: B_3471/34715/3571/35715_x_dist_from_wall
+    order=365 dep=Fixed rel=Model
+    cached_value=21
+    cell_formula='21'

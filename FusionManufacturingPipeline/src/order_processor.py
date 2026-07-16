@@ -20,6 +20,8 @@ from parameter_exporter import ParameterExporter
 from model_manager import ModelManager
 from drawing_exporter import DrawingExporter
 from logger import get_logger
+import process_health
+import pipeline_stats
 
 
 class OrderProcessor:
@@ -67,15 +69,39 @@ class OrderProcessor:
             self.ui.messageBox(f'Failed to load order file:\n{str(e)}', 'Error')
             return None
     
-    def process_order_v2(self, order_file_path: str, progress_dialog=None) -> Tuple[bool, str]:
+    # Returned as the message when an order is stopped mid-flight for a restart.
+    # Its components are checkpointed; the order re-runs and resumes where it
+    # left off (see order_checkpoint).
+    RESTART_RESUME = '__RESTART_RESUME__'
+
+    def _report_step(self, step: str):
+        """Publish where the current order is (component + step) for the
+        dashboard's in-order progress bar. Best-effort; never raises."""
+        try:
+            pipeline_stats.write_progress(
+                getattr(self, '_cur_order_id', ''),
+                getattr(self, '_cur_comp_id', ''),
+                getattr(self, '_cur_index', 0),
+                getattr(self, '_cur_total', 0),
+                step,
+            )
+        except Exception:
+            pass
+
+    def process_order_v2(self, order_file_path: str, progress_dialog=None,
+                         should_abort=None) -> Tuple[bool, str]:
         """
         Process a complete manufacturing order using the new JSON structure.
         New structure has order_id, panels[], doors[], stiles[] with [value, datatype, description] format.
-        
+
         Args:
             order_file_path: Path to order JSON file
             progress_dialog: Optional ProgressDialog for UI updates
-            
+            should_abort: Optional callable; when it returns True the order stops
+                cleanly at the next component boundary, checkpoints its progress,
+                and returns RESTART_RESUME so the caller can restart Fusion and
+                resume this order where it left off.
+
         Returns:
             Tuple of (success: bool, message: str)
         """
@@ -137,10 +163,32 @@ class OrderProcessor:
             self._cam_report = []  # Per-component CAM validation results for end-of-order report
             self._consecutive_drawing_failures = 0  # Fresh drawing-failure budget per order
             drilling_paired_collection = []  # Collect paired drilling data for compiled file
-            
+
             # Organized drilling collections by component type for structured output
             drilling_paired_by_type = {'doors': [], 'panels': [], 'stiles': []}
-            
+
+            # Resume support: components completed in a previous session (before a
+            # restart) are skipped. Restore their drilling data so the compiled
+            # drilling file at order-end stays complete. Keyed by the order file
+            # stem, which is stable across the re-queue/restart cycle.
+            import order_checkpoint
+            order_stem = os.path.splitext(os.path.basename(order_file_path))[0]
+            done_components = order_checkpoint.read(order_stem)
+            prior_done_count = len(done_components)  # stable count for progress index
+            if done_components:
+                self.logger.info(
+                    f'Resuming order {order_stem}: {len(done_components)} component(s) '
+                    f'already done in a prior session will be skipped: '
+                    f'{sorted(done_components.keys())}'
+                )
+                for _cid, _payload in done_components.items():
+                    _dpd = _payload.get('drilling_paired_data')
+                    if _dpd:
+                        drilling_paired_collection.append(_dpd)
+                        _jk = _payload.get('json_key')
+                        if _jk in drilling_paired_by_type:
+                            drilling_paired_by_type[_jk].append(_dpd)
+
             # Process each component type in order: panels, doors, stiles
             for json_key, component_type in component_types:
                 components = order.get(json_key, [])
@@ -150,27 +198,67 @@ class OrderProcessor:
                     continue
                 
                 self.logger.info(f'Processing {len(components)} {json_key}')
-                
+
+                # Close OTHER types' drawings before this type runs. Idle
+                # drawings of a different type get poked by every doEvents()
+                # during CAM regeneration (cross-process DWG saves), and an
+                # open panel/stile drawing unloads the shared AcFusionService
+                # subprocess out from under a cached door drawing. Closing on
+                # a TYPE SWITCH solves both, while consecutive same-type
+                # orders keep their drawing open (updateAllReferences fast
+                # path). Do NOT close the current type's drawing per order:
+                # each close/reopen cycle leaks GPU-driver threads that
+                # crashed Fusion at 6,200 threads after 27 panel orders
+                # (2026-07-12), and is the same document-management-debt
+                # anti-pattern documented in cleanup_cached_documents().
+                if not self.skip_drawing:
+                    self._close_other_type_drawings(component_type)
+
                 # Process each component of this type
                 for idx, component in enumerate(components):
                     # Update progress
                     comp_id_data = component.get('id', [f'{json_key[:-1].upper()}{idx+1}', 'string', ''])
                     comp_id = comp_id_data[0] if isinstance(comp_id_data, list) else comp_id_data
-                    
+
+                    # Skip components already completed in a prior session (resume).
+                    if comp_id in done_components:
+                        self.logger.info(f'{comp_id}: already completed in a prior session — skipping')
+                        continue
+
+                    # Stop cleanly at this component boundary if a restart is
+                    # pending. Prior components are checkpointed, so after the
+                    # restart the order re-runs and resumes from here.
+                    if should_abort is not None and should_abort():
+                        self.logger.warning(
+                            f'Restart requested — stopping order {order_stem} at a component '
+                            f'boundary ({len(done_components)} done); will resume after restart'
+                        )
+                        return False, self.RESTART_RESUME
+
+                    # Publish progress context for the dashboard (which component,
+                    # global index/total). _cur_index counts every component of
+                    # the order, including ones done in prior resume sessions.
+                    self._cur_order_id = order_id
+                    self._cur_comp_id = comp_id
+                    self._cur_index = prior_done_count + len(results) + 1
+                    self._cur_total = total_components
+                    self._report_step('starting')
+
                     if tracker:
                         tracker.start_component(comp_id, json_key)
-                    
+
                     comp_result, drilling_tuple = self.process_component_v2(
-                        component, 
-                        component_type, 
-                        idx + 1, 
+                        component,
+                        component_type,
+                        idx + 1,
                         len(components),
                         order_id,
                         tracker
                     )
                     results.append((json_key, comp_result))
-                    
+
                     # Collect drilling data if available (doors and stiles)
+                    drilling_paired_data = None
                     if drilling_tuple:
                         drilling_data, drilling_paired_data = drilling_tuple
                         if drilling_paired_data:
@@ -179,10 +267,19 @@ class OrderProcessor:
                             # Also add to organized collection
                             if json_key in drilling_paired_by_type:
                                 drilling_paired_by_type[json_key].append(drilling_paired_data)
-                    
+
+                    # Checkpoint this component as done (with its drilling data so
+                    # the compiled file can be rebuilt on resume). Written after
+                    # the component fully processes, so a crash mid-component
+                    # leaves it un-checkpointed and it retries on resume.
+                    done_components[comp_id] = {'json_key': json_key,
+                                                'drilling_paired_data': drilling_paired_data}
+                    order_checkpoint.mark_completed(order_stem, comp_id, json_key,
+                                                    drilling_paired_data)
+
                     if tracker:
                         tracker.complete_component(comp_result[0])
-                    
+
                     # Stabilization delay between components. Pump one doEvents()
                     # so Fusion can process pending internal events (save completion,
                     # cloud upload, BREP entity cleanup). A single doEvents call is
@@ -196,23 +293,10 @@ class OrderProcessor:
                             adsk.doEvents()
                             time.sleep(3)
                 
-                # --- Close this type's drawing after all components are done ---
-                # Drawing documents have their own AutoCAD subprocess. Every
-                # doEvents() during CAM regeneration of a DIFFERENT component type
-                # pokes ALL open drawing subprocesses (triggering DWG saves and
-                # cross-process IPC). After many saves the accumulated state
-                # crashes Fusion. Closing non-active drawings between types
-                # eliminates this pressure.
-                # The door drawing is NOT exempted. There is a single shared
-                # AcFusionService drawing subprocess; closing panel/stile
-                # drawings unloads it, and a persistently-cached door drawing
-                # then has no live subprocess, so its PDF export hangs for the
-                # full 600s Fusion timeout ("export timed out"). Closing the
-                # door drawing too forces a fresh documents.open() next order,
-                # which respawns a working subprocess (like panels, ~15-25s).
-                if not self.skip_drawing:
-                    self._close_type_drawing(component_type)
-            
+                # NOTE: The current type's drawing is intentionally left open
+                # here — it is either reused by the next same-type order or
+                # closed by _close_other_type_drawings() when the type changes.
+
             # Write compiled drilling coordinates file if we have any paired data
             if drilling_paired_collection:
                 try:
@@ -268,13 +352,23 @@ class OrderProcessor:
             # Summary
             success_count = sum(1 for _, r in results if r[0])
             total_count = len(results)
-            
+
+            # Reaching here means the full component loop finished without a
+            # restart abort — every component of this order has been processed
+            # across all resume sessions, so the checkpoint can be cleared.
+            order_checkpoint.clear(order_stem)
+
             # Show final progress
             if tracker:
                 tracker.finish(success_count, total_count - success_count)
-            
+
             if total_count == 0:
                 self.logger.remove_order_log_handler(order_id)
+                if done_components:
+                    # Every component was completed in prior sessions; the order
+                    # just needed finalizing (crash between last component and
+                    # the move-to-completed). Treat as a success.
+                    return True, f'Order {order_id} completed (resumed; all components done in prior sessions)'
                 return False, 'No components found in order'
             
             # Create timestamped archive copies of this order's per-output-type
@@ -367,18 +461,31 @@ class OrderProcessor:
             self.logger.warning(f'{comp_id}: Could not close exporter drawing doc: {e}')
         self._close_type_drawing(component_type)
 
+    def _close_other_type_drawings(self, current_type: str):
+        """Close cached drawings of every component type EXCEPT current_type.
+
+        Called before a type's components run. Only one type's drawing stays
+        open at a time (idle drawings of other types get poked by doEvents()
+        during CAM and share one AcFusionService subprocess), while the
+        current type's drawing survives across consecutive same-type orders.
+        """
+        for other_type in (ModelManager.DOOR, ModelManager.PANEL, ModelManager.STILE):
+            if other_type != current_type:
+                self._close_type_drawing(other_type)
+
     def _close_type_drawing(self, component_type: str):
         """Close the drawing document for the given component type.
-        
+
         Drawing documents each spawn an AutoCAD subprocess. Leaving them open
         while processing a DIFFERENT component type means every doEvents() call
         during CAM regeneration triggers cross-process DWG saves on the idle
         drawing. After many saves across multiple orders, this accumulated IPC
         state causes Fusion to crash.
-        
-        Closing the drawing between component types eliminates the cross-process
-        overhead. The drawing will be reopened from cloud on the next order
-        (typically <15 s).
+
+        Used on type switches (_close_other_type_drawings) and on export
+        failure (_register_drawing_failure) to respawn a dead subprocess —
+        NOT after every order: same-doc close/reopen cycles leak GPU-driver
+        threads and accumulate document-management debt.
         """
         try:
             if component_type == ModelManager.PANEL:
@@ -400,11 +507,7 @@ class OrderProcessor:
                             self.logger.warning(f'Failed to close stile drawing (key={key}): {e}')
                     if key in self.model_manager._cached_drawing_docs:
                         del self.model_manager._cached_drawing_docs[key]
-                # Reset the shared drawing exporter state
-                if self._drawing_exporter:
-                    self._drawing_exporter._drawing_doc = None
-                    self._drawing_exporter._drawing_data_file = None
-                    self._drawing_exporter._drawing_opened_once = False
+                self._reset_drawing_exporter_if_stale()
                 return
             else:
                 return  # Unknown component type — nothing to close
@@ -418,15 +521,31 @@ class OrderProcessor:
                     self.logger.warning(f'Failed to close {component_type} drawing (key={cache_key}): {e}')
             if cache_key in self.model_manager._cached_drawing_docs:
                 del self.model_manager._cached_drawing_docs[cache_key]
-            
-            # Reset the shared drawing exporter state so it doesn't try to
-            # reuse a reference to the now-closed document.
-            if self._drawing_exporter:
-                self._drawing_exporter._drawing_doc = None
-                self._drawing_exporter._drawing_data_file = None
-                self._drawing_exporter._drawing_opened_once = False
+
+            self._reset_drawing_exporter_if_stale()
         except Exception as e:
             self.logger.warning(f'_close_type_drawing({component_type}): {e}')
+
+    def _reset_drawing_exporter_if_stale(self):
+        """Reset the shared exporter's state if its document was just closed.
+
+        The exporter tracks whichever drawing was last exported. When a
+        DIFFERENT type's drawing gets closed, the exporter may still point at
+        the current type's (open, cached) drawing — wiping its state then
+        would needlessly discard the reuse fast path, so only reset when the
+        tracked document is gone or invalid.
+        """
+        de = self._drawing_exporter
+        if not de or de._drawing_doc is None:
+            return
+        try:
+            still_valid = de._drawing_doc.isValid
+        except Exception:
+            still_valid = False
+        if not still_valid:
+            de._drawing_doc = None
+            de._drawing_data_file = None
+            de._drawing_opened_once = False
     
     def process_component_v2(self, component: Dict, component_type: str, comp_num: int, total_comps: int, order_id: str, tracker=None) -> Tuple[Tuple[bool, str], Optional[Dict]]:
         """
@@ -494,6 +613,7 @@ class OrderProcessor:
                 return (False, f'{comp_id}: No design found in {component_type} model'), None
             
             # Apply parameters using new JSON format
+            self._report_step('parameter application')
             if tracker:
                 tracker.update_step(f"Updating {len(parameters)} parameters...")
             
@@ -539,10 +659,40 @@ class OrderProcessor:
                 else:
                     self.logger.warning(f'{comp_id}: Could not set a_order_number: {order_num_msg}')
             
+            # For panel components, apply cutout parameters BEFORE the save so
+            # a SINGLE save covers params + cutout. Previously cutout ran AFTER
+            # the post-parameter save, which re-dirtied the model and forced a
+            # second full cloud save before drawing export — doubling the panel
+            # model's version growth (v1800+ now) and adding a second
+            # serialization pass, which is exactly where Fusion's cloud-save
+            # serializer keeps crashing (Ns::Blob::save). Applying cutout first
+            # means one save per order; the later pre-drawing save then finds
+            # the model already clean and only waits briefly for in-flight cloud
+            # sync instead of serializing (and crashing) a second time.
+            # Output is unchanged — cutout is still applied before the STEP
+            # export below.
+            if component_type == ModelManager.PANEL:
+                cutout_value = None
+                if 'cutout' in parameters:
+                    cutout_data = parameters['cutout']
+                    if isinstance(cutout_data, list):
+                        cutout_value = cutout_data[0]  # Extract value from [value, type, description]
+                    else:
+                        cutout_value = cutout_data
+
+                # Apply cutout parameters (cutout_A / cutout_B text params)
+                cutout_success, cutout_msg = self._apply_cutout_parameters(param_mgr, cutout_value, comp_id)
+                if cutout_success:
+                    self.logger.info(f'{comp_id}: {cutout_msg}')
+                else:
+                    self.logger.error(f'{comp_id}: {cutout_msg}')
+                    return (False, f'{comp_id}: Cutout parameter failed: {cutout_msg}'), None
+
             # Save the model after parameter application to clear Dirty flag.
             # WHY: Dirty cloud documents trigger PLM360 version reconciliation
             # on every doEvents() call during CAM/drawing processing, eventually
-            # causing STACK_OVERFLOW crashes.
+            # causing STACK_OVERFLOW crashes. Now covers cutout too (applied
+            # above), so it is the only cloud save the model needs this order.
             if not self.skip_cam or not self.skip_drawing:
                 post_param_save_success, post_param_save_msg = self.model_manager.save_active_model(
                     f"Parameters applied for {comp_id}"
@@ -553,25 +703,8 @@ class OrderProcessor:
                     self.logger.warning(f'{comp_id}: Post-parameter save failed: {post_param_save_msg}')
             else:
                 self.logger.info(f'{comp_id}: Skipping post-parameter save (no CAM/drawing)')
-            
-            # For panel components, apply cutout parameters if specified
-            if component_type == ModelManager.PANEL:
-                cutout_value = None
-                if 'cutout' in parameters:
-                    cutout_data = parameters['cutout']
-                    if isinstance(cutout_data, list):
-                        cutout_value = cutout_data[0]  # Extract value from [value, type, description]
-                    else:
-                        cutout_value = cutout_data
-                
-                # Apply cutout parameters (cutout_A / cutout_B text params)
-                cutout_success, cutout_msg = self._apply_cutout_parameters(param_mgr, cutout_value, comp_id)
-                if cutout_success:
-                    self.logger.info(f'{comp_id}: {cutout_msg}')
-                else:
-                    self.logger.error(f'{comp_id}: {cutout_msg}')
-                    return (False, f'{comp_id}: Cutout parameter failed: {cutout_msg}'), None
-            
+
+            self._report_step('model export')
             if tracker:
                 tracker.update_step("Exporting 3D model...")
             
@@ -586,6 +719,7 @@ class OrderProcessor:
                 self.logger.info(f'{comp_id}: Model exported: {export_msg}')
             else:
                 self.logger.warning(f'{comp_id}: Model export failed: {export_msg}')
+            process_health.log_thread_count(self.logger, f'{comp_id} after params+save+STEP')
             
             # Export parameters to CSV and JSON
             from config import OUTPUT_PARAMETERS
@@ -720,6 +854,7 @@ class OrderProcessor:
                     
                     if tracker:
                         tracker.update_step("Exporting door drawing...")
+                    self._report_step('drawing output')
                     
                     if self._drawing_exporter is None:
                         from config import OUTPUT_GCODE
@@ -784,6 +919,7 @@ class OrderProcessor:
                     # Always proceed with drawing export
                     if tracker:
                         tracker.update_step("Exporting stile drawing...")
+                    self._report_step('drawing output')
                     
                     if self._drawing_exporter is None:
                         from config import OUTPUT_GCODE
@@ -831,6 +967,7 @@ class OrderProcessor:
                         tracker.update_step("Saving panel model to cloud...")
                     
                     self.logger.info(f'{comp_id}: Starting panel drawing export')
+                    process_health.log_thread_count(self.logger, f'{comp_id} before drawing export')
                     
                     # Save model to cloud before drawing export (best effort).
                     # Even if save fails/times out, we still proceed with drawing
@@ -849,6 +986,7 @@ class OrderProcessor:
                     # Always proceed with drawing export
                     if tracker:
                         tracker.update_step("Exporting panel drawing...")
+                    self._report_step('drawing output')
                     
                     if self._drawing_exporter is None:
                         from config import OUTPUT_GCODE
@@ -883,6 +1021,7 @@ class OrderProcessor:
                     adsk.doEvents()
                     time.sleep(1.0)
                     self.logger.info(f'{comp_id}: Panel model re-activated after drawing export')
+                    process_health.log_thread_count(self.logger, f'{comp_id} after drawing export')
                 else:
                     self.logger.info(f'{comp_id}: Panel drawing export skipped (not configured or suspended)')
             
@@ -920,7 +1059,9 @@ class OrderProcessor:
             if tracker:
                 tracker.update_step("Accessing CAM setups...")
             
+            self._report_step('CAM toolpaths')
             self.logger.info(f'{comp_id}: Starting CAM regeneration')
+            process_health.log_thread_count(self.logger, f'{comp_id} before CAM')
             
             # Regenerate CAM toolpaths
             # Use activeDocument instead of cached doc — after drawing export
@@ -1003,6 +1144,7 @@ class OrderProcessor:
                     self.logger.warning(f'{comp_id}: Could not get design for panel toolpath suppression')
             
             # Post process all setups to generate G-code
+            self._report_step('G-code')
             if tracker:
                 tracker.update_step("Generating G-code...")
             
@@ -1213,6 +1355,7 @@ class OrderProcessor:
                 design_workspace.activate()
                 time.sleep(1.0)
                 self.logger.info(f'{comp_id}: Switched back to Design workspace')
+                process_health.log_thread_count(self.logger, f'{comp_id} after CAM+post+workspace switch')
         except Exception as ws_err:
             self.logger.warning(f'{comp_id}: Failed to switch back to Design workspace: {ws_err}')
 

@@ -1,0 +1,12 @@
+Cross-check: calculated expected values vs static 'ValidationOutputs' sheet
+Scenarios compared: 1485
+
+Columns with differences (2):
+  cutout_A_y_coordinate: 150 scenario(s) differ
+      e.g. XX8X_PV_0037: ValidationOutputs=25.63 calculated='25.625'
+      e.g. XX8X_PV_0062: ValidationOutputs=28.88 calculated='28.875'
+      e.g. XX8X_PV_0122: ValidationOutputs=26.1925 calculated='26.1875'
+  cutout_A_x_coordinate: 74 scenario(s) differ
+      e.g. XX8X_PV_1442: ValidationOutputs=None calculated='2.5'
+      e.g. XX8X_PV_1443: ValidationOutputs=None calculated='-9.5'
+      e.g. XX8X_PV_1448: ValidationOutputs=None calculated='-9.5'

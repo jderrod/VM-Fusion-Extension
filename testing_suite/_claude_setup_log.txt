@@ -1,0 +1,4 @@
+Copying workbook... 
+        1 file(s) copied.
+Wrote C:\Users\james.derrod\VM Fusion Extension\testing_suite\workbook_dump.txt
+DONE 

@@ -13,6 +13,7 @@ import shutil
 from pathlib import Path
 from typing import Optional, Tuple
 from logger import get_logger
+import process_health
 
 
 class DrawingExporter:
@@ -476,6 +477,7 @@ class DrawingExporter:
     
     def _do_update_all_references(self, drawing_doc) -> Tuple[bool, str]:
         """Call updateAllReferences() and wait for views to regenerate."""
+        process_health.log_thread_count(self.logger, 'drawing: before updateAllReferences')
         try:
             # Ensure drawing is the active document and workspace is ready
             try:
@@ -517,7 +519,8 @@ class DrawingExporter:
             self.logger.info(f'Drawing isUpToDate after update: {is_up_to_date}')
         except Exception:
             pass
-        
+
+        process_health.log_thread_count(self.logger, 'drawing: after updateAllReferences+regen')
         return True, 'Drawing updated via updateAllReferences()'
     
     def _log_reference_info(self, drawing_doc):
@@ -629,6 +632,7 @@ class DrawingExporter:
             # Execute export — wrap in try/except + retry because Fusion can
             # crash internally if drawing views aren't fully rendered yet
             self.logger.info('Executing PDF export...')
+            process_health.log_thread_count(self.logger, 'drawing: before PDF execute')
             try:
                 export_mgr.execute(export_options)
             except Exception as export_err:
@@ -678,6 +682,7 @@ class DrawingExporter:
                     shutil.rmtree(temp_dir, ignore_errors=True)
             
             self.logger.info(f'Drawing exported: {output_filename} ({file_size} bytes)')
+            process_health.log_thread_count(self.logger, 'drawing: after PDF export')
             return True, f'Exported drawing to {output_filename} ({file_size} bytes)', str(output_path)
             
         except Exception as e:

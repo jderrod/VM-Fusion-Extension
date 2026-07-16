@@ -1,0 +1,880 @@
+{
+  "component_id": "P1",
+  "metadata": {
+    "series_id": "3082G.67P"
+  },
+  "user_parameters": {
+    "component_height": {
+      "value": 67.5,
+      "unit": "in",
+      "expression": "67.5 in",
+      "comment": "001) Input - Model\n    Height of the component"
+    },
+    "component_width": {
+      "value": 6.625,
+      "unit": "in",
+      "expression": "6.625 in",
+      "comment": "002) Input - Model\n    Width of the component in inches"
+    },
+    "component_thickness": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": "020) Fixed - Model\n    Thickness of the component"
+    },
+    "component_floor_clearance": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "12.0 in",
+      "comment": "003) Input - Model\n    Floor clearance of the component"
+    },
+    "bottom_notching_standard_y_dist": {
+      "value": 3.5,
+      "unit": "in",
+      "expression": "3.5 in",
+      "comment": "022) Fixed - Model\n    Vertical height of bottom notch"
+    },
+    "notching_front_edge_bottom": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(panel_section == 'TOP') and ( bottom_notching_actual_y_dist > 0 in ); if(panel_abuts_inline_stile_front; 1; 0); 0)",
+      "comment": "101) Derived - Model\n    Whether notching is present on the front bottom corner of the panel"
+    },
+    "notching_back_edge_bottom": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(panel_section == 'TOP') and ( bottom_notching_actual_y_dist > 0 in ); if(panel_abuts_inline_stile_back; 1; 0); 0)",
+      "comment": "102) Derived - Model\n    Whether notching is present on the back bottom corner of the panel"
+    },
+    "notching_x_dist": {
+      "value": 0.38,
+      "unit": "in",
+      "expression": "0.38 in",
+      "comment": "021) Fixed - Model\n    Horizontal length of notch"
+    },
+    "panel_abuts_inline_stile_front": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "007) Input - Helper\n    Whether the panel\u2019s front edge abuts a stile rather than a wall"
+    },
+    "panel_abuts_inline_stile_back": {
+      "value": 1.0,
+      "unit": "",
+      "expression": "1",
+      "comment": "009) Input - Helper\n    Whether the panel\u2019s back edge abuts a stile rather than a wall"
+    },
+    "stile_in_the_back_width": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "12.0 in",
+      "comment": "011) Input - Model\n    If the panel has a stile-in-the-back, the width of that stile"
+    },
+    "top_notching_y_dist": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ); ( shoe_height + shoe_top_notch_gap ) - component_ceiling_clearance; 0 in)",
+      "comment": "024) Derived - Model\n    Vertical height of top notch"
+    },
+    "panel_front_inline_stile_floor_to_ceiling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "008) Input - Helper\n    If the panel\u2019s back edge abuts an inline stile, indicates whether the inline stile is floor-to-ceiling (XX86) or not"
+    },
+    "component_ceiling_clearance": {
+      "value": 4.8125,
+      "unit": "in",
+      "expression": "4.8125 in",
+      "comment": "004) Input - Model\n    Ceiling clearance of the component"
+    },
+    "shoe_height": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": "025) Input - Model\n    Shoe height of adjacent stiles"
+    },
+    "shoe_top_notch_gap": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "0.5 in",
+      "comment": "026) Fixed - Model\n    Additional gap added to ensure proper fitting"
+    },
+    "notching_front_edge_top": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(panel_section == 'BOTTOM') and component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ) and not(component_ceiling_clearance == 0 in); if(panel_abuts_inline_stile_front; if(panel_front_inline_stile_floor_to_ceiling; 1; 0); 0); 0)",
+      "comment": "103) Derived - Model\n    Whether top notching is present the front edge of the panel"
+    },
+    "notching_back_edge_top": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "if(not(panel_section == 'BOTTOM') and component_ceiling_clearance < ( shoe_height + shoe_top_notch_gap ) and not(component_ceiling_clearance == 0 in); if(panel_abuts_inline_stile_back; if(panel_back_inline_stile_floor_to_ceiling; 1; 0); 0); 0)",
+      "comment": "104) Derived - Model\n    Whether top notching is present the back edge of the panel"
+    },
+    "panel_section": {
+      "value": "'WHOLE'",
+      "unit": "",
+      "expression": "'WHOLE'",
+      "comment": "005) Input - Model\n    Whether the panel is not split, or, if split horizontally with an h-channel, defines whether this is the top or bottom piece"
+    },
+    "bottom_notching_actual_y_dist": {
+      "value": -7.5,
+      "unit": "in",
+      "expression": "( bottom_notching_standard_y_dist + 1 in ) - component_floor_clearance",
+      "comment": "023) Fixed - Model\n    Actual height of notching cutout from bottom of panel for any floor clearance less than: one inch plus the height of the standard bottom notch"
+    },
+    "a_order_number": {
+      "value": "'N001'",
+      "unit": "",
+      "expression": "'N001'",
+      "comment": "500) order Number"
+    },
+    "component_id": {
+      "value": "'3X8XPanel'",
+      "unit": "",
+      "expression": "'3X8XPanel'",
+      "comment": "501) ID"
+    },
+    "a_series": {
+      "value": "'3X8X'",
+      "unit": "",
+      "expression": "'3X8X'",
+      "comment": "502) series"
+    },
+    "cutout_A_width": {
+      "value": 11.5,
+      "unit": "in",
+      "expression": "( if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_width; if(cutout_A == 'B-386'; B_386_width; if(cutout_A == 'B-4354'; B_4354_width; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_width; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_width; 0 in))))); 0 in) )",
+      "comment": "201) Derived - Model\n    Width of cutout A"
+    },
+    "cutout_A": {
+      "value": "'B-386'",
+      "unit": "",
+      "expression": "'B-386'",
+      "comment": "012) Input - Model\n    Whether the panel has a cutout and which cutout."
+    },
+    "cutout_A_height": {
+      "value": 10.875,
+      "unit": "in",
+      "expression": "( if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_height; if(cutout_A == 'B-386'; B_386_height; if(cutout_A == 'B-4354'; B_4354_height; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_height; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_height; 0 in))))); 0 in) )",
+      "comment": "202) Derived - Model\n    Height of cutout A"
+    },
+    "cutout_A_y_coordinate": {
+      "value": 5.999999999999999,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-386'; B_386_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-4354'; B_4354_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_y_dist_from_floor - component_floor_clearance; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance; 0 in))))); 0 in)",
+      "comment": "203) Derived - Model\n    Position of the bottom rear corner of cutout A realtive to the back edge of the panel"
+    },
+    "cutout_A_x_coordinate": {
+      "value": 16.94,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_A == 'B-354'; B_354_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-386'; B_386_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-4354'; B_4354_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-347' or cutout_A == 'B-357'; B_347_357_x_dist_from_wall - stile_in_the_back_width; if(cutout_A == 'B-3471' or cutout_A == 'B-34715' or cutout_A == 'B-3571' or cutout_A == 'B-35715'; B_3471_34715_3571_35715_x_dist_from_wall - stile_in_the_back_width; 0 in))))); 0 in)",
+      "comment": "204) Derived - Model\n    Position of the bottom rear corner of cutout A realtive to the bottom edge of the panel"
+    },
+    "cutout_B": {
+      "value": "''",
+      "unit": "",
+      "expression": "''",
+      "comment": "013) Input - Model\n    Whether the panel has a second cutout and which cutout."
+    },
+    "cutout_B_width": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_width; if(cutout_B == 'B-386'; B_386_width; if(cutout_B == 'B-4354'; B_4354_width; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_width; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_width; 0 in))))); 0 in)",
+      "comment": "205) Derived - Model\n    Width of cutout B"
+    },
+    "cutout_B_height": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_height; if(cutout_B == 'B-386'; B_386_height; if(cutout_B == 'B-4354'; B_4354_height; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_height; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_height; 0 in))))); 0 in)",
+      "comment": "206) Derived - Model\n    Height of cutout B"
+    },
+    "cutout_B_y_coordinate": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-386'; B_386_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-4354'; B_4354_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_y_dist_from_floor - component_floor_clearance; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_y_dist_from_floor - component_floor_clearance; 0 in))))); 0 in)",
+      "comment": "207) Derived - Model\n    Position of the bottom rear corner of cutout B realtive to the back edge of the panel"
+    },
+    "cutout_B_x_coordinate": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(panel_section == 'WHOLE' or panel_section == 'BOTTOM'; if(cutout_B == 'B-354'; B_354_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-386'; B_386_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-4354'; B_4354_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-347' or cutout_B == 'B-357'; B_347_357_x_dist_from_wall - stile_in_the_back_width; if(cutout_B == 'B-3471' or cutout_B == 'B-34715' or cutout_B == 'B-3571' or cutout_B == 'B-35715'; B_3471_34715_3571_35715_x_dist_from_wall - stile_in_the_back_width; 0 in))))); 0 in)",
+      "comment": "208) Derived - Model\n    Position of the bottom rear corner of cutout B realtive to the back edge of the panel"
+    },
+    "panel_back_inline_stile_floor_to_ceiling": {
+      "value": 0.0,
+      "unit": "",
+      "expression": "0",
+      "comment": "010) Input - Helper\n    If the panel\u2019s back edge abuts a stile, indicates whether the stile is floor-to-ceiling (XX86) or not"
+    },
+    "Operations": {
+      "value": "if(notching_front_edge_top or notching_front_edge_bottom; '- front notching - G57 '; '') + if(notching_back_edge_top or notching_back_edge_bottom; '- back notching - G59 '; '') + if(cutout_A_height > 0 in or cutout_B_height > 0 in; '- cutout - G59 '; '')",
+      "unit": "",
+      "expression": "if(notching_front_edge_top or notching_front_edge_bottom; '- front notching - G57 '; '') + if(notching_back_edge_top or notching_back_edge_bottom; '- back notching - G59 '; '') + if(cutout_A_height > 0 in or cutout_B_height > 0 in; '- cutout - G59 '; '')",
+      "comment": "503) Tag"
+    },
+    "panel_inline_back_tag": {
+      "value": "if(panel_abuts_inline_stile_back; 'YES'; 'NO')",
+      "unit": "",
+      "expression": "if(panel_abuts_inline_stile_back; 'YES'; 'NO')",
+      "comment": "* Tag"
+    },
+    "top_front_notch_tag": {
+      "value": "if(not(notching_front_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist)",
+      "unit": "",
+      "expression": "if(not(notching_front_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist)",
+      "comment": "tag for notch matrix"
+    },
+    "top_back_notch_tag": {
+      "value": "if(not(notching_back_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist)",
+      "unit": "",
+      "expression": "if(not(notching_back_edge_top); 'no notching'; 'y : ' + top_notching_y_dist + ' x : ' + notching_x_dist)",
+      "comment": "tag for notch matrix"
+    },
+    "bottom_front_notch_tag": {
+      "value": "if(not(notching_front_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist)",
+      "unit": "",
+      "expression": "if(not(notching_front_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist)",
+      "comment": "tag for notch matrix"
+    },
+    "bottom_back_notch_tag": {
+      "value": "if(not(notching_back_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist)",
+      "unit": "",
+      "expression": "if(not(notching_back_edge_bottom); 'no notching'; 'y : ' + bottom_notching_actual_y_dist + ' x : ' + notching_x_dist)",
+      "comment": "tag for notch matrix"
+    },
+    "B_354_width": {
+      "value": 11.0,
+      "unit": "in",
+      "expression": "11 in",
+      "comment": "301) Fixed - Model\n    Width of the cutout"
+    },
+    "B_386_width": {
+      "value": 11.5,
+      "unit": "in",
+      "expression": "11 in + ( ( 1 / 2 ) * 1 in )",
+      "comment": "302) Fixed - Model\n    Width of the cutout"
+    },
+    "B_4354_width": {
+      "value": 11.0,
+      "unit": "in",
+      "expression": "11 in",
+      "comment": "303) Fixed - Model\n    Width of the cutout"
+    },
+    "B_347_357_width": {
+      "value": 15.499999999999998,
+      "unit": "in",
+      "expression": "15.5 in",
+      "comment": "304) Fixed - Model\n    Width of the cutout"
+    },
+    "B_3471_34715_3571_35715_width": {
+      "value": 15.499999999999998,
+      "unit": "in",
+      "expression": "15.5 in",
+      "comment": "305) Fixed - Model\n    Width of the cutout"
+    },
+    "B_354_height": {
+      "value": 15.499999999999998,
+      "unit": "in",
+      "expression": "15.5 in",
+      "comment": "321) Fixed - Model\n    Height of the cutout"
+    },
+    "B_386_height": {
+      "value": 10.875,
+      "unit": "in",
+      "expression": "10 in + ( ( 7 / 8 ) * 1 in )",
+      "comment": "322) Fixed - Model\n    Height of the cutout"
+    },
+    "B_4354_height": {
+      "value": 9.375,
+      "unit": "in",
+      "expression": "9 in + ( ( 3 / 8 ) * 1 in )",
+      "comment": "323) Fixed - Model\n    Height of the cutout"
+    },
+    "B_347_357_height": {
+      "value": 28.875,
+      "unit": "in",
+      "expression": "28 in + ( ( 7 / 8 ) * 1 in )",
+      "comment": "324) Fixed - Model\n    Height of the cutout"
+    },
+    "B_3471_34715_3571_35715_height": {
+      "value": 28.875,
+      "unit": "in",
+      "expression": "28 in + ( ( 7 / 8 ) * 1 in )",
+      "comment": "325) Fixed - Model\n    Height of the cutout"
+    },
+    "B_354_y_dist_from_floor": {
+      "value": 14.750000000000002,
+      "unit": "in",
+      "expression": "14.75 in",
+      "comment": "341) Fixed - Model\n    Vertical distance from the floor to the bottom of the cutout"
+    },
+    "B_386_y_dist_from_floor": {
+      "value": 18.0,
+      "unit": "in",
+      "expression": "18 in",
+      "comment": "342) Fixed - Model\n    Vertical distance from the floor to the bottom of the cutout"
+    },
+    "B_4354_y_dist_from_floor": {
+      "value": 18.75,
+      "unit": "in",
+      "expression": "18.75 in",
+      "comment": "343) Fixed - Model\n    Vertical distance from the floor to the bottom of the cutout"
+    },
+    "B_347_357_y_dist_from_floor": {
+      "value": 30.125,
+      "unit": "in",
+      "expression": "30 in + ( ( 1 / 8 ) * 1 in )",
+      "comment": "344) Fixed - Model\n    Vertical distance from the floor to the bottom of the cutout"
+    },
+    "B_3471_34715_3571_35715_y_dist_from_floor": {
+      "value": 18.0,
+      "unit": "in",
+      "expression": "18 in",
+      "comment": "345) Fixed - Model\n    Vertical distance from the floor to the bottom of the cutout"
+    },
+    "B_354_x_dist_from_wall": {
+      "value": 14.5,
+      "unit": "in",
+      "expression": "14.5 in",
+      "comment": "361) Fixed - Model\n    Horizontal distance from the back wall to the back edge of the cutout"
+    },
+    "B_386_x_dist_from_wall": {
+      "value": 28.940000000000005,
+      "unit": "in",
+      "expression": "28.94 in",
+      "comment": "362) Fixed - Model\n    Horizontal distance from the back wall to the back edge of the cutout"
+    },
+    "B_4354_x_dist_from_wall": {
+      "value": 14.5,
+      "unit": "in",
+      "expression": "14.5 in",
+      "comment": "363) Fixed - Model\n    Horizontal distance from the back wall to the back edge of the cutout"
+    },
+    "B_347_357_x_dist_from_wall": {
+      "value": 26.000000000000004,
+      "unit": "in",
+      "expression": "26 in",
+      "comment": "364) Fixed - Model\n    Horizontal distance from the back wall to the back edge of the cutout"
+    },
+    "B_3471_34715_3571_35715_x_dist_from_wall": {
+      "value": 21.0,
+      "unit": "in",
+      "expression": "21 in",
+      "comment": "365) Fixed - Model\n    Horizontal distance from the back wall to the back edge of the cutout"
+    }
+  },
+  "model_parameters": {
+    "d10": {
+      "value": 12.0,
+      "unit": "in",
+      "expression": "component_floor_clearance",
+      "comment": ""
+    },
+    "d12": {
+      "value": 6.625,
+      "unit": "in",
+      "expression": "component_width",
+      "comment": ""
+    },
+    "d259": {
+      "value": 67.5,
+      "unit": "in",
+      "expression": "component_height",
+      "comment": ""
+    },
+    "d298": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d299": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d345": {
+      "value": 3.5,
+      "unit": "in",
+      "expression": "bottom_notching_standard_y_dist",
+      "comment": ""
+    },
+    "d346": {
+      "value": 0.38,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d348": {
+      "value": 3.5,
+      "unit": "in",
+      "expression": "bottom_notching_standard_y_dist",
+      "comment": ""
+    },
+    "d349": {
+      "value": 0.38,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d372": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d373": {
+      "value": 0.38,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d374": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(top_notching_y_dist == 0 in; 0.5 in; top_notching_y_dist)",
+      "comment": ""
+    },
+    "d375": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d376": {
+      "value": 0.38,
+      "unit": "in",
+      "expression": "notching_x_dist",
+      "comment": ""
+    },
+    "d377": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(top_notching_y_dist == 0 in; 0.5 in; top_notching_y_dist)",
+      "comment": ""
+    },
+    "d78": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d79": {
+      "value": "'left surface'",
+      "unit": "",
+      "expression": "'left surface'",
+      "comment": ""
+    },
+    "d220": {
+      "value": 11.0,
+      "unit": "in",
+      "expression": "11.0000 in",
+      "comment": ""
+    },
+    "d221": {
+      "value": 6.0,
+      "unit": "in",
+      "expression": "6.0000 in",
+      "comment": ""
+    },
+    "d275": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d276": {
+      "value": "'front'",
+      "unit": "",
+      "expression": "'front'",
+      "comment": ""
+    },
+    "d277": {
+      "value": 8.0,
+      "unit": "in",
+      "expression": "8 in",
+      "comment": ""
+    },
+    "d278": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": ""
+    },
+    "d280": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d281": {
+      "value": "'back'",
+      "unit": "",
+      "expression": "'back'",
+      "comment": ""
+    },
+    "d282": {
+      "value": 8.0,
+      "unit": "in",
+      "expression": "8 in",
+      "comment": ""
+    },
+    "d283": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": ""
+    },
+    "d439": {
+      "value": 33.75,
+      "unit": "in",
+      "expression": "component_height / 2",
+      "comment": ""
+    },
+    "d440": {
+      "value": 4.5,
+      "unit": "in",
+      "expression": "4 in + 0.5 in",
+      "comment": ""
+    },
+    "d441": {
+      "value": 4.5,
+      "unit": "in",
+      "expression": "d440",
+      "comment": ""
+    },
+    "d285": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d286": {
+      "value": "'back'",
+      "unit": "",
+      "expression": "'back'",
+      "comment": ""
+    },
+    "d287": {
+      "value": 2.0,
+      "unit": "in",
+      "expression": "2 in",
+      "comment": ""
+    },
+    "d288": {
+      "value": "'front'",
+      "unit": "",
+      "expression": "'front'",
+      "comment": ""
+    },
+    "d289": {
+      "value": 8.0,
+      "unit": "in",
+      "expression": "8 in",
+      "comment": ""
+    },
+    "d290": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": ""
+    },
+    "d291": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d292": {
+      "value": 8.0,
+      "unit": "in",
+      "expression": "8 in",
+      "comment": ""
+    },
+    "d293": {
+      "value": 4.0,
+      "unit": "in",
+      "expression": "4 in",
+      "comment": ""
+    },
+    "d294": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "0.1250 in",
+      "comment": ""
+    },
+    "d388": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d390": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d391": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d392": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d393": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d394": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d395": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d396": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d397": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d398": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d399": {
+      "value": 0.25,
+      "unit": "in",
+      "expression": "0.25 in",
+      "comment": ""
+    },
+    "d409": {
+      "value": 16.94,
+      "unit": "in",
+      "expression": "if(cutout_A_x_coordinate == 0 in; 5 in; cutout_A_x_coordinate)",
+      "comment": ""
+    },
+    "d410": {
+      "value": 10.875,
+      "unit": "in",
+      "expression": "if(cutout_A_height == 0 in; 5 in; cutout_A_height)",
+      "comment": ""
+    },
+    "d411": {
+      "value": 11.5,
+      "unit": "in",
+      "expression": "if(cutout_A_width == 0 in; 5 in; cutout_A_width)",
+      "comment": ""
+    },
+    "d412": {
+      "value": 5.999999999999999,
+      "unit": "in",
+      "expression": "if(cutout_A_y_coordinate == 0 in; 5 in; cutout_A_y_coordinate)",
+      "comment": ""
+    },
+    "d422": {
+      "value": 5.0,
+      "unit": "in",
+      "expression": "if(cutout_B_x_coordinate == 0 in; 5 in; cutout_B_x_coordinate)",
+      "comment": ""
+    },
+    "d423": {
+      "value": 5.0,
+      "unit": "in",
+      "expression": "if(cutout_B_width == 0 in; 5 in; cutout_B_width)",
+      "comment": ""
+    },
+    "d424": {
+      "value": 5.0,
+      "unit": "in",
+      "expression": "if(cutout_B_height == 0 in; 5 in; cutout_B_height)",
+      "comment": ""
+    },
+    "d425": {
+      "value": 5.0,
+      "unit": "in",
+      "expression": "if(cutout_B_y_coordinate == 0 in; 5 in; cutout_B_y_coordinate)",
+      "comment": ""
+    },
+    "d426": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(cutout_B == '' or panel_section == 'TOP'; component_thickness; 0 in)",
+      "comment": ""
+    },
+    "d427": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d428": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0 deg",
+      "comment": ""
+    },
+    "d39": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d40": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d413": {
+      "value": 0.0,
+      "unit": "in",
+      "expression": "if(cutout_A == '' or panel_section == 'TOP'; component_thickness; 0 in)",
+      "comment": ""
+    },
+    "d414": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d415": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0 deg",
+      "comment": ""
+    },
+    "d82": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d83": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d84": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d295": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d296": {
+      "value": 0.125,
+      "unit": "in",
+      "expression": "( 1 / 8 ) * 1 in",
+      "comment": ""
+    },
+    "d297": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d265": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d266": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d267": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(notching_front_edge_bottom; 0 in; component_thickness)",
+      "comment": ""
+    },
+    "d268": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(notching_back_edge_bottom; 0 in; component_thickness)",
+      "comment": ""
+    },
+    "d269": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d270": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d378": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(notching_front_edge_top; 0 in; component_thickness)",
+      "comment": ""
+    },
+    "d379": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d380": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    },
+    "d381": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "if(notching_back_edge_top; 0 in; component_thickness)",
+      "comment": ""
+    },
+    "d382": {
+      "value": 0.5,
+      "unit": "in",
+      "expression": "component_thickness",
+      "comment": ""
+    },
+    "d383": {
+      "value": 0.0,
+      "unit": "deg",
+      "expression": "0.00 deg",
+      "comment": ""
+    }
+  }
+}

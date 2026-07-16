@@ -1,0 +1,91 @@
+WORKBOOK: C:\Users\james.derrod\VM Fusion Extension\testing_suite\Panel inputs & outputs v22 macro_enabled 2026_07_09.xlsm
+SHEETS (7): ['Panel Calculated Values', 'Cutouts', 'ValidationScenarioGenerator', 'ValidationScenarios vFin', 'New drawings', 'ScenarioAnalysis', 'ValidationOutputs']
+
+=== SHEET: Panel Calculated Values === (60 rows x 9 cols)
+  row0: Variable | Order | Dependency | Relation | Explanation | Comments | Value | Expression | Previous parameter name
+  row1: component_height | 1 | Input | Model | Height of the component | 001) Input - Model
+_x000D_    Height of the component | 96 |  | 
+  row2: component_width | 2 | Input | Model | Width of the component | 002) Input - Model
+_x000D_    Width of the component | 79.9375 |  | 
+  row3: component_floor_clearance | 3 | Input | Model | Floor clearance of the component | 003) Input - Model
+_x000D_    Floor clearance of the component | 2 |  | 
+  row4: component_ceiling_clearance | 4 | Input | Model | Ceiling clearance of the component | 004) Input - Model
+_x000D_    Ceiling clearance of the component |  |  | 
+  row5: panel_section | 5 | Input | Model | Whether the panel is not split, or, if split horizontally with an h-channel, defines whether this is the top or bottom piece | 005) Input - Model
+_x000D_    Whether the panel is not split, or, if split horizontally with an h-channel, defines whether this is the top or bottom piece | WHOLE |  | 
+  row30: cutout_A_width | 201 | Derived | Model | Width of cutout A | 201) Derived - Model
+_x000D_    Width of cutout A | 15.5 | =IF(OR(panel_section = "Whole", panel_section = "Bottom"),
+    IF(OR(cutout_A = "B-354"), B_354_width,
+       IF(OR(cutout_A = "B-386"), B_386_width,
+          IF(OR(cutout_A = "B-4354"), B_4354_width,
+             IF(OR(cutout_A = "B-347",cutout_A = "B-357"), B_347_357_width,
+                IF(OR(cutout_A = "B-3471",cutout_A = "B-34715",cutout_A = "B-3571",cutout_A = "B-35715"), B_3471_34715_3571_35715_width,
+                "") ) ) ) ),"") | 
+  row59: B_3471/34715/3571/35715_x_dist_from_wall | 365 | Fixed | Model | Horizontal distance from the back wall to the back edge of the cutout | 365) Fixed - Model
+_x000D_    Horizontal distance from the back wall to the back edge of the cutout | 21 | =21 | 
+
+=== SHEET: Cutouts === (55 rows x 20 cols)
+  row0: Panel cutouts are rectangular openings routed into the panel by our Anderson CNC. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row1: All cutout corners have a 0.25" radius. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row2: Please see Advisory Bulletin TB-55 for more detail. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row3:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row4: Cutout Sizes |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row5:  | Cutout size |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row27: B-386 | 1040507 | 12 | 6 | 28.94 | 16.94 | 4.940000000000001 | 16.875 | 40.44 | 28.44 | 16.44 | 18 | 28.875 |  |  | B-35715 | Yes | Yes | Yes | No
+  row54: B-347*/357* | No | No | No |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+=== SHEET: ValidationScenarioGenerator === (723 rows x 13 cols)
+  row0:  |  |  |  |  |  |  |  |  |  |  |  | 
+  row1:  |  |  |  |  |  |  |  |  |  |  |  | 
+  row2:  | panel_section | panel_abuts_inline_stile_front | panel_front_inline_stile_floor_to_ceiling | panel_abuts_inline_stile_back | panel_back_inline_stile_floor_to_ceiling | stile_in_the_back_width | cutout_A | cutout_B | component_height | component_width | component_floor_clearance | _component_ceiling_clearance
+  row3:  | TOP | 0 |  | 0 |  |  | B-386 | B-4354 | 18.125 | 56 | 9 | 1
+  row4:  | TOP | 0 |  | 1 | 0 | 12 | B-386 |  | 6.125 | 44 | 12 | 1.1875
+  row5:  | TOP | 0 |  | 1 | 0 | 24 | B-386 |  | 28.4375 | 53.75 | 1 | 4.1875
+  row361:  | WHOLE | 1 | 1 | 1 | 0 |  |  |  | 96 | 24.625 | 4.5 | 6.8125
+  row722:  | WHOLE | 1 | 1 | 1 | 1 |  |  |  | 50.6875 | 57 | 1 | 2.8125
+
+=== SHEET: ValidationScenarios vFin === (1488 rows x 20 cols)
+  row0: Drawings are required for 51 scenarios. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row1:  | 52 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row2: Scenario | Drawing required? | panel_section | panel_abuts_inline_stile_front | panel_front_inline_stile_floor_to_ceiling | panel_abuts_inline_stile_back | panel_back_inline_stile_floor_to_ceiling | stile_in_the_back_width | cutout_A | cutout_B | component_height | component_width | component_floor_clearance | component_ceiling_clearance |  |  |  | Drawing Label | Front abutts stile | Back abutts stile
+  row3: XX8X_PV_0001 | Yes | TOP | 0 |  | 0 |  |  | B-386 | B-354 | 7.875 | 6 | 1 | 12 |  |  |  | #REF! | FALSE | FALSE
+  row4: XX8X_PV_0002 | No | TOP | 0 |  | 1 | 0 | 12 | B-386 |  | 28.0625 | 54.25 | 2.0625 | 1 |  |  |  | #REF! | FALSE | TRUE
+  row5: XX8X_PV_0003 | No | TOP | 0 |  | 1 | 0 | 24 | B-386 |  | 38.1875 | 56 | 1 | 3.75 |  |  |  | XX8X_PV_0003:    Front abuts stile:FALSE       Back abuts stile:TRUE          Panel Section: TOP           Stile in the back Width: 24           Cutout A: B-386          Cutout B:      F.C.:1 in.         C.C.:3.75 in.    | FALSE | TRUE
+  row744: XX8X_PV_1387 | No | BOTTOM | 1 | 0 | 1 | 0 | 12 | B-3571 |  | 60 | 70.3125 | 4.5 | 2.8125 |  |  |  | XX8X_PV_1387:    Front abuts stile:TRUE       Back abuts stile:TRUE          Panel Section: BOTTOM           Stile in the back Width: 12           Cutout A: B-3571          Cutout B:      F.C.:4.5 in.         C.C.:2.8125 in.    | TRUE | TRUE
+  row1487: XX8X_PV_2145 | No | WHOLE | 1 | 1 | 1 | 1 |  |  |  | 96 | 79.9375 | 1 |  |  |  |  | XX8X_PV_2145:    Front abuts stile:TRUE       Back abuts stile:TRUE          Panel Section: WHOLE           Stile in the back Width:            Cutout A:           Cutout B:      F.C.:1 in.         C.C.: in.    | TRUE | TRUE
+
+=== SHEET: New drawings === (768 rows x 19 cols)
+  row0: Drawings are only required for first 36 scenarios. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row1:  | 52 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+  row2: Scenario | Drawing required? | panel_section | panel_abuts_stile_front | panel_front_stile_floor_to_ceiling | panel_abuts_stile_back | panel_back_stile_floor_to_ceiling | stile_in_the_back_width | cutout_A | cutout_B | component_height | component_width | component_floor_clearance | _component_ceiling_clearance |  |  | Drawing Label | Front abutts stile | Back abutts stile
+  row3: XX8X_PV_0001 | Yes | TOP | 0 |  | 0 |  |  | B-386 | B-354 | 7.875 | 6 | 1 | 12 |  |  | XX8X_PV_0001:    Front abuts stile:FALSE       Back abuts stile:FALSE          Panel Section: TOP           Stile in the back Width:            Cutout A: B-386          Cutout B:B-354      F.C.:1 in.         C.C.:12 in.    | FALSE | FALSE
+  row4: XX8X_PV_0002 | No | TOP | 0 |  | 1 | 0 | 12 | B-386 |  | 28.0625 | 54.25 | 2.0625 | 1 |  |  | XX8X_PV_0002:    Front abuts stile:FALSE       Back abuts stile:TRUE          Panel Section: TOP           Stile in the back Width: 12           Cutout A: B-386          Cutout B:      F.C.:2.0625 in.         C.C.:1 in.    | FALSE | TRUE
+  row5: XX8X_PV_0003 | No | TOP | 0 |  | 1 | 0 | 24 | B-386 |  | 38.1875 | 56 | 1 | 3.75 |  |  | XX8X_PV_0003:    Front abuts stile:FALSE       Back abuts stile:TRUE          Panel Section: TOP           Stile in the back Width: 24           Cutout A: B-386          Cutout B:      F.C.:1 in.         C.C.:3.75 in.    | FALSE | TRUE
+  row384: XX8X_PV_0667 | No | BOTTOM | 1 | 0 | 1 | 0 | 12 | B-3571 |  | 60 | 53.375 | 2.4375 | 2.4375 |  |  | XX8X_PV_0667:    Front abuts stile:TRUE       Back abuts stile:TRUE          Panel Section: BOTTOM           Stile in the back Width: 12           Cutout A: B-3571          Cutout B:      F.C.:2.4375 in.         C.C.:2.4375 in.    | TRUE | TRUE
+  row767: XX8X_PV_1425 | No | WHOLE | 1 | 1 | 1 | 1 |  |  |  | 96 | 30.375 | 9.125 | 1 |  |  | XX8X_PV_1425:    Front abuts stile:TRUE       Back abuts stile:TRUE          Panel Section: WHOLE           Stile in the back Width:            Cutout A:           Cutout B:      F.C.:9.125 in.         C.C.:1 in.    | TRUE | TRUE
+
+=== SHEET: ScenarioAnalysis === (28 rows x 11 cols)
+  row0: Drawing required? | Yes |  |  |  | Cutout | Present | panel_inline_back = 0  | AND(
+panel_inline_back = 0, 
+stile_in_back_width = "") | AND(
+panel_inline_back = 1, 
+stile_in_back_width = 12) | AND(
+panel_inline_back = 1, 
+stile_in_back_width = 24)
+  row1:  |  |  |  |  | B-354 | 1 | Yes | Yes | No | No
+  row2: Row Labels | Count of Scenario |  |  |  | B-386 | 10 | Yes | Yes | Yes | Yes
+  row3:  | 8 |  |  |  | B-4354 | 1 | Yes | Yes | No | No
+  row4: B-347 | 1 |  |  |  |  |  |  |  |  | 
+  row5: B-3471 | 3 |  |  |  | B-347 | 1 | Yes | Yes | Yes | No
+  row14:  |  |  |  |  |  |  |  |  |  | 
+  row27:  |  |  |  |  | B-35715 | 3 |  |  |  | No
+
+=== SHEET: ValidationOutputs === (1486 rows x 34 cols)
+  row0: Scenario | component_height | component_width | component_floor_clearance | component_ceiling_clearance | panel_section | panel_abuts_inline_stile_front | panel_front_inline_stile_floor_to_ceiling | panel_abuts_inline_stile_back | panel_back_inline_stile_floor_to_ceiling | stile_in_the_back_width | cutout_A | cutout_B | component_thickness | notching_x_dist | bottom_notching_standard_y_dist | bottom_notching_actual_y_dist | top_notching_y_dist | shoe_height | shoe_top_notch_gap | notching_front_edge_bottom | notching_back_edge_bottom | notching_front_edge_top | notching_back_edge_top | front_notching_activation_offset | back_notching_activation_offset | cutout_A_width | cutout_A_height | cutout_A_x_coordinate | cutout_A_y_coordinate | cutout_B_width | cutout_B_height | cutout_B_x_coordinate | cutout_B_y_coordinate
+  row1: XX8X_PV_0001 | 7.875 | 6 | 1 | 12 | TOP | 0 |  | 0 |  |  | B-386 | B-354 | 0.5 | 0.38 | 3.5 | 3.5 | 0 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 |  |  |  |  |  |  |  | 
+  row2: XX8X_PV_0002 | 28.0625 | 54.25 | 2.0625 | 1 | TOP | 0 |  | 1 | 0 | 12 | B-386 |  | 0.5 | 0.38 | 3.5 | 2.4375 | 3.5 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 |  |  |  |  |  |  |  | 
+  row3: XX8X_PV_0003 | 38.1875 | 56 | 1 | 3.75 | TOP | 0 |  | 1 | 0 | 24 | B-386 |  | 0.5 | 0.38 | 3.5 | 3.5 | 0.75 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 |  |  |  |  |  |  |  | 
+  row4: XX8X_PV_0004 | 28.1875 | 74.75 | 9 | 1.6875 | TOP | 0 |  | 1 | 0 |  |  |  | 0.5 | 0.38 | 3.5 | -4.5 | 2.8125 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 |  |  |  |  |  |  |  | 
+  row5: XX8X_PV_0005 | 20.1875 | 62 | 4.5 | 4.875 | TOP | 0 |  | 1 | 1 |  |  |  | 0.5 | 0.38 | 3.5 | 0 | 0 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 |  |  |  |  |  |  |  | 
+  row743: XX8X_PV_1388 | 60 | 75.5625 | 9 | 1 | BOTTOM | 1 | 0 | 1 | 0 | 24 | B-386 |  | 0.5 | 0.38 | 3.5 | -4.5 | 3.5 | 4 | 0.5 | 0 | 0 | 0 | 0 | 0.5 | 0.5 | 11.5 | 10.875 | 4.94 | 9 |  |  |  | 
+  row1485: XX8X_PV_2145 | 96 | 79.9375 | 1 |  | WHOLE | 1 | 1 | 1 | 1 |  |  |  | 0.5 | 0.38 | 3.5 | 3.5 | 4.5 | 4 | 0.5 | 1 | 1 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 

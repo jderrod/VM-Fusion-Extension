@@ -20,7 +20,7 @@
                 "panel_section": [
                     "WHOLE",
                     "string",
-                    "section of the panel (TOP or BOTTOM)"
+                    "section of the panel (TOP, BOTTOM, or WHOLE)"
                 ],
                 "panel_abuts_inline_stile_front": [
                     true,

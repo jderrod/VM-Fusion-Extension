@@ -1,6 +1,6 @@
 {
   "Panel XX8X (XX8X_PV)": {
-    "expected_csv": "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\expected_output\\3X86 Stile inputs & outputs v08 macro_enabled 2026_03_12(ValidationOutputs).csv",
+    "expected_csv": "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\expected_output\\Panel inputs & outputs v22 2026_07_09(CalculatedExpected).csv",
     "actual_dirs": [
       "C:\\Users\\james.derrod\\VM Fusion Extension\\S2S File Test\\output\\parameters",
       "C:\\Users\\james.derrod\\VM Fusion Extension\\testing_suite\\actual_output"

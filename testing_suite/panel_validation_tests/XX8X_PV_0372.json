@@ -20,7 +20,7 @@
                 "panel_section": [
                     "TOP",
                     "string",
-                    "section of the panel (TOP or BOTTOM)"
+                    "section of the panel (TOP, BOTTOM, or WHOLE)"
                 ],
                 "panel_abuts_inline_stile_front": [
                     true,
@@ -70,7 +70,7 @@
                 "cutout": [
                     "B-347",
                     "string",
-                    "cutout specification (e.g. B-386 or B-354 + B-386)"
+                    "cutout specification (e.g. B-386 or B-354 & B-386)"
                 ]
             }
         }
