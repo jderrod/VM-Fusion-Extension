@@ -1,0 +1,17 @@
+{
+  "project_name": "Bobrick - Component modeling",
+  "folder_name": "3X8X Components",
+  "door_model": "3X8X_Door_branch_B",
+  "door_drawing": "3X8X_Door_branch_B Drawing",
+  "panel_model": "3X8X_Panel_branch_B",
+  "panel_drawing": "3X8X_Panel_branch_B Drawing",
+  "stile_models": {
+    "3081": "3X81_Stile",
+    "3082": "3X82_Stile",
+    "3086": "3X86_Stile"
+  },
+  "stile_drawings": {
+    "3082": "3X82_Stile Drawing",
+    "3086": "3X86_Stile Drawing"
+  }
+}

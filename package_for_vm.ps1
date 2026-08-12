@@ -17,6 +17,24 @@ Copy-Item "$SRC\FusionManufacturingPipeline.py"       $PKG -Force
 Copy-Item "$SRC\FusionManufacturingPipeline.manifest"  $PKG -Force
 Copy-Item "$SRC\schema.json"                           $PKG -Force
 
+# Runtime config. These were previously missed, so each repackage silently
+# dropped the VM's autostart settings and the model/drawing mapping.
+Copy-Item "$SRC\drawing_config.json"                   $PKG -Force
+Copy-Item "$SRC\local_config.json"                     $PKG -Force
+
+# autostart_config.json: the repo copy is the DEV one (enabled=false,
+# run_mode=LOCAL). The VM package must auto-start in VM mode, so write the
+# production variant rather than copying the dev file verbatim.
+@'
+{
+  "_comment": "VM production copy. enabled=true auto-starts folder monitoring on every Fusion launch with no dialogs. The repo/dev copy ships enabled=false, run_mode=LOCAL.",
+  "enabled": true,
+  "run_mode": "VM",
+  "skip_cam": false,
+  "skip_drawing": false
+}
+'@ | Set-Content -Path "$PKG\autostart_config.json" -Encoding utf8
+
 # src folder (all Python modules)
 Copy-Item "$SRC\src" "$PKG\src" -Recurse -Force
 

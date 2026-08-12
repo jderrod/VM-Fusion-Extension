@@ -1,0 +1,4 @@
+{
+  "_comment": "LOCAL-mode sandbox root. Used only when run_mode is LOCAL. Overridden by the FUSION_PIPELINE_LOCAL_BASE env var if that is set. Point this anywhere to relocate the whole local test environment; the pipeline creates any missing subfolders on start.",
+  "local_base": "C:\\Users\\james.derrod\\VM Fusion Extension\\local_test_env"
+}

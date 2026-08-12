@@ -1,7 +1,7 @@
 {
-  "_comment": "When enabled, every Fusion startup auto-starts the folder monitor with these settings and no dialogs. Keep enabled=false on dev machines; the deployed VM copy has enabled=true.",
+  "_comment": "When enabled, every Fusion startup auto-starts the folder monitor with these settings and no dialogs. Keep enabled=false on dev machines; the deployed VM copy has enabled=true. run_mode toggles all paths: LOCAL = the self-contained sandbox from local_config.json, VM = the production network shares.",
   "enabled": false,
-  "run_mode": "VM",
+  "run_mode": "LOCAL",
   "skip_cam": false,
   "skip_drawing": false
 }

@@ -536,13 +536,13 @@ class CAMManager:
                 self.logger.warning(
                     f'suppress_panel_toolpaths: cutout_A text="{cutout_a_text}" but '
                     f'derived dimensions are zero (w={cutout_a_width}, h={cutout_a_height}) '
-                    f'— forcing cutout_A ACTIVE to prevent incorrect suppression')
+                    f'\u2014 forcing cutout_A ACTIVE to prevent incorrect suppression')
                 cutout_a_active = True
             if cutout_b_text and not cutout_b_active:
                 self.logger.warning(
                     f'suppress_panel_toolpaths: cutout_B text="{cutout_b_text}" but '
                     f'derived dimensions are zero (w={cutout_b_width}, h={cutout_b_height}) '
-                    f'— forcing cutout_B ACTIVE to prevent incorrect suppression')
+                    f'\u2014 forcing cutout_B ACTIVE to prevent incorrect suppression')
                 cutout_b_active = True
             
             self.logger.info(f'suppress_panel_toolpaths: cutout_A active={cutout_a_active} (w={cutout_a_width}, h={cutout_a_height}, text="{cutout_a_text}")')

@@ -246,6 +246,16 @@ class PostProcessor:
             self.logger.error(error_msg)
             return False, error_msg, [('Setups', False, error_msg, None)]
     
+    def _extract_workstop(self, setup_name: str) -> Optional[str]:
+        """
+        Extract the work-offset / workstop code (G54..G59) from a setup name.
+        e.g. "Right Rabbet - In G57" -> "G57". Returns None if not present.
+        """
+        if not setup_name:
+            return None
+        match = re.search(r'G5[4-9]', setup_name.upper())
+        return match.group(0) if match else None
+
     def _stitch_setup_files(self, temp_files: List[Tuple[str, Path]]) -> List[str]:
         """
         Stitch individual setup .nc files into one combined program.
@@ -264,10 +274,13 @@ class PostProcessor:
         with flip comments between sections.
         """
         combined = []
+        prev_workstop = None
         
         for file_idx, (setup_name, file_path) in enumerate(temp_files):
             with open(file_path, 'r') as f:
                 lines = [line.rstrip() for line in f.readlines()]
+            
+            curr_workstop = self._extract_workstop(setup_name)
             
             if file_idx == 0:
                 # First file: keep everything EXCEPT the trailing M30 and %
@@ -275,19 +288,33 @@ class PostProcessor:
                 body = self._strip_footer(lines)
                 combined.extend(body)
             else:
-                # Subsequent files: insert M00 stop + flip comment, then
+                # Subsequent files: insert M00 stop + transition comment, then
                 # strip the header (everything up to first N-code line)
-                # and strip the footer (M30, %)
+                # and strip the footer (M30, %).
+                #
+                # Determine the physical operator action between the two cuts:
+                #   - SAME workstop (e.g. interior G57 then exterior G57):
+                #       the part is FLIPPED about the Y axis between cuts.
+                #   - DIFFERENT workstop (G57 then G59):
+                #       the part is ROTATED 180 deg CCW about the Z axis
+                #       (G59 ends up to the right of G57).
+                if prev_workstop and curr_workstop and prev_workstop != curr_workstop:
+                    transition = 'ROTATE PART 180'
+                else:
+                    transition = 'FLIP PART'
+                
                 combined.append('M0')
                 combined.append('')
                 combined.append('(******************)')
-                combined.append(f'(NEW SETUP, FLIP PART)')
+                combined.append(f'(NEW SETUP, {transition})')
                 combined.append('(******************)')
                 combined.append('')
                 
                 body = self._strip_header(lines)
                 body = self._strip_footer(body)
                 combined.extend(body)
+            
+            prev_workstop = curr_workstop
         
         # Add program end
         combined.append('M30')

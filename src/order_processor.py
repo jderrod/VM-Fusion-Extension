@@ -335,17 +335,17 @@ class OrderProcessor:
                     total_comps = sum(len(drilling_paired_by_type.get(t, [])) for t in ['doors', 'panels', 'stiles'])
                     self.logger.info(f'Created compiled paired drilling file: {compiled_paired_filename} with {total_comps} component(s)')
                     
-                    # VM mode: also copy drilling JSON flat to dedicated network location
-                    from config import RUN_MODE
-                    if RUN_MODE == 'VM':
-                        try:
-                            from config import OUTPUT_DRILLING_NETWORK
-                            import shutil
-                            dest = os.path.join(str(OUTPUT_DRILLING_NETWORK), compiled_paired_filename)
-                            shutil.copy2(compiled_paired_path, dest)
-                            self.logger.info(f'Drilling JSON copied to network: {dest}')
-                        except Exception as copy_e:
-                            self.logger.warning(f'Failed to copy drilling JSON to network: {str(copy_e)}')
+                    # Also copy drilling JSON flat to the dedicated drop folder
+                    # (Gannomat share in VM mode, local sandbox dir in LOCAL mode)
+                    try:
+                        from config import OUTPUT_DRILLING_NETWORK
+                        import shutil
+                        os.makedirs(str(OUTPUT_DRILLING_NETWORK), exist_ok=True)
+                        dest = os.path.join(str(OUTPUT_DRILLING_NETWORK), compiled_paired_filename)
+                        shutil.copy2(compiled_paired_path, dest)
+                        self.logger.info(f'Drilling JSON copied to drop folder: {dest}')
+                    except Exception as copy_e:
+                        self.logger.warning(f'Failed to copy drilling JSON to drop folder: {str(copy_e)}')
                 except Exception as e:
                     self.logger.warning(f'Failed to create compiled paired drilling file: {str(e)}')
             
@@ -808,17 +808,18 @@ class OrderProcessor:
             
             if cutlist_export_success:
                 self.logger.info(f'{comp_id}: Cutlist CSV exported: {cutlist_export_msg}')
-                # VM mode: copy cutlist CSV flat to dedicated Voorwood network folder
-                from config import RUN_MODE
-                if RUN_MODE == 'VM' and cutlist_export_path:
+                # Copy cutlist CSV flat to the dedicated drop folder
+                # (Voorwood share in VM mode, local sandbox dir in LOCAL mode)
+                if cutlist_export_path:
                     try:
                         from config import OUTPUT_CUTLIST_NETWORK
                         import shutil
+                        os.makedirs(str(OUTPUT_CUTLIST_NETWORK), exist_ok=True)
                         csv_dest = os.path.join(str(OUTPUT_CUTLIST_NETWORK), os.path.basename(cutlist_export_path))
                         shutil.copy2(cutlist_export_path, csv_dest)
-                        self.logger.info(f'{comp_id}: Cutlist CSV copied to network: {csv_dest}')
+                        self.logger.info(f'{comp_id}: Cutlist CSV copied to drop folder: {csv_dest}')
                     except Exception as copy_e:
-                        self.logger.warning(f'{comp_id}: Failed to copy cutlist CSV to network: {str(copy_e)}')
+                        self.logger.warning(f'{comp_id}: Failed to copy cutlist CSV to drop folder: {str(copy_e)}')
             else:
                 self.logger.warning(f'{comp_id}: Cutlist CSV export failed: {cutlist_export_msg}')
             
@@ -1307,19 +1308,19 @@ class OrderProcessor:
                 return (True, f'{comp_id}: Complete - No NC files (no machining features)'), (drilling_data, drilling_paired_data)
 
             # expected + produced → success path
-            # VM mode: copy G-code .txt files flat to dedicated Anderson network folder
-            from config import RUN_MODE
-            if RUN_MODE == 'VM':
-                try:
-                    from config import OUTPUT_NC_NETWORK
-                    import shutil
-                    for setup_name, pp_success, pp_msg, nc_path in successful_posts:
-                        if nc_path and os.path.exists(nc_path):
-                            nc_dest = os.path.join(str(OUTPUT_NC_NETWORK), os.path.basename(nc_path))
-                            shutil.copy2(nc_path, nc_dest)
-                            self.logger.info(f'{comp_id}: G-code file copied to network: {nc_dest}')
-                except Exception as copy_e:
-                    self.logger.warning(f'{comp_id}: Failed to copy G-code files to network: {str(copy_e)}')
+            # Copy G-code files flat to the dedicated drop folder
+            # (Anderson share in VM mode, local sandbox dir in LOCAL mode)
+            try:
+                from config import OUTPUT_NC_NETWORK
+                import shutil
+                os.makedirs(str(OUTPUT_NC_NETWORK), exist_ok=True)
+                for setup_name, pp_success, pp_msg, nc_path in successful_posts:
+                    if nc_path and os.path.exists(nc_path):
+                        nc_dest = os.path.join(str(OUTPUT_NC_NETWORK), os.path.basename(nc_path))
+                        shutil.copy2(nc_path, nc_dest)
+                        self.logger.info(f'{comp_id}: G-code file copied to drop folder: {nc_dest}')
+            except Exception as copy_e:
+                self.logger.warning(f'{comp_id}: Failed to copy G-code files to drop folder: {str(copy_e)}')
 
             # Switch back to Design workspace so next order starts cleanly.
             self._switch_to_design_workspace(comp_id)
