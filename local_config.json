@@ -1,4 +1,5 @@
 {
-  "_comment": "LOCAL-mode sandbox root. Used only when run_mode is LOCAL. Overridden by the FUSION_PIPELINE_LOCAL_BASE env var if that is set. Point this anywhere to relocate the whole local test environment; the pipeline creates any missing subfolders on start.",
-  "local_base": "C:\\Users\\james.derrod\\VM Fusion Extension\\local_test_env"
+  "_comment": "Local base folders for each run mode. Fusion writes ALL output under these; nothing is written straight to a network share. file_sync_service.py copies from here to the shares out-of-process. Each value can be overridden by an env var: FUSION_PIPELINE_LOCAL_BASE / FUSION_PIPELINE_VM_BASE. The pipeline creates any missing subfolders on start.",
+  "local_base": "C:\\Users\\james.derrod\\VM Fusion Extension\\local_test_env",
+  "vm_base": "C:\\FusionPipeline"
 }

@@ -1,7 +1,7 @@
 """
 Configuration for Fusion 360 Manufacturing Pipeline
-Centralized path management for network folder structure
-Supports LOCAL mode (dev machine) and VM mode (production network shares)
+Centralized path management for the pipeline's folder structure
+Supports LOCAL mode (dev machine) and VM mode (production)
 
 Toggling modes
 --------------
@@ -9,16 +9,35 @@ Mode is chosen by set_run_mode('LOCAL'|'VM'), which is driven by the
 "run_mode" field in autostart_config.json (used by both the toolbar button
 and the Fusion-startup auto-start). Nothing else needs editing to switch.
 
-LOCAL mode is a fully self-contained sandbox: every output the pipeline
-produces in VM mode — including the three flat machine-drop folders that
-normally live on separate shares (Gannomat / Anderson / Voorwood) — is
-redirected under a single local base folder, so a local run exercises the
-same code paths as production without touching any network share.
+Where output goes
+-----------------
+In BOTH modes Fusion writes every artifact to local disk only. Nothing the
+add-in produces is written straight to a network share, because an inline
+copy over the wire stalls Fusion between components and can leave a
+half-written file visible to a machine controller.
 
-The LOCAL base resolves in this order (first hit wins):
-  1. env var  FUSION_PIPELINE_LOCAL_BASE
-  2. "local_base" in local_config.json next to this add-in's root
-  3. DEFAULT_LOCAL_BASE below
+Getting output onto the network is the job of file_sync_service.py, a
+separate process that runs alongside Fusion and mirrors the local folders to
+the shares. Because it is out-of-process, Fusion moves straight on to the
+next order while the previous order's files are still being copied.
+get_sync_pairs() below is the local -> network mapping that service consumes.
+
+The one network path the add-in still touches directly is the inbound order
+dropbox in VM mode: orders are small JSON files, and they are read, not
+written.
+
+Base folders
+------------
+Each mode has its own local base, resolved in this order (first hit wins):
+
+  LOCAL: env FUSION_PIPELINE_LOCAL_BASE > "local_base" in local_config.json
+         > DEFAULT_LOCAL_BASE
+  VM:    env FUSION_PIPELINE_VM_BASE    > "vm_base"    in local_config.json
+         > DEFAULT_VM_BASE
+
+LOCAL mode also points the sync targets at sandbox folders, so a local run
+exercises the same code paths as production -- including the sync service --
+without touching any share.
 """
 
 import json
@@ -26,46 +45,58 @@ import os
 from pathlib import Path
 
 
-# ─── Run mode ────────────────────────────────────────────────────────────────
+# --- Run mode ---------------------------------------------------------------
 # Set by set_run_mode() at startup based on user selection.
 RUN_MODE = 'LOCAL'  # 'LOCAL' or 'VM'
 
-# ─── LOCAL paths (dev machine sandbox) ───────────────────────────────────────
+# --- Local bases (Fusion writes here in BOTH modes) -------------------------
 DEFAULT_LOCAL_BASE = r'C:\Users\james.derrod\VM Fusion Extension\local_test_env'
+DEFAULT_VM_BASE    = r'C:\FusionPipeline'
 
-# ─── VM / network paths (production) ────────────────────────────────────────
-_VM_BASE = r'\\ddc-mefs\Fusion\Fusion Folders'
-_VM_DROPBOX = r'\\ddc-mefs\iBob-Export\S2S_Export'
+# --- Network locations (VM mode) --------------------------------------------
+# Read directly by the add-in:
+VM_DROPBOX = r'\\ddc-mefs\iBob-Export\S2S_Export'
 
-# Dedicated flat machine-drop locations, VM mode (files are ALSO copied here)
-_VM_DRILLING = r'\\ddc-mefs\Gannomat\F360_output'   # {order_id}.json flat
-_VM_NC       = r'\\ddc-mefs\Anderson'               # *.nc flat
-_VM_CUTLIST  = r'\\ddc-mefs\Voorwood'               # *.csv flat
+# Written ONLY by file_sync_service.py, never by the add-in:
+VM_NET_BASE     = r'\\ddc-mefs\Fusion\Fusion Folders'
+VM_NET_DRILLING = r'\\ddc-mefs\Gannomat\F360_output'   # {order_id}.json flat
+VM_NET_NC       = r'\\ddc-mefs\Anderson'               # *.nc flat
+VM_NET_CUTLIST  = r'\\ddc-mefs\Voorwood'               # *.csv flat
+
+
+def _read_local_config(key: str) -> str:
+    """Read a string setting from local_config.json at the add-in root."""
+    try:
+        # This file lives at <addin_root>/src/config.py
+        cfg_path = Path(__file__).resolve().parent.parent / 'local_config.json'
+        # utf-8-sig so a BOM (Notepad on the VM, PowerShell's Set-Content)
+        # can't make this fall through to the built-in default base path.
+        with open(cfg_path, 'r', encoding='utf-8-sig') as f:
+            return str(json.load(f).get(key, '')).strip()
+    except Exception:
+        return ''
 
 
 def _resolve_local_base() -> str:
     """LOCAL sandbox root: env var > local_config.json > DEFAULT_LOCAL_BASE."""
-    env = os.environ.get('FUSION_PIPELINE_LOCAL_BASE', '').strip()
-    if env:
-        return env
-    try:
-        # This file lives at <addin_root>/src/config.py
-        cfg_path = Path(__file__).resolve().parent.parent / 'local_config.json'
-        with open(cfg_path, 'r', encoding='utf-8') as f:
-            value = json.load(f).get('local_base', '').strip()
-        if value:
-            return value
-    except Exception:
-        pass
-    return DEFAULT_LOCAL_BASE
+    return (os.environ.get('FUSION_PIPELINE_LOCAL_BASE', '').strip()
+            or _read_local_config('local_base')
+            or DEFAULT_LOCAL_BASE)
 
 
-def _build_paths(base: str, dropbox_override: str = None,
-                 drilling: str = None, nc: str = None, cutlist: str = None):
-    """Build all path variables from a base directory.
+def _resolve_vm_base() -> str:
+    """VM local root: env var > local_config.json > DEFAULT_VM_BASE."""
+    return (os.environ.get('FUSION_PIPELINE_VM_BASE', '').strip()
+            or _read_local_config('vm_base')
+            or DEFAULT_VM_BASE)
 
-    drilling/nc/cutlist default to local subfolders of `base` so LOCAL mode
-    keeps every artifact inside the sandbox; VM mode passes the real shares.
+
+def _build_paths(base: str, dropbox_override: str = None):
+    """Build all path variables from a local base directory.
+
+    Every path returned is local. The flat machine-drop folders are staging
+    dirs that file_sync_service.py copies to the Gannomat / Anderson /
+    Voorwood shares; the add-in only ever writes the local side.
     """
     b = Path(base)
     dropbox = Path(dropbox_override) if dropbox_override else b / 'order_dropbox'
@@ -85,9 +116,9 @@ def _build_paths(base: str, dropbox_override: str = None,
         'OUTPUT_GCODE':     b / 'output' / 'gcode',
         'OUTPUT_PARAMETERS':b / 'output' / 'parameters',
         'OUTPUT_LOGS':      b / 'output' / 'logs',
-        'OUTPUT_DRILLING_NETWORK': Path(drilling) if drilling else drops / 'gannomat',
-        'OUTPUT_NC_NETWORK':       Path(nc)       if nc       else drops / 'anderson',
-        'OUTPUT_CUTLIST_NETWORK':  Path(cutlist)  if cutlist  else drops / 'voorwood',
+        'DROP_DRILLING':    drops / 'gannomat',
+        'DROP_NC':          drops / 'anderson',
+        'DROP_CUTLIST':     drops / 'voorwood',
     }
 
 
@@ -97,7 +128,7 @@ def _apply(p: dict):
     global INPUT_BASE, INPUT_DOOR, INPUT_PANEL, INPUT_STILE
     global ORDER_DROPBOX, ORDER_PROCESSING, ORDER_COMPLETED, ORDER_FAILED
     global OUTPUT_BASE, OUTPUT_MODELS, OUTPUT_GCODE, OUTPUT_PARAMETERS, OUTPUT_LOGS
-    global OUTPUT_DRILLING_NETWORK, OUTPUT_NC_NETWORK, OUTPUT_CUTLIST_NETWORK
+    global DROP_DRILLING, DROP_NC, DROP_CUTLIST
 
     NETWORK_BASE     = p['NETWORK_BASE']
     INPUT_BASE       = p['INPUT_BASE']
@@ -113,9 +144,9 @@ def _apply(p: dict):
     OUTPUT_GCODE     = p['OUTPUT_GCODE']
     OUTPUT_PARAMETERS= p['OUTPUT_PARAMETERS']
     OUTPUT_LOGS      = p['OUTPUT_LOGS']
-    OUTPUT_DRILLING_NETWORK = p['OUTPUT_DRILLING_NETWORK']
-    OUTPUT_NC_NETWORK       = p['OUTPUT_NC_NETWORK']
-    OUTPUT_CUTLIST_NETWORK  = p['OUTPUT_CUTLIST_NETWORK']
+    DROP_DRILLING    = p['DROP_DRILLING']
+    DROP_NC          = p['DROP_NC']
+    DROP_CUTLIST     = p['DROP_CUTLIST']
 
 
 # Initialise with LOCAL defaults
@@ -136,18 +167,65 @@ def set_run_mode(mode: str):
     RUN_MODE = mode
 
     if mode == 'VM':
-        p = _build_paths(_VM_BASE, dropbox_override=_VM_DROPBOX,
-                         drilling=_VM_DRILLING, nc=_VM_NC, cutlist=_VM_CUTLIST)
+        # Local base for all output; inbound dropbox stays on the network.
+        p = _build_paths(_resolve_vm_base(), dropbox_override=VM_DROPBOX)
     else:
         p = _build_paths(_resolve_local_base())
 
     _apply(p)
 
 
+def get_sync_pairs():
+    """
+    The local -> remote mapping consumed by file_sync_service.py.
+
+    Returns a list of dicts:
+        name       short label used in logs and the sync state file
+        source     local folder the add-in writes
+        dest       folder the service copies into
+        recursive  True to mirror the whole subtree, False for a flat folder
+
+    In VM mode `dest` is the real share. In LOCAL mode it is a folder under
+    <local_base>/network_mirror, so the service can be exercised end to end
+    on a dev machine without touching the network.
+
+    Deliberately excluded: order_processing (transient, files are mid-flight)
+    and the input/ folders (add-in reads them, never writes them).
+    """
+    if RUN_MODE == 'VM':
+        net = Path(VM_NET_BASE)
+        drilling, nc, cutlist = VM_NET_DRILLING, VM_NET_NC, VM_NET_CUTLIST
+    else:
+        net = Path(_resolve_local_base()) / 'network_mirror'
+        drilling = net / 'gannomat'
+        nc       = net / 'anderson'
+        cutlist  = net / 'voorwood'
+
+    return [
+        # Flat machine drops -- the time-critical ones the machines read.
+        {'name': 'gannomat', 'source': DROP_DRILLING, 'dest': Path(drilling), 'recursive': False},
+        {'name': 'anderson', 'source': DROP_NC,       'dest': Path(nc),       'recursive': False},
+        {'name': 'voorwood', 'source': DROP_CUTLIST,  'dest': Path(cutlist),  'recursive': False},
+        # Full output tree, preserving the layout the shares had previously.
+        {'name': 'output',          'source': OUTPUT_BASE,     'dest': net / 'output',          'recursive': True},
+        {'name': 'order_completed', 'source': ORDER_COMPLETED, 'dest': net / 'order_completed', 'recursive': True},
+        {'name': 'order_failed',    'source': ORDER_FAILED,    'dest': net / 'order_failed',    'recursive': True},
+    ]
+
+
+def get_sync_state_file() -> Path:
+    """Where file_sync_service.py records what it has already copied."""
+    base = _resolve_vm_base() if RUN_MODE == 'VM' else _resolve_local_base()
+    return Path(base) / 'sync_state.json'
+
+
 def ensure_folder_structure():
     """
     Create all required folders if they don't exist.
     Call this on startup to initialize the folder structure.
+
+    Only local folders are created here. The sync service creates its own
+    destination folders, so a share being offline never blocks Fusion startup.
     """
     folders = [
         # Input folders
@@ -164,15 +242,22 @@ def ensure_folder_structure():
         OUTPUT_GCODE,
         OUTPUT_PARAMETERS,
         OUTPUT_LOGS,
-        # Flat machine-drop folders (local sandbox dirs in LOCAL mode,
-        # the Gannomat/Anderson/Voorwood shares in VM mode)
-        OUTPUT_DRILLING_NETWORK,
-        OUTPUT_NC_NETWORK,
-        OUTPUT_CUTLIST_NETWORK,
+        # Flat machine-drop staging folders
+        DROP_DRILLING,
+        DROP_NC,
+        DROP_CUTLIST,
     ]
 
     for folder in folders:
-        folder.mkdir(parents=True, exist_ok=True)
+        try:
+            folder.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            # ORDER_DROPBOX is a network share in VM mode. If it is
+            # unreachable at startup, surface it as a dropbox problem rather
+            # than failing the whole folder-structure step.
+            if folder == ORDER_DROPBOX:
+                continue
+            raise
 
     return True
 
@@ -199,7 +284,7 @@ def get_paths_info() -> str:
     info += f"  Completed:  {ORDER_COMPLETED}\n"
     info += f"  Failed:     {ORDER_FAILED}\n\n"
 
-    info += "OUTPUT FOLDERS:\n"
+    info += "OUTPUT FOLDERS (local):\n"
     info += f"  Base:       {OUTPUT_BASE}\n"
     info += f"  Models:     {OUTPUT_MODELS}\n"
     info += f"  G-Code:     {OUTPUT_GCODE}\n"
@@ -207,11 +292,13 @@ def get_paths_info() -> str:
     info += f"  Logs:       {OUTPUT_LOGS}\n"
     info += f"  Dashboard:  {Path(OUTPUT_BASE) / 'dashboard'}\n\n"
 
-    label = "DEDICATED NETWORK OUTPUT (VM)" if RUN_MODE == 'VM' \
-        else "MACHINE DROP FOLDERS (local sandbox)"
-    info += f"{label}:\n"
-    info += f"  Drilling:   {OUTPUT_DRILLING_NETWORK}\n"
-    info += f"  NC files:   {OUTPUT_NC_NETWORK}\n"
-    info += f"  Cutlist:    {OUTPUT_CUTLIST_NETWORK}\n"
+    info += "MACHINE DROP STAGING (local):\n"
+    info += f"  Drilling:   {DROP_DRILLING}\n"
+    info += f"  NC files:   {DROP_NC}\n"
+    info += f"  Cutlist:    {DROP_CUTLIST}\n\n"
+
+    info += "SYNC TARGETS (copied by file_sync_service.py, not by Fusion):\n"
+    for pair in get_sync_pairs():
+        info += f"  {pair['name']:<16} -> {pair['dest']}\n"
 
     return info

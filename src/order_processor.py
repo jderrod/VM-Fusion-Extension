@@ -335,13 +335,14 @@ class OrderProcessor:
                     total_comps = sum(len(drilling_paired_by_type.get(t, [])) for t in ['doors', 'panels', 'stiles'])
                     self.logger.info(f'Created compiled paired drilling file: {compiled_paired_filename} with {total_comps} component(s)')
                     
-                    # Also copy drilling JSON flat to the dedicated drop folder
-                    # (Gannomat share in VM mode, local sandbox dir in LOCAL mode)
+                    # Also copy drilling JSON flat to the local staging folder.
+                    # file_sync_service.py forwards it to the Gannomat share
+                    # out-of-process, so this stays a fast local copy.
                     try:
-                        from config import OUTPUT_DRILLING_NETWORK
+                        from config import DROP_DRILLING
                         import shutil
-                        os.makedirs(str(OUTPUT_DRILLING_NETWORK), exist_ok=True)
-                        dest = os.path.join(str(OUTPUT_DRILLING_NETWORK), compiled_paired_filename)
+                        os.makedirs(str(DROP_DRILLING), exist_ok=True)
+                        dest = os.path.join(str(DROP_DRILLING), compiled_paired_filename)
                         shutil.copy2(compiled_paired_path, dest)
                         self.logger.info(f'Drilling JSON copied to drop folder: {dest}')
                     except Exception as copy_e:
@@ -808,14 +809,14 @@ class OrderProcessor:
             
             if cutlist_export_success:
                 self.logger.info(f'{comp_id}: Cutlist CSV exported: {cutlist_export_msg}')
-                # Copy cutlist CSV flat to the dedicated drop folder
-                # (Voorwood share in VM mode, local sandbox dir in LOCAL mode)
+                # Copy cutlist CSV flat to the local staging folder;
+                # file_sync_service.py forwards it to the Voorwood share.
                 if cutlist_export_path:
                     try:
-                        from config import OUTPUT_CUTLIST_NETWORK
+                        from config import DROP_CUTLIST
                         import shutil
-                        os.makedirs(str(OUTPUT_CUTLIST_NETWORK), exist_ok=True)
-                        csv_dest = os.path.join(str(OUTPUT_CUTLIST_NETWORK), os.path.basename(cutlist_export_path))
+                        os.makedirs(str(DROP_CUTLIST), exist_ok=True)
+                        csv_dest = os.path.join(str(DROP_CUTLIST), os.path.basename(cutlist_export_path))
                         shutil.copy2(cutlist_export_path, csv_dest)
                         self.logger.info(f'{comp_id}: Cutlist CSV copied to drop folder: {csv_dest}')
                     except Exception as copy_e:
@@ -1308,15 +1309,15 @@ class OrderProcessor:
                 return (True, f'{comp_id}: Complete - No NC files (no machining features)'), (drilling_data, drilling_paired_data)
 
             # expected + produced → success path
-            # Copy G-code files flat to the dedicated drop folder
-            # (Anderson share in VM mode, local sandbox dir in LOCAL mode)
+            # Copy G-code files flat to the local staging folder;
+            # file_sync_service.py forwards them to the Anderson share.
             try:
-                from config import OUTPUT_NC_NETWORK
+                from config import DROP_NC
                 import shutil
-                os.makedirs(str(OUTPUT_NC_NETWORK), exist_ok=True)
+                os.makedirs(str(DROP_NC), exist_ok=True)
                 for setup_name, pp_success, pp_msg, nc_path in successful_posts:
                     if nc_path and os.path.exists(nc_path):
-                        nc_dest = os.path.join(str(OUTPUT_NC_NETWORK), os.path.basename(nc_path))
+                        nc_dest = os.path.join(str(DROP_NC), os.path.basename(nc_path))
                         shutil.copy2(nc_path, nc_dest)
                         self.logger.info(f'{comp_id}: G-code file copied to drop folder: {nc_dest}')
             except Exception as copy_e:

@@ -60,7 +60,13 @@ temp/
 # Transient pipeline self-restart state (process_health.py)
 restart_state.json
 
+# file_sync_service.py runtime state (per-machine, never shared)
+sync_state.json
+sync_logs/
+file_sync.lock
+
 # Local test sandbox: keep the folder structure, ignore anything a run produces
+local_test_env/network_mirror/
 local_test_env/order_dropbox/*
 local_test_env/order_processing/*
 local_test_env/order_completed/*

@@ -142,7 +142,11 @@ def _read_autostart_config() -> dict:
     """
     try:
         path = os.path.join(os.path.dirname(__file__), 'autostart_config.json')
-        with open(path, 'r', encoding='utf-8') as f:
+        # utf-8-sig, not utf-8: it reads BOM and BOM-less files alike. A BOM
+        # (PowerShell's Set-Content, or Notepad on the VM) makes json.load
+        # raise, and this function's except would swallow it and return {} --
+        # silently disabling autostart on the VM with no error anywhere.
+        with open(path, 'r', encoding='utf-8-sig') as f:
             return json.load(f)
     except Exception:
         return {}

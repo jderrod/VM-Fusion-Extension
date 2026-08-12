@@ -26,7 +26,9 @@ def _load_start_defaults() -> dict:
     defaults = {'run_mode': 'VM', 'skip_cam': False, 'skip_drawing': False}
     try:
         path = app.get_repo_root() / 'autostart_config.json'
-        with open(path, 'r', encoding='utf-8') as f:
+        # utf-8-sig tolerates a BOM; plain utf-8 would raise and silently
+        # fall back to defaults. See _read_autostart_config in the add-in root.
+        with open(path, 'r', encoding='utf-8-sig') as f:
             cfg = json.load(f)
         for k in defaults:
             if k in cfg:
